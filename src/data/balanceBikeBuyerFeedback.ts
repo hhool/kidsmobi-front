@@ -42,7 +42,9 @@ export const buyerFeedbackStrings = {
   en: {
     eyebrow: "Plan-B asset · buyer feedback",
     navLabel: "What buyers say",
-    h1: "What Buyers Say About Balance Bikes",
+    // Data angle, deliberately: the guides article covers how to read these
+    // summaries, so this page stays on what the aggregate actually counts.
+    h1: `What Buyers Say About Balance Bikes: All ${total} Summaries, Counted`,
     lead: `No review page on this site can quote an individual buyer, because the catalogue holds no verbatim reviews. What it does hold is one retailer-generated sentiment summary per listing. This page aggregates ${total} of them — what they mention, and how often they hedge.`,
     provenanceTitle: "Read this before the numbers",
     provenanceBody: [
@@ -76,7 +78,7 @@ export const buyerFeedbackStrings = {
   zh: {
     eyebrow: "计划-B 资产 · 买家反馈",
     navLabel: "买家怎么说",
-    h1: "买家对平衡车的评价",
+    h1: `买家对平衡车的评价：${total} 条情绪摘要的完整统计`,
     lead: `本站没有任何一页能引用某位买家的原话，因为产品库里没有逐条评论原文。它有的是每个 listing 一条由零售商生成的情绪摘要。本页聚合了其中 ${total} 条——它们提到了什么，以及有多少次是打了折扣的说法。`,
     provenanceTitle: "看数字之前先读这段",
     provenanceBody: [
