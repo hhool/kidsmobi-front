@@ -3016,7 +3016,21 @@ export default function App() {
       (seoKey === "news" && activeNewsCategory !== "all" && !activeNewsArticleId) ||
       (seoKey === "guides" && activeGuidesCategory !== "all" && !activeGuidesArticleId) ||
       (seoKey === "reviews" && isReviewsSubIndexRoute);
-    if (isChannelRoute) {
+    // Article detail routes — /guides/<topic>/<slug>, /news/<channel>/<slug>,
+    // /reviews/<type>/<slug> — ship prerendered with their own curated TDK.
+    // The section block below overwrites them with the section-homepage copy
+    // whenever the article-level meta has not resolved yet, and that meta is
+    // fed by the section component's onActiveArticleMeta after the browser-side
+    // CMS fetch — which is slower than this effect. Which value survived
+    // therefore depended on network timing: check:hydration reported the same
+    // build passing one run and failing the next, on different routes each
+    // time. Client-side navigation into an article leaves the previous path's
+    // canonical behind, which does not match — those keep the section values.
+    const isArticleDetailRoute =
+      (seoKey === "guides" && /^\/guides\/[^/]+\/[^/]+\/?$/.test(currentPath)) ||
+      (seoKey === "news" && /^\/news\/[^/]+\/[^/]+\/?$/.test(currentPath)) ||
+      (seoKey === "reviews" && /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(currentPath));
+    if (isChannelRoute || isArticleDetailRoute) {
       const staticCanonical = document.querySelector("link[rel='canonical']")?.getAttribute("href") || "";
       const selfPath = normalizeCanonicalPath(currentPath);
       if (selfPath !== "/" && staticCanonical.endsWith(selfPath)) {
