@@ -28,6 +28,7 @@ import { readFileSync, existsSync } from "fs";
 import path from "path";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { AGE_PATH, ageSeo } from "../src/data/balanceBikeAge";
+import { KIDS_AGE_PATH, kidsAgeSeo } from "../src/data/kidsBikeAge";
 import { SAFETY_PATH, safetySeo } from "../src/data/balanceBikeSafety";
 import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH, kidsBikeSizingSeo } from "../src/data/kidsBikeSizing";
@@ -93,6 +94,7 @@ const expectations: Expectation[] = [
     };
   }),
   { label: "asset age", route: AGE_PATH, ...pick(en(ageSeo)) },
+  { label: "asset kids age", route: KIDS_AGE_PATH, ...pick(en(kidsAgeSeo)) },
   { label: "asset safety", route: SAFETY_PATH, ...pick(en(safetySeo)) },
   { label: "asset sizing", route: SIZING_PATH, ...pick(en(sizingSeo)) },
   { label: "asset kids sizing", route: KIDS_SIZING_PATH, ...pick(en(kidsBikeSizingSeo)) },

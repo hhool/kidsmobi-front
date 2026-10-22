@@ -39,6 +39,7 @@ const MIN_SUBHEADINGS = 1;
 const REFERENCE_CLUSTER = [
   "/balance-bike-size-chart/",
   "/kids-bike-size-chart/",
+  "/kids-bike-by-age/",
   "/balance-bike-by-age/",
   "/balance-bike-stability/",
   "/balance-bike-weight/",

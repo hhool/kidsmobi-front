@@ -43,6 +43,15 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
     blurbZh: "逐款测量的儿童自行车座高、轮径与内缝适配数据。",
   },
   {
+    id: "kids-bike-by-age",
+    href: "/kids-bike-by-age/",
+    labelEn: "Kids bike by age",
+    labelZh: "按年龄选儿童自行车",
+    blurbEn:
+      "How many kids bikes are still rated for each age from 2 to 12, with every manufacturer age range quoted verbatim.",
+    blurbZh: "从 2 岁到 12 岁每个年龄还剩几款儿童自行车标注适用，逐款原文引用厂家的年龄区间。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",

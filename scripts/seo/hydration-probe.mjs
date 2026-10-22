@@ -36,6 +36,7 @@ const ROUTES = [
   '/balance-bike-weight/',
   '/balance-bike-stability/',
   '/balance-bike-by-age/',
+  '/kids-bike-by-age/',
   '/balance-bike-what-buyers-say/',
   '/balance-bike-budget/',
   '/guides/risk/balance-bike-recall-record',

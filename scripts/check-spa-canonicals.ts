@@ -28,6 +28,7 @@ import { readFileSync, existsSync } from "fs";
 import path from "path";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { AGE_PATH } from "../src/data/balanceBikeAge";
+import { KIDS_AGE_PATH } from "../src/data/kidsBikeAge";
 import { SAFETY_PATH } from "../src/data/balanceBikeSafety";
 import { SIZING_PATH } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH } from "../src/data/kidsBikeSizing";
@@ -49,6 +50,7 @@ const ORIGIN = "https://balancebiketoddler.com";
 
 const ASSET_PATHS = [
   AGE_PATH,
+  KIDS_AGE_PATH,
   SAFETY_PATH,
   SIZING_PATH,
   KIDS_SIZING_PATH,
