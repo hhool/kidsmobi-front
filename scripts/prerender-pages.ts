@@ -4846,10 +4846,19 @@ const suppressedReviewCounts: string[] = [];
 /** Mirrors inferMisclassifiedCategoryId in App.tsx. */
 function prerenderInferStrollerCategory(product: CmsProductFull, normalizedCategoryId: string): string {
   if (normalizedCategoryId !== "stroller") return normalizedCategoryId;
+  // Authoritative taxonomy signal: these CMS rows are explicitly pull-along
+  // wagons in the id namespace even though their name/categoryId say
+  // "stroller" (e.g. "Stroller Wagon for Kids"). Route by id prefix BEFORE any
+  // name-based signal so the stroller word in the name can't trap them in the
+  // strollers bucket. Their physical home is /products/kids-tricycles/ (via the
+  // id-prefix fallback in productDetailUrlSlug).
+  const idPrefix = String(product.id || "").split("-")[0].toLowerCase();
+  if (idPrefix === "kids_pull_along_wagons") return "other";
   const text = [
     product.name,
     (product as Record<string, unknown>).title,
     product.category,
+    product.id,
     product.en?.description,
   ]
     .map((item) => String(item || "").toLowerCase())
@@ -4861,12 +4870,14 @@ function prerenderInferStrollerCategory(product: CmsProductFull, normalizedCateg
   const hasPlayardSignal = /(\bplayard\b|\bplay\s*yard\b|\bpack\s*(n|and)\s*play\b|围栏床|游戏床)/i.test(text);
   const hasCarrierSignal = /(\bbaby\s*carrier\b|carrier\s*wrap|hip\s*seat\s*carrier|\bsling\b|背带)/i.test(text);
   const hasNurserySignal = /(\bmattress\b|\bcrib\b|\bbassinet\b|\bbaby\s*swing\b|\bswings\s*for\s*infants\b|\brocker\b|\bbouncer\b|\bsoother\b|\bplaypen\b|\bdiaper\b|\bbottle\s*warmer\b|\bbreast\s*pump\b|\bnursery\b|床垫|婴儿床|摇椅|秋千|安抚椅|尿布|奶瓶加热)/i.test(text);
+  const hasWagonSignal = /(wagon|wagons|pull\s*along|ride[-\s]*on|\bpush\s*car\b|拖车|拉车|推行车|扭扭车|wiggle\s*car)/i.test(text);
 
   if (hasCarSeatSignal && !hasStrollerSignal) return "car_seat";
   if (hasHighChairSignal && !hasStrollerSignal) return "high_chair";
   if (hasPlayardSignal && !hasStrollerSignal) return "playard";
   if (hasCarrierSignal && !hasStrollerSignal) return "baby_carrier";
   if (hasNurserySignal && !hasStrollerSignal) return "playard";
+  if (hasWagonSignal && !hasStrollerSignal) return "other";
   return normalizedCategoryId;
 }
 
@@ -6036,6 +6047,21 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     // 308-redirects to it).
     ["/evaluations", "/reviews"],
   ];
+  // 2026-10-22: pull-along wagons and playards were historically published
+  // under /products/strollers/ (the live build predates the kebab-case re-home
+  // that now routes them to /products/kids-tricycles/). A rebuild would move
+  // their URLs and orphan the rankings they already earned, so keep the old
+  // strollers URLs alive with exact 301s to the new location. The id prefixes
+  // are matched directly — these are exactly the products the live sitemap
+  // exposed under /products/strollers/, and their new home is /products/
+  // kids-tricycles/ regardless of the inference result.
+  const STROLLER_REHOMED_ID_PREFIXES = new Set(["kids_pull_along_wagons", "playard"]);
+  const strollerRehomedRedirects: Array<[string, string]> = cmsProductsFull
+    .filter((product) => STROLLER_REHOMED_ID_PREFIXES.has(String(product.id || "").split("-")[0]))
+    .map((product) => {
+      const id = cmsRouteSegment(product.id);
+      return [`/products/strollers/${id}`, `/products/kids-tricycles/${id}`] as [string, string];
+    });
   const legacyExactRedirects: Array<[string, string]> = [
     // Re-homed legacy "other" bucket details need per-product targets.
     ...cmsProductsFull
@@ -6044,6 +6070,7 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
         const id = cmsRouteSegment(product.id);
         return [`/products/other/${id}`, `/products/${productDetailSlugDir(product)}/${id}`] as [string, string];
       }),
+    ...strollerRehomedRedirects,
     ...LEGACY_CATEGORY_301S,
     ...REHOMED_PAGE_301S,
   ];

@@ -31,7 +31,7 @@ export const PRODUCT_CATEGORY_URL_SLUGS: Record<string, string> = {
   tricycles: "kids-tricycles",
   kids_push_ride_ons: "kids-tricycles",
   kids_pull_along_wagons: "kids-tricycles",
-  playard: "strollers",
+  playard: "kids-tricycles",
   other: "kids-tricycles",
   // slug identity entries so slug-form inputs normalize to themselves
   strollers: "strollers",
@@ -137,7 +137,13 @@ export function resolveProductDetailCategorySlug(product: {
   const raw = String(product.categoryId || product.category || "").trim().toLowerCase();
   let normalized = PRODUCT_CATEGORY_PRIMARY_ALIASES[raw] || raw;
   if (normalized === "stroller") {
-    const text = [product.name, product.title, product.category, product.description]
+    // Authoritative taxonomy signal: id-prefix pull-along wagons must win over
+    // the "stroller" word in their name (e.g. "Stroller Wagon for Kids").
+    const idPrefix = String(product.id || "").split("-")[0].toLowerCase();
+    if (idPrefix === "kids_pull_along_wagons") {
+      normalized = "other";
+    } else {
+    const text = [product.name, product.title, product.category, product.id, product.description]
       .map((item) => String(item || "").toLowerCase())
       .join(" ");
     const hasStrollerSignal = /(stroller|pram|pushchair|buggy|jogger|jogging|travel\s+system|umbrella\s+stroller|double\s+stroller|twin\s+stroller|推车|婴儿车|慢跑推车|双人推车)/i.test(text);
@@ -146,11 +152,14 @@ export function resolveProductDetailCategorySlug(product: {
     const hasPlayardSignal = /(\bplayard\b|\bplay\s*yard\b|\bpack\s*(n|and)\s*play\b|围栏床|游戏床)/i.test(text);
     const hasCarrierSignal = /(\bbaby\s*carrier\b|carrier\s*wrap|hip\s*seat\s*carrier|\bsling\b|背带)/i.test(text);
     const hasNurserySignal = /(\bmattress\b|\bcrib\b|\bbassinet\b|\bbaby\s*swing\b|\bswings\s*for\s*infants\b|\brocker\b|\bbouncer\b|\bsoother\b|\bplaypen\b|\bdiaper\b|\bbottle\s*warmer\b|\bbreast\s*pump\b|\bnursery\b|床垫|婴儿床|摇椅|秋千|安抚椅|尿布|奶瓶加热)/i.test(text);
+    const hasWagonSignal = /(wagon|wagons|pull\s*along|ride[-\s]*on|\bpush\s*car\b|拖车|拉车|推行车|扭扭车|wiggle\s*car)/i.test(text);
     if (hasCarSeatSignal && !hasStrollerSignal) normalized = "car_seat";
     else if (hasHighChairSignal && !hasStrollerSignal) normalized = "high_chair";
     else if (hasPlayardSignal && !hasStrollerSignal) normalized = "playard";
     else if (hasCarrierSignal && !hasStrollerSignal) normalized = "baby_carrier";
     else if (hasNurserySignal && !hasStrollerSignal) normalized = "playard";
+    else if (hasWagonSignal && !hasStrollerSignal) normalized = "other";
+    }
   }
   return productDetailUrlSlug(normalized, String(product.id || ""));
 }

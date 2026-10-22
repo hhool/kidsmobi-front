@@ -783,6 +783,12 @@ export default function ProductsSection({
 
   const inferMisclassifiedCategoryId = (product: Product, normalizedCategoryId: string) => {
     if (normalizedCategoryId !== "stroller") return normalizedCategoryId;
+    // Authoritative taxonomy: id-prefix pull-along wagons are explicitly wagons
+    // in the CMS even though name/categoryId say "stroller". Route by id prefix
+    // before any name signal so "Stroller Wagon" names can't keep them trapped
+    // in the strollers bucket. Physical home: /products/kids-tricycles/.
+    const wagonIdPrefix = String((product as any)?.id || "").split("-")[0].toLowerCase();
+    if (wagonIdPrefix === "kids_pull_along_wagons") return "kids_tricycles";
 
     const text = [
       product.name,
