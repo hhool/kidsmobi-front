@@ -56,6 +56,7 @@
     "check:links": "node scripts/check-internal-links.mjs",
     "data:recalls": "node scripts/fetch_recall_data.mjs",
     "data:sizing": "node scripts/fetch_size_data.mjs",
+    "data:kids-sizing": "node scripts/fetch_kids_size_data.mjs",
     "data:safetygate": "node scripts/fetch_safety_gate_data.mjs",
     "data:weight": "node scripts/fetch_weight_data.mjs",
     "data:stability": "node scripts/fetch_stability_data.mjs",

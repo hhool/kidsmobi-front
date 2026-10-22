@@ -31,6 +31,7 @@ const ROUTES = [
   '/guides',
   '/reviews',
   '/balance-bike-size-chart/',
+  '/kids-bike-size-chart/',
   '/balance-bike-safety-standards/',
   '/balance-bike-weight/',
   '/balance-bike-stability/',

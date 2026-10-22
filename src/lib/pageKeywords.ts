@@ -39,6 +39,10 @@ import {
   SIZING_PATH,
   sizingSeo,
 } from "../data/balanceBikeSizing";
+import {
+  KIDS_SIZING_PATH,
+  kidsBikeSizingSeo,
+} from "../data/kidsBikeSizing";
 import { AGE_PATH, ageSeo } from "../data/balanceBikeAge";
 import { STABILITY_PATH, stabilitySeo } from "../data/balanceBikeStability";
 import { BUDGET_PATH, budgetSeo } from "../data/balanceBikeBudget";
@@ -313,6 +317,7 @@ const assetKey = (path: string): string => `/${String(path || "").replace(/^\/+|
 
 const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; zh: { keywords: readonly string[] } }> = {
   [assetKey(SIZING_PATH)]: sizingSeo,
+  [assetKey(KIDS_SIZING_PATH)]: kidsBikeSizingSeo,
   [assetKey(AGE_PATH)]: ageSeo,
   [assetKey(STABILITY_PATH)]: stabilitySeo,
   [assetKey(BUDGET_PATH)]: budgetSeo,

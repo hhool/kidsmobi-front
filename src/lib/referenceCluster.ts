@@ -35,6 +35,14 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
     blurbZh: "逐款测量的座高、轮径与内缝适配数据。",
   },
   {
+    id: "kids-bike-size-chart",
+    href: "/kids-bike-size-chart/",
+    labelEn: "Kids bike size chart",
+    labelZh: "儿童自行车尺寸对照表",
+    blurbEn: "Kids bike seat height, wheel diameter and inseam fit, measured per model.",
+    blurbZh: "逐款测量的儿童自行车座高、轮径与内缝适配数据。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",

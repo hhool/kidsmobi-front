@@ -30,6 +30,7 @@ import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { AGE_PATH, ageSeo } from "../src/data/balanceBikeAge";
 import { SAFETY_PATH, safetySeo } from "../src/data/balanceBikeSafety";
 import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
+import { KIDS_SIZING_PATH, kidsBikeSizingSeo } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH, stabilitySeo } from "../src/data/balanceBikeStability";
 import { WEIGHT_PATH, weightSeo } from "../src/data/balanceBikeWeight";
 import { RECALL_SAFETY_PATH, recallSeo } from "../src/data/safetyRecallRecord";
@@ -94,6 +95,7 @@ const expectations: Expectation[] = [
   { label: "asset age", route: AGE_PATH, ...pick(en(ageSeo)) },
   { label: "asset safety", route: SAFETY_PATH, ...pick(en(safetySeo)) },
   { label: "asset sizing", route: SIZING_PATH, ...pick(en(sizingSeo)) },
+  { label: "asset kids sizing", route: KIDS_SIZING_PATH, ...pick(en(kidsBikeSizingSeo)) },
   { label: "asset stability", route: STABILITY_PATH, ...pick(en(stabilitySeo)) },
   { label: "asset weight", route: WEIGHT_PATH, ...pick(en(weightSeo)) },
   { label: "asset recalls", route: RECALL_SAFETY_PATH, ...pick(en(recallSeo)) },

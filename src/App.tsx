@@ -70,6 +70,7 @@ const AdminPanel = lazy(() => import("./components/AdminPanel"));
 const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
 const SafetyRecallRecord = lazy(() => import("./components/SafetyRecallRecord"));
 const BalanceBikeSizing = lazy(() => import("./components/BalanceBikeSizing"));
+const KidsBikeSizing = lazy(() => import("./components/KidsBikeSizing"));
 const BalanceBikeSafety = lazy(() => import("./components/BalanceBikeSafety"));
 const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
 const BalanceBikeStability = lazy(() => import("./components/BalanceBikeStability"));
@@ -122,6 +123,11 @@ import {
   SIZING_PATH,
   sizingSeo,
 } from "./data/balanceBikeSizing";
+import {
+  buildKidsBikeSizingDatasetSchema,
+  KIDS_SIZING_PATH,
+  kidsBikeSizingSeo,
+} from "./data/kidsBikeSizing";
 import {
   buildSafetyDatasetSchema,
   SAFETY_PATH,
@@ -791,6 +797,21 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "balance-bike-size-chart") {
     return {
       activeTab: "sizing",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Standalone kids-bike sizing / spec comparison page (Plan-B Asset, kids-bikes
+  // counterpart of balance-bike size-chart). Registered before the unknown-root
+  // fallback so it hydrates with its own canonical, not home's.
+  if (root === "kids-bike-size-chart") {
+    return {
+      activeTab: "kids-bike-sizing",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2704,6 +2725,39 @@ export default function App() {
       return;
     }
 
+    // Kids-bike sizing / spec comparison page (Plan-B Asset): its own title/canonical.
+    if (activeTab === "kids-bike-sizing") {
+      const sizingSeoData = kidsBikeSizingSeo[lang] || kidsBikeSizingSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${KIDS_SIZING_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(KIDS_SIZING_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(sizingSeoData.title);
+      updateMetaTag("description", buildMetaDescription(sizingSeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", sizingSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(sizingSeoData.title), buildMetaDescription(sizingSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(sizingSeoData.title),
+          url: canonicalUrl,
+          description: sizingSeoData.description,
+          inLanguage: lang,
+        },
+        buildKidsBikeSizingDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     // Safety-standards reference (Plan-B Asset 4): its own title/canonical so
     // hydration keeps the prerendered metadata instead of the homepage block.
     if (activeTab === "safety-standards") {
@@ -4264,6 +4318,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "sizing" && (
           <BalanceBikeSizing lang={lang} />
+        )}
+
+        {activeTab === "kids-bike-sizing" && (
+          <KidsBikeSizing lang={lang} />
         )}
 
         {activeTab === "safety-standards" && (

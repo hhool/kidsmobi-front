@@ -30,6 +30,7 @@ import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { AGE_PATH } from "../src/data/balanceBikeAge";
 import { SAFETY_PATH } from "../src/data/balanceBikeSafety";
 import { SIZING_PATH } from "../src/data/balanceBikeSizing";
+import { KIDS_SIZING_PATH } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH } from "../src/data/balanceBikeStability";
 import { WEIGHT_PATH } from "../src/data/balanceBikeWeight";
 import { RECALL_SAFETY_PATH } from "../src/data/safetyRecallRecord";
@@ -50,6 +51,7 @@ const ASSET_PATHS = [
   AGE_PATH,
   SAFETY_PATH,
   SIZING_PATH,
+  KIDS_SIZING_PATH,
   STABILITY_PATH,
   WEIGHT_PATH,
   RECALL_SAFETY_PATH,
