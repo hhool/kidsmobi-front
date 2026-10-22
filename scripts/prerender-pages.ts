@@ -4988,6 +4988,13 @@ const SPEC_FIELD_LABELS: Record<string, string> = {
   itemWeight: "Item weight",
   frameMaterial: "Frame material",
   dimensions: "Dimensions",
+  // Added to surface the size/brake long-tail that the category pages now
+  // target. These keys live on Product_Display_Fields for the great majority of
+  // ride-on listings (wheelSize 23/24 and brakeSystem 22/24 on the published
+  // kids-bike set); products that lack them simply skip the row, so the change
+  // is additive and category-agnostic rather than kids-bike-specific.
+  wheelSize: "Wheel size",
+  brakeSystem: "Brake system",
 };
 
 function productDisplayTitle(product: CmsProductFull): string {
