@@ -4995,7 +4995,39 @@ const SPEC_FIELD_LABELS: Record<string, string> = {
   // is additive and category-agnostic rather than kids-bike-specific.
   wheelSize: "Wheel size",
   brakeSystem: "Brake system",
+  // Rider-height floor is the strongest "what size bike for N-year-old" signal,
+  // but it lives in Product_Specifications.Measurements (not Product_Display_Fields).
+  // resolveSpecValue falls through to that source. Coverage on the published
+  // kids-bike set: 18/24 have a Minimum User Height value.
+  "Minimum User Height": "Minimum user height",
 };
+
+/**
+ * Reads a spec value from the three places ride-on listings store it.
+ * Product_Display_Fields is primary (it backs the other rows); some attributes
+ * only exist on Category_Attributes, and a few (notably Minimum User Height)
+ * sit inside Product_Specifications.Measurements. Falling through keeps the
+ * table additive: a product missing the key in every source simply skips the row.
+ */
+function resolveSpecValue(product: CmsProductFull, key: string): string {
+  const display = product.Product_Display_Fields || {};
+  const fromDisplay = String(
+    (display as Record<string, { value?: string } | undefined>)[key]?.value || "",
+  ).trim();
+  if (fromDisplay) return fromDisplay;
+
+  const cat = product.Category_Attributes || {};
+  const fromCat = String((cat as Record<string, string | undefined>)[key] || "").trim();
+  if (fromCat) return fromCat;
+
+  const specs = (product as unknown as {
+    Product_Specifications?: Record<string, Record<string, unknown>>;
+  }).Product_Specifications || {};
+  const fromMeasurements = String(
+    (specs["Measurements"] as Record<string, unknown> | undefined)?.[key] || "",
+  ).trim();
+  return fromMeasurements;
+}
 
 function productDisplayTitle(product: CmsProductFull): string {
   const name = pickText(product.en?.name, product.name);
@@ -5357,10 +5389,9 @@ function renderProductDetailPage(
       </section>`
     : "";
 
-  const displayFields = product.Product_Display_Fields || {};
   const specRows = Object.entries(SPEC_FIELD_LABELS)
     .map(([key, label]) => {
-      const value = String(displayFields[key]?.value || "").trim();
+      const value = resolveSpecValue(product, key);
       return value ? `<tr><td style="padding: 6px 10px; border: 1px solid #e2e8f0; color: #64748b;">${escapeHtml(label)}</td><td style="padding: 6px 10px; border: 1px solid #e2e8f0;">${escapeHtml(value)}</td></tr>` : "";
     })
     .filter(Boolean);
