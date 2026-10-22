@@ -34,22 +34,6 @@ export const KIDS_SIZING_DATASET = {
       "productUrl": "/products/kids-bikes/kids_bikes-b0fcycs2f9"
     },
     {
-      "id": "kids_bikes-b07fmyddcw",
-      "brand": "JOYSTAR",
-      "name": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes with Training Wheels, Children Bicycle for Kids and Toddler, Multiple Colors",
-      "ageText": "Kids",
-      "ageMinMonths": 24,
-      "ageMaxMonths": 144,
-      "wheelInches": 14,
-      "weightLbs": 20.9,
-      "frameMaterial": "High-Carbon Steel",
-      "steeringLimitDeg": null,
-      "priceUsd": 93.49,
-      "rating": 4.4,
-      "reviewCount": 5165,
-      "productUrl": "/products/kids-bikes/kids_bikes-b07fmyddcw"
-    },
-    {
       "id": "kids_bikes-b0c2h8sfbq",
       "brand": "JOYSTAR",
       "name": "JOYSTAR Angel Girls Bike for Toddlers and Kids Ages 2-13 Years Old, 12 14 16 18 20 Inch Kids Bike with Training Wheels & Basket, 20 24 Inch Girls Bicycle with Handbrake & Kickstand",
@@ -82,6 +66,54 @@ export const KIDS_SIZING_DATASET = {
       "productUrl": "/products/kids-bikes/kids_bikes-b08q7tmrwr"
     },
     {
+      "id": "kids_bikes-b0c772bkg2",
+      "brand": "cubsala",
+      "name": "cubsala 12 14 16 18 Inch Kids Bike BMX Style Bicycle with Training Wheels Coaster Brake for 2-10 Years Old Toddlers Boys Girls Multiple Colors",
+      "ageText": "Kids",
+      "ageMinMonths": 24,
+      "ageMaxMonths": 120,
+      "wheelInches": 12,
+      "weightLbs": 10.73,
+      "frameMaterial": "High-Carbon Steel",
+      "steeringLimitDeg": null,
+      "priceUsd": 109.99,
+      "rating": 4.6,
+      "reviewCount": 737,
+      "productUrl": "/products/kids-bikes/kids_bikes-b0c772bkg2"
+    },
+    {
+      "id": "kids_bikes-b0dcyxxl3v",
+      "brand": "vollsch",
+      "name": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for 2-14 Years Old Toddlers Boys Girls Coaster Brake Multiple Colors",
+      "ageText": "Kids",
+      "ageMinMonths": 24,
+      "ageMaxMonths": 168,
+      "wheelInches": 12,
+      "weightLbs": null,
+      "frameMaterial": "High-Carbon Steel",
+      "steeringLimitDeg": null,
+      "priceUsd": 103.54,
+      "rating": 4.3,
+      "reviewCount": 241,
+      "productUrl": "/products/kids-bikes/kids_bikes-b0dcyxxl3v"
+    },
+    {
+      "id": "kids_bikes-b07fmyddcw",
+      "brand": "JOYSTAR",
+      "name": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes with Training Wheels, Children Bicycle for Kids and Toddler, Multiple Colors",
+      "ageText": "Kids",
+      "ageMinMonths": 24,
+      "ageMaxMonths": 144,
+      "wheelInches": 14,
+      "weightLbs": 20.9,
+      "frameMaterial": "High-Carbon Steel",
+      "steeringLimitDeg": null,
+      "priceUsd": 93.49,
+      "rating": 4.4,
+      "reviewCount": 5165,
+      "productUrl": "/products/kids-bikes/kids_bikes-b07fmyddcw"
+    },
+    {
       "id": "kids_bikes-b0cmc155zd",
       "brand": "JOYSTAR",
       "name": "JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years Girls, Toddler Girls Bike with Training Wheels, Rainbow Bikes, Children Bicy",
@@ -96,22 +128,6 @@ export const KIDS_SIZING_DATASET = {
       "rating": 4.5,
       "reviewCount": 1948,
       "productUrl": "/products/kids-bikes/kids_bikes-b0cmc155zd"
-    },
-    {
-      "id": "kids_bikes-b086w6286w",
-      "brand": "JOYSTAR",
-      "name": "JOYSTAR Whizz Kids Bike 12-20 Inch Kids' Bicycle for Toddler and Kids Ages 2-10 Years Old, BMX Style Boys Bike with Training Wheels, Multiple Colors",
-      "ageText": "Kid",
-      "ageMinMonths": 24,
-      "ageMaxMonths": 120,
-      "wheelInches": 18,
-      "weightLbs": 18.5,
-      "frameMaterial": "High-Carbon Steel",
-      "steeringLimitDeg": null,
-      "priceUsd": 159.99,
-      "rating": 4.4,
-      "reviewCount": 1554,
-      "productUrl": "/products/kids-bikes/kids_bikes-b086w6286w"
     },
     {
       "id": "kids_bikes-b0bcdbwmxm",
@@ -130,22 +146,6 @@ export const KIDS_SIZING_DATASET = {
       "productUrl": "/products/kids-bikes/kids_bikes-b0bcdbwmxm"
     },
     {
-      "id": "kids_bikes-b0c772bkg2",
-      "brand": "cubsala",
-      "name": "cubsala 12 14 16 18 Inch Kids Bike BMX Style Bicycle with Training Wheels Coaster Brake for 2-10 Years Old Toddlers Boys Girls Multiple Colors",
-      "ageText": "Kids",
-      "ageMinMonths": 24,
-      "ageMaxMonths": 120,
-      "wheelInches": 12,
-      "weightLbs": 10.73,
-      "frameMaterial": "High-Carbon Steel",
-      "steeringLimitDeg": null,
-      "priceUsd": 109.99,
-      "rating": 4.6,
-      "reviewCount": 737,
-      "productUrl": "/products/kids-bikes/kids_bikes-b0c772bkg2"
-    },
-    {
       "id": "kids_bikes-b0by8vg1fp",
       "brand": "Glerc",
       "name": "Glerc Fantacy Kids Bike, 12-20 Inch Children Bicycle for 2-13 Years Old Boys Girls, Kids Bicycle with Water Bottle Holder & H",
@@ -160,22 +160,6 @@ export const KIDS_SIZING_DATASET = {
       "rating": 4.6,
       "reviewCount": 322,
       "productUrl": "/products/kids-bikes/kids_bikes-b0by8vg1fp"
-    },
-    {
-      "id": "kids_bikes-b0dcyxxl3v",
-      "brand": "vollsch",
-      "name": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for 2-14 Years Old Toddlers Boys Girls Coaster Brake Multiple Colors",
-      "ageText": "Kids",
-      "ageMinMonths": 24,
-      "ageMaxMonths": 168,
-      "wheelInches": 12,
-      "weightLbs": null,
-      "frameMaterial": "High-Carbon Steel",
-      "steeringLimitDeg": null,
-      "priceUsd": 103.54,
-      "rating": 4.3,
-      "reviewCount": 241,
-      "productUrl": "/products/kids-bikes/kids_bikes-b0dcyxxl3v"
     },
     {
       "id": "kids_bikes-b0fwrb5wxt",
@@ -226,6 +210,22 @@ export const KIDS_SIZING_DATASET = {
       "productUrl": "/products/kids-bikes/kids_bikes-b0c53khv7f"
     },
     {
+      "id": "kids_bikes-b0dzwz2lsd",
+      "brand": "Glerc",
+      "name": "Glerc Petal Girls Bike 12-18 Inch for Ages 2-9, Kids Bike with Training Wheels, Basket & Streamers, Princess Style Kids Bicycle, for Girls",
+      "ageText": "Kids",
+      "ageMinMonths": null,
+      "ageMaxMonths": null,
+      "wheelInches": 14,
+      "weightLbs": null,
+      "frameMaterial": "Aluminum Alloy",
+      "steeringLimitDeg": null,
+      "priceUsd": 129.99,
+      "rating": 4.6,
+      "reviewCount": 125,
+      "productUrl": "/products/kids-bikes/kids_bikes-b0dzwz2lsd"
+    },
+    {
       "id": "kids_bikes-b00d3eqb3k",
       "brand": "RoyalBaby",
       "name": "RoyalBaby Freestyle Kids Bike 12 14 16 Inch with Training Wheels, 18 Inch with Kickstand, Bicycle for Ages 3-10 Years Boys Girls",
@@ -240,22 +240,6 @@ export const KIDS_SIZING_DATASET = {
       "rating": 4.5,
       "reviewCount": 14871,
       "productUrl": "/products/kids-bikes/kids_bikes-b00d3eqb3k"
-    },
-    {
-      "id": "kids_bikes-b0flq7r263",
-      "brand": "WEIZE",
-      "name": "WEIZE Kids Bike, 14 16 20 Inch Children Bicycle for Boys & Girls Youth Ages 4-12 Years Old, Rider Height 41-62 Inch, Adjustable Seat & Handlebars, Coaster Brake, Multiple Color",
-      "ageText": "4-12 Years",
-      "ageMinMonths": 48,
-      "ageMaxMonths": 144,
-      "wheelInches": 20,
-      "weightLbs": null,
-      "frameMaterial": "High-Carbon Steel",
-      "steeringLimitDeg": null,
-      "priceUsd": 89.99,
-      "rating": 4.3,
-      "reviewCount": 211,
-      "productUrl": "/products/kids-bikes/kids_bikes-b0flq7r263"
     },
     {
       "id": "kids_bikes-b0gs4qq8fy",
@@ -274,6 +258,22 @@ export const KIDS_SIZING_DATASET = {
       "productUrl": "/products/kids-bikes/kids_bikes-b0gs4qq8fy"
     },
     {
+      "id": "kids_bikes-b086w6286w",
+      "brand": "JOYSTAR",
+      "name": "JOYSTAR Whizz Kids Bike 12-20 Inch Kids' Bicycle for Toddler and Kids Ages 2-10 Years Old, BMX Style Boys Bike with Training Wheels, Multiple Colors",
+      "ageText": "Kid",
+      "ageMinMonths": 24,
+      "ageMaxMonths": 120,
+      "wheelInches": 18,
+      "weightLbs": 18.5,
+      "frameMaterial": "High-Carbon Steel",
+      "steeringLimitDeg": null,
+      "priceUsd": 159.99,
+      "rating": 4.4,
+      "reviewCount": 1554,
+      "productUrl": "/products/kids-bikes/kids_bikes-b086w6286w"
+    },
+    {
       "id": "kids_bikes-b09kkz3rfm",
       "brand": "JOYSTAR",
       "name": "JOYSTAR Fantasy Girls Bike for 2-12 Years Old Toddlers and Kids, 12\" 14\" 16\" 18“ 20\" Retro Style Kids Bike with Training Wheels",
@@ -288,6 +288,22 @@ export const KIDS_SIZING_DATASET = {
       "rating": 4.3,
       "reviewCount": 1977,
       "productUrl": "/products/kids-bikes/kids_bikes-b09kkz3rfm"
+    },
+    {
+      "id": "kids_bikes-b0flq7r263",
+      "brand": "WEIZE",
+      "name": "WEIZE Kids Bike, 14 16 20 Inch Children Bicycle for Boys & Girls Youth Ages 4-12 Years Old, Rider Height 41-62 Inch, Adjustable Seat & Handlebars, Coaster Brake, Multiple Color",
+      "ageText": "4-12 Years",
+      "ageMinMonths": 48,
+      "ageMaxMonths": 144,
+      "wheelInches": 20,
+      "weightLbs": null,
+      "frameMaterial": "High-Carbon Steel",
+      "steeringLimitDeg": null,
+      "priceUsd": 89.99,
+      "rating": 4.3,
+      "reviewCount": 211,
+      "productUrl": "/products/kids-bikes/kids_bikes-b0flq7r263"
     },
     {
       "id": "kids_bikes-b0146f8l7i",
@@ -368,22 +384,6 @@ export const KIDS_SIZING_DATASET = {
       "rating": 4.4,
       "reviewCount": 530,
       "productUrl": "/products/kids-bikes/kids_bikes-b0dhr7wx5m"
-    },
-    {
-      "id": "kids_bikes-b0dzwz2lsd",
-      "brand": "Glerc",
-      "name": "Glerc Petal Girls Bike 12-18 Inch for Ages 2-9, Kids Bike with Training Wheels, Basket & Streamers, Princess Style Kids Bicycle, for Girls",
-      "ageText": "Kids",
-      "ageMinMonths": null,
-      "ageMaxMonths": null,
-      "wheelInches": 14,
-      "weightLbs": null,
-      "frameMaterial": "Aluminum Alloy",
-      "steeringLimitDeg": null,
-      "priceUsd": 129.99,
-      "rating": 4.6,
-      "reviewCount": 125,
-      "productUrl": "/products/kids-bikes/kids_bikes-b0dzwz2lsd"
     }
   ]
 };

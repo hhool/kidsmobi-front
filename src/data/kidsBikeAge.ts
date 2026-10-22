@@ -96,8 +96,9 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
     heroTitle: "Which kids bikes actually fit at {peakAge} old — and how the range narrows at both ends",
     heroLead:
       "Age is the first thing parents search with, so we organised the catalogue that way. Of the {listed} kids bikes we track, {withAge} publish a manufacturer age range. The choice is widest at {peakAge} — {atPeak} models are still rated for that age — and it narrows at both ends: only {atTwo} cover a two-year-old, and just {atTwelve} reach twelve. Those counts come from the listings themselves, and every span is quoted below.",
-    heroNote: "Age spans are manufacturer claims read from listing copy — not something we measured.",
-    bandTitle: "How many listings still fit, age by age",
+    heroNote:
+      "Every age span on this page is the manufacturer's own claim, read out of listing copy. We have not put a single child on a single bike.",
+    bandTitle: "How many kids bikes are still rated at each age",
     bandLead:
       "Each row counts the kids bikes whose stated age range still includes that age. Counted from the {withAge} that publish one; the {unplaced} that do not are listed separately rather than quietly dropped.",
     colAge: "Your child's age",
@@ -108,7 +109,7 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
       "Unlike balance bikes, where coverage drops off a cliff at three, kids bike coverage rises to a plateau and only falls away at the two ends:",
     plateauBody:
       "Between {atTwo} models at two years old and {atPeak} at {peakAge}, the choice more than doubles — and it stays that wide until {declineStart}, when it begins to fall to {atTwelve} at twelve. The practical consequence: a five- to seven-year-old has the widest selection on this page, while a two-year-old is buying at the very edge of what this category covers and should read the balance bike pages instead.",
-    fitTitle: "Every bike that fits your child's age",
+    fitTitle: "Every kids bike still inside its range at that age",
     fitLead:
       "Pick the age below. Listings are the ones still inside their stated range at that exact age, ordered by review volume so the widely-bought options come first.",
     colBrand: "Brand",
@@ -120,18 +121,19 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
     colPrice: "Price",
     goneTitle: "What happens at the edge of the range",
     goneLead:
-      "A published maximum is a claim about intent, not a physical cut-off. Two useful ways to read it:",
-    oneLine: "The tight boundaries matter less than being inside them at purchase time.",
+      "A published maximum says who the brand designed the bike for, not the day it stops working. Two ways to read it that actually help:",
+    oneLine:
+      "For a first pedal bike the useful question is not where the boundary sits exactly, but how much of the range is still ahead of your child.",
     monthsLeft: "months of rated use left",
-    alreadyPast: "Your child is already past this bike's stated maximum.",
-    unplacedTitle: "The listings we could not place",
+    alreadyPast: "Your child is already older than this bike's stated maximum.",
+    unplacedTitle: "What we did with the {unplaced} listings that publish no range",
     unplacedLead:
       "{unplaced} of {listed} publish no numeric age range at all. Rather than guess a span and quietly include them in the counts above, here they are in the open:",
     unplacedWhy:
       "The specification record carries no numeric range, so we leave them out of every count on this page.",
-    quoteTitle: "Where each number comes from",
+    quoteTitle: "The manufacturer's own words, quoted",
     quoteLead:
-      "Every span below is quoted from the manufacturer's own listing copy, so you can check our reading of it:",
+      "Every span below is quoted from the manufacturer's own listing copy, so you can check our reading of it against theirs:",
     quoteSourceLabel: "Listing copy, quoted verbatim",
     methodTitle: "How these counts were produced",
     methodBody: [
@@ -145,7 +147,7 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
     caveatLead: "Four limits worth knowing before you use any of it:",
     caveatBody: [
       "These are manufacturer's own ranges, which are optimistic marketing boundaries, not fit measurements. A bike rated to 8 years does not stop working on the child's ninth birthday — it means the brand aimed it at that window.",
-      "Age is a poor proxy for what actually decides fit: the child's inseam against the lowest seat height. We publish the age data because that is what listings state and what parents search for; it is not a substitute for measuring your child.",
+      "Age is the wrong instrument for a pedal bike. What decides whether a 20-inch frame fits is the child's height against the standover height and the lowest seat position — two children inside the same 6–10 year rating can need different frame sizes. We publish the age counts because that is the claim every listing makes and the only one comparable across brands; it is not a fit check.",
       "Sample size is {listed} kids bikes. Enough to show how coverage changes by age, not enough to judge individual models.",
       "Nothing here is measured by us. Where the decision matters, check the manufacturer's own specification sheet before buying.",
     ],
@@ -156,8 +158,8 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
     heroTitle: "按年龄选儿童自行车：{peakAge} 时选择最广，两端收窄有多快",
     heroLead:
       "家长搜索的第一个词就是年龄，所以我们按年龄重整了目录。我们收录的 {listed} 款儿童自行车里，有 {withAge} 款公布了厂家年龄区间。选择面在 {peakAge} 最宽——仍有 {atPeak} 款标注适用——然后向两端收窄：覆盖两岁的只有 {atTwo} 款，能用到十二岁的仅 {atTwelve} 款。这些计数来自商品页自身，每段区间都在下面原文引用。",
-    heroNote: "年龄区间是厂家在商品文案中的声称，不是我们实测。",
-    bandTitle: "逐个年龄看还有多少款真的适用",
+    heroNote: "本页每个年龄区间都是厂家在商品文案中的自称，我们从文案里读出来；没有让任何一个孩子上过任何一辆车。",
+    bandTitle: "逐个年龄看还有多少款儿童自行车标注适用",
     bandLead:
       "每一行统计「标注适龄区间仍包含该年龄」的儿童自行车数量。分母是公布了区间的 {withAge} 款；{unplaced} 款未公布的单独列出，而不是悄悄从分母里抹掉。",
     colAge: "孩子年龄",
@@ -167,8 +169,8 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
     plateauLead: "和平衡车在三岁断崖式下跌不同，儿童自行车的覆盖率先升到一段平台，只在两端才回落：",
     plateauBody:
       "从两岁的 {atTwo} 款到 {peakAge} 的 {atPeak} 款，选择面翻了一倍以上，并且一直保持到这个宽度直到 {declineStart} 才开始下滑，到十二岁只剩 {atTwelve} 款。实际含义：五到七岁的孩子在这页上有最宽的选择面；而两岁孩子买的是这个品类覆盖的边缘，应该去读平衡车的页面。",
-    fitTitle: "适合该年龄的全部车型",
-    fitLead: "在下面选择年龄。列出的都是在那个具体年龄仍落在自身标注范围内的车型，按评论量排序，买的人多的排在前面。",
+    fitTitle: "在该年龄仍落在自身标注范围内的全部车型",
+    fitLead: "在下面选一个年龄。列出的都是在那个具体年龄仍落在自身标注范围内的车型，按评论量排序，买的人多的排在前面。",
     colBrand: "品牌",
     colModel: "型号",
     colSpan: "标注适龄区间",
@@ -177,16 +179,16 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
     colWeight: "重量",
     colPrice: "价格",
     goneTitle: "到了区间边缘意味着什么",
-    goneLead: "标称上限说的是设计意图，不是物理截止线。可以这样理解：",
-    oneLine: "边界的精确度不重要，重要的是购买当下是否在区间内。",
+    goneLead: "标称上限说的是品牌为谁设计了这辆车，不是它哪一天突然不能骑了。有两种读法真的有用：",
+    oneLine: "对第一辆脚踏车来说，有用的问题不是边界画在哪，而是孩子前面还剩多长的可用区间。",
     monthsLeft: "个月的标称余量",
-    alreadyPast: "您孩子的年龄已超过这款车的标称上限。",
-    unplacedTitle: "有几款我们无法归类",
+    alreadyPast: "您孩子的年龄已经超过这款车的标称上限。",
+    unplacedTitle: "没有公布区间的 {unplaced} 款，我们是怎么处理的",
     unplacedLead:
       "{listed} 款中有 {unplaced} 款完全没有公布数字年龄区间。我们没有替它们猜一个区间再悄悄计入上面的统计，而是把它们放在明处：",
     unplacedWhy: "其规格记录里没有数字区间，因此本页面所有统计都不包含它们。",
-    quoteTitle: "每个数字来自哪里",
-    quoteLead: "下面每段区间都逐字引用厂家商品文案，方便你核对我们的读取是否准确：",
+    quoteTitle: "厂家原话，逐字引用",
+    quoteLead: "下面每段区间都逐字引用厂家商品文案，方便你拿我们的读法和他们的原文对照：",
     quoteSourceLabel: "商品文案，原文引用",
     methodTitle: "这些计数是怎么来的",
     methodBody: [
@@ -200,7 +202,7 @@ export const kidsAgeStrings: Record<"en" | "zh", KidsAgeStrings> = {
     caveatLead: "使用它之前，有四条限制值得知道：",
     caveatBody: [
       "这些是厂家自己的区间，属于偏乐观的营销边界，不是合身性测量。标称到 8 岁的车不会在孩子九岁生日那天突然失效——它的意思是品牌把它对准了那个年龄段。",
-      "年龄对真正决定合身性的因素来说是个粗糙的代理：真正关键的是孩子的内缝高对最低座高。我们公布年龄数据，是因为这是商品写在明面上的、也是家长在搜的；它不能替代量孩子。",
+      "年龄对一辆脚踏车来说是错的量尺。决定 20 英寸车架合不合身的是孩子的身高对上管高度（standover）和最低座高——同样落在 6–10 岁区间里的两个孩子，可能需要不同尺寸的车架。我们公布年龄计数，是因为这是每个商品页都会写、也是唯一能跨品牌横向比较的说法；它不是合身性检查。",
       "样本量是 {listed} 款儿童自行车。足以说明覆盖率随年龄如何变化，但不足以评判单款车的优劣。",
       "本页面没有任何数据是实测的。涉及重要决定时，请以品牌官方规格书为准。",
     ],

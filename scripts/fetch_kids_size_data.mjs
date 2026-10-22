@@ -130,7 +130,15 @@ for (const p of products) {
   });
 }
 
-rows.sort((a, b) => (a.ageMinMonths ?? 999) - (b.ageMinMonths ?? 999) || (b.reviewCount - a.reviewCount));
+// Kids bikes are sized by wheel first and age second — that is the axis the
+// category is built on, so the table reads that way. Rows without a published
+// wheel size go last rather than being silently dropped.
+rows.sort(
+  (a, b) =>
+    (a.wheelInches ?? 999) - (b.wheelInches ?? 999) ||
+    (a.ageMinMonths ?? 999) - (b.ageMinMonths ?? 999) ||
+    b.reviewCount - a.reviewCount,
+);
 
 const retrievedAt = new Date().toISOString().slice(0, 10);
 const ageMins = rows.map((r) => r.ageMinMonths).filter((x) => x != null);

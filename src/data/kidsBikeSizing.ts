@@ -52,7 +52,7 @@ export const kidsBikeSizingDataset = KIDS_SIZING_DATASET as {
 
 export const kidsBikeSizingSeo = {
   en: {
-    title: "Kids Bike Size Chart & Spec Comparison (Real Specs, Not Guesses)",
+    title: "Kids Bike Size Chart: Real Specs Compared",
     description:
       "A side-by-side comparison of kids bikes' real specifications — age range, wheel size, weight, frame and brake type — drawn from each product's specification record. Plus how to size a kids bike by inseam and weight.",
     keywords: [
@@ -176,17 +176,17 @@ export const kidsBikeSizingStrings: Record<"en" | "zh", UiStrings> = {
     eyebrow: "Sizing & specs",
     heroTitle: "Kids Bike Size Chart: Real Specs Compared Side by Side",
     heroLead:
-      "We pulled the published specification record for every kids bike in our database and lined them up on the dimensions that actually decide the fit: age range, wheel size, weight, frame and brake type. No guesses, no invented measurements.",
+      "We pulled the published specification record for every kids bike in our database and lined them up on the dimensions a first pedal bike actually turns on: wheel size, frame, weight and the stated age range. A pedal bike has more parts that decide fit than a balance bike does — and fewer of them get published, so the blank cells below carry as much information as the numbers.",
     heroNote:
-      "Use the table to shortlist models, then confirm the one number that matters most for fit — the minimum seat height — against the manufacturer, because that figure is not published consistently and we will not estimate it for you.",
+      "Use the table to shortlist models, then check the two dimensions listings publish least reliably — standover height and lowest seat position — against the manufacturer. They decide whether your child can get on and off the bike at all, and we will not estimate them for you.",
     retrievedLabel: "Specifications retrieved",
     ageSpreadLabel: "Age spread",
-    whyTitle: "Why a spec table instead of a ranking",
+    whyTitle: "What a spec table can settle, and what it cannot",
     whyBody:
-      "Most 'best kids bike' lists rank by feel. We cannot test these, and Plan B is explicit that we will not claim tests we did not run. A comparison of published specifications is something we can stand behind: every cell is traceable to the product's own listing.",
-    tableTitle: `Specification comparison ({count} kids bikes)`,
+      "Most 'best kids bike' lists rank by feel. We cannot test these, and Plan B is explicit that we will not claim tests we did not run. What published specifications can settle is narrower and still worth having: which listings actually offer a 20-inch wheel, which frame material you are paying for, and which listings publish a weight at all. What they cannot settle is fit — that needs the two measurements called out below, which is exactly why they are kept out of the table instead of being estimated into it.",
+    tableTitle: `Every published spec, side by side ({count} kids bikes)`,
     tableLead:
-      "Sorted by starting age. “—” means the source listing did not publish that figure; we leave it blank rather than guess. Click a model for its full page.",
+      "Sorted by wheel size, then by starting age — wheel size is the axis this category is actually built on. “—” means the source listing did not publish that figure; we leave it blank rather than guess. Click a model for its full page.",
     colBrand: "Brand / model",
     colAge: "Age",
     colWheel: "Wheel",
@@ -195,43 +195,44 @@ export const kidsBikeSizingStrings: Record<"en" | "zh", UiStrings> = {
     colFrame: "Frame",
     colPrice: "Price",
     colRating: "Rating",
-    methodTitle: "How this comparison was built",
+    methodTitle: "How we normalized each spec row",
     methodBody: [
       "Each row is normalized from the product's specification record in our CMS, which is synced from retailer and manufacturer listings.",
-      "Age range is parsed from the published age text; wheel size and weight are parsed from the listed measurements.",
-      "Brake type is read from the product's specification copy (e.g. coaster brake, v-brake, or dual hand brake).",
+      "Age range is parsed from the published age text; wheel size, weight and price are parsed from the listed measurements.",
+      "The steering column is empty for every kids bike in this catalogue, and that is a finding rather than an omission: a limited steering arc is a strider safety feature, and pedal-bike listings do not carry it. The control that matters on a pedal bike is the brake, which listings state in their prose rather than in a comparable field.",
+      "Frame material is taken verbatim. Listings in this category describe both steel and aluminium frames as 'light', which is one reason the column stays.",
       "Models with duplicate names were collapsed to one listing. Numbers can change when listings are updated.",
       "Re-running `npm run data:kids-sizing` regenerates this page from the current snapshot.",
     ],
-    seatHeightTitle: "The number we will not guess: minimum seat height",
+    seatHeightTitle: "The measurement nobody publishes: standover height",
     seatHeightBody:
-      "Seat height is the single most important fit dimension — the child must be able to sit with feet flat and a slight bend. Manufacturers publish it inconsistently, so it is absent from many rows above. Before buying, look up the model's minimum seat height and make sure it is at or below your child's inseam (the distance from the floor to the crotch, measured with shoes off). If the seat is higher than the inseam, the bike is too big.",
-    weightRuleTitle: "The weight rule most parents miss",
+      "On a pedal bike the first measurement is not the seat, it is the frame. Your child has to be able to stand over the top tube with both feet flat on the ground — to mount, to dismount, and to recover from a wobble — and standover height is the dimension listings publish least. It is missing from most rows above. Before buying, find the model's standover height and compare it with your child's inside leg; if the tube sits above that, the bike is too big whatever the age range says. Lowest seat position comes next, because it sets how far the saddle can drop for a child still growing into the frame.",
+    weightRuleTitle: "Why the weight column survives the gaps",
     weightRuleBody:
-      "A useful rule of thumb: the bike should weigh no more than about 30% of the child's body weight. A 40 lb child paired with a 12 lb bike is at the edge; lighter is easier to control, pick up after a fall, and carry. That is why the Weight column is in the table even when the seat height is not.",
-    wheelByAgeTitle: "Wheel size by age (rough guide)",
+      "Kids bikes are heavier than balance bikes, and the children riding them are heavier too, so the percentage-of-body-weight rule that works for a balance bike stops being the useful question here. What matters is more ordinary: can your child hold the bike upright on a slight slope, steer with one hand, and get it back up after a fall without help. A steel 20-inch bike and an aluminium one at the same wheel size are different propositions, and the weight column is the only place a listing lets you tell them apart — which is why it stays in the table even where the frame measurements are missing.",
+    wheelByAgeTitle: "Wheel size is the sizing axis here",
     wheelByAgeBody:
-      "Where a wheel size is listed, it tracks age: 12 in wheels suit roughly 2–4 years, 14 in wheels suit about 3–6 years, 16 in wheels suit about 4–8 years, and 20 in wheels suit older children. Treat wheel size as a check on the age range, not a replacement for measuring your child.",
-    disclaimerTitle: "What this page is and is not",
+      "For kids bikes, wheel size is not a footnote to the age range — it is the axis the category is built on. A 12-inch wheel is a first pedal bike, 14 and 16 inch cover the middle years, and 20 inch is the largest most children need before an adult frame. Listings publish it far more consistently than seat or standover height, so treat it as the one number you can compare across brands. It is still not a substitute for measuring your child: a 16-inch bike with a high bottom bracket can be a worse fit than a 14-inch one with a low one.",
+    disclaimerTitle: "Where a spec table stops being enough",
     disclaimerBody:
-      "This is a comparison of published specifications, not a test result, not a ranking, and not medical or safety advice. Specifications come from retailer/manufacturer listings and can be wrong or out of date; always confirm the minimum seat height and current price with the manufacturer or seller before purchase.",
+      "This is a comparison of published specifications, not a test result, not a ranking, and not medical or safety advice. Specifications come from retailer/manufacturer listings and can be wrong or out of date; always confirm standover height, lowest seat position and current price with the manufacturer or seller before purchase.",
     viewProduct: "View full page",
   },
   zh: {
     eyebrow: "尺寸与规格",
     heroTitle: "儿童自行车尺寸对照表：真实参数并排对比",
     heroLead:
-      "我们把数据库中每款儿童自行车的公开规格记录取出，按真正决定合身度的维度并排排列：适用年龄、轮径、重量、车架与刹车类型。不猜测，不虚构测量值。",
+      "我们把数据库中每款儿童自行车的公开规格记录取出，按第一辆脚踏车真正相关的维度并排排列：轮径、车架、重量与标称适龄区间。脚踏车比平衡车多了几样决定合身的部件，而它们被公开得反而更少——所以下表的空格和数字一样有信息量。",
     heroNote:
-      "用本表先缩小候选范围，再向厂商确认那项对合身度最关键的数值——最低座高，因为它并非各家都一致公开，我们不会替你估算。",
+      "用本表先缩小候选范围，再向厂商确认那两项公开得最不一致的尺寸——上管高度（standover）与最低座高。它们决定孩子能不能自己上下车，我们不会替你估算。",
     retrievedLabel: "规格抓取时间",
     ageSpreadLabel: "年龄跨度",
-    whyTitle: "为什么用规格表而不是排名",
+    whyTitle: "规格表能确定什么，不能确定什么",
     whyBody:
-      "多数「最佳儿童自行车」榜单凭手感排名。我们无法实测这些车，而 Plan B 明确规定不声称未做过的测试。公开规格的对比是我们能够负责的内容：每个单元格都可回溯到产品自己的商品页。",
-    tableTitle: "规格对比（{count} 款儿童自行车）",
+      "多数「最佳儿童自行车」榜单凭手感排名。我们无法实测这些车，而 Plan B 明确规定不声称未做过的测试。公开规格能确定的范围更窄，但仍有价值：哪些 listing 真的提供 20 英寸轮、你付的钱买到的是什么车架材质、以及哪些车公布了重量。它不能确定的是合身——那需要下面单独点出的两项测量，所以它们被放在表外说明，而不是被估算了填进表里。",
+    tableTitle: "已公开的规格逐项并排（{count} 款儿童自行车）",
     tableLead:
-      "按起始年龄排序。「—」表示该商品页未公开此项，我们留空而非猜测。点击型号查看完整页面。",
+      "先按轮径、再按起始年龄排序——轮径才是这个品类真正的轴。「—」表示该商品页未公开此项，我们留空而非猜测。点击型号查看完整页面。",
     colBrand: "品牌 / 型号",
     colAge: "年龄",
     colWheel: "轮径",
@@ -240,26 +241,27 @@ export const kidsBikeSizingStrings: Record<"en" | "zh", UiStrings> = {
     colFrame: "车架",
     colPrice: "价格",
     colRating: "评分",
-    methodTitle: "本对比如何构建",
+    methodTitle: "每一行规格是怎么归一化的",
     methodBody: [
       "每一行均取自产品在 CMS 中的规格记录，该记录由商家与厂商商品页同步而来。",
-      "年龄区间解析自公开的的年龄文字；轮径与重量解析自标注的测量值。",
-      "刹车类型读取自产品的规格说明（如倒轮闸、V 刹或双线手刹）。",
+      "年龄区间解析自公开的年龄文字；轮径、重量与价格解析自标注的测量值。",
+      "转向列在本目录每一款儿童自行车上都是空的，这本身是个发现而不是疏漏：限制转向角是平衡车的安全设计，脚踏车商品页不写这个字段。脚踏车上真正起作用的操控件是刹车，而各家用散文描述，没有可比字段。",
+      "车架材质按原文照抄。本品类的商品页把钢架和铝架都称作「轻」，这正是该列保留的原因。",
       "重复名称的型号已合并为一条。商品页更新时数字可能变化。",
       "重跑 `npm run data:kids-sizing` 即可用当前快照重新生成本页。",
     ],
-    seatHeightTitle: "我们不会猜的数字：最低座高",
+    seatHeightTitle: "谁都不公开的那项测量：上管高度",
     seatHeightBody:
-      "座高是合身度最关键的维度——孩子必须能坐上去、双脚平放且膝盖微弯。厂商公开得不一致，因此上表许多行缺失。购买前请查该型号的最低座高，并确保它≤孩子的内腿长（光脚从地面到胯下的距离）。若座高高于内腿长，说明车过大。",
-    weightRuleTitle: "多数家长忽略的重量法则",
+      "脚踏车上第一个要量的不是座垫，是车架。孩子必须能双腿平放跨站在上管之上——上车、下车、以及从晃动中恢复都靠它——而上管高度正是各商品页公开得最差的一项，上表多数行都缺。购买前请查该型号的上管高度，和孩子的跨下内腿长对比；如果上管高于它，那么无论标称年龄怎么写，这辆车都太大了。其次是最低座高，它决定座垫能为一个还在长个的孩子降到多低。",
+    weightRuleTitle: "为什么重量这一列值得留在缺口旁边",
     weightRuleBody:
-      "一个实用的经验法则：车重不应超过孩子体重的约 30%。40 磅儿童配 12 磅车已接近上限；越轻越容易操控、摔倒后扶起、以及搬运。这正是即使缺少座高，重量列也保留在表内的原因。",
-    wheelByAgeTitle: "按年龄看轮径（粗略参考）",
+      "儿童自行车比平衡车重，骑它的孩子也比骑平衡车的重，所以「占体重百分比」那条对平衡车好用的法则到这里就不再是要问的问题。更要紧的是些很平常的事：孩子能不能在缓坡上把车扶正、单手扶把、摔倒了不用帮忙自己扶起来。同轮径下一辆钢架车和一辆铝架车是不同的东西，而重量列是商品页里唯一能让你把它们区分开的地方——这就是为什么即使在车架尺寸缺失的行里，它也留着。",
+    wheelByAgeTitle: "轮径才是这里的尺寸轴",
     wheelByAgeBody:
-      "凡标注了轮径，它大致跟随年龄：12 英寸轮适合约 2–4 岁，14 英寸轮适合约 3–6 岁，16 英寸轮适合约 4–8 岁，更大轮径适合更大孩子。把轮径当作对年龄区间的校验，而非替代对孩子实际身高的测量。",
-    disclaimerTitle: "本页是什么，不是什么",
+      "对儿童自行车来说，轮径不是年龄区间的附注，而是这个品类建立其上的轴。12 英寸是第一辆脚踏车，14 和 16 英寸覆盖中间几年，20 英寸是多数孩子换成人车架之前需要的最大尺寸。商品页对轮径的公布远比座高或上管高度一致，所以它是唯一可以跨品牌比较的数字。它依然不能替代量孩子：一辆底架高的 16 英寸车，可能比一辆底架低的 14 英寸车更不合身。",
+    disclaimerTitle: "规格表力有不逮的地方",
     disclaimerBody:
-      "这是公开规格的对比，不是测试结果，不是排名，也不是医疗或安全建议。规格来自商家／厂商商品页，可能有误或过期；购买前请务必向厂商或卖家确认最低座高与当前价格。",
+      "这是公开规格的对比，不是测试结果，不是排名，也不是医疗或安全建议。规格来自商家／厂商商品页，可能有误或过期；购买前请务必向厂商或卖家确认上管高度、最低座高与当前价格。",
     viewProduct: "查看完整页面",
   },
 };
