@@ -150,8 +150,12 @@ export const CATEGORY_TDK_MAP: Record<
   kids_bikes: {
     en: {
       title: "Best Kids Bikes & Toddler Bicycles 2026 | BalanceBikeToddler",
-      description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore the database to compare BMX style, training wheels, and dual suspension bicycles.",
-      keywords: ["kids bmx bike", "toddler bicycle", "kids bike training wheels", "pedal bike for children"],
+      // Every attribute named here is backed by the published set — see
+      // scripts/count-kids-bikes-figures.mjs. The previous description claimed
+      // "dual suspension"; the Suspension Type attribute is Rigid on 17 of 24
+      // published listings and Dual on exactly one, so the claim is gone.
+      description: "Compare kids bikes by wheel size (12-24 inch), brake style and rider age 2-14 — including BMX style bikes with training wheels and cruiser frames.",
+      keywords: ["kids bike training wheels", "12 inch kids bike", "kids bmx bike", "coaster brake kids bike", "toddler bicycle"],
     },
     zh: {
       title: "2026最佳适龄儿童自行车与充气轮单车深度评测 | BalanceBikeToddler",
@@ -161,14 +165,18 @@ export const CATEGORY_TDK_MAP: Record<
   },
   kids_scooters: {
     en: {
-      title: "Best Kids Electric Scooter & Kick Scooter | BalanceBikeToddler",
-      description: "Find source-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
-      keywords: ["kids electric scooter", "electric scooter for kids", "kids kick scooter", "foldable electric scooter"],
+      // The 7 published listings in this category are all kick scooters — the
+      // CMS does carry 6 adult electric scooters under the same raw category,
+      // but none of them is published here. Three of the four previous
+      // keywords promised "electric", which the page cannot back up.
+      title: "Best Kids Kick Scooters & 3-Wheel Scooters | BalanceBikeToddler",
+      description: "Compare source-reviewed kids kick scooters and 3-wheel scooters, including foldable frames, lean-to-steer starters and LED wheel models.",
+      keywords: ["kids kick scooter", "3 wheel scooter for kids", "foldable kids scooter", "toddler scooter", "lean to steer scooter"],
     },
     zh: {
-      title: "2026 儿童电动滑板车与脚踏滑板车评测 | BalanceBikeToddler",
-      description: "基于公开规格对照儿童电动滑板车与脚踏滑板车，覆盖折叠便携、三轮入门稳定性与座椅配置等关键维度。",
-      keywords: ["儿童电动滑板车", "儿童滑板车", "可折叠电动滑板车", "三轮儿童滑板车"],
+      title: "2026 儿童脚踏滑板车与三轮滑板车评测 | BalanceBikeToddler",
+      description: "基于公开规格对照儿童脚踏滑板车与三轮滑板车，覆盖折叠收纳、倾斜转向入门稳定性与 LED 发光轮等配置。",
+      keywords: ["儿童滑板车", "儿童脚踏滑板车", "三轮儿童滑板车", "可折叠儿童滑板车", "倾斜转向滑板车"],
     },
   },
   electric_vehicles: {

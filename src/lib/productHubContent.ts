@@ -64,8 +64,8 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
   },
   "kids-bikes": {
     intro: [
-      "First pedal bikes fail for mechanical reasons long before kids lose interest: brakes a small hand cannot modulate, geometry that puts the rider over the bars, frames heavy enough to make every hill a defeat. Our scoring leans on the measurable side of those failures — dual hand-brake reach, standover height, crank length, and total weight — because a bike that fits is the single strongest predictor a child rides often and safely.",
-      "Age labels on kids bikes are notoriously loose, so work from two numbers instead: standover clearance (an inch or two over the top tube) and inside-leg reach to the pedals at their lowest point. From 14-inch wheels for fledgling pedal riders to 20-inch and 24-inch rigs for school-age riders, every card below lists the size-relevant specs we compile, plus training-wheel compatibility where the frame supports it.",
+      "First pedal bikes fail for mechanical reasons long before kids lose interest: brakes a small hand cannot modulate, geometry that puts the rider over the bars, frames heavy enough to make every hill a defeat. Our scoring leans on the measurable side of those failures — brake setup (coaster, hand, or both where the frame carries two), wheel size, and total weight — because a bike that fits is the single strongest predictor a child rides often and safely.",
+      "Age labels on kids bikes are notoriously loose, so size from rider height instead: the minimum height a listing states is the number that actually decides whether a child can reach the ground and the pedals. Wheel size tracks it closely here — 12-inch wheels sit at the low end of the range and 20- and 24-inch wheels at the school-age end — and every card below lists the wheel size, brake setup and weight the manufacturer publishes, plus training-wheel compatibility where the frame supports it.",
     ],
     faqs: [
       {
@@ -84,8 +84,8 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
   },
   "kids-scooters": {
     intro: [
-      "Scooters are the easiest win in kid mobility: near-zero learning curve, light enough to carry when enthusiasm runs out, and small enough to live by the front door. The trade-offs hide in the details our checklist scores — deck height (lower is steadier for beginners), wheel size and material (bigger polyurethane wheels swallow sidewalk cracks that stop small plastic ones dead), and for electric models, the throttle and brake relationship that decides whether a 6-year-old can actually manage the power band.",
-      "Choose the format by rider age and route. Three-wheel kick scooters with lean-to-steer front ends suit ages 2-5 and hallway storage; two-wheel folding kick scooters take over from roughly age 6 and survive school-run duty for years. Electric scooters are a real category with real responsibility: check the listed top speed, brake type, and minimum age against your child's maturity, and treat helmet rules as non-negotiable from the first ride.",
+      "Scooters are the easiest win in kid mobility: near-zero learning curve, light enough to carry when enthusiasm runs out, and small enough to live by the front door. The trade-offs hide in the details — deck height (lower is steadier for beginners), wheel size and material (bigger polyurethane wheels swallow sidewalk cracks that stop small plastic ones dead), and whether the frame folds small enough to be carried once enthusiasm does run out.",
+      "Choose the format by rider age and route. Three-wheel kick scooters with lean-to-steer front ends suit ages 2-5 and hallway storage; two-wheel folding kick scooters take over from roughly age 6 and survive school-run duty for years. Every scooter published here is a kick scooter — we do not publish powered models, so the specs below cover deck, wheel, fold and rider-age fit rather than motor output.",
     ],
     faqs: [
       {
@@ -93,8 +93,8 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
         a: "Under age 5, start three-wheel: the wide front axle and lean-to-steer geometry let a small child balance at walking speed without thinking about it. Move to two wheels when they outgrow the deck weight limit — usually the same year their coordination makes the switch boring rather than scary.",
       },
       {
-        q: "Are kids electric scooters safe, and what should I check?",
-        a: "They are safe when the spec matches the rider. Before buying, check three lines on the card: top speed (under ~10 mph for elementary-age riders), brake type (rear fender or hand brake the child can actually operate), and the manufacturer's minimum age and weight limit. Add a helmet from day one and flat, supervised routes until braking is automatic.",
+        q: "Do you cover electric scooters for kids?",
+        a: "Not on this page. Every scooter published here is a kick scooter, so the comparison stays on things we can verify from the listing — deck height, wheel size and material, fold, and the rider age the manufacturer states. If you are weighing a powered model instead, take the minimum age, top speed and brake type from the manufacturer directly rather than from a review, and treat helmet rules as non-negotiable from the first ride.",
       },
       {
         q: "What scooter wheel size rolls best on rough sidewalks?",
