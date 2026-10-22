@@ -802,10 +802,21 @@ export default function NewsSection({
                   { id: "science", labelEn: newsCopy.categoryTabs.science, labelZh: newsCopy.categoryTabs.science, descEn: "", descZh: "" },
                   { id: "brand_news", labelEn: newsCopy.categoryTabs.brandNews, labelZh: newsCopy.categoryTabs.brandNews, descEn: "", descZh: "" },
                   { id: "industry", labelEn: newsCopy.categoryTabs.industry, labelZh: newsCopy.categoryTabs.industry, descEn: "", descZh: "" },
-                ].map((c) => (
-                  <button
+                ].map((c) => {
+                  // Anchors, not buttons. The prerendered hub did carry
+                  // "Browse by channel" links to /news/<channel>, but that copy
+                  // lives inside #root and React replaces it on mount, so the
+                  // hydrated hub linked no channel index at all. These tabs are
+                  // the same UI, turned into real hrefs: preventDefault keeps
+                  // the in-place filtering, while a crawler that runs JS still
+                  // sees a link to each channel.
+                  const href = c.id === "all" ? "/news" : `/news/${c.id}`;
+                  return (
+                  <a
                     key={c.id}
-                    onClick={() => {
+                    href={href}
+                    onClick={(e) => {
+                      e.preventDefault();
                       handleCategoryClick(c.id);
                       setTimeout(() => {
                         const el = document.getElementById("latest-news-grid-anchor");
@@ -819,8 +830,9 @@ export default function NewsSection({
                     }`}
                   >
                     <span>{lang === "zh" ? c.labelZh : c.labelEn}</span>
-                  </button>
-                ))}
+                  </a>
+                  );
+                })}
               </div>
             </div>
           </section>

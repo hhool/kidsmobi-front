@@ -2075,10 +2075,16 @@ export default function EvaluationsSection({
                 {reviewsCopy.heroDescription}
               </p>
             </div>
+            {/* Anchors, not buttons. The prerendered hub linked /reviews/single
+                and /reviews/compare, but that copy lives inside #root and React
+                replaces it on mount, so the hydrated hub linked neither index.
+                Same UI, real hrefs: preventDefault keeps the in-place switch,
+                while a crawler that runs JS still sees both indexes. */}
             <div className="flex flex-wrap gap-4 pt-4 border-t border-white/10">
-              <button
-                type="button"
-                onClick={() => {
+              <a
+                href="/reviews/single"
+                onClick={(e) => {
+                  e.preventDefault();
                   handleReviewTypeSelect("single");
                   const el = document.getElementById("single-reviews");
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2086,10 +2092,11 @@ export default function EvaluationsSection({
                 className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-md transition-all cursor-pointer group backdrop-blur-md ${displayMode === "single" ? "bg-white/20 border border-white/45 text-slate-100" : "bg-white/10 hover:bg-white/20 border border-white/25 text-slate-100 hover:border-white/45"}`}
               >
                 {reviewModeCopy.single}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
+              </a>
+              <a
+                href="/reviews/compare"
+                onClick={(e) => {
+                  e.preventDefault();
                   handleReviewTypeSelect("compare");
                   const el = document.getElementById("kids-stroller");
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2097,7 +2104,7 @@ export default function EvaluationsSection({
                 className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-md transition-all cursor-pointer group backdrop-blur-md ${displayMode === "compare" ? "bg-white/20 border border-white/45 text-slate-100" : "bg-white/10 hover:bg-white/20 border border-white/25 text-slate-100 hover:border-white/45"}`}
               >
                 {reviewModeCopy.multi}
-              </button>
+              </a>
             </div>
           </div>
 

@@ -75,6 +75,25 @@ const ROUTES = [
   '/news/industry/electric-dirt-bikes-for-kids',
 ];
 
+// Every hub must still link its own topic indexes AFTER hydration. The
+// prerendered hub HTML is not enough: everything it emits lives inside #root,
+// which React replaces on mount, so a link that only exists in the prerender
+// is gone from the DOM a JS-running crawler actually reads. /guides shipped
+// exactly that bug (2026-10-22): the prerender linked one of six topic
+// indexes, and the hydrated page linked none.
+const HUB_TOPIC_CHILDREN = {
+  '/guides': [
+    '/guides/beginner',
+    '/guides/scenario',
+    '/guides/budget',
+    '/guides/risk',
+    '/guides/special',
+    '/guides/maintenance',
+  ],
+  '/news': ['/news/brand_news', '/news/industry', '/news/new_product', '/news/science'],
+  '/reviews': ['/reviews/compare', '/reviews/single'],
+};
+
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
 const chromePath =
   process.env.CHROME_PATH ||
@@ -151,6 +170,12 @@ for (const route of ROUTES) {
           // app's renderer parsed a syntax level the prerender's did (or the
           // other way round). The static HTML looked perfect the whole time.
           mdLeak: (body.match(/^#{2,4}\s+\S/gm) || []).slice(0, 3),
+          // Every href in the hydrated DOM. Compared against HUB_TOPIC_CHILDREN
+          // below: a hub that drops its topic-index links on hydration orphans
+          // those pages, and only a browser can see it.
+          hrefs: Array.from(document.querySelectorAll('a[href^="/"]')).map((a) =>
+            a.getAttribute('href').split('?')[0].split('#')[0].replace(/\/$/, '')
+          ),
         };
       });
     } catch (e) {
@@ -174,6 +199,14 @@ for (const route of ROUTES) {
       if (staticKw === null) why = 'static HTML has no keywords meta — prerender stopped emitting';
       else if (staticKw !== probe.keywords) {
         why = `keywords diverge — static "${staticKw}" vs hydrated "${probe.keywords}"`;
+      } else {
+        const children = HUB_TOPIC_CHILDREN[route];
+        if (children) {
+          const missing = children.filter((c) => !probe.hrefs.includes(c));
+          if (missing.length) {
+            why = `hub does not link its topic index(es) after hydration: ${missing.join(', ')}`;
+          }
+        }
       }
     }
 

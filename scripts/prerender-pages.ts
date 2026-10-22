@@ -1679,7 +1679,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
             <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(guide.meta)}</p>
           </section>
         `).join("")}
-        ${usingCmsGuides ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedGuides.length} published guide${listedGuides.length === 1 ? "" : "s"} in the library. Browse by topic: <a href="/guides/beginner">Beginner guides</a>.</p>` : ""}
+        ${usingCmsGuides ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedGuides.length} published guide${listedGuides.length === 1 ? "" : "s"} in the library. Browse by topic: ${GUIDES_TOPIC_PAGE_IDS.map((topic) => `<a href="/guides/${topic}">${escapeHtml(GUIDES_TOPIC_PAGES[topic].h1)}</a>`).join(" · ")}.</p>` : ""}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">How do the guides answer real search queries?</h2>

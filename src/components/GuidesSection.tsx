@@ -33,7 +33,12 @@ import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
-import { resolveGuidesTopicPage, GUIDES_WIZARD_H1 } from "../lib/guidesTopicPages";
+import {
+  resolveGuidesTopicPage,
+  GUIDES_WIZARD_H1,
+  GUIDES_TOPIC_PAGE_IDS,
+  GUIDES_TOPIC_PAGES,
+} from "../lib/guidesTopicPages";
 import { guidesArticleKeywords } from "../lib/pageKeywords";
 
 function translateCategoryLabel(cat: string): string {
@@ -1933,6 +1938,37 @@ export default function GuidesSection({
                 </li>
               ))}
             </ol>
+            {/* Topic indexes. The hub is the only page that hands a crawler a
+                link to /guides/<topic>; without this row the six topic pages
+                were reachable only through the breadcrumbs on their own
+                children. It has to be rendered here, in the SPA: this whole
+                block lives inside #root, so anything the prerender emits and
+                the app does not mirror is gone the moment React takes over.
+                Derived from the same module the topic pages are built from, so
+                adding a seventh topic cannot leave the hub behind. */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">
+                {lang === "en" ? "Browse by topic:" : "按主题浏览："}
+              </span>
+              {GUIDES_TOPIC_PAGE_IDS.map((topic) => (
+                <a
+                  key={topic}
+                  href={`/guides/${topic}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const path = `/guides/${topic}`;
+                    if ((window as any).navigateToPath) {
+                      (window as any).navigateToPath(path);
+                    } else {
+                      window.location.href = path;
+                    }
+                  }}
+                  className="px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-[11px] font-bold text-slate-600 hover:text-orange-500 hover:border-orange-300 transition-colors"
+                >
+                  {GUIDE_CATEGORY_LABELS[topic]?.[lang] || GUIDES_TOPIC_PAGES[topic].h1}
+                </a>
+              ))}
+            </div>
           </section>
         )}
 
