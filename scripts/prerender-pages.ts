@@ -5986,6 +5986,17 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     // old URL 404s instead of 301ing. The slash form still reaches the Worker
     // because the route pattern below is emitted for both shapes.
     [LEGACY_RECALL_SAFETY_PATH.replace(/\/+$/, ""), RECALL_SAFETY_PATH],
+    // 2026-10-22: /evaluations was an alias of the reviews tab — same route
+    // state, same component, same TDK, two URLs. It was never prerendered, so
+    // it only answered 200 because public/_redirects carried a bare-root
+    // rewrite for it. The rewrite is gone; keep the URL itself alive with a
+    // 301 so anything that indexed it (or bookmarked it) still lands on the
+    // reviews page.
+    //
+    // Target "/reviews", not "/reviews/": the reviews page is a file route, and
+    // a file route's canonical URL has no trailing slash (the slash form
+    // 308-redirects to it).
+    ["/evaluations", "/reviews"],
   ];
   const legacyExactRedirects: Array<[string, string]> = [
     // Re-homed legacy "other" bucket details need per-product targets.

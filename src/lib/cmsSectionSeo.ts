@@ -27,7 +27,6 @@ import { buildMetaDescription, capSeoTitle, SITE_TITLE_SUFFIX, TITLE_MAX_CHARS }
 export const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   home: "home",
   products: "products_index",
-  evaluations: "reviews_index",
   reviews: "reviews_index",
   guides: "guides_index",
   news: "news_index",
@@ -39,7 +38,6 @@ export const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
   home: { pageType: "home", pageSlug: "home", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
   products: { pageType: "products_index", pageSlug: "products", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
   reviews: { pageType: "reviews_index", pageSlug: "reviews", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
-  evaluations: { pageType: "reviews_index", pageSlug: "reviews", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
   guides: { pageType: "guides_index", pageSlug: "guides", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
   news: { pageType: "news_index", pageSlug: "news", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
   about: { pageType: "about", pageSlug: "about", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },

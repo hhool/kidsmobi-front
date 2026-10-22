@@ -66,18 +66,6 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["balance bike", "kids bike", "baby stroller", "kids scooter", "kids electric car"],
     },
   },
-  evaluations: {
-    zh: {
-      title: "婴儿推车评测、旅行推车与幼儿自行车安全对比 | BalanceBikeToddler",
-      description: "查看客观评测报告，覆盖旅行婴儿推车、慢跑婴儿推车与幼儿自行车，重点对比结构稳定性、制动表现与实际场景安全性。",
-      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车", "平衡车评测", "儿童平衡车"],
-    },
-    en: {
-      title: "Expert Stroller Reviews, Travel Stroller Models & Toddler Bike Guides | BalanceBikeToddler",
-      description: "Read unbiased stroller reviews, travel stroller models, and heavy-duty jogging strollers. Compare travel stroller frame specs and toddler bike geometries below.",
-      keywords: ["travel stroller", "toddler bike", "stroller reviews", "balance bike reviews", "toddler balance bike"],
-    },
-  },
   reviews: {
     zh: {
       title: "婴儿推车评测、旅行推车与幼儿自行车安全对比 | BalanceBikeToddler",
@@ -137,4 +125,4 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
 };
 
-export const FALLBACK_FIRST_SEO_KEYS = new Set(["home", "products", "reviews", "guides", "news", "evaluations", "about"]);
+export const FALLBACK_FIRST_SEO_KEYS = new Set(["home", "products", "reviews", "guides", "news", "about"]);

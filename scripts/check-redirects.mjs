@@ -75,7 +75,7 @@ for (const rule of rules) {
 // -> "/" with a 308. A *wildcard* rule with that target never resolves, so
 // Pages drops it without a peep (the SPA prefix block was dead for weeks this
 // way). An *exact* rule with that target is NOT dropped — it fires and
-// 308-redirects to "/", silently losing the path: on 2026-10-21 the five bare
+// 308-redirects to "/", silently losing the path: on 2026-10-21 the bare
 // roots answered 308 -> / at the no-slash form and 404 at the slash form.
 // "/index.html" is therefore never a valid target for any rule shape.
 for (const rule of rules) {
@@ -108,7 +108,7 @@ for (const rule of rules) {
   }
 }
 
-// The five bare app roots are SPA-only routes: no prerendered sibling, no
+// The bare app roots are SPA-only routes: no prerendered sibling, no
 // static file, so they need an exact rewrite to "/" (the shell document).
 // Without it they 404. With a wildcard they would shadow their prefix — hence
 // exact. TWO rules per root: Pages matches the source exactly, so the
@@ -116,7 +116,7 @@ for (const rule of rules) {
 // when the roots carried only the no-slash form). The target must be "/", not
 // "/index.html" — see redirects-no-index-html-target above; this assertion
 // used to accept either, which is how the broken shape shipped.
-const BARE_APP_ROOTS = ["/compare", "/auth", "/search", "/evaluations", "/transparency"];
+const BARE_APP_ROOTS = ["/compare", "/auth", "/search", "/transparency"];
 const ruleBySource = new Map(rules.map((rule) => [rule.source, rule]));
 for (const root of BARE_APP_ROOTS) {
   for (const form of [root, `${root}/`]) {

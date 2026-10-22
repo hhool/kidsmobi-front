@@ -16,7 +16,6 @@ const port = Number(process.argv[2] || 4181);
 const SPA_PREFIXES = [
   "/products/",
   "/reviews/",
-  "/evaluations/",
   "/guides/",
   "/news/",
   "/transparency/",
@@ -27,7 +26,7 @@ const SPA_PREFIXES = [
 ];
 
 // Bare app roots rewritten to the shell by static rules in _redirects.
-const SPA_EXACT_PATHS = ["/compare", "/auth", "/search", "/evaluations", "/transparency"];
+const SPA_EXACT_PATHS = ["/compare", "/auth", "/search", "/transparency"];
 
 const MIME = {
   ".html": "text/html; charset=utf-8",

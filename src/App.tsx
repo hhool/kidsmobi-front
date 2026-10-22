@@ -931,7 +931,7 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
     };
   }
 
-  if (root === "reviews" || root === "evaluations") {
+  if (root === "reviews") {
     const pageSegmentIndex = segments.indexOf("page");
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
     const activeReviewType = sub && REVIEW_ROUTE_IDS.has(sub) ? sub : "single";
@@ -1126,7 +1126,7 @@ export default function App() {
 
   const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
 
-  // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
+  // 2. Active Tab Router: home, news, products, reviews, guides, about, auth
   const [activeTab, setActiveTab] = useState<string>(initialRouteState.activeTab);
   const [activeProductCategory, setActiveProductCategory] = useState<string>(initialRouteState.activeProductCategory);
   const [activeReviewType, setActiveReviewType] = useState<string>(initialRouteState.activeReviewType);
@@ -1422,7 +1422,6 @@ export default function App() {
       home: "/",
       products: "/products",
       reviews: "/reviews",
-      evaluations: "/reviews",
       guides: "/guides",
       news: "/news",
       about: "/about",
@@ -2893,7 +2892,7 @@ export default function App() {
     }
 
     // Default to mapped key if valid, fallback to 'home'
-    const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
+    const validKeys = ["home", "news", "products", "reviews", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
       seoKey = "home";
     }
@@ -3054,24 +3053,6 @@ export default function App() {
         return Math.max(1, Math.ceil(routeProducts.length / 9));
       }
 
-      if (seoKey === "evaluations") {
-        const publishedEvaluations = evaluationsData.filter((evaluation) => evaluation.status === "published");
-        const normalizedReviewType = activeReviewType === "all" ? "single" : activeReviewType;
-        const routeEvaluations = publishedEvaluations.filter((evaluation) => (evaluation.type || "single") === normalizedReviewType);
-        const targetProducts = productsData.filter((product) => {
-          const text = `${product.category || ""} ${(product as any).categoryId || ""}`.toLowerCase();
-          return text.includes("balance") || text.includes("bike") || text.includes("bicycle") || text.includes("scooter");
-        });
-        const generatedCountByType: Record<string, number> = {
-          single: Math.min(12, targetProducts.length),
-          compare: 5,
-          value: Math.min(5, targetProducts.length),
-          ranking: Math.min(3, targetProducts.length),
-          safety: Math.min(6, targetProducts.length),
-        };
-        return Math.max(1, Math.ceil(Math.max(routeEvaluations.length, generatedCountByType[normalizedReviewType] || 0) / 6));
-      }
-
       if (seoKey === "news") {
         return newsPaginationTotalPages;
       }
@@ -3206,14 +3187,6 @@ export default function App() {
           url: canonicalUrl,
         }));
       }
-      if (seoKey === "evaluations") {
-        return (getPagedSlice(evaluationsData, 6) as Evaluation[]).map((evaluation, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: lang === "zh" ? evaluation.zh.title : evaluation.en.title,
-          url: canonicalUrl,
-        }));
-      }
       if (seoKey === "products") {
         return getPagedSlice(productsData as Product[], 9).map((product: Product, index) => {
           const detailCategory = resolveProductCategoryId(product) || "all";
@@ -3228,7 +3201,7 @@ export default function App() {
       return [] as Array<Record<string, unknown>>;
     })();
 
-    const isCollectionSeoKey = ["guides", "news", "evaluations", "products"].includes(seoKey);
+    const isCollectionSeoKey = ["guides", "news", "products"].includes(seoKey);
     const collectionSchema = isCollectionSeoKey
       ? {
           "@context": "https://schema.org",
@@ -3347,12 +3320,12 @@ export default function App() {
         return;
       }
       if (previousTab === "products" || previousTab === "home") {
-        navigateToPath(activeProductCategory === "all" ? "/products" : productCategoryPath(activeProductCategory));
+        navigateToPath(activeProductCategory === "all" ? "/products" :           productCategoryPath(activeProductCategory));
       } else {
         const tabPathMap: Record<string, string> = {
           home: "/",
           products: "/products",
-          evaluations: "/reviews",
+          reviews: "/reviews",
           guides: "/guides",
           news: "/news",
           about: "/about",
@@ -3816,7 +3789,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     navigateToPath("/reviews");
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "reviews" || activeTab === "evaluations" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "reviews" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   <span>{t.navEvaluations}</span>
@@ -4155,8 +4128,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           </div>
         )}
 
-        {(activeTab === "reviews" || activeTab === "evaluations") && (
-          <EvaluationsSection 
+        {activeTab === "reviews" && (
+          <EvaluationsSection
             evaluationsData={evaluationsData}
             productsData={productsData}
             onSelectProduct={handleSelectProduct}

@@ -400,7 +400,6 @@ export function resolveRouteKeywords(
     "/": "home",
     "/products": "products",
     "/reviews": "reviews",
-    "/evaluations": "evaluations",
     "/guides": "guides",
     "/news": "news",
     "/about": "about",

@@ -174,7 +174,7 @@ async function main() {
     results.push(note('warn', 'prerender-meta-ownership', `could not sample: ${String(e).slice(0, 80)}`));
   }
 
-  // 3c. The five bare app roots must actually be reachable. They are SPA-only
+  // 3c. The bare app roots must actually be reachable. They are SPA-only
   // routes with no prerendered sibling, served by exact "_redirects" rewrites
   // to "/". This family broke on 2026-10-21 in a way no other check could see:
   // the exact rules targeted "/index.html", so the no-slash form 308-redirected
@@ -184,7 +184,7 @@ async function main() {
   // redirect:'manual' so a 308 surfaces as a 308, and BOTH URL forms are
   // asserted.
   try {
-    const BARE_ROOTS = ['/compare', '/auth', '/search', '/evaluations', '/transparency'];
+    const BARE_ROOTS = ['/compare', '/auth', '/search', '/transparency'];
     const broken = [];
     for (const root of BARE_ROOTS) {
       for (const form of [root, `${root}/`]) {
@@ -198,7 +198,7 @@ async function main() {
         'bare-app-roots-reachable',
         broken.length === 0
           ? `${BARE_ROOTS.length} root(s) x 2 forms all answer 200 (exact _redirects rewrite to "/")`
-          : `${broken.length}/10 form(s) unreachable — each bare app root needs an exact rewrite to "/" in BOTH URL forms: ${broken.join('; ')}`
+          : `${broken.length}/${BARE_ROOTS.length * 2} form(s) unreachable — each bare app root needs an exact rewrite to "/" in BOTH URL forms: ${broken.join('; ')}`
       )
     );
   } catch (e) {

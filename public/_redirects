@@ -9,7 +9,7 @@
 #     Pages exposes the root document as "/", so that target never resolves.
 #   - An EXACT rule whose target is "/index.html" is NOT dropped — it fires and
 #     308-redirects to "/", silently losing the path. Verified live 2026-10-21:
-#     the five bare roots were written that way and /compare answered 308 -> /
+#     the bare roots were written that way and /compare answered 308 -> /
 #     while /compare/ answered 404. "/index.html" is never a valid target;
 #     target "/" (a rewrite serves the shell at the original URL).
 #   - An exact source matches ONLY the form written: "/compare" does not cover
@@ -38,7 +38,5 @@
 /auth/ / 200
 /search / 200
 /search/ / 200
-/evaluations / 200
-/evaluations/ / 200
 /transparency / 200
 /transparency/ / 200

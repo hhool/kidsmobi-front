@@ -52,7 +52,7 @@ const required = [
     // silently, so the block was dead), then with "/" targets (which made it
     // live and shadowed the prerendered pages). A guard can be the bug.
     //
-    // What must hold instead: the five bare app roots — SPA-only routes with
+    // What must hold instead: the bare app roots — SPA-only routes with
     // no prerendered sibling — each keep an exact rewrite to "/" in BOTH URL
     // forms (Pages matches the source exactly, so the no-slash rule alone
     // leaves "/compare/" 404ing), and no wildcard rule targets a static path.
@@ -61,11 +61,11 @@ const required = [
     // 2026-10-21 — the roots shipped that shape and /compare answered 308 -> /
     // while /compare/ answered 404).
     name: 'redirects-bare-roots-rewritten',
-    ok: ['/compare', '/auth', '/search', '/evaluations', '/transparency'].every(
+    ok: ['/compare', '/auth', '/search', '/transparency'].every(
       (root) =>
         redirects.includes(`${root} / 200`) && redirects.includes(`${root}/ / 200`),
     ),
-    detail: '_redirects must rewrite each bare app root (/compare /auth /search /evaluations /transparency) to "/" with an exact rule in both the no-slash and trailing-slash forms',
+    detail: '_redirects must rewrite each bare app root (/compare /auth /search /transparency) to "/" with an exact rule in both the no-slash and trailing-slash forms',
   },
   {
     // The other half of the same lesson: a wildcard rule must never target a
