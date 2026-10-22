@@ -62,6 +62,7 @@
     "data:stability": "node scripts/fetch_stability_data.mjs",
     "data:age": "node scripts/fetch_age_data.mjs",
     "data:kids-age": "node scripts/fetch_kids_age_data.mjs",
+    "data:kids-price": "node scripts/fetch_kids_price_data.mjs",
     "data:reviews": "node scripts/fetch_review_data.mjs",
     "data:settings": "node scripts/fetch_cms_settings.mjs",
     "reports:normalize:check": "node scripts/normalize_reports_quality.mjs",

@@ -45,6 +45,7 @@ import {
 } from "../data/kidsBikeSizing";
 import { AGE_PATH, ageSeo } from "../data/balanceBikeAge";
 import { KIDS_AGE_PATH, kidsAgeSeo } from "../data/kidsBikeAge";
+import { KIDS_PRICE_PATH, kidsPriceSeo } from "../data/kidsBikePrice";
 import { STABILITY_PATH, stabilitySeo } from "../data/balanceBikeStability";
 import { BUDGET_PATH, budgetSeo } from "../data/balanceBikeBudget";
 import { WEIGHT_PATH, weightSeo } from "../data/balanceBikeWeight";
@@ -321,6 +322,7 @@ const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; z
   [assetKey(KIDS_SIZING_PATH)]: kidsBikeSizingSeo,
   [assetKey(AGE_PATH)]: ageSeo,
   [assetKey(KIDS_AGE_PATH)]: kidsAgeSeo,
+  [assetKey(KIDS_PRICE_PATH)]: kidsPriceSeo,
   [assetKey(STABILITY_PATH)]: stabilitySeo,
   [assetKey(BUDGET_PATH)]: budgetSeo,
   [assetKey(WEIGHT_PATH)]: weightSeo,

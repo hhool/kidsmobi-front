@@ -52,6 +52,15 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
     blurbZh: "从 2 岁到 12 岁每个年龄还剩几款儿童自行车标注适用，逐款原文引用厂家的年龄区间。",
   },
   {
+    id: "kids-bike-price",
+    href: "/kids-bike-price/",
+    labelEn: "Kids bike price",
+    labelZh: "按价格选儿童自行车",
+    blurbEn:
+      "Every priced kids bike in the catalogue, banded at $100 and $150 where the listing count actually changes slope.",
+    blurbZh: "目录内全部有标价的儿童自行车，按上架数量斜率变化的 $100 与 $150 两处分档。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",

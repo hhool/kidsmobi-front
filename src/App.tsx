@@ -76,6 +76,7 @@ const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
 const BalanceBikeStability = lazy(() => import("./components/BalanceBikeStability"));
 const BalanceBikeAge = lazy(() => import("./components/BalanceBikeAge"));
 const KidsBikeAge = lazy(() => import("./components/KidsBikeAge"));
+const KidsBikePrice = lazy(() => import("./components/KidsBikePrice"));
 const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
 const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
@@ -158,6 +159,11 @@ import {
   kidsAgeSeo,
   buildKidsAgeDatasetSchema,
 } from "./data/kidsBikeAge";
+import {
+  KIDS_PRICE_PATH,
+  kidsPriceSeo,
+  buildKidsPriceDatasetSchema,
+} from "./data/kidsBikePrice";
 import {
   BUYER_FEEDBACK_PATH,
   buyerFeedbackSeo,
@@ -873,6 +879,19 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "kids-bike-by-age") {
     return {
       activeTab: "kids-by-age",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Kids bike price bands (kids-bikes mirror of the balance-bike budget page).
+  if (root === "kids-bike-price") {
+    return {
+      activeTab: "kids-bike-price",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2907,6 +2926,38 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "kids-bike-price") {
+      const kidsPriceSeoData = kidsPriceSeo[lang] || kidsPriceSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${KIDS_PRICE_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(KIDS_PRICE_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(kidsPriceSeoData.title);
+      updateMetaTag("description", buildMetaDescription(kidsPriceSeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", kidsPriceSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(kidsPriceSeoData.title), buildMetaDescription(kidsPriceSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(kidsPriceSeoData.title),
+          url: canonicalUrl,
+          description: kidsPriceSeoData.description,
+          inLanguage: lang,
+        },
+        buildKidsPriceDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     if (activeTab === "buyer-feedback") {
       const buyerFeedbackSeoData = buyerFeedbackSeo[lang] || buyerFeedbackSeo.en;
       const canonicalOrigin =
@@ -4415,6 +4466,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "kids-by-age" && (
           <KidsBikeAge lang={lang} />
+        )}
+
+        {activeTab === "kids-bike-price" && (
+          <KidsBikePrice lang={lang} />
         )}
 
         {activeTab === "auth" && (
