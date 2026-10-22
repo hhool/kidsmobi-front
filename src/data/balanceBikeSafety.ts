@@ -34,8 +34,7 @@ export interface ComparisonRow {
 
 export const safetySeo = {
   en: {
-    title:
-      "Balance Bike Safety Standards Explained: CPSC, ASTM F963 & EN 71 (2026)",
+    title: "Balance Bike Safety: CPSC, ASTM F963, EN 71",
     description:
       "Which safety standards apply to toddler balance bikes in the US and EU — 16 CFR 1512, CPSIA, ASTM F963, EN 71 — what each requires, and how to verify a bike is compliant.",
     canonical: SAFETY_PATH,
@@ -50,7 +49,7 @@ export const safetySeo = {
     ],
   },
   zh: {
-    title: "平衡车安全标准详解：CPSC、ASTM F963 与 EN 71（2026）",
+    title: "平衡车安全标准：CPSC、ASTM F963 与 EN 71",
     description:
       "美国与欧盟的儿童平衡车分别适用哪些安全标准——16 CFR 1512、CPSIA、ASTM F963、EN 71——各自要求什么，以及如何核验一辆平衡车是否合规。",
     canonical: SAFETY_PATH,

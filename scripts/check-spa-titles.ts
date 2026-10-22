@@ -38,7 +38,7 @@ import { WEIGHT_PATH, weightSeo } from "../src/data/balanceBikeWeight";
 import { RECALL_SAFETY_PATH, recallSeo } from "../src/data/safetyRecallRecord";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../src/data/balanceBikeBuyerFeedback";
 import { BUDGET_PATH, budgetSeo } from "../src/data/balanceBikeBudget";
-import { buildDocumentTitle, buildMetaDescription } from "../src/lib/documentTitle";
+import { buildDocumentTitle, buildMetaDescription, SITE_TITLE_SUFFIX, TITLE_MAX_CHARS } from "../src/lib/documentTitle";
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 import { resolveSectionRouteSeo, publishSectionTitle } from "../src/lib/cmsSectionSeo";
 import { CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
@@ -84,6 +84,53 @@ function readBuiltPage(route: string): { title: string; description: string } | 
 // outcome of buildDocumentTitle here).
 const en = <T extends Record<string, any>>(bundle: T) => (bundle as any).en;
 
+// The asset pages in one place. The expectations below are derived from this
+// list, and so is the title-budget check further down — a new asset page added
+// here is covered by both, one added only to `expectations` would escape the
+// budget check.
+const ASSET_SEO: Array<{
+  label: string;
+  route: string;
+  seo: { title: string; description: string };
+}> = [
+  { label: "asset age", route: AGE_PATH, seo: en(ageSeo) },
+  { label: "asset kids age", route: KIDS_AGE_PATH, seo: en(kidsAgeSeo) },
+  { label: "asset kids price", route: KIDS_PRICE_PATH, seo: en(kidsPriceSeo) },
+  { label: "asset safety", route: SAFETY_PATH, seo: en(safetySeo) },
+  { label: "asset sizing", route: SIZING_PATH, seo: en(sizingSeo) },
+  { label: "asset kids sizing", route: KIDS_SIZING_PATH, seo: en(kidsBikeSizingSeo) },
+  { label: "asset stability", route: STABILITY_PATH, seo: en(stabilitySeo) },
+  { label: "asset weight", route: WEIGHT_PATH, seo: en(weightSeo) },
+  { label: "asset recalls", route: RECALL_SAFETY_PATH, seo: en(recallSeo) },
+  { label: "asset buyer feedback", route: BUYER_FEEDBACK_PATH, seo: en(buyerFeedbackSeo) },
+  { label: "asset budget", route: BUDGET_PATH, seo: en(budgetSeo) },
+];
+
+// --- No authored title may be silently truncated -----------------------------
+// buildDocumentTitle() caps the stem at TITLE_MAX_CHARS - SITE_TITLE_SUFFIX.length
+// and cuts on a word boundary, then drops a dangling connector so the result
+// reads clean. That is exactly why truncation is invisible: the <title> looks
+// fine and the equality check below passes, while the tail — usually the
+// specific keywords ("CPSC, ASTM F963, EN 71", "a 2, 3 or 4 Year Old") — never
+// reaches a SERP. Four asset pages shipped that way until 2026-10-23.
+//
+// Google elides past ~65 characters anyway, so raising the cap would not help:
+// the only fix is a shorter authored stem. Assert the stem survives intact.
+const TITLE_STEM_BUDGET = TITLE_MAX_CHARS - SITE_TITLE_SUFFIX.length;
+const truncatedTitles = ASSET_SEO.filter(({ seo }) => {
+  const stem = seo.title.trim();
+  const expected = stem.endsWith(SITE_TITLE_SUFFIX) ? stem : `${stem}${SITE_TITLE_SUFFIX}`;
+  return buildDocumentTitle(stem) !== expected;
+}).map(({ label, seo }) => `${label}: stem is ${seo.title.length} chars, budget ${TITLE_STEM_BUDGET}`);
+if (truncatedTitles.length > 0) {
+  console.error(
+    `check:spatitles FAIL — ${truncatedTitles.length} asset title(s) would be silently truncated:\n` +
+      truncatedTitles.map((line) => `  - ${line}`).join("\n") +
+      `\nShorten the authored stem to <= ${TITLE_STEM_BUDGET} characters so the tail keywords survive.`,
+  );
+  process.exit(1);
+}
+
 const expectations: Expectation[] = [
   ...TRANSPARENCY_PAGES.map((page) => {
     const localized = page.en;
@@ -94,17 +141,7 @@ const expectations: Expectation[] = [
       description: buildMetaDescription(localized.seo?.description || localized.subtitle, sanitizeUnsupportedClaims),
     };
   }),
-  { label: "asset age", route: AGE_PATH, ...pick(en(ageSeo)) },
-  { label: "asset kids age", route: KIDS_AGE_PATH, ...pick(en(kidsAgeSeo)) },
-  { label: "asset kids price", route: KIDS_PRICE_PATH, ...pick(en(kidsPriceSeo)) },
-  { label: "asset safety", route: SAFETY_PATH, ...pick(en(safetySeo)) },
-  { label: "asset sizing", route: SIZING_PATH, ...pick(en(sizingSeo)) },
-  { label: "asset kids sizing", route: KIDS_SIZING_PATH, ...pick(en(kidsBikeSizingSeo)) },
-  { label: "asset stability", route: STABILITY_PATH, ...pick(en(stabilitySeo)) },
-  { label: "asset weight", route: WEIGHT_PATH, ...pick(en(weightSeo)) },
-  { label: "asset recalls", route: RECALL_SAFETY_PATH, ...pick(en(recallSeo)) },
-  { label: "asset buyer feedback", route: BUYER_FEEDBACK_PATH, ...pick(en(buyerFeedbackSeo)) },
-  { label: "asset budget", route: BUDGET_PATH, ...pick(en(budgetSeo)) },
+  ...ASSET_SEO.map(({ label, route, seo }) => ({ label, route, ...pick(seo) })),
 ];
 
 function pick(seo: { title: string; description: string }) {

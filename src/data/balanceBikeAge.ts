@@ -230,7 +230,7 @@ export function ageVars() {
 
 export const ageSeo = {
   en: {
-    title: "Balance Bike by Age: How Many Actually Fit a 2, 3 or 4 Year Old",
+    title: "Balance Bike by Age: Fits a 2, 3, 4 Year Old",
     description:
       `Age is the first thing parents search with, so we counted it: of ${cat.balanceBikesListed} balance bikes, ` +
       `${bandAt(24).fitCount} are still rated for a 2-year-old but only ${bandAt(48).fitCount} for a 4-year-old. ` +

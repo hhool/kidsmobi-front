@@ -52,7 +52,7 @@ export const sizingDataset = SIZING_DATASET as {
 
 export const sizingSeo = {
   en: {
-    title: "Balance Bike Size Chart & Spec Comparison (Real Specs, Not Guesses)",
+    title: "Balance Bike Size Chart: Real Specs Compared",
     description:
       "A side-by-side comparison of balance bikes' real specifications — age range, wheel size, weight, frame and steering limit — drawn from each product's specification record. Plus how to size a balance bike by inseam and weight.",
     keywords: [
@@ -64,7 +64,7 @@ export const sizingSeo = {
     ],
   },
   zh: {
-    title: "平衡车尺寸对照表与规格对比（真实参数，非估算）",
+    title: "平衡车尺寸对照表：真实参数并排对比",
     description:
       "并排对比多款平衡车的真实规格——适用年龄、轮径、重量、车架与转向限制，均取自各产品的规格记录，并说明如何按内腿长与体重为孩子选尺寸。",
     keywords: ["平衡车尺寸对照表", "平衡车怎么选尺寸", "平衡车规格对比", "几岁用平衡车"],

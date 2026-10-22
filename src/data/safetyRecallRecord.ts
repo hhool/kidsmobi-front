@@ -167,7 +167,7 @@ export const latestBalanceNotice = recallDataset.balanceBikeNotices[0] || null;
 
 export const recallSeo = {
   en: {
-    title: "Balance Bike & Kids' Bike Recall Record: US CPSC + EU Safety Gate",
+    title: "Balance Bike Recalls: CPSC + EU Safety Gate",
     description:
       "A parent-facing record of US CPSC recall notices since 2000 and EU Safety Gate alerts, covering balance bikes, children's bicycles and kids' helmets — every row linked to the official source.",
     keywords: [

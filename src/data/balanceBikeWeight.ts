@@ -43,7 +43,7 @@ export function headlineFacts() {
 
 export const weightSeo = {
   en: {
-    title: "How Much Does a Balance Bike Weigh? Ride-On Weights Compared",
+    title: "Balance Bike Weights: 62 Ride-Ons Compared",
     description: d.headline
       ? `Seller-listed weights for ${d.totals.productsScanned} kids' ride-ons: balance bikes median ` +
         `${d.headline.balanceBikeMedianLb} lb vs pedal kids' bikes ${d.headline.kidsBikeMedianLb} lb — ` +
@@ -61,7 +61,7 @@ export const weightSeo = {
     ],
   },
   zh: {
-    title: "平衡车有多重？71 款儿童骑乘玩具重量对比",
+    title: "平衡车重量：62 款儿童骑乘玩具重量对比",
     description: d.headline
       ? `来自 ${d.totals.productsScanned} 款儿童骑乘玩具的商家标称重量：平衡车中位 ` +
         `${d.headline.balanceBikeMedianLb} 磅，脚踏童车 ${d.headline.kidsBikeMedianLb} 磅，相差 ` +

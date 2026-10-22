@@ -4997,7 +4997,7 @@ function renderKidsAgePage(): RoutePage[] {
           </tr>
         </thead>
         <tbody>
-          ${kidsBikesAt(60)
+          ${kidsBikesAt(72)
             .map(
               (b) => `
             <tr style="border-bottom:1px solid #f1f5f9;">
@@ -5079,7 +5079,7 @@ function renderKidsAgePage(): RoutePage[] {
           <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.fitTitle)}</h2>
           <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.fitLead)}</p>
           ${fitTable}
-          <p style="font-size:0.72rem;color:#64748b;margin:0;">${escapeHtml(t.oneLine)} ${kidsBikesAt(60).length} ${escapeHtml(kidsBandAt(60).searchLabel)} &middot; ${escapeHtml(t.colSpan)}: ${escapeHtml(kidsAgeSpanLabel(cov.minStatedMonths, cov.maxStatedMonths))}.</p>
+          <p style="font-size:0.72rem;color:#64748b;margin:0;">${escapeHtml(t.oneLine)} ${kidsBikesAt(72).length} ${escapeHtml(kidsBandAt(72).searchLabel)} &middot; ${escapeHtml(t.colSpan)}: ${escapeHtml(kidsAgeSpanLabel(cov.minStatedMonths, cov.maxStatedMonths))}.</p>
         </section>
         ${unplacedBlock}
 

@@ -237,10 +237,10 @@ export function kidsAgeVars() {
 
 export const kidsAgeSeo = {
   en: {
-    title: "Kids Bike by Age: Fits a 2, 5 or 8 Year Old",
+    title: "Kids Bike by Age: Fits a 2, 6 or 12 Year Old",
     description:
       `Age is the first thing parents search with, so we counted it: of ${cat.kidsBikesListed} kids bikes, ` +
-      `${kidsBandAt(60).fitCount} are still rated for a 5-year-old, the widest point of the range, against just ` +
+      `${peak.fitCount} are still rated at ${peak.searchLabel} — the widest stretch of the range — against just ` +
       `${kidsBandAt(24).fitCount} for a 2-year-old and ${kidsBandAt(144).fitCount} for a 12-year-old. ` +
       `Manufacturer age ranges for every model, quoted verbatim, plus what the numbers cannot tell you.`,
     canonical: KIDS_AGE_PATH,
@@ -256,10 +256,10 @@ export const kidsAgeSeo = {
     ],
   },
   zh: {
-    title: "按年龄选儿童自行车：适合 2 岁、5 岁、8 岁的各几款",
+    title: "按年龄选儿童自行车：适合 2 岁、6 岁、12 岁的各几款",
     description:
       `年龄是家长搜索的第一个词，所以我们把它数了一遍：${cat.kidsBikesListed} 款儿童自行车中，` +
-      `仍标注适合五岁的最多，有 ${kidsBandAt(60).fitCount} 款，适合两岁的仅 ${kidsBandAt(24).fitCount} 款，` +
+      `选择面在 ${peak.searchLabel} 最宽，仍有 ${peak.fitCount} 款标注适用，覆盖两岁的只有 ${kidsBandAt(24).fitCount} 款，` +
       `能用到十二岁的 ${kidsBandAt(144).fitCount} 款。` +
       `逐款列出厂家标称适龄区间并原文引用，同时说明这些数字无法告诉你的部分。`,
     canonical: KIDS_AGE_PATH,

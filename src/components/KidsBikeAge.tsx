@@ -101,8 +101,8 @@ export default function KidsBikeAge({ lang = "en" }: KidsBikeAgeProps) {
   const vars = kidsAgeVars();
   const fill = (s: string) => fillTemplate(s, vars as Record<string, string | number>);
 
-  // Default to five years: the widest point of this category's coverage.
-  const [selectedMonths, setSelectedMonths] = useState(60);
+  // Default to the widest band — the plateau this category's coverage peaks on.
+  const [selectedMonths, setSelectedMonths] = useState(72);
   const selectedBand = kidsBandAt(selectedMonths);
   const fit = kidsBikesAt(selectedMonths);
 
