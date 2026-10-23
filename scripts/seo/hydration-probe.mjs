@@ -38,6 +38,7 @@ const ROUTES = [
   '/balance-bike-by-age/',
   '/kids-bike-by-age/',
   '/kids-bike-price/',
+  '/kids-bike-safety-standards/',
   '/balance-bike-what-buyers-say/',
   '/balance-bike-budget/',
   '/guides/risk/balance-bike-recall-record',

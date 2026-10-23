@@ -112,6 +112,17 @@ import {
   kidsPriceVars,
   buildKidsPriceDatasetSchema,
 } from "../src/data/kidsBikePrice";
+import {
+  KIDS_SAFETY_PATH,
+  kidsSafetySeo,
+  kidsSafetyStrings,
+  kidsSafetyStandards,
+  kidsSafetyComparison,
+  kidsSafetyVerification,
+  kidsSafetyCaveats,
+  kidsSafetySource,
+  buildKidsBikeSafetyDatasetSchema,
+} from "../src/data/kidsBikeSafety";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
@@ -3910,6 +3921,165 @@ function renderSafetyPage(): RoutePage[] {
   ];
 }
 
+function renderKidsBikeSafetyPage(): RoutePage[] {
+  const t = kidsSafetyStrings.en;
+  const l = "en" as const; // prerender always emits the English canonical page
+
+  const standardCard = (s: (typeof kidsSafetyStandards)[number]) => `
+    <div style="border:1px solid #e2e8f0;background:#fff;border-radius:16px;padding:20px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-start;">
+        <h3 style="font-size:1rem;font-weight:900;color:#0f172a;line-height:1.3;margin:0;max-width:32rem;">${escapeHtml(s.name)}</h3>
+        <span style="flex-shrink:0;border:1px solid ${s.mandatory ? "#a7f3d0" : "#e2e8f0"};background:${s.mandatory ? "#ecfdf5" : "#f8fafc"};color:${s.mandatory ? "#047857" : "#64748b"};font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;border-radius:9999px;padding:3px 10px;">${s.mandatory ? "Mandatory" : "Not applicable"}</span>
+      </div>
+      ${s.edition ? `<div style="font-size:0.72rem;font-weight:700;color:#ea580c;margin-top:4px;">${escapeHtml(s.edition)}</div>` : ""}
+      <p style="font-size:0.85rem;color:#475569;line-height:1.7;margin:12px 0 0;">${escapeHtml(s.scope[l])}</p>
+      <ul style="margin:12px 0 0;padding-left:20px;font-size:0.85rem;color:#334155;line-height:1.7;">
+        ${s.requirements.map((r) => `<li style="margin-bottom:6px;">${escapeHtml(r[l])}</li>`).join("")}
+      </ul>
+      <div style="margin-top:12px;border-radius:12px;background:#f8fafc;padding:8px 12px;font-size:0.72rem;color:#475569;">
+        <strong style="color:#334155;">Verify by: </strong>${escapeHtml(s.verifyMark[l])}
+      </div>
+      <a href="${escapeHtml(s.citation.url)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:0.72rem;font-weight:700;color:#ea580c;text-decoration:none;">${escapeHtml(s.citation.title)} &#8599;</a>
+    </div>`;
+
+  const comparisonTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:720px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colRegion)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colStandards)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colCovers)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colMandatory)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colLookFor)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${kidsSafetyComparison
+            .map(
+              (row) => `
+            <tr style="border-bottom:1px solid #f1f5f9;vertical-align:top;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;">${escapeHtml(row.region[l])}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(row.standards[l])}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(row.covers[l])}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#047857;white-space:nowrap;">${escapeHtml(row.mandatory[l])}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(row.lookFor[l])}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid #fed7aa;background:#fff7ed;padding:4px 12px;border-radius:9999px;font-size:0.6rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</div>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.heroTitle)}</h1>
+          <p style="font-size:1.05rem;color:#475569;line-height:1.7;margin:0;max-w:48rem;font-weight:500;">${escapeHtml(t.heroLead)}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:24px 48px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px 16px;font-size:0.75rem;color:#475569;">
+            <span>Compiled: ${escapeHtml(kidsSafetySource.retrievedAt)}</span>
+            <span>Source: ${escapeHtml(kidsSafetySource.name)}</span>
+          </div>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.heroNote)}</p>
+        </header>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.introTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.introBody)}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.glanceTitle)}</h2>
+          ${comparisonTable}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.mechTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.mechLead)}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:20px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.usTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.usLead)}</p>
+          <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+            ${kidsSafetyStandards.filter((s) => s.region === "US").map(standardCard).join("")}
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:20px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.euTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.euLead)}</p>
+          <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+            ${kidsSafetyStandards.filter((s) => s.region === "EU_UK").map(standardCard).join("")}
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:18px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.verifyTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.verifyLead)}</p>
+          <ul style="margin:0;padding-left:4px;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;">
+            ${kidsSafetyVerification
+              .map(
+                (item) =>
+                  `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:#059669;font-weight:800;line-height:1.6;">&#10003;</span><span>${escapeHtml(item[l])}</span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+
+        <section style="border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:20px;">
+          <h2 style="font-size:1rem;font-weight:900;color:#0f172a;margin:0 0 8px;">${escapeHtml(t.caveatsTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#475569;line-height:1.7;">
+            ${kidsSafetyCaveats.map((c) => `<li style="margin-bottom:6px;">${escapeHtml(c[l])}</li>`).join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          Source: ${escapeHtml(kidsSafetySource.name)} · Compiled: ${escapeHtml(kidsSafetySource.retrievedAt)} · ${escapeHtml(kidsSafetySource.note[l])}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: KIDS_SAFETY_PATH,
+      title: kidsSafetySeo.en.title,
+      description: kidsSafetySeo.en.description,
+      skipTitleH1: true,
+      body: `${body}${clusterNavHtml(KIDS_SAFETY_PATH)}`,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: kidsSafetySeo.en.title,
+          url: `https://balancebiketoddler.com${KIDS_SAFETY_PATH}`,
+          description: kidsSafetySeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildKidsBikeSafetyDatasetSchema(`https://balancebiketoddler.com${KIDS_SAFETY_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Kids bike safety standards",
+              item: `https://balancebiketoddler.com${KIDS_SAFETY_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
 /**
  * Prerendered weight & build page (Plan-B Asset 5).
  *
@@ -6369,6 +6539,7 @@ async function main() {
     ...renderSizingPage(),
     ...renderKidsBikeSizingPage(),
     ...renderSafetyPage(),
+    ...renderKidsBikeSafetyPage(),
     ...renderWeightPage(),
     ...renderStabilityPage(),
     ...renderAgePage(),
@@ -6489,6 +6660,7 @@ function sitemapPriority(route: string): number {
     SIZING_PATH,
     KIDS_SIZING_PATH,
     SAFETY_PATH,
+    KIDS_SAFETY_PATH,
     RECALL_SAFETY_PATH,
     WEIGHT_PATH,
     STABILITY_PATH,

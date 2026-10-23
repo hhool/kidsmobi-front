@@ -31,6 +31,7 @@ import { AGE_PATH, ageSeo } from "../src/data/balanceBikeAge";
 import { KIDS_AGE_PATH, kidsAgeSeo } from "../src/data/kidsBikeAge";
 import { KIDS_PRICE_PATH, kidsPriceSeo } from "../src/data/kidsBikePrice";
 import { SAFETY_PATH, safetySeo } from "../src/data/balanceBikeSafety";
+import { KIDS_SAFETY_PATH, kidsSafetySeo } from "../src/data/kidsBikeSafety";
 import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH, kidsBikeSizingSeo } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH, stabilitySeo } from "../src/data/balanceBikeStability";
@@ -97,6 +98,7 @@ const ASSET_SEO: Array<{
   { label: "asset kids age", route: KIDS_AGE_PATH, seo: en(kidsAgeSeo) },
   { label: "asset kids price", route: KIDS_PRICE_PATH, seo: en(kidsPriceSeo) },
   { label: "asset safety", route: SAFETY_PATH, seo: en(safetySeo) },
+  { label: "asset kids safety", route: KIDS_SAFETY_PATH, seo: en(kidsSafetySeo) },
   { label: "asset sizing", route: SIZING_PATH, seo: en(sizingSeo) },
   { label: "asset kids sizing", route: KIDS_SIZING_PATH, seo: en(kidsBikeSizingSeo) },
   { label: "asset stability", route: STABILITY_PATH, seo: en(stabilitySeo) },

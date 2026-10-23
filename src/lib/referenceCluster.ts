@@ -61,6 +61,16 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
     blurbZh: "目录内全部有标价的儿童自行车，按上架数量斜率变化的 $100 与 $150 两处分档。",
   },
   {
+    id: "kids-bike-safety-standards",
+    href: "/kids-bike-safety-standards/",
+    labelEn: "Kids bike safety standards",
+    labelZh: "儿童自行车安全标准",
+    blurbEn:
+      "Which rules actually apply to a pedal kids' bike — 16 CFR 1512 and CPSIA govern it as a bicycle and a children's product; ASTM F963 and EN 71 do not, because it is not a toy.",
+    blurbZh:
+      "儿童脚踏车真正适用哪些规则——16 CFR 1512 与 CPSIA 把它作为自行车和儿童产品来管；ASTM F963 与 EN 71 不适用，因为它不是玩具。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",
