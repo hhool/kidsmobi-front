@@ -79,6 +79,9 @@ const KidsBikeAge = lazy(() => import("./components/KidsBikeAge"));
 const KidsBikePrice = lazy(() => import("./components/KidsBikePrice"));
 const KidsBikeSafety = lazy(() => import("./components/KidsBikeSafety"));
 const KidsBikeWeight = lazy(() => import("./components/KidsBikeWeight"));
+const KidsBikeStability = lazy(() => import("./components/KidsBikeStability"));
+const KidsBuyerFeedback = lazy(() => import("./components/KidsBuyerFeedback"));
+const KidsBikeRecalls = lazy(() => import("./components/KidsBikeRecalls"));
 const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
 const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
@@ -176,6 +179,21 @@ import {
   kidsWeightSeo,
   buildKidsBikeWeightDatasetSchema,
 } from "./data/kidsBikeWeight";
+import {
+  KIDS_STABILITY_PATH,
+  kidsStabilitySeo,
+  buildKidsBikeStabilityDatasetSchema,
+} from "./data/kidsBikeStability";
+import {
+  KIDS_BUYER_FEEDBACK_PATH,
+  kidsBuyerFeedbackSeo,
+  buildKidsBuyerFeedbackDatasetSchema,
+} from "./data/kidsBuyerFeedback";
+import {
+  KIDS_RECALLS_PATH,
+  kidsRecallsSeo,
+  buildKidsRecallsDatasetSchema,
+} from "./data/kidsBikeRecalls";
 import {
   BUYER_FEEDBACK_PATH,
   buyerFeedbackSeo,
@@ -934,6 +952,45 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "kids-bike-weight") {
     return {
       activeTab: "kids-bike-weight",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Kids-bike counterparts of the balance-bike reference cluster. All three are
+  // registered before the unknown-root fallback so they hydrate with their own
+  // canonical rather than home's.
+  if (root === "kids-bike-stability") {
+    return {
+      activeTab: "kids-bike-stability",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  if (root === "kids-bike-what-buyers-say") {
+    return {
+      activeTab: "kids-bike-what-buyers-say",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  if (root === "kids-bike-recalls") {
+    return {
+      activeTab: "kids-bike-recalls",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2941,6 +2998,102 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "kids-bike-stability") {
+      const kidsStabilitySeoData = kidsStabilitySeo[lang] || kidsStabilitySeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${KIDS_STABILITY_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(KIDS_STABILITY_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(kidsStabilitySeoData.title);
+      updateMetaTag("description", buildMetaDescription(kidsStabilitySeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", kidsStabilitySeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(kidsStabilitySeoData.title), buildMetaDescription(kidsStabilitySeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(kidsStabilitySeoData.title),
+          url: canonicalUrl,
+          description: kidsStabilitySeoData.description,
+          inLanguage: lang,
+        },
+        buildKidsBikeStabilityDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
+    if (activeTab === "kids-bike-what-buyers-say") {
+      const kidsBuyerSeoData = kidsBuyerFeedbackSeo[lang] || kidsBuyerFeedbackSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${KIDS_BUYER_FEEDBACK_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(KIDS_BUYER_FEEDBACK_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(kidsBuyerSeoData.title);
+      updateMetaTag("description", buildMetaDescription(kidsBuyerSeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", kidsBuyerSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(kidsBuyerSeoData.title), buildMetaDescription(kidsBuyerSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(kidsBuyerSeoData.title),
+          url: canonicalUrl,
+          description: kidsBuyerSeoData.description,
+          inLanguage: lang,
+        },
+        buildKidsBuyerFeedbackDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
+    if (activeTab === "kids-bike-recalls") {
+      const kidsRecallsSeoData = kidsRecallsSeo[lang] || kidsRecallsSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${KIDS_RECALLS_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(KIDS_RECALLS_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(kidsRecallsSeoData.title);
+      updateMetaTag("description", buildMetaDescription(kidsRecallsSeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", kidsRecallsSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(kidsRecallsSeoData.title), buildMetaDescription(kidsRecallsSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(kidsRecallsSeoData.title),
+          url: canonicalUrl,
+          description: kidsRecallsSeoData.description,
+          inLanguage: lang,
+        },
+        buildKidsRecallsDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     if (activeTab === "weight-build") {
       const weightSeoData = weightSeo[lang] || weightSeo.en;
       const canonicalOrigin =
@@ -4561,6 +4714,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "kids-bike-weight" && (
           <KidsBikeWeight lang={lang} />
+        )}
+
+        {activeTab === "kids-bike-stability" && (
+          <KidsBikeStability lang={lang} />
+        )}
+
+        {activeTab === "kids-bike-what-buyers-say" && (
+          <KidsBuyerFeedback lang={lang} />
+        )}
+
+        {activeTab === "kids-bike-recalls" && (
+          <KidsBikeRecalls lang={lang} />
         )}
 
         {activeTab === "weight-build" && (

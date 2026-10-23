@@ -33,6 +33,9 @@ import { KIDS_PRICE_PATH } from "../src/data/kidsBikePrice";
 import { SAFETY_PATH } from "../src/data/balanceBikeSafety";
 import { KIDS_SAFETY_PATH } from "../src/data/kidsBikeSafety";
 import { KIDS_WEIGHT_PATH } from "../src/data/kidsBikeWeight";
+import { KIDS_STABILITY_PATH } from "../src/data/kidsBikeStability";
+import { KIDS_BUYER_FEEDBACK_PATH } from "../src/data/kidsBuyerFeedback";
+import { KIDS_RECALLS_PATH } from "../src/data/kidsBikeRecalls";
 import { SIZING_PATH } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH } from "../src/data/balanceBikeStability";
@@ -58,6 +61,9 @@ const ASSET_PATHS = [
   SAFETY_PATH,
   KIDS_SAFETY_PATH,
   KIDS_WEIGHT_PATH,
+  KIDS_STABILITY_PATH,
+  KIDS_BUYER_FEEDBACK_PATH,
+  KIDS_RECALLS_PATH,
   SIZING_PATH,
   KIDS_SIZING_PATH,
   STABILITY_PATH,

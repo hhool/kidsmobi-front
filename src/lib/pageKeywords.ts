@@ -52,6 +52,9 @@ import { WEIGHT_PATH, weightSeo } from "../data/balanceBikeWeight";
 import { SAFETY_PATH, safetySeo } from "../data/balanceBikeSafety";
 import { KIDS_SAFETY_PATH, kidsSafetySeo } from "../data/kidsBikeSafety";
 import { KIDS_WEIGHT_PATH, kidsWeightSeo } from "../data/kidsBikeWeight";
+import { KIDS_STABILITY_PATH, kidsStabilitySeo } from "../data/kidsBikeStability";
+import { KIDS_BUYER_FEEDBACK_PATH, kidsBuyerFeedbackSeo } from "../data/kidsBuyerFeedback";
+import { KIDS_RECALLS_PATH, kidsRecallsSeo } from "../data/kidsBikeRecalls";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerFeedback";
 import { RECALL_SAFETY_PATH, recallSeo } from "../data/safetyRecallRecord";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
@@ -331,6 +334,9 @@ const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; z
   [assetKey(SAFETY_PATH)]: safetySeo,
   [assetKey(KIDS_SAFETY_PATH)]: kidsSafetySeo,
   [assetKey(KIDS_WEIGHT_PATH)]: kidsWeightSeo,
+  [assetKey(KIDS_STABILITY_PATH)]: kidsStabilitySeo,
+  [assetKey(KIDS_BUYER_FEEDBACK_PATH)]: kidsBuyerFeedbackSeo,
+  [assetKey(KIDS_RECALLS_PATH)]: kidsRecallsSeo,
   [assetKey(BUYER_FEEDBACK_PATH)]: buyerFeedbackSeo,
   [assetKey(RECALL_SAFETY_PATH)]: recallSeo,
 };

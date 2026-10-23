@@ -133,6 +133,37 @@ import {
   kidsWeightFrameNote,
   buildKidsBikeWeightDatasetSchema,
 } from "../src/data/kidsBikeWeight";
+import {
+  KIDS_STABILITY_PATH,
+  KIDS_STABILITY_DATASET,
+  kidsStabilitySeo,
+  kidsStabilityStrings,
+  kidsStabilityCoverageRows,
+  kidsStabilityClaimRows,
+  kidsStabilityTrainingRows,
+  kidsStabilityTrainingQuote,
+  kidsStabilityWheelSpread,
+  buildKidsBikeStabilityDatasetSchema,
+} from "../src/data/kidsBikeStability";
+import {
+  KIDS_BUYER_FEEDBACK_PATH,
+  KIDS_REVIEW_DATASET,
+  kidsBuyerFeedbackSeo,
+  kidsBuyerFeedbackStrings,
+  buildKidsBuyerFeedbackDatasetSchema,
+} from "../src/data/kidsBuyerFeedback";
+import {
+  KIDS_RECALLS_PATH,
+  kidsRecallsSeo,
+  kidsRecallsStrings,
+  kidsRecallCoverage,
+  kidsRecallHazards,
+  kidsRecallByYear,
+  kidsRecallPeriods,
+  kidsRecallSorted,
+  kidsRecallTotal,
+  buildKidsRecallsDatasetSchema,
+} from "../src/data/kidsBikeRecalls";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
@@ -4276,6 +4307,670 @@ function renderKidsBikeWeightPage(): RoutePage[] {
 }
 
 /**
+ * Prerendered kids-bike stability page.
+ *
+ * The pedal-bike counterpart of renderStabilityPage. Every count is interpolated
+ * from KIDS_STABILITY_DATASET; nothing is typed in. The published-geometry slot
+ * is intentionally absent: no kids-bike listing states a track width, so the page
+ * shows the gap instead of quoting a number nobody published.
+ */
+function renderKidsBikeStabilityPage(): RoutePage[] {
+  const t = kidsStabilityStrings.en;
+  const d = KIDS_STABILITY_DATASET;
+  const cov = d.coverage;
+
+  const vars = {
+    scanned: d.catalog.productsScanned,
+    listed: cov.listed,
+    withSpacing: cov.withTrackSpacing,
+    withTire: cov.withTireClass,
+    withTraining: cov.mentionsTrainingWheels,
+    withRemovable: cov.trainingWheelsRemovable,
+    file: d.source.exportFile,
+    date: d.source.retrievedAt,
+    minAge: d.ageCoverage.minAgeYears ?? "—",
+    maxAge: d.ageCoverage.maxAgeYears ?? "—",
+    wheelSpread: kidsStabilityWheelSpread(),
+  };
+
+  const coverageTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:560px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.coverStudio)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.coverValue)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${kidsStabilityCoverageRows(t)
+            .map(
+              (row) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(row.label)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:800;color:#0f172a;white-space:nowrap;">${row.n} / ${row.of}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const trainingTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:560px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.coverStudio)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.coverValue)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${kidsStabilityTrainingRows(t)
+            .map(
+              (row) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(row.label)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:800;color:#0f172a;white-space:nowrap;">${row.n} / ${row.of}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const claimsTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:560px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.coverStudio)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.coverValue)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${kidsStabilityClaimRows(t)
+            .map(
+              (row) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(row.label)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:800;color:#0f172a;white-space:nowrap;">${row.n} / ${row.of}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const rosterTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:860px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colBrand)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colModel)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colTraining)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colWheel)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colFrame)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colAge)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colWeight)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${d.kidsBikes
+            .map(
+              (b) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.8rem;font-weight:700;color:#0f172a;white-space:nowrap;">${escapeHtml(b.brand ?? "—")}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.8rem;color:#334155;"><a href="${escapeHtml(b.productUrl)}" style="color:#334155;text-decoration:none;">${escapeHtml(b.name)}</a></td>
+              <td style="padding:10px 12px 10px 0;font-size:0.8rem;color:#334155;white-space:nowrap;">${
+                b.mentionsTrainingWheels
+                  ? `${escapeHtml(t.published)}${b.trainingWheelsRemovable === true ? " · removable" : ""}`
+                  : escapeHtml(t.notStated)
+              }</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.8rem;color:#334155;white-space:nowrap;">${b.wheelSizeIn == null ? escapeHtml(t.notStated) : `${b.wheelSizeIn}&quot;`}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.8rem;color:#334155;white-space:nowrap;">${escapeHtml(b.frameMaterial ?? t.notStated)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.8rem;color:#334155;white-space:nowrap;">${escapeHtml(b.ageText ?? t.notStated)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.8rem;color:#334155;white-space:nowrap;">${b.weightLb == null ? escapeHtml(t.notStated) : `${b.weightLb} lb`}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const trainingQuote = kidsStabilityTrainingQuote();
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid #fed7aa;background:#fff7ed;padding:4px 12px;border-radius:9999px;font-size:0.6rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</div>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.heroTitle)}</h1>
+          <p style="font-size:1.05rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;font-weight:500;">${escapeHtml(fillTemplate(t.heroLead, vars))}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:24px 48px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px 16px;font-size:0.75rem;color:#475569;">
+            <span>${escapeHtml(t.sourceLabel)}: ${escapeHtml(d.source.name)}</span>
+            <span>${escapeHtml(d.source.retrievedAt)}</span>
+            <span>${cov.listed} kids bikes · ${d.catalog.productsScanned} products scanned</span>
+          </div>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.heroNote)}</p>
+        </header>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.gapTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.gapLead, vars))}</p>
+          ${coverageTable}
+          <p style="font-size:0.85rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;border-left:3px solid #fed7aa;padding-left:16px;">${escapeHtml(t.quoteMissing)}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.trainingTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.trainingLead, vars))}</p>
+          ${trainingTable}
+          ${
+            trainingQuote?.trainingWheelEvidence
+              ? `<figure style="margin:0;border:1px solid #fed7aa;background:#fff7ed;border-radius:16px;padding:20px;">
+            <div style="font-size:0.8rem;font-weight:800;color:#0f172a;">${escapeHtml(trainingQuote.brand)}</div>
+            <blockquote style="margin:12px 0 0;font-size:0.85rem;color:#334155;line-height:1.7;font-style:italic;">&ldquo;${escapeHtml(trainingQuote.trainingWheelEvidence)}&rdquo;</blockquote>
+            <figcaption style="margin-top:12px;font-size:0.72rem;color:#64748b;">${escapeHtml(t.quoteSourceLabel)} · <a href="${escapeHtml(trainingQuote.productUrl)}" style="color:#ea580c;">${escapeHtml(trainingQuote.name)}</a></figcaption>
+          </figure>`
+              : ""
+          }
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.ageTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.ageLead, vars))}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.claimsTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.claimsLead)}</p>
+          ${claimsTable}
+          <p style="font-size:0.72rem;color:#64748b;line-height:1.6;margin:0;">${escapeHtml(t.claimed)}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.rosterTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.rosterLead, vars))}</p>
+          ${rosterTable}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.checkTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.checkLead)}</p>
+          <ul style="margin:0;padding-left:4px;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;">
+            ${t.checkBody
+              .map(
+                (line) =>
+                  `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:#059669;font-weight:800;line-height:1.6;">&#10003;</span><span>${escapeHtml(line)}</span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.caveatTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.caveatLead)}</p>
+          <div style="border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+            ${t.caveatBody.map((line) => `<p style="font-size:0.85rem;color:#475569;line-height:1.7;margin:0;">${escapeHtml(fillTemplate(line, vars))}</p>`).join("")}
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#334155;line-height:1.7;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(fillTemplate(line, vars))}</li>`).join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          ${escapeHtml(t.sourceLabel)}: ${escapeHtml(d.source.name)} · ${escapeHtml(d.source.exportFile)} · ${escapeHtml(d.source.retrievedAt)} · ${escapeHtml(d.source.note)}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: KIDS_STABILITY_PATH,
+      title: kidsStabilitySeo.en.title,
+      description: kidsStabilitySeo.en.description,
+      skipTitleH1: true,
+      body: `${body}${clusterNavHtml(KIDS_STABILITY_PATH)}`,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: kidsStabilitySeo.en.title,
+          url: `https://balancebiketoddler.com${KIDS_STABILITY_PATH}`,
+          description: kidsStabilitySeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildKidsBikeStabilityDatasetSchema(`https://balancebiketoddler.com${KIDS_STABILITY_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Kids bike stability",
+              item: `https://balancebiketoddler.com${KIDS_STABILITY_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+/**
+ * Prerendered kids-bike buyer-feedback page.
+ *
+ * Counts mentions in the retailer-generated `customersSay` summaries. The
+ * provenance block is emitted before any table so a crawler reading top-down
+ * meets the caveat before the numbers.
+ */
+function renderKidsBuyerFeedbackPage(): RoutePage[] {
+  const t = kidsBuyerFeedbackStrings.en;
+  const d = KIDS_REVIEW_DATASET;
+  const total = d.kidsBikeSummaries;
+
+  const themeRows = d.themes
+    .map(
+      (theme) => `
+      <tr style="border-bottom:1px solid #f1f5f9;">
+        <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;">${escapeHtml(theme.label)}</td>
+        <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:800;color:#ea580c;white-space:nowrap;">${theme.count} of ${total}</td>
+        <td style="padding:10px 0;font-size:0.72rem;color:#475569;line-height:1.6;">${escapeHtml(theme.note)}</td>
+      </tr>`,
+    )
+    .join("");
+
+  const hedgeRows = d.hedges
+    .map(
+      (hedge) => `
+      <tr style="border-bottom:1px solid #f1f5f9;">
+        <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;">${escapeHtml(hedge.label)}</td>
+        <td style="padding:10px 0;font-size:0.82rem;font-weight:800;color:#ea580c;white-space:nowrap;">${hedge.count} of ${total}</td>
+      </tr>`,
+    )
+    .join("");
+
+  const listingRows = d.listings
+    .map(
+      (listing) => `
+      <tr style="border-bottom:1px solid #f1f5f9;">
+        <td style="padding:10px 12px 10px 0;font-size:0.8rem;color:#334155;"><a href="/products/kids-bikes/${escapeHtml(listing.id)}" style="color:#334155;text-decoration:none;">${escapeHtml(listing.name)}</a></td>
+        <td style="padding:10px 0;font-size:0.72rem;color:#64748b;white-space:nowrap;">${listing.chars}</td>
+      </tr>`,
+    )
+    .join("");
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:16px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <p style="margin:0;font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</p>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.h1)}</h1>
+          <p style="font-size:1rem;color:#334155;line-height:1.8;margin:0;max-width:48rem;">${escapeHtml(t.lead)}</p>
+        </header>
+
+        <section style="border:1px solid #fed7aa;background:#fff7ed;border-radius:16px;padding:20px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0 0 12px;">${escapeHtml(t.provenanceTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#475569;line-height:1.7;">
+            ${t.provenanceBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(line)}</li>`).join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.themeTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.themeIntro)}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:640px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.themeColTopic)}</th>
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.themeColCount)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.themeColNote)}</th>
+                </tr>
+              </thead>
+              <tbody>${themeRows}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.hedgeTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.hedgeIntro)}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:420px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.themeColTopic)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.themeColCount)}</th>
+                </tr>
+              </thead>
+              <tbody>${hedgeRows}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.listingTitle)}</h2>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:640px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.listingColName)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.listingColChars)}</th>
+                </tr>
+              </thead>
+              <tbody>${listingRows}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#334155;line-height:1.7;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(line)}</li>`).join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          ${escapeHtml(t.sourceLabel)}: ${escapeHtml(t.sourceNote)}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: KIDS_BUYER_FEEDBACK_PATH,
+      title: kidsBuyerFeedbackSeo.en.title,
+      description: kidsBuyerFeedbackSeo.en.description,
+      skipTitleH1: true,
+      body: `${body}${clusterNavHtml(KIDS_BUYER_FEEDBACK_PATH)}`,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: kidsBuyerFeedbackSeo.en.title,
+          url: `https://balancebiketoddler.com${KIDS_BUYER_FEEDBACK_PATH}`,
+          description: kidsBuyerFeedbackSeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildKidsBuyerFeedbackDatasetSchema(`https://balancebiketoddler.com${KIDS_BUYER_FEEDBACK_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "What buyers say about kids bikes",
+              item: `https://balancebiketoddler.com${KIDS_BUYER_FEEDBACK_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+/**
+ * Prerendered kids-bike recall record.
+ *
+ * Reuses the CPSC dataset the balance-bike record already ships, filtered to
+ * children's-bicycle notices. Counts are of notices, not units, and the page says
+ * so — a single notice can cover a run of hundreds of thousands of bikes.
+ */
+function renderKidsBikeRecallsPage(): RoutePage[] {
+  const t = kidsRecallsStrings.en;
+  const balanceRatio =
+    recallDataset.totals.balanceBikeNotices > 0
+      ? Math.round(kidsRecallTotal / recallDataset.totals.balanceBikeNotices)
+      : kidsRecallTotal;
+
+  const vars = {
+    startYear: kidsRecallCoverage.startYear,
+    endYear: kidsRecallCoverage.endYear,
+    retrievedAt: kidsRecallCoverage.retrievedAt,
+    kids: kidsRecallTotal,
+    balance: recallDataset.totals.balanceBikeNotices,
+    helmet: recallDataset.totals.kidHelmetNotices,
+    total: recallDataset.totals.cpscNoticesRetrieved,
+    balanceRatio,
+  };
+
+  const latestYear = kidsRecallByYear[kidsRecallByYear.length - 1]?.year ?? null;
+
+  const noticeCards = kidsRecallSorted
+    .slice(0, 8)
+    .map(
+      (n) => `
+      <article style="border:1px solid #e2e8f0;border-radius:16px;background:#fff;padding:16px 20px;">
+        <div style="font-size:0.7rem;font-weight:800;color:#64748b;">${escapeHtml(n.date)} · CPSC #${escapeHtml(n.recallNumber)}${n.units ? ` · ${escapeHtml(n.units)}` : ""}</div>
+        <h3 style="margin:8px 0 0;font-size:0.9rem;font-weight:800;color:#0f172a;line-height:1.5;">${escapeHtml(n.title)}</h3>
+        <p style="margin:8px 0 0;font-size:0.78rem;color:#475569;line-height:1.6;">${escapeHtml(n.hazard)}</p>
+        <p style="margin:8px 0 0;font-size:0.72rem;color:#64748b;font-weight:700;">${escapeHtml(n.party)}</p>
+        <a href="${escapeHtml(n.url)}" style="display:inline-block;margin-top:12px;font-size:0.75rem;font-weight:800;color:#ea580c;">${escapeHtml(t.openNotice)} &rarr;</a>
+      </article>`,
+    )
+    .join("");
+
+  const hazardRows = kidsRecallHazards
+    .map(
+      (h) => `
+      <tr style="border-bottom:1px solid #f1f5f9;">
+        <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(h.label)}</td>
+        <td style="padding:10px 0;font-size:0.82rem;font-weight:800;color:#0f172a;white-space:nowrap;">${h.count}</td>
+      </tr>`,
+    )
+    .join("");
+
+  const trendRows = kidsRecallByYear
+    .map(
+      (row) => `
+      <tr style="border-bottom:1px solid #f1f5f9;${row.year === latestYear ? "background:#fff7ed;" : ""}">
+        <td style="padding:8px 12px 8px 0;font-size:0.8rem;color:#334155;white-space:nowrap;">${row.year}${row.year === latestYear ? ` <span style="font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#ea580c;">in progress</span>` : ""}</td>
+        <td style="padding:8px 0;font-size:0.8rem;font-weight:800;color:#0f172a;white-space:nowrap;">${row.notices}</td>
+      </tr>`,
+    )
+    .join("");
+
+  const periodRows = kidsRecallPeriods
+    .map(
+      (row) => `
+      <tr style="border-bottom:1px solid #f1f5f9;">
+        <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${escapeHtml(row.period)}</td>
+        <td style="padding:10px 0;font-size:0.82rem;font-weight:800;color:#0f172a;white-space:nowrap;">${row.kidBikeNotices}</td>
+      </tr>`,
+    )
+    .join("");
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid #fecaca;background:#fef2f2;padding:4px 12px;border-radius:9999px;font-size:0.6rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#dc2626;">${escapeHtml(t.eyebrow)}</div>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.heroTitle)}</h1>
+          <p style="font-size:1.05rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;font-weight:500;">${escapeHtml(fillTemplate(t.heroLead, vars))}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:24px 48px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px 16px;font-size:0.75rem;color:#475569;">
+            <span>${escapeHtml(t.retrievedLabel)}: ${escapeHtml(kidsRecallCoverage.retrievedAt)}</span>
+            <span>${escapeHtml(t.coverageLabel)}: ${kidsRecallCoverage.startYear}–${kidsRecallCoverage.endYear}</span>
+          </div>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.heroNote)}</p>
+        </header>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.scopeTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.scopeLead, vars))}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:560px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.coverLabel)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.scopeCount)}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                  <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;">${escapeHtml(t.scopeKids)}</td>
+                  <td style="padding:10px 0;font-size:0.82rem;font-weight:800;color:#ea580c;white-space:nowrap;">${kidsRecallTotal}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                  <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(t.scopeHelmet)}</td>
+                  <td style="padding:10px 0;font-size:0.82rem;font-weight:800;color:#0f172a;white-space:nowrap;">${vars.helmet}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                  <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(t.scopeBalance)}</td>
+                  <td style="padding:10px 0;font-size:0.82rem;font-weight:800;color:#0f172a;white-space:nowrap;">${vars.balance}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#64748b;">${escapeHtml(t.scopeTotal)}</td>
+                  <td style="padding:10px 0;font-size:0.82rem;font-weight:800;color:#64748b;white-space:nowrap;">${vars.total}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.latestTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.latestLead)}</p>
+          <div style="display:flex;flex-direction:column;gap:12px;">${noticeCards}</div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.hazardTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.hazardLead)}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:560px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.hazardColHazard)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.hazardColCount)}</th>
+                </tr>
+              </thead>
+              <tbody>${hazardRows}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.trendTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.trendLead)}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:420px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.trendColYear)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.trendColNotices)}</th>
+                </tr>
+              </thead>
+              <tbody>${trendRows}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.periodTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.periodLead)}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:420px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.periodColSpan)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.periodColNotices)}</th>
+                </tr>
+              </thead>
+              <tbody>${periodRows}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.checkTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.checkLead)}</p>
+          <ul style="margin:0;padding-left:4px;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;">
+            ${t.checkBody
+              .map(
+                (line) =>
+                  `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:#ea580c;font-weight:800;line-height:1.6;">&#9679;</span><span>${escapeHtml(line)}</span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.caveatTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.caveatLead)}</p>
+          <div style="border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+            ${t.caveatBody.map((line) => `<p style="font-size:0.85rem;color:#475569;line-height:1.7;margin:0;">${escapeHtml(fillTemplate(line, vars))}</p>`).join("")}
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:1.25rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#334155;line-height:1.7;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(fillTemplate(line, vars))}</li>`).join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          ${escapeHtml(t.sourceLabel)}: ${escapeHtml(kidsRecallCoverage.name)} · <a href="${escapeHtml(kidsRecallCoverage.publisher)}" style="color:#94a3b8;">${escapeHtml(kidsRecallCoverage.publisher)}</a> · ${escapeHtml(t.retrievedLabel)} ${escapeHtml(kidsRecallCoverage.retrievedAt)}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: KIDS_RECALLS_PATH,
+      title: kidsRecallsSeo.en.title,
+      description: kidsRecallsSeo.en.description,
+      skipTitleH1: true,
+      body: `${body}${clusterNavHtml(KIDS_RECALLS_PATH)}`,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: kidsRecallsSeo.en.title,
+          url: `https://balancebiketoddler.com${KIDS_RECALLS_PATH}`,
+          description: kidsRecallsSeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildKidsRecallsDatasetSchema(`https://balancebiketoddler.com${KIDS_RECALLS_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Kids bike recalls",
+              item: `https://balancebiketoddler.com${KIDS_RECALLS_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+/**
  * Prerendered weight & build page (Plan-B Asset 5).
  *
  * Derived from src/data/weightData.generated.ts, itself produced by
@@ -6736,6 +7431,9 @@ async function main() {
     ...renderSafetyPage(),
     ...renderKidsBikeSafetyPage(),
     ...renderKidsBikeWeightPage(),
+    ...renderKidsBikeStabilityPage(),
+    ...renderKidsBuyerFeedbackPage(),
+    ...renderKidsBikeRecallsPage(),
     ...renderWeightPage(),
     ...renderStabilityPage(),
     ...renderAgePage(),
@@ -6858,6 +7556,9 @@ function sitemapPriority(route: string): number {
     SAFETY_PATH,
     KIDS_SAFETY_PATH,
     KIDS_WEIGHT_PATH,
+    KIDS_STABILITY_PATH,
+    KIDS_BUYER_FEEDBACK_PATH,
+    KIDS_RECALLS_PATH,
     RECALL_SAFETY_PATH,
     WEIGHT_PATH,
     STABILITY_PATH,

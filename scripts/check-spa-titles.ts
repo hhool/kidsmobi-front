@@ -33,6 +33,9 @@ import { KIDS_PRICE_PATH, kidsPriceSeo } from "../src/data/kidsBikePrice";
 import { SAFETY_PATH, safetySeo } from "../src/data/balanceBikeSafety";
 import { KIDS_SAFETY_PATH, kidsSafetySeo } from "../src/data/kidsBikeSafety";
 import { KIDS_WEIGHT_PATH, kidsWeightSeo } from "../src/data/kidsBikeWeight";
+import { KIDS_STABILITY_PATH, kidsStabilitySeo } from "../src/data/kidsBikeStability";
+import { KIDS_BUYER_FEEDBACK_PATH, kidsBuyerFeedbackSeo } from "../src/data/kidsBuyerFeedback";
+import { KIDS_RECALLS_PATH, kidsRecallsSeo } from "../src/data/kidsBikeRecalls";
 import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH, kidsBikeSizingSeo } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH, stabilitySeo } from "../src/data/balanceBikeStability";
@@ -101,6 +104,13 @@ const ASSET_SEO: Array<{
   { label: "asset safety", route: SAFETY_PATH, seo: en(safetySeo) },
   { label: "asset kids safety", route: KIDS_SAFETY_PATH, seo: en(kidsSafetySeo) },
   { label: "asset kids weight", route: KIDS_WEIGHT_PATH, seo: en(kidsWeightSeo) },
+  { label: "asset kids stability", route: KIDS_STABILITY_PATH, seo: en(kidsStabilitySeo) },
+  {
+    label: "asset kids buyer feedback",
+    route: KIDS_BUYER_FEEDBACK_PATH,
+    seo: en(kidsBuyerFeedbackSeo),
+  },
+  { label: "asset kids recalls", route: KIDS_RECALLS_PATH, seo: en(kidsRecallsSeo) },
   { label: "asset sizing", route: SIZING_PATH, seo: en(sizingSeo) },
   { label: "asset kids sizing", route: KIDS_SIZING_PATH, seo: en(kidsBikeSizingSeo) },
   { label: "asset stability", route: STABILITY_PATH, seo: en(stabilitySeo) },

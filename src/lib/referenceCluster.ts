@@ -81,6 +81,35 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
       "儿童脚踏车到底有多重——23 款中位 19.9 磅（9.0 公斤），约为平衡车的 4.2 倍，差距主要由传动系统解释。",
   },
   {
+    id: "kids-bike-stability",
+    href: "/kids-bike-stability/",
+    labelEn: "Kids bike stability",
+    labelZh: "儿童自行车稳定性",
+    blurbEn:
+      "Not one of the 23 pedal kids' bikes publishes a track width — but 18 mention training wheels and only one says they come off.",
+    blurbZh:
+      "23 款脚踏童车中没有一款公布轮间距——但有 18 款提到辅助轮，且只有 1 款说明可以拆。",
+  },
+  {
+    id: "kids-bike-what-buyers-say",
+    href: "/kids-bike-what-buyers-say/",
+    labelEn: "What buyers say about kids bikes",
+    labelZh: "买家怎么说童车",
+    blurbEn:
+      "All 22 buyer-sentiment summaries aggregated: what they mention, and how often the praise is hedged.",
+    blurbZh: "22 条买家情绪摘要的聚合：它们提到了什么，以及好评里有多少打了折扣。",
+  },
+  {
+    id: "kids-bike-recalls",
+    href: "/kids-bike-recalls/",
+    labelEn: "Kids bike recalls",
+    labelZh: "儿童自行车召回",
+    blurbEn:
+      "44 CPSC recall notices on children's bicycles since 2000 — 22x the balance-bike count — broken down by hazard and year.",
+    blurbZh:
+      "自 2000 年起 44 起童车 CPSC 召回通知——是平衡车（2 起）的 22 倍——按危害与年份分类。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",
