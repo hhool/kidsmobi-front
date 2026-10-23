@@ -33,9 +33,9 @@ export const INDEXNOW_ENDPOINTS = [
 // to 8/8 CMS-backed cards (by-age, what-buyers-say, stability).
 // 2026-10-22: 270 after the A2 news article backing the /news hub keyword
 // "electric dirt bike for kids" (news/electric-dirt-bikes-for-kids).
-// 2026-10-23: 274 after the kids-bike-safety-standards asset page — the 4th
+// 2026-10-23: 275 after the kids-bike-weight asset page — the 5th
 // content URL added since the 270 baseline. Keep in sync with dist/sitemap.xml.
-export const SITEMAP_BASELINE_COUNT = 274;
+export const SITEMAP_BASELINE_COUNT = 275;
 
 // High-value balance-bike query clusters for opportunity gap analysis.
 // Derived from the GSC intent study: age is the single biggest intent; the

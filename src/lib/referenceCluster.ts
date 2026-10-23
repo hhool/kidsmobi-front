@@ -71,6 +71,16 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
       "儿童脚踏车真正适用哪些规则——16 CFR 1512 与 CPSIA 把它作为自行车和儿童产品来管；ASTM F963 与 EN 71 不适用，因为它不是玩具。",
   },
   {
+    id: "kids-bike-weight",
+    href: "/kids-bike-weight/",
+    labelEn: "Kids bike weight",
+    labelZh: "儿童自行车重量",
+    blurbEn:
+      "How heavy a pedal kids' bike really is — median 19.9 lb (9.0 kg) across 23 models, about 4.2x a balance bike, with the drivetrain explaining most of the gap.",
+    blurbZh:
+      "儿童脚踏车到底有多重——23 款中位 19.9 磅（9.0 公斤），约为平衡车的 4.2 倍，差距主要由传动系统解释。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",

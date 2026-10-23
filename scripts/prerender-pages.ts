@@ -123,6 +123,16 @@ import {
   kidsSafetySource,
   buildKidsBikeSafetyDatasetSchema,
 } from "../src/data/kidsBikeSafety";
+import {
+  KIDS_WEIGHT_PATH,
+  KIDS_WEIGHT_DATASET,
+  kidsWeightSeo,
+  kidsWeightStrings,
+  kidsWeightCategoryRows,
+  kidsWeightHeadline,
+  kidsWeightFrameNote,
+  buildKidsBikeWeightDatasetSchema,
+} from "../src/data/kidsBikeWeight";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
@@ -4081,6 +4091,191 @@ function renderKidsBikeSafetyPage(): RoutePage[] {
 }
 
 /**
+ * Prerendered kids-bike weight page (Plan-B Asset 5, kids-bikes counterpart).
+ *
+ * Derived from src/data/weightData.generated.ts, itself produced by
+ * `npm run data:weight`. Every figure is interpolated from the dataset; the
+ * brake and tire fields, which the source leaves blank, are rendered as a
+ * stated gap rather than a guess.
+ */
+function renderKidsBikeWeightPage(): RoutePage[] {
+  const t = kidsWeightStrings.en;
+  const l = "en" as const; // prerender always emits the English canonical page
+  const d = KIDS_WEIGHT_DATASET;
+  const h = kidsWeightHeadline();
+  const frame = kidsWeightFrameNote();
+
+  const vars = {
+    scanned: d.totals.productsScanned,
+    withWeight: d.totals.withWeight,
+    kbMedian: h.kbMedian,
+    kbMedianKg: h.kbMedianKg,
+    bbMedian: h.bbMedian,
+    lighter: h.lighter,
+    lighterKg: h.lighterKg,
+    ratio: h.ratio,
+    kbListed: h.kbListed,
+    kbWithWeight: h.kbWithWeight,
+    kbMin: h.kbMin,
+    kbMax: h.kbMax,
+    steelMed: frame.steelMed ?? "—",
+    aluMed: frame.aluMed ?? "—",
+    file: d.source.exportFile,
+    date: d.source.retrievedAt,
+    minBand: d.method.plausibleBandLb[0],
+    maxBand: d.method.plausibleBandLb[1],
+  };
+
+  const compareTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:620px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colCategory)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colCount)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colMedian)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colRange)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${kidsWeightCategoryRows
+            .map(
+              (row) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;">${escapeHtml(row.label[l])}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${row.withWeight}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${
+                row.medianLb == null ? "—" : `${row.medianLb} lb / ${Math.round(row.medianLb * 0.45359237 * 10) / 10} kg`
+              }</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${
+                row.minLb == null ? "—" : `${row.minLb}–${row.maxLb} lb`
+              }</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid #fed7aa;background:#fff7ed;padding:4px 12px;border-radius:9999px;font-size:0.6rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</div>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.heroTitle)}</h1>
+          <p style="font-size:1.05rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;font-weight:500;">${escapeHtml(fillTemplate(t.heroLead, vars))}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:24px 48px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px 16px;font-size:0.75rem;color:#475569;">
+            <span>Source: ${escapeHtml(d.source.name)}</span>
+            <span>Compiled: ${escapeHtml(d.source.retrievedAt)}</span>
+          </div>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.heroNote)}</p>
+        </header>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.shortTitle)}</h2>
+          <div style="border:1px solid #fed7aa;background:#fff7ed;border-radius:16px;padding:20px;">${escapeHtml(fillTemplate(t.shortBody, vars))}</div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.compareTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.compareLead)}</p>
+          ${compareTable}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.mechTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.mechLead, vars))}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.wheelTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.wheelLead, vars))}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.frameTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.frameLead, vars))}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.unknownTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.unknownLead)}</p>
+          <div style="border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+            <p style="font-size:0.85rem;color:#475569;line-height:1.7;margin:0;">${escapeHtml(fillTemplate(t.unknownBrake, { kbListed: h.kbListed }))}</p>
+            <p style="font-size:0.85rem;color:#475569;line-height:1.7;margin:0;">${escapeHtml(fillTemplate(t.unknownTire, { kbListed: h.kbListed }))}</p>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.excludedTitle)}</h2>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.excludedLead, vars))}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#334155;line-height:1.7;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(fillTemplate(line, vars))}</li>`).join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.checkTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.checkLead)}</p>
+          <ul style="margin:0;padding-left:4px;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;">
+            ${t.checkBody
+              .map(
+                (line) =>
+                  `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:#059669;font-weight:800;line-height:1.6;">&#10003;</span><span>${escapeHtml(line)}</span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          Source: ${escapeHtml(d.source.name)} · Compiled: ${escapeHtml(d.source.retrievedAt)} · ${escapeHtml(d.source.note[l])}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: KIDS_WEIGHT_PATH,
+      title: kidsWeightSeo.en.title,
+      description: kidsWeightSeo.en.description,
+      skipTitleH1: true,
+      body: `${body}${clusterNavHtml(KIDS_WEIGHT_PATH)}`,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: kidsWeightSeo.en.title,
+          url: `https://balancebiketoddler.com${KIDS_WEIGHT_PATH}`,
+          description: kidsWeightSeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildKidsBikeWeightDatasetSchema(`https://balancebiketoddler.com${KIDS_WEIGHT_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Kids bike weight",
+              item: `https://balancebiketoddler.com${KIDS_WEIGHT_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+/**
  * Prerendered weight & build page (Plan-B Asset 5).
  *
  * Derived from src/data/weightData.generated.ts, itself produced by
@@ -6540,6 +6735,7 @@ async function main() {
     ...renderKidsBikeSizingPage(),
     ...renderSafetyPage(),
     ...renderKidsBikeSafetyPage(),
+    ...renderKidsBikeWeightPage(),
     ...renderWeightPage(),
     ...renderStabilityPage(),
     ...renderAgePage(),
@@ -6661,6 +6857,7 @@ function sitemapPriority(route: string): number {
     KIDS_SIZING_PATH,
     SAFETY_PATH,
     KIDS_SAFETY_PATH,
+    KIDS_WEIGHT_PATH,
     RECALL_SAFETY_PATH,
     WEIGHT_PATH,
     STABILITY_PATH,

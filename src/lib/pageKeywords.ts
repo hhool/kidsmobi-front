@@ -51,6 +51,7 @@ import { BUDGET_PATH, budgetSeo } from "../data/balanceBikeBudget";
 import { WEIGHT_PATH, weightSeo } from "../data/balanceBikeWeight";
 import { SAFETY_PATH, safetySeo } from "../data/balanceBikeSafety";
 import { KIDS_SAFETY_PATH, kidsSafetySeo } from "../data/kidsBikeSafety";
+import { KIDS_WEIGHT_PATH, kidsWeightSeo } from "../data/kidsBikeWeight";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerFeedback";
 import { RECALL_SAFETY_PATH, recallSeo } from "../data/safetyRecallRecord";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
@@ -329,6 +330,7 @@ const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; z
   [assetKey(WEIGHT_PATH)]: weightSeo,
   [assetKey(SAFETY_PATH)]: safetySeo,
   [assetKey(KIDS_SAFETY_PATH)]: kidsSafetySeo,
+  [assetKey(KIDS_WEIGHT_PATH)]: kidsWeightSeo,
   [assetKey(BUYER_FEEDBACK_PATH)]: buyerFeedbackSeo,
   [assetKey(RECALL_SAFETY_PATH)]: recallSeo,
 };

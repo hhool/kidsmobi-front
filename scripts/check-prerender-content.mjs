@@ -42,6 +42,7 @@ const REFERENCE_CLUSTER = [
   "/kids-bike-by-age/",
   "/kids-bike-price/",
   "/kids-bike-safety-standards/",
+  "/kids-bike-weight/",
   "/balance-bike-by-age/",
   "/balance-bike-stability/",
   "/balance-bike-weight/",

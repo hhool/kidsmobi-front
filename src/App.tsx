@@ -78,6 +78,7 @@ const BalanceBikeAge = lazy(() => import("./components/BalanceBikeAge"));
 const KidsBikeAge = lazy(() => import("./components/KidsBikeAge"));
 const KidsBikePrice = lazy(() => import("./components/KidsBikePrice"));
 const KidsBikeSafety = lazy(() => import("./components/KidsBikeSafety"));
+const KidsBikeWeight = lazy(() => import("./components/KidsBikeWeight"));
 const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
 const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
@@ -170,6 +171,11 @@ import {
   kidsSafetySeo,
   buildKidsBikeSafetyDatasetSchema,
 } from "./data/kidsBikeSafety";
+import {
+  KIDS_WEIGHT_PATH,
+  kidsWeightSeo,
+  buildKidsBikeWeightDatasetSchema,
+} from "./data/kidsBikeWeight";
 import {
   BUYER_FEEDBACK_PATH,
   buyerFeedbackSeo,
@@ -913,6 +919,21 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "kids-bike-safety-standards") {
     return {
       activeTab: "kids-bike-safety-standards",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Kids bike weight (kids-bikes counterpart of balance-bike weight-build).
+  // Registered before the unknown-root fallback so it hydrates with its own
+  // canonical, not home's.
+  if (root === "kids-bike-weight") {
+    return {
+      activeTab: "kids-bike-weight",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2886,6 +2907,40 @@ export default function App() {
       return;
     }
 
+    // Kids-bike weight reference (Plan-B Asset 5, kids-bikes counterpart): its
+    // own title/canonical so hydration keeps the prerendered metadata.
+    if (activeTab === "kids-bike-weight") {
+      const kidsWeightSeoData = kidsWeightSeo[lang] || kidsWeightSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${KIDS_WEIGHT_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(KIDS_WEIGHT_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(kidsWeightSeoData.title);
+      updateMetaTag("description", buildMetaDescription(kidsWeightSeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", kidsWeightSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(kidsWeightSeoData.title), buildMetaDescription(kidsWeightSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(kidsWeightSeoData.title),
+          url: canonicalUrl,
+          description: kidsWeightSeoData.description,
+          inLanguage: lang,
+        },
+        buildKidsBikeWeightDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     if (activeTab === "weight-build") {
       const weightSeoData = weightSeo[lang] || weightSeo.en;
       const canonicalOrigin =
@@ -4502,6 +4557,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "kids-bike-safety-standards" && (
           <KidsBikeSafety lang={lang} />
+        )}
+
+        {activeTab === "kids-bike-weight" && (
+          <KidsBikeWeight lang={lang} />
         )}
 
         {activeTab === "weight-build" && (
