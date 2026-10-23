@@ -51,6 +51,14 @@ const ROUTES = [
   '/kids-scooter-safety-standards/',
   '/kids-scooter-what-buyers-say/',
   '/kids-scooter-recalls/',
+  '/kids-ride-on-voltage/',
+  '/kids-ride-on-weight/',
+  '/kids-ride-on-size/',
+  '/kids-ride-on-price/',
+  '/kids-ride-on-by-age/',
+  '/kids-ride-on-safety-standards/',
+  '/kids-ride-on-what-buyers-say/',
+  '/kids-ride-on-recalls/',
   '/balance-bike-what-buyers-say/',
   '/balance-bike-budget/',
   '/guides/risk/balance-bike-recall-record',
@@ -109,6 +117,14 @@ const HUB_TOPIC_CHILDREN = {
   '/news': ['/news/brand_news', '/news/industry', '/news/new_product', '/news/science'],
   '/reviews': ['/reviews/compare', '/reviews/single'],
 };
+
+// Plan-B asset pages: each one is a single route whose whole body must render
+// inside the SPA viewport. The 2026-10-23 bug shipped all eight kids-scooter
+// pages with a correct static HTML and an EMPTY <main> after hydration (the
+// route dispatch produced a doubled tab name, so no JSX branch matched). The
+// probe printed "h1: (none)" and still exited 0 — nothing asserted that the
+// page had a heading at all. These routes now carry a hard assertion.
+const ASSET_ROUTE_RE = /^\/(balance-bike|kids-bike|kids-scooter|kids-ride-on)-[a-z-]+\/$/;
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
 const chromePath =
@@ -178,6 +194,10 @@ for (const route of ROUTES) {
         return {
           recovery: body.includes('Page Recovery Mode'),
           h1: document.querySelector('h1')?.textContent?.slice(0, 60) || '(none)',
+          h1Count: document.querySelectorAll('h1').length,
+          // The SPA viewport the asset pages render into. A zero-length main
+          // after hydration is the 2026-10-23 empty-page signature.
+          mainLen: document.querySelector('main')?.innerHTML?.length || 0,
           // The hydrated keywords meta. The A1 bug blanked this (the SPA effect
           // ran with an empty array); the A2 source split had it disagree with
           // the prerendered value. Both are invisible to curl.
@@ -210,6 +230,12 @@ for (const route of ROUTES) {
     else if (pageErrors.length) why = pageErrors[0];
     else if (!res || res.status() >= 400) why = `HTTP ${res?.status()}`;
     else if (!probe.keywords) why = 'hydrated keywords blank — prerender set lost after hydration (the A1 bug)';
+    else if (ASSET_ROUTE_RE.test(route) && probe.h1Count === 0) {
+      // The 2026-10-23 empty-<main> bug: correct static HTML, correct title,
+      // correct canonical, and an SPA that rendered nothing. Only an h1
+      // assertion catches it.
+      why = `no <h1> after hydration (main length ${probe.mainLen}) — the page rendered empty`;
+    }
     else {
       const staticKw = await staticKeywordsFor(route);
       if (staticKw === null) why = 'static HTML has no keywords meta — prerender stopped emitting';

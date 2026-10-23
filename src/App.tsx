@@ -90,6 +90,14 @@ const KidsScooterAge = lazy(() => import("./components/KidsScooterAge"));
 const KidsScooterSafety = lazy(() => import("./components/KidsScooterSafety"));
 const KidsScooterFeedback = lazy(() => import("./components/KidsScooterFeedback"));
 const KidsScooterRecalls = lazy(() => import("./components/KidsScooterRecalls"));
+const KidsRideOnVoltage = lazy(() => import("./components/KidsRideOnVoltage"));
+const KidsRideOnWeight = lazy(() => import("./components/KidsRideOnWeight"));
+const KidsRideOnSize = lazy(() => import("./components/KidsRideOnSize"));
+const KidsRideOnPrice = lazy(() => import("./components/KidsRideOnPrice"));
+const KidsRideOnAge = lazy(() => import("./components/KidsRideOnAge"));
+const KidsRideOnSafety = lazy(() => import("./components/KidsRideOnSafety"));
+const KidsRideOnFeedback = lazy(() => import("./components/KidsRideOnFeedback"));
+const KidsRideOnRecalls = lazy(() => import("./components/KidsRideOnRecalls"));
 const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
 const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
@@ -206,6 +214,10 @@ import {
   KIDS_SCOOTER_ASSET_PATHS,
   KIDS_SCOOTER_SEO_BY_PATH,
 } from "./data/kidsScooterSeo";
+import {
+  KIDS_RIDE_ON_ASSET_PATHS,
+  KIDS_RIDE_ON_SEO_BY_PATH,
+} from "./data/kidsRideOnSeo";
 import {
   BUYER_FEEDBACK_PATH,
   buyerFeedbackSeo,
@@ -1015,9 +1027,29 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   // The eight kids-scooter asset pages share one dataset and one tab each.
   // Dispatched from the path list so a new scooter page cannot be added to the
   // cluster without also being routed here.
+  //
+  // The tab name IS the path root ("kids-scooter-size"), not a prefixed form
+  // of it. Prefixing produced "kids-scooter-kids-scooter-size", which the SEO
+  // effect's regex silently repaired but the JSX route keys never matched —
+  // the pages shipped with an empty <main> after hydration (found 2026-10-23).
   if (KIDS_SCOOTER_ASSET_PATHS.includes(`/${root}/`)) {
     return {
-      activeTab: `kids-scooter-${root}`,
+      activeTab: root,
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // The eight kids-ride-on asset pages share one dataset and one tab each,
+  // dispatched from the path list for the same reason as the scooter cluster.
+  // Same rule as above: the tab name is the path root verbatim.
+  if (KIDS_RIDE_ON_ASSET_PATHS.includes(`/${root}/`)) {
+    return {
+      activeTab: root,
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -3122,10 +3154,11 @@ export default function App() {
     }
 
     // One effect for all eight kids-scooter asset pages. Each has its own SEO
-    // block in data/kidsScooterSeo.ts, keyed by path; the tab name is
-    // `kids-scooter-<root>` so the path can be recovered from activeTab.
+    // block in data/kidsScooterSeo.ts, keyed by path. The tab name IS the path
+    // root ("kids-scooter-size"), so the path is recovered verbatim — do NOT
+    // strip a prefix here (that was the bug that shipped the empty <main>).
     if (activeTab.startsWith("kids-scooter-")) {
-      const scooterPath = `/${activeTab.replace(/^kids-scooter-/, "")}/`;
+      const scooterPath = `/${activeTab}/`;
       const scooterSeo = KIDS_SCOOTER_SEO_BY_PATH[scooterPath];
       if (scooterSeo) {
         const seoData = scooterSeo[lang] || scooterSeo.en;
@@ -3136,6 +3169,46 @@ export default function App() {
           window.location.origin;
         const canonicalUrl = `${canonicalOrigin}${scooterPath}`;
         const noIndex = shouldNoIndexCurrentPath(scooterPath, window.location.search, window.location.hostname);
+        const docTitle = buildDocumentTitle(seoData.title);
+        const metaDesc = buildMetaDescription(seoData.description, sanitizeUnsupportedClaims);
+
+        document.title = docTitle;
+        updateMetaTag("description", metaDesc);
+        updateMetaTag("keywords", seoData.keywords.join(", "));
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+        updateCanonicalLink(canonicalUrl);
+        updateMetaProperty("og:url", canonicalUrl);
+        updateSocialMeta(docTitle, metaDesc, DEFAULT_OG_IMAGE_PATH, "website");
+
+        injectJsonLd([
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: docTitle,
+            url: canonicalUrl,
+            description: seoData.description,
+            inLanguage: lang,
+          },
+        ]);
+        return;
+      }
+    }
+
+    // One effect for all eight kids-ride-on asset pages. Each has its own SEO
+    // block in data/kidsRideOnSeo.ts, keyed by path. Same rule as the scooter
+    // cluster: the tab name is the path root, so the path is recovered verbatim.
+    if (activeTab.startsWith("kids-ride-on-")) {
+      const rideOnPath = `/${activeTab}/`;
+      const rideOnSeo = KIDS_RIDE_ON_SEO_BY_PATH[rideOnPath];
+      if (rideOnSeo) {
+        const seoData = rideOnSeo[lang] || rideOnSeo.en;
+        const canonicalOrigin =
+          cmsSettings?.seoGlobal?.siteOrigin ||
+          (cmsSettings as any)?.siteOrigin ||
+          (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+          window.location.origin;
+        const canonicalUrl = `${canonicalOrigin}${rideOnPath}`;
+        const noIndex = shouldNoIndexCurrentPath(rideOnPath, window.location.search, window.location.hostname);
         const docTitle = buildDocumentTitle(seoData.title);
         const metaDesc = buildMetaDescription(seoData.description, sanitizeUnsupportedClaims);
 
@@ -4825,6 +4898,38 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "kids-scooter-recalls" && (
           <KidsScooterRecalls lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-voltage" && (
+          <KidsRideOnVoltage lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-weight" && (
+          <KidsRideOnWeight lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-size" && (
+          <KidsRideOnSize lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-price" && (
+          <KidsRideOnPrice lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-by-age" && (
+          <KidsRideOnAge lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-safety-standards" && (
+          <KidsRideOnSafety lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-what-buyers-say" && (
+          <KidsRideOnFeedback lang={lang} />
+        )}
+
+        {activeTab === "kids-ride-on-recalls" && (
+          <KidsRideOnRecalls lang={lang} />
         )}
 
         {activeTab === "weight-build" && (

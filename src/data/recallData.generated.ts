@@ -13,7 +13,9 @@ export const RECALL_DATASET = {
     "cpscNoticesRetrieved": 8335,
     "kidsBikeNotices": 44,
     "kidHelmetNotices": 59,
-    "balanceBikeNotices": 2
+    "balanceBikeNotices": 2,
+    "rideOnNotices": 16,
+    "tricycleNotices": 5
   },
   "balanceBikeNotices": [
     {
@@ -1071,6 +1073,220 @@ export const RECALL_DATASET = {
       "remedy": "Refund: Consumers should immediately stop using the recalled helmets and contact R.X.Y for a full refund. Consumers should destroy the helmet by cutting the straps and uploading photos of the helmet with the straps cut off to RX"
     }
   ],
+  "rideOnNotices": [
+    {
+      "recallNumber": "26348",
+      "date": "2026-03-26",
+      "title": "FUNTOK Ride-On Trucks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury or Death; Imported by Shenzhen Luobei Trading",
+      "url": "https://www.cpsc.gov/Recalls/2026/FUNTOK-Ride-On-Trucks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-or-Death-Imported-by-Shenzhen-Luobei-Trading",
+      "party": "Shenzhen Luobei Trading Co.",
+      "units": "About 1,980",
+      "hazard": "The truck's circuit board can overheat and ignite, posing fire and burn hazards.",
+      "remedy": "Refund: Consumers should stop using the recalled ride-on truck immediately, unplug the truck if it is charging, and contact Shenzhen Luobei Trading Co. for instructions to receive a full refund. To obtain a refund, consumers wil"
+    },
+    {
+      "recallNumber": "25239",
+      "date": "2025-04-24",
+      "title": "Huffy Recalls Torex UTV Ride-On Toys Due to Fire Hazard; Sold Exclusively at Walmart",
+      "url": "https://www.cpsc.gov/Recalls/2025/Huffy-Recalls-Torex-UTV-Ride-On-Toys-Due-to-Fire-Hazard-Sold-Exclusively-at-Walmart",
+      "party": "Huffy Corporation",
+      "units": "About 24,700",
+      "hazard": "The recalled ride-on toys can overheat due to improper wiring, posing a fire hazard.",
+      "remedy": "Repair: Consumers should immediately stop using the recalled UTVs and contact Huffy Corporation to schedule a free repair. Consumers can have the repair done by a third party. Huffy Corporation will reimburse consumers up to $50"
+    },
+    {
+      "recallNumber": "25235",
+      "date": "2025-04-24",
+      "title": "Huffy Recalls Children's Ride-On Tonka Dump Trucks Due to Fire and Burn Hazards",
+      "url": "https://www.cpsc.gov/Recalls/2025/Huffy-Recalls-Childrens-Ride-On-Tonka-Dump-Trucks-Due-to-Fire-and-Burn-Hazards",
+      "party": "Huffy Corporation",
+      "units": "About 23,260",
+      "hazard": "The controller on the recalled ride-on dump trucks can overheat, posing fire and burn hazards.",
+      "remedy": "Repair: Consumers should immediately stop using the recalled children's dump trucks and contact Huffy for a free replacement controller. Huffy is contacting all known purchasers directly."
+    },
+    {
+      "recallNumber": "24210",
+      "date": "2024-04-25",
+      "title": "JAKKS Pacific Recalls Children's Mario Kart Ride-On Racer Car Toys Due to Crash Hazard",
+      "url": "https://www.cpsc.gov/Recalls/2024/JAKKS-Pacific-Recalls-Childrens-Mario-Kart-Ride-On-Racer-Car-Toys-Due-to-Crash-Hazard",
+      "party": "JAKKS Pacific Inc.",
+      "units": "About 17,500",
+      "hazard": "If the acceleration pedal on the battery-operated ride-on toy becomes clogged with debris, it can stick after the user's foot is removed from the pedal, posing a crash hazard.",
+      "remedy": "Repair: Consumers should immediately stop using the 24V Ride-On cars and contact JAKKS Pacific to receive a free repair kit. The repair kit includes a free replacement pedal with installation instructions."
+    },
+    {
+      "recallNumber": "21040",
+      "date": "2020-12-02",
+      "title": "Huffy Recalls Torex Ride-on Toy UTVs Due to Injury Hazard; Sold Exclusively at Walmart",
+      "url": "https://www.cpsc.gov/Recalls/2021/Huffy-Recalls-Torex-Ride-on-Toy-UTVs-Due-to-Injury-Hazard-Sold-Exclusively-at-Walmart",
+      "party": "Huffy Corporation",
+      "units": "About 5,150",
+      "hazard": "The ride-on toy can unexpectedly move when connecting the battery after recharging, posing an injury hazard.",
+      "remedy": "Replace: Consumers should immediately stop using the recalled toy UTV and contact Huffy for a free replacement controller."
+    },
+    {
+      "recallNumber": "19058",
+      "date": "2019-02-05",
+      "title": "Fisher-Price Recalls Children's Power Wheels Barbie Campers Due to Injury Hazard",
+      "url": "https://www.cpsc.gov/Recalls/2019/Fisher-Price-Recalls-Childrens-Power-Wheels-Barbie-Campers-Due-to-Injury-Hazard",
+      "party": "Fisher-Price",
+      "units": "About 44,000",
+      "hazard": "The children's ride-on Power Wheels can continue to run after the foot pedal is released, posing an injury hazard.",
+      "remedy": "Repair: Consumers should immediately take the recalled Power Wheels away from children, stop using them and contact Fisher-Price for a free repair."
+    },
+    {
+      "recallNumber": "17162",
+      "date": "2017-05-23",
+      "title": "Dynacraft Recalls Ride-On Toys Due to Fall and Crash Hazards",
+      "url": "https://www.cpsc.gov/Recalls/2017/Dynacraft-Recalls-Ride-On-Toys",
+      "party": "Dynacraft BSC Inc.",
+      "units": "About 20,000",
+      "hazard": "The acceleration pedal on the ride-on toys can stick, posing fall and crash hazards.",
+      "remedy": "Repair: Consumers should immediately take the recalled ride-on toys away from children and contact Dynacraft to receive a free replacement foot pedal with installation instructions. Consumers in need of assistance with the repai"
+    },
+    {
+      "recallNumber": "17707",
+      "date": "2016-10-27",
+      "title": "Peg Perego Recalls Children's Ride-On Vehicles Due to Fire and Burn Hazards (Recall Alert)",
+      "url": "https://www.cpsc.gov/Recalls/2017/Peg-Perego-Recalls-Childrens-Ride-On-Vehicles",
+      "party": "Peg Perego USA",
+      "units": "About 3,000",
+      "hazard": "A relay on the circuit board can fail causing the vehicle's motor to overheat and ignite, posing fire and burn hazards.",
+      "remedy": "New Instructions, Replace: Consumers should immediately stop children from using the recalled toy vehicles and contact Peg Perego to receive a free replacement circuit board with instructions, including shipping. Consumers can also access the inst"
+    },
+    {
+      "recallNumber": "13162",
+      "date": "2013-04-04",
+      "title": "Dynacraft Recalls Urban Shredder Ride-On Toys Due to Fall Hazard",
+      "url": "https://www.cpsc.gov/Recalls/2013/Dynacraft-Recalls-Urban-Shredder-Ride-On-Toys",
+      "party": "Heshan Congtin Technological Development Co. Ltd.",
+      "units": "About 8,900",
+      "hazard": "The Urban Shredder ride-on toys can unexpectedly accelerate and cause the rider to lose control, posing a fall hazard.",
+      "remedy": "Refund: Consumers should immediately stop using the recalled toy, disconnect the battery and return the shredder to the store where purchased for a refund or store credit."
+    },
+    {
+      "recallNumber": "12747",
+      "date": "2012-09-12",
+      "title": "Bluestem Brands Recalls Range Rider Ride-on Toy Cars Due to Fire and Burn Hazards",
+      "url": "https://www.cpsc.gov/Recalls/2012/Bluestem-Brands-Recalls-Range-Rider-Ride-on-Toy-Cars-Due-to-Fire-and-Burn-Hazards",
+      "party": "Bluestem Brands",
+      "units": "About 4,700",
+      "hazard": "The battery can overheat, smoke, melt and catch on fire, posing fire and burn hazards to consumers.",
+      "remedy": "Refund: Consumers should immediately stop using the recalled ride-on toy cars and remove the battery and contact Bluestem for a full refund of the purchase price plus reimbursement for shipping and handling. The firm is directly"
+    },
+    {
+      "recallNumber": "08410",
+      "date": "2008-09-25",
+      "title": "Four-Wheeled Ride-On Vehicles Recalled by Razor USA Due to Throttle Controller Defect",
+      "url": "https://www.cpsc.gov/Recalls/2008/Four-Wheeled-Ride-On-Vehicles-Recalled-by-Razor-USA-Due-to-Throttle-Controller-Defect",
+      "party": "Razor USA LLC",
+      "units": "About 30,000",
+      "hazard": "The control module for the throttle can fail and cause the electric ride-on vehicle to unexpectedly surge forward, posing a risk of injury to the user or a bystander.",
+      "remedy": "Consumers should immediately stop using the product and contact Razor for a free replacement controller."
+    },
+    {
+      "recallNumber": "08195",
+      "date": "2008-02-19",
+      "title": "Cinderella Battery-Powered Toy Cars Recalled by Dumar International USA Due to Fire and Burn Hazards",
+      "url": "https://www.cpsc.gov/Recalls/2008/Cinderella-Battery-Powered-Toy-Cars-Recalled-by-Dumar-International-USA-Due-to-Fire-and-Burn-Hazards",
+      "party": "Dumar International USA",
+      "units": "About 64,000",
+      "hazard": "The wires under the hood of the car and/or in the battery compartment under the seat can short circuit, posing a fire and burn hazard to children riding in the car.",
+      "remedy": "Consumers should immediately take the recalled toy cars away from children and contact Dumar International for a free retrofit kit, including a new battery."
+    },
+    {
+      "recallNumber": "06018",
+      "date": "2005-10-27",
+      "title": "CPSC, Dorel Juvenile Group USA Announce Recall to Repair Battery-Powered Ride-On Vehicles",
+      "url": "https://www.cpsc.gov/Recalls/2006/CPSC-Dorel-Juvenile-Group-USA-Announce-Recall-to-Repair-Battery-Powered-Ride-On-Vehicles",
+      "party": "Dorel Juvenile Group USA",
+      "units": "About 141,000",
+      "hazard": "An electronic malfunction can occur in the ride-on vehicle's circuit board and/or battery connector, resulting in smoking and melting of components. This poses a vehicle fire hazard and a burn hazard to consumers, if components are touched while malfunctioning.",
+      "remedy": "Consumers should take the recalled ride-on vehicles away from children immediately and contact the company for a free repair."
+    },
+    {
+      "recallNumber": "04555",
+      "date": "2004-06-09",
+      "title": "CPSC, Far East Brokers and Consultants Inc. Announce Recall of Kiddie Car Cruisers Sold Exclusively at Big Y Stores",
+      "url": "https://www.cpsc.gov/Recalls/2004/CPSC-Far-East-Brokers-and-Consultants-Inc-Announce-Recall-of-Kiddie-Car-Cruisers-Sold-Exclusively-at-Big-Y-Stores",
+      "party": "Far East Brokers and Consultants Inc. (FEBC)",
+      "units": "About 500",
+      "hazard": "The Kiddie Car Cruiser can continue to run when the accelerator is no longer depressed, which could result in the rider losing control of the car.",
+      "remedy": "Consumers should stop using the recalled car immediately and return it to a Big Y store to receive a refund."
+    },
+    {
+      "recallNumber": "00177",
+      "date": "2000-08-31",
+      "title": "CPSC, Tek Nek Toys Announce Recall of Children's Riding Vehicles",
+      "url": "https://www.cpsc.gov/Recalls/2000/CPSC-Tek-Nek-Toys-Announce-Recall-of-Childrens-Riding-Vehicles",
+      "party": "Tek Nek Toys",
+      "units": "About 294,000",
+      "hazard": "The vehicles' battery charger or wires can overheat, presenting fire and injury hazards to children.",
+      "remedy": "Consumers should stop using the vehicles immediately and contact Tek Nek to receive a free, new charger. Consumers should not charge the vehicles or let children use the vehicles until they have received the new charger."
+    },
+    {
+      "recallNumber": "00176",
+      "date": "2000-08-31",
+      "title": "CPSC, Empire Industries Announce Recall of Children's Riding Vehicles",
+      "url": "https://www.cpsc.gov/Recalls/2000/CPSC-Empire-Industries-Announce-Recall-of-Childrens-Riding-Vehicles",
+      "party": "Empire Industries",
+      "units": "About 113,000",
+      "hazard": "The vehicles' battery chargers can overheat, presenting fire and injury hazards to children.",
+      "remedy": "Consumers should stop using the vehicles immediately. Empire Industries is no longer in business and cannot provide charger adapters or other replacement parts. Consumers should discontinue use of these products, and dis"
+    }
+  ],
+  "tricycleNotices": [
+    {
+      "recallNumber": "20712",
+      "date": "2020-01-09",
+      "title": "Thesaurus Global Marketing Recalls Tricycles Due to Violation of the Federal Lead Paint Ban; Risk of Poisoning; Sold Exclusively at Amazon.com (Recall Alert)",
+      "url": "https://www.cpsc.gov/Recalls/2020/Thesaurus-Global-Marketing-Recalls-Tricycles-Due-to-Violation-of-the-Federal-Lead-Paint-Ban-Risk-of-Poisoning-Sold-Exclusively-at-Amazon-com-Recall-Alert",
+      "party": "Thesaurus Global Marketing Inc.",
+      "units": "About 370",
+      "hazard": "Paint on the canopy's frame contains levels of lead that exceed the federal lead paint ban and tricycle components contain levels of lead that exceed the federal lead content ban. Lead is toxic if ingested by young children and can cause adverse health issues.",
+      "remedy": "Refund: Consumers should immediately stop using the recalled tricycles, take them away from children and contact Thesaurus Global Marketing for a full refund, including the cost of shipping. Amazon is contacting all known purcha"
+    },
+    {
+      "recallNumber": "13170",
+      "date": "2013-04-17",
+      "title": "Huffy Recalls Slider Tricycles Due to Loss of Control Hazard; Sold Exclusively at Toys R Us",
+      "url": "https://www.cpsc.gov/Recalls/2013/Huffy-Recalls-Slider-Tricycles",
+      "party": "Huffy Corp. of Centerville",
+      "units": "About 5,040",
+      "hazard": "The handlebar can unexpectedly loosen while in use, causing the rider to lose control. This poses crash and fall hazards for the rider.",
+      "remedy": "Refund: Consumers should immediately stop using the tricycle and contact Huffy for instructions on how to obtain a refund."
+    },
+    {
+      "recallNumber": "12029",
+      "date": "2011-11-01",
+      "title": "Kiddieland Recalls Disney-branded Fairies Plastic Trikes Due to Laceration Hazard",
+      "url": "https://www.cpsc.gov/Recalls/2012/Kiddieland-Recalls-Disney-branded-Fairies-Plastic-Trikes-Due-to-Laceration-Hazard",
+      "party": "Kiddieland Toys Limited",
+      "units": "About 12,000",
+      "hazard": "The plastic fairy figures protrude from the top of the handle bar posing a laceration hazard if a child falls on them.",
+      "remedy": "Replace: Consumers should immediately take the trikes away from children and contact Kiddieland for a free replacement handlebar with an enclosed rotating display."
+    },
+    {
+      "recallNumber": "11205",
+      "date": "2011-04-21",
+      "title": "Disney Princess Plastic Trikes Recalled by Kiddieland Due to Laceration Hazard",
+      "url": "https://www.cpsc.gov/Recalls/2011/Disney-Princess-Plastic-Trikes-Recalled-by-Kiddieland-Due-to-Laceration-Hazard",
+      "party": "Kiddieland Toys Limited",
+      "units": "About 9,000 in the U.S. and 700 in Canada",
+      "hazard": "The plastic castle display and the princess figures protruding from the top of the handle bar pose a laceration hazard if a child falls on it.",
+      "remedy": "Replace: Consumers should immediately take the trikes away from children and contact Kiddieland for a free replacement handlebar with an enclosed rotating display."
+    },
+    {
+      "recallNumber": "10359",
+      "date": "2010-09-30",
+      "title": "Fisher-Price Recalls Children's Trikes Due to Risk of Serious Injury",
+      "url": "https://www.cpsc.gov/Recalls/2010/Fisher-Price-Recalls-Childrens-Trikes-Due-to-Risk-of-Serious-Injury",
+      "party": "Fisher-Price Inc.",
+      "units": "About 7 Million in the United States and 150,000 in Canada",
+      "hazard": "A child can strike, sit or fall on the protruding plastic ignition key resulting in serious injury, including genital bleeding.",
+      "remedy": "Consumers should immediately place the trikes out of children's reach and contact Fisher-Price for a free replacement key."
+    }
+  ],
   "hazardBreakdown": [
     {
       "label": "Structural failure or part breakage",
@@ -1107,6 +1323,262 @@ export const RECALL_DATASET = {
     {
       "label": "Choking / small parts",
       "count": 1
+    }
+  ],
+  "rideOnHazardBreakdown": [
+    {
+      "label": "Fire, heat or battery",
+      "count": 16
+    },
+    {
+      "label": "Fall hazard / loss of control",
+      "count": 4
+    },
+    {
+      "label": "Structural failure or part breakage",
+      "count": 2
+    },
+    {
+      "label": "Crash or collision risk",
+      "count": 2
+    }
+  ],
+  "tricycleHazardBreakdown": [
+    {
+      "label": "Fall hazard / loss of control",
+      "count": 4
+    },
+    {
+      "label": "Laceration / sharp edge",
+      "count": 2
+    },
+    {
+      "label": "Crash or collision risk",
+      "count": 1
+    },
+    {
+      "label": "Lead / regulated substances",
+      "count": 1
+    }
+  ],
+  "rideOnYearlyTrend": [
+    {
+      "year": 2000,
+      "notices": 2
+    },
+    {
+      "year": 2001,
+      "notices": 0
+    },
+    {
+      "year": 2002,
+      "notices": 0
+    },
+    {
+      "year": 2003,
+      "notices": 0
+    },
+    {
+      "year": 2004,
+      "notices": 1
+    },
+    {
+      "year": 2005,
+      "notices": 1
+    },
+    {
+      "year": 2006,
+      "notices": 0
+    },
+    {
+      "year": 2007,
+      "notices": 0
+    },
+    {
+      "year": 2008,
+      "notices": 2
+    },
+    {
+      "year": 2009,
+      "notices": 0
+    },
+    {
+      "year": 2010,
+      "notices": 0
+    },
+    {
+      "year": 2011,
+      "notices": 0
+    },
+    {
+      "year": 2012,
+      "notices": 1
+    },
+    {
+      "year": 2013,
+      "notices": 1
+    },
+    {
+      "year": 2014,
+      "notices": 0
+    },
+    {
+      "year": 2015,
+      "notices": 0
+    },
+    {
+      "year": 2016,
+      "notices": 1
+    },
+    {
+      "year": 2017,
+      "notices": 1
+    },
+    {
+      "year": 2018,
+      "notices": 0
+    },
+    {
+      "year": 2019,
+      "notices": 1
+    },
+    {
+      "year": 2020,
+      "notices": 1
+    },
+    {
+      "year": 2021,
+      "notices": 0
+    },
+    {
+      "year": 2022,
+      "notices": 0
+    },
+    {
+      "year": 2023,
+      "notices": 0
+    },
+    {
+      "year": 2024,
+      "notices": 1
+    },
+    {
+      "year": 2025,
+      "notices": 2
+    },
+    {
+      "year": 2026,
+      "notices": 1
+    }
+  ],
+  "tricycleYearlyTrend": [
+    {
+      "year": 2000,
+      "notices": 0
+    },
+    {
+      "year": 2001,
+      "notices": 0
+    },
+    {
+      "year": 2002,
+      "notices": 0
+    },
+    {
+      "year": 2003,
+      "notices": 0
+    },
+    {
+      "year": 2004,
+      "notices": 0
+    },
+    {
+      "year": 2005,
+      "notices": 0
+    },
+    {
+      "year": 2006,
+      "notices": 0
+    },
+    {
+      "year": 2007,
+      "notices": 0
+    },
+    {
+      "year": 2008,
+      "notices": 0
+    },
+    {
+      "year": 2009,
+      "notices": 0
+    },
+    {
+      "year": 2010,
+      "notices": 1
+    },
+    {
+      "year": 2011,
+      "notices": 2
+    },
+    {
+      "year": 2012,
+      "notices": 0
+    },
+    {
+      "year": 2013,
+      "notices": 1
+    },
+    {
+      "year": 2014,
+      "notices": 0
+    },
+    {
+      "year": 2015,
+      "notices": 0
+    },
+    {
+      "year": 2016,
+      "notices": 0
+    },
+    {
+      "year": 2017,
+      "notices": 0
+    },
+    {
+      "year": 2018,
+      "notices": 0
+    },
+    {
+      "year": 2019,
+      "notices": 0
+    },
+    {
+      "year": 2020,
+      "notices": 1
+    },
+    {
+      "year": 2021,
+      "notices": 0
+    },
+    {
+      "year": 2022,
+      "notices": 0
+    },
+    {
+      "year": 2023,
+      "notices": 0
+    },
+    {
+      "year": 2024,
+      "notices": 0
+    },
+    {
+      "year": 2025,
+      "notices": 0
+    },
+    {
+      "year": 2026,
+      "notices": 0
     }
   ],
   "yearlyTrend": [

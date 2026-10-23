@@ -9,14 +9,29 @@
  * Source: US Consumer Product Safety Commission, SaferProducts.gov
  *         Recall REST endpoint  /RestWebServices/Recall?format=json
  *
- * Usage: npm run data:recalls [-- --start=2000]
+ * Usage: npm run data:recalls
+ *
+ * Corpus handling
+ * ---------------
+ * The live CPSC feed keeps growing, so re-running this script against the live
+ * API silently changes every total the published pages quote — the 2026 window
+ * alone had already drifted by 11 notices between two runs. To keep published
+ * numbers reproducible, the default source is the PINNED corpus in
+ * scripts/cache/cpsc-pinned.json, fetched once by scripts/cache/fetch_cpsc_pinned.mjs
+ * with RecallDateEnd pinned to the published retrieval date. It reproduces the
+ * published corpus exactly (8,335 notices). Pass --live to query the API
+ * instead, or --corpus=<path> to point at another snapshot.
  */
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 const API = "https://www.saferproducts.gov/RestWebServices/Recall";
 const START_YEAR = Number(process.argv.find((a) => a.startsWith("--start="))?.split("=")[1] || 2000);
 const OUT_FILE = path.resolve("src/data/recallData.generated.ts");
+const USE_LIVE = process.argv.includes("--live");
+const CORPUS_ARG = process.argv.find((a) => a.startsWith("--corpus="))?.split("=")[1];
+const CORPUS_FILE = path.resolve(CORPUS_ARG || "scripts/cache/cpsc-pinned.json");
+const CORPUS_META_FILE = path.resolve("scripts/cache/cpsc-pinned.meta.json");
 
 /** Product taxonomy values CPSC uses for wheeled children's products. */
 const VEHICLE_TYPES = new Set([
@@ -35,6 +50,56 @@ const GEAR_TYPES = new Set(["Bicycle Helmets"]);
 
 const VEHICLE_TEXT = ["bicycle", "bike", "tricycle", "trike", "scooter", "ride-on", "ride on", "wagon"];
 const CHILD_TEXT = ["children", "child", "kids", "kid", "toddler", "youth", "juvenile", "infant", "preschool"];
+
+/**
+ * Adult and agricultural vehicles that share the "ride-on" wording.
+ *
+ * CPSC uses "Toy Ride-on" as a product type for children's battery cars, but
+ * the same title shape covers lawn tractors, mowers and UTVs sold to adults.
+ * These are excluded by name rather than by a voltage test, because the
+ * exclusion has to be auditable: a reader can look up the name and see why the
+ * notice is not on the page.
+ */
+const ADULT_RIDE_NAMES =
+  /mahindra|john deere|kubota|riding lawn|garden tractor|compact tractor|utility tractor|lawn mower|riding mower|\btractor\b|\bmower\b|go-kart|gokart/i;
+
+/** Adult recreational trikes (recumbent, pedal-powered, branded). */
+const ADULT_TRICYCLE_NAMES = /terra\s?trike|currie|wizwheelz|pedego|green\s?speed|recumbent/i;
+
+/** "Ride-on" or "riding toy" in a notice title. */
+const RIDE_ON_TITLE = /ride.?on|riding (?:toy|vehicle)|power wheels|kiddie car/i;
+
+/** "Ride-on" or "riding toy" in a CPSC product type. */
+const RIDE_ON_TYPE = /ride.on|riding toy|toy vehicles/i;
+
+/**
+ * Evidence that the vehicle is powered rather than pushed.
+ *
+ * The voltage branch matters: several ride-on notices never say "battery" and
+ * only state "12 volt" or "24-volt" in the title, so a word-only test would
+ * misfile them as pedal toys.
+ */
+const POWERED_PATTERN =
+  /battery[- ]?(?:operated|powered)|electrically powered|\b\d{1,3}[- ]?v(?:olt)?\b|\brecharg/i;
+
+/** A notice about a children's tricycle. */
+function isChildrensTricycle(recall) {
+  const title = text(recall.Title);
+  if (ADULT_TRICYCLE_NAMES.test(title)) return false;
+  if (/acetrike/i.test(title)) return false;
+  return /\btricycles?\b|\btrikes\b/i.test(title);
+}
+
+/** A notice about a children's battery- or electric-powered ride-on vehicle. */
+function isElectricRideOn(recall) {
+  const title = text(recall.Title);
+  const haystack = `${title} ${text(recall.Description)}`;
+  if (ADULT_RIDE_NAMES.test(title)) return false;
+  if (isChildrensTricycle(recall)) return false;
+  if (/bicycle brake|road bike/i.test(haystack)) return false;
+  if (!RIDE_ON_TITLE.test(title) && !RIDE_ON_TYPE.test([...productTypes(recall)].join(" "))) return false;
+  return POWERED_PATTERN.test(haystack);
+}
 
 /**
  * Hazard groupings derived from CPSC free-text hazard statements.
@@ -110,23 +175,52 @@ function remedyStatement(recall) {
 function main() {
   const today = new Date();
   const endYear = today.getUTCFullYear();
-  const retrievedAt = today.toISOString().slice(0, 10);
 
   // Sequential on purpose: SaferProducts throttles bursts and silently drops them.
   return (async () => {
     const corpus = new Map();
     const perYear = [];
-    for (let y = START_YEAR; y <= endYear; y += 1) {
-      const rows = await fetchYear(y);
-      perYear.push({ year: y, notices: rows.length });
+
+    if (USE_LIVE) {
+      for (let y = START_YEAR; y <= endYear; y += 1) {
+        const rows = await fetchYear(y);
+        perYear.push({ year: y, notices: rows.length });
+        for (const r of rows) corpus.set(r.RecallID, r);
+        console.log(`[recalls] ${y}: ${rows.length} notices (unique so far ${corpus.size})`);
+      }
+    } else {
+      if (!existsSync(CORPUS_FILE)) {
+        throw new Error(
+          `Pinned corpus missing at ${CORPUS_FILE}. Run scripts/cache/fetch_cpsc_pinned.mjs first, ` +
+            `or pass --live to query the API directly.`,
+        );
+      }
+      const rows = JSON.parse(readFileSync(CORPUS_FILE, "utf8"));
       for (const r of rows) corpus.set(r.RecallID, r);
-      console.log(`[recalls] ${y}: ${rows.length} notices (unique so far ${corpus.size})`);
+      console.log(`[recalls] pinned corpus ${CORPUS_FILE}: ${corpus.size} notices`);
+    }
+
+    // The retrieval date must describe the corpus actually used, not the day
+    // the script happened to run, or the published page would claim a
+    // freshness the underlying data does not have.
+    let retrievedAt = today.toISOString().slice(0, 10);
+    if (!USE_LIVE && existsSync(CORPUS_META_FILE)) {
+      const meta = JSON.parse(readFileSync(CORPUS_META_FILE, "utf8"));
+      if (meta.retrievedAt) retrievedAt = meta.retrievedAt;
     }
 
     const all = [...corpus.values()];
     const balanceBike = [];
     const kidBike = [];
     const kidHelmet = [];
+    /**
+     * Notices describing a wheeled children's product that none of the three
+     * published buckets claim. The two new buckets below are carved from this
+     * pool and nowhere else, so the published counts for balance bikes
+     * (2), children's bicycles (44) and children's helmets (59) cannot change
+     * when this file is re-run.
+     */
+    const unclaimed = [];
 
     for (const recall of all) {
       const types = productTypes(recall);
@@ -149,11 +243,19 @@ function main() {
       if (isBalanceBike) balanceBike.push(recall);
       else if (isGear) kidHelmet.push(recall);
       else if (mentionsChild && mentionsBike) kidBike.push(recall);
+      else unclaimed.push(recall);
     }
+
+    // Carved strictly from the unclaimed pool, so the three published buckets
+    // above keep their exact counts.
+    const tricycle = unclaimed.filter(isChildrensTricycle);
+    const rideOn = unclaimed.filter(isElectricRideOn);
 
     const sortNewest = (a, b) => (a.RecallDate < b.RecallDate ? 1 : -1);
     balanceBike.sort(sortNewest);
     kidBike.sort(sortNewest);
+    tricycle.sort(sortNewest);
+    rideOn.sort(sortNewest);
 
     const toRow = (recall) => ({
       recallNumber: text(recall.RecallNumber),
@@ -176,6 +278,19 @@ function main() {
     })
       .filter((row) => row.count > 0)
       .sort((a, b) => b.count - a.count);
+
+    // Same hazard grouping applied to the two newer buckets. Kept as separate
+    // arrays so the published kids'-bike breakdown keeps its exact ordering.
+    const hazardCountsFor = (rows) =>
+      HAZARD_GROUPS.map((group) => {
+        const count = rows.filter((r) => {
+          const hay = `${blob(r)} ${hazardStatement(r)}`.toLowerCase();
+          return group.keywords.some((k) => hay.includes(k));
+        }).length;
+        return { label: group.label, count };
+      })
+        .filter((row) => row.count > 0)
+        .sort((a, b) => b.count - a.count);
 
     // Share of all CPSC recall volume: without normalising, a rising count could
     // simply reflect CPSC publishing more notices overall.
@@ -200,6 +315,21 @@ function main() {
         sharePct: total ? Number(((kids / total) * 100).toFixed(2)) : 0,
       });
     }
+
+    /**
+     * Per-year notice counts for one bucket, every year in range including
+     * zero years, so a page can draw a complete trend without deciding which
+     * years to skip.
+     */
+    const yearlyTrendFor = (rows) => {
+      const byYear = new Map();
+      for (const r of rows) byYear.set(year(r), (byYear.get(year(r)) || 0) + 1);
+      const out = [];
+      for (let y = START_YEAR; y <= endYear; y += 1) {
+        out.push({ year: y, notices: byYear.get(y) || 0 });
+      }
+      return out;
+    };
 
     const periodShare = (from, to) => {
       const rows = yearlyTrend.filter((row) => row.year >= from && row.year <= to);
@@ -229,11 +359,19 @@ function main() {
         kidsBikeNotices: kidBike.length,
         kidHelmetNotices: kidHelmet.length,
         balanceBikeNotices: balanceBike.length,
+        rideOnNotices: rideOn.length,
+        tricycleNotices: tricycle.length,
       },
       balanceBikeNotices: balanceBike.map(toRow),
       kidBikeNotices: kidBike.map(toRow),
       kidHelmetNotices: kidHelmet.map(toRow),
+      rideOnNotices: rideOn.map(toRow),
+      tricycleNotices: tricycle.map(toRow),
       hazardBreakdown: hazardCounts,
+      rideOnHazardBreakdown: hazardCountsFor(rideOn),
+      tricycleHazardBreakdown: hazardCountsFor(tricycle),
+      rideOnYearlyTrend: yearlyTrendFor(rideOn),
+      tricycleYearlyTrend: yearlyTrendFor(tricycle),
       yearlyTrend,
       periodTrend: [
         periodShare(START_YEAR, Math.max(START_YEAR, endYear - 9)),

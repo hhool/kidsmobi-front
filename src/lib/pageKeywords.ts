@@ -58,6 +58,7 @@ import { KIDS_RECALLS_PATH, kidsRecallsSeo } from "../data/kidsBikeRecalls";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerFeedback";
 import { RECALL_SAFETY_PATH, recallSeo } from "../data/safetyRecallRecord";
 import { KIDS_SCOOTER_SEO_BY_PATH } from "../data/kidsScooterSeo";
+import { KIDS_RIDE_ON_SEO_BY_PATH } from "../data/kidsRideOnSeo";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
 import {
   GUIDES_TOPIC_PAGES,
@@ -345,6 +346,10 @@ const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; z
   // or every scooter route falls through to the home-keyword fallback.
   ...Object.fromEntries(
     Object.entries(KIDS_SCOOTER_SEO_BY_PATH).map(([p, seo]) => [assetKey(p), seo]),
+  ),
+  // Same trailing-slash normalisation for the ride-on cluster.
+  ...Object.fromEntries(
+    Object.entries(KIDS_RIDE_ON_SEO_BY_PATH).map(([p, seo]) => [assetKey(p), seo]),
   ),
 };
 

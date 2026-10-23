@@ -181,6 +181,86 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
     blurbZh: "自 2000 年起 4 起 CPSC 通告提及踏板车，其中 3 起为电动。并与童车自行车对照。",
   },
   {
+    id: "kids-ride-on-voltage",
+    href: "/kids-ride-on-voltage/",
+    labelEn: "Kids ride-on voltages: 6V to 36V",
+    labelZh: "儿童电动车电压：6V 到 36V",
+    blurbEn:
+      "Four battery voltages across 15 ride-on cars, and the odd fact that nine of them state the voltage in the listing title rather than the specification field.",
+    blurbZh:
+      "15 款儿童电动车分属 4 种电池电压，还有一个反常之处：其中 9 款把电压写在标题里，而不是规格字段。",
+  },
+  {
+    id: "kids-ride-on-weight",
+    href: "/kids-ride-on-weight/",
+    labelEn: "Ride-on car weight vs rider limit",
+    labelZh: "电动车自重与乘员限重",
+    blurbEn:
+      "The car's own weight and the rider it carries are different numbers. 9 of 15 publish both; the ratio between them spans 1.07 to 10.89.",
+    blurbZh:
+      "车本身的重量与它承载的乘员，是两个不同的数字。15 款中 9 款同时公布两者，比值从 1.07 到 10.89。",
+  },
+  {
+    id: "kids-ride-on-size",
+    href: "/kids-ride-on-size/",
+    labelEn: "Kids ride-on size and dimensions",
+    labelZh: "儿童电动车尺寸",
+    blurbEn:
+      "The listing field called Size holds a battery voltage on 6 of 15 cars and a dimension string on 3 more. The real measurements come from the dimension record.",
+    blurbZh:
+      "名为 Size 的列表字段，在 15 款中有 6 款填的是电池电压，另有 3 款填的是尺寸串。真正的尺寸数据来自尺寸记录。",
+  },
+  {
+    id: "kids-ride-on-price",
+    href: "/kids-ride-on-price/",
+    labelEn: "Kids ride-on prices",
+    labelZh: "儿童电动车价格",
+    blurbEn:
+      "All 15 priced from $75.99 to $379.52 — and a $84.99 hole in the middle with nothing listed between $199.99 and $284.98.",
+    blurbZh:
+      "15 款全部标上价格，从 $75.99 到 $379.52——中间还有一个 $84.99 的空洞，$199.99 与 $284.98 之间一款都没有。",
+  },
+  {
+    id: "kids-ride-on-by-age",
+    href: "/kids-ride-on-by-age/",
+    labelEn: "Kids ride-on age guidance",
+    labelZh: "儿童电动车适龄",
+    blurbEn:
+      "11 of 15 list a 36-month floor, including a 55-inch UTV. Two also claim a 12-year ceiling, and one raw value reads 100 years.",
+    blurbZh:
+      "15 款中 11 款标注 36 个月起——其中包括一台 55 英寸的 UTV。另有两款同时声称适用到 12 岁，还有一个原始值写成了 100 岁。",
+  },
+  {
+    id: "kids-ride-on-safety",
+    href: "/kids-ride-on-safety-standards/",
+    labelEn: "Kids ride-on safety standards",
+    labelZh: "儿童电动车安全标准",
+    blurbEn:
+      "All 15 claim ASTM F963 and CPSC, which makes the compliance field uninformative. Not one listing mentions a helmet.",
+    blurbZh:
+      "15 款全部声称符合 ASTM F963 与 CPSC——这让合规字段失去区分度。而且没有一款提到头盔。",
+  },
+  {
+    id: "kids-ride-on-what-buyers-say",
+    href: "/kids-ride-on-what-buyers-say/",
+    labelEn: "What buyers say about ride-on cars",
+    labelZh: "买家怎么说儿童电动车",
+    blurbEn:
+      "14 retailer-written summaries counted by topic, with the retailer's own ratings, review counts and category ranks beside them.",
+    blurbZh:
+      "14 段零售商撰写的摘要按主题计数，并列出零售商自己公布的评分、评论量与类目排名。",
+  },
+  {
+    id: "kids-ride-on-recalls",
+    href: "/kids-ride-on-recalls/",
+    labelEn: "Kids ride-on recalls",
+    labelZh: "儿童电动车召回",
+    blurbEn:
+      "16 CPSC notices on ride-on toys since 2000, every one carrying a fire, heat or battery hazard. What the EU alert list actually names.",
+    blurbZh:
+      "自 2000 年起 16 起涉及儿童乘骑玩具的 CPSC 通告，每一起都带有火灾、高温或电池危害。以及欧盟警报清单真正点名的部分。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",

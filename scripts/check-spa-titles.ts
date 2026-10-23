@@ -37,6 +37,7 @@ import { KIDS_STABILITY_PATH, kidsStabilitySeo } from "../src/data/kidsBikeStabi
 import { KIDS_BUYER_FEEDBACK_PATH, kidsBuyerFeedbackSeo } from "../src/data/kidsBuyerFeedback";
 import { KIDS_RECALLS_PATH, kidsRecallsSeo } from "../src/data/kidsBikeRecalls";
 import { KIDS_SCOOTER_ASSET_PATHS, KIDS_SCOOTER_SEO_BY_PATH } from "../src/data/kidsScooterSeo";
+import { KIDS_RIDE_ON_ASSET_PATHS, KIDS_RIDE_ON_SEO_BY_PATH } from "../src/data/kidsRideOnSeo";
 import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH, kidsBikeSizingSeo } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH, stabilitySeo } from "../src/data/balanceBikeStability";
@@ -126,6 +127,12 @@ const ASSET_SEO: Array<{
     label: `asset kids scooter ${i + 1}`,
     route,
     seo: en(KIDS_SCOOTER_SEO_BY_PATH[route]),
+  })),
+  // Same for the eight kids-ride-on pages.
+  ...KIDS_RIDE_ON_ASSET_PATHS.map((route, i) => ({
+    label: `asset kids ride-on ${i + 1}`,
+    route,
+    seo: en(KIDS_RIDE_ON_SEO_BY_PATH[route]),
   })),
 ];
 
