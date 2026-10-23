@@ -12,7 +12,13 @@ tmp/
 # Build output has to be renamed aside before `vite build` (its emptyOutDir is
 # blocked by the sandbox's delete shim), so those backups must never reach git.
 dist_*/
-scripts/cms-snapshots/
+dist_prev*/
+# CMS snapshots are committed on purpose (2026-10-23). The CF Pages build
+# fetches the live CMS, and the D1 free tier's daily row-read limit runs out
+# regularly — a build with no snapshot in the repo aborts and deploys nothing.
+# The snapshot is the last-known-good catalogue state and is refreshed on every
+# successful fetch; PRERENDER_ALLOW_STALE=1 lets the build use it when the
+# CMS is unreachable.
 # IndexNow delta snapshot (runtime artifact, do not commit)
 scripts/seo/.last-indexnow.json
 

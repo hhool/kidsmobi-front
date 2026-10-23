@@ -912,10 +912,58 @@ function pickText(...values: Array<string | undefined>): string {
   return "";
 }
 
-// CMS snapshots: every successful fetch overwrites a local snapshot so a
-// later CMS outage can still build (opt-in via PRERENDER_ALLOW_STALE=1).
-// Snapshots are local-only (gitignored) — CI builds must see live data.
+// CMS snapshots: every successful fetch overwrites a local snapshot, and the
+// snapshot is committed to the repo (2026-10-23).
+//
+// Why committed: the D1 free tier's 5M daily row-read limit runs out
+// regularly, and when it does every /api/cms/* read returns HTTP 500. A
+// Cloudflare Pages build that depends purely on the live CMS then aborts
+// ("products CMS fetch returned 0 records") and NOTHING is deployed — which
+// is how the 2026-10-23 ride-on deploy failed while the local build succeeded
+// (the local build had a snapshot on disk).
+//
+// Freshness: the snapshot carries the UTC timestamp of its last successful
+// fetch in a sibling .meta.json. A snapshot older than SNAPSHOT_MAX_AGE_HOURS
+// is not trusted — the build still uses it rather than deploying nothing, but
+// it says so loudly, and a missing/stale snapshot plus a dead CMS still aborts
+// the build rather than shipping an SPA-only dist.
 const CMS_SNAPSHOT_DIR = path.resolve("scripts", "cms-snapshots");
+const SNAPSHOT_MAX_AGE_HOURS = 72;
+
+type CmsSnapshotMeta = { fetchedAt?: string };
+
+async function readCmsSnapshotMeta(collection: string): Promise<CmsSnapshotMeta | null> {
+  try {
+    const raw = await readFile(path.join(CMS_SNAPSHOT_DIR, `${collection}.meta.json`), "utf8");
+    const parsed: unknown = JSON.parse(raw);
+    if (parsed && typeof parsed === "object") return parsed as CmsSnapshotMeta;
+  } catch {
+    // no meta
+  }
+  return null;
+}
+
+/** Age of a snapshot in hours, or null when it cannot be determined. */
+async function cmsSnapshotAgeHours(collection: string): Promise<number | null> {
+  const meta = await readCmsSnapshotMeta(collection);
+  const fetchedAt = meta?.fetchedAt;
+  if (!fetchedAt) return null;
+  const ts = Date.parse(fetchedAt);
+  if (Number.isNaN(ts)) return null;
+  return (Date.now() - ts) / 3_600_000;
+}
+
+async function writeCmsSnapshotMeta(collection: string): Promise<void> {
+  try {
+    await mkdir(CMS_SNAPSHOT_DIR, { recursive: true });
+    await writeFile(
+      path.join(CMS_SNAPSHOT_DIR, `${collection}.meta.json`),
+      JSON.stringify({ fetchedAt: new Date().toISOString() }, null, 2),
+    );
+  } catch (error) {
+    console.warn(`[prerender] failed to write ${collection} snapshot meta: ${(error as Error).message}`);
+  }
+}
 
 async function readCmsSnapshot<T>(collection: string): Promise<T[] | null> {
   try {
@@ -934,6 +982,7 @@ async function writeCmsSnapshot(collection: string, records: unknown[]): Promise
   try {
     await mkdir(CMS_SNAPSHOT_DIR, { recursive: true });
     await writeFile(path.join(CMS_SNAPSHOT_DIR, `${collection}.json`), JSON.stringify(records));
+    await writeCmsSnapshotMeta(collection);
   } catch (error) {
     console.warn(`[prerender] failed to write ${collection} snapshot: ${(error as Error).message}`);
   }
@@ -973,15 +1022,21 @@ async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
         await new Promise((resolve) => setTimeout(resolve, Math.min(2000 * attempt, 8000)));
         continue;
       }
-      if (process.env.PRERENDER_ALLOW_STALE === "1") {
-        const snapshot = await readCmsSnapshot<T>(collection);
-        if (snapshot && snapshot.length > 0) {
-          console.warn(
-            `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
-              `USING STALE SNAPSHOT with ${snapshot.length} ${collection} record(s) (PRERENDER_ALLOW_STALE=1).`,
-          );
-          return snapshot;
-        }
+      // Fall back to the committed snapshot. This is the DEFAULT, not an
+      // opt-in: the Cloudflare Pages build has no way to set an env var, and
+      // the D1 free tier runs out of row reads often enough that an opt-in
+      // fallback meant the deploy simply never happened.
+      const snapshot = await readCmsSnapshot<T>(collection);
+      if (snapshot && snapshot.length > 0) {
+        const ageHours = await cmsSnapshotAgeHours(collection);
+        const ageText = ageHours === null ? "unknown age" : `${ageHours.toFixed(1)}h old`;
+        const stale = ageHours !== null && ageHours > SNAPSHOT_MAX_AGE_HOURS;
+        console.warn(
+          `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
+            `USING SNAPSHOT with ${snapshot.length} ${collection} record(s) (${ageText}` +
+            `${stale ? `, OLDER than the ${SNAPSHOT_MAX_AGE_HOURS}h limit` : ""}).`,
+        );
+        return snapshot;
       }
       console.warn(
         `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); falling back to bundled data.`,
@@ -1047,6 +1102,7 @@ async function writeCmsSettingsSnapshot(payload: unknown): Promise<void> {
   try {
     await mkdir(CMS_SNAPSHOT_DIR, { recursive: true });
     await writeFile(path.join(CMS_SNAPSHOT_DIR, "settings.json"), JSON.stringify(payload));
+    await writeCmsSnapshotMeta("settings");
   } catch (error) {
     console.warn(`[prerender] failed to write settings snapshot: ${(error as Error).message}`);
   }
@@ -1086,15 +1142,15 @@ async function fetchCmsSettings(): Promise<CmsSettingsPayload | null> {
         await new Promise((resolve) => setTimeout(resolve, Math.min(2000 * attempt, 8000)));
         continue;
       }
-      if (process.env.PRERENDER_ALLOW_STALE === "1") {
-        const snapshot = await readCmsSettingsSnapshot();
-        if (snapshot) {
-          console.warn(
-            `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
-              `USING STALE settings snapshot (updatedAt: ${snapshot.updatedAt || "?"}).`,
-          );
-          return snapshot;
-        }
+      // Same default-fallback rule as the collections: use the committed
+      // settings snapshot rather than dropping the section pages' CMS TDK.
+      const snapshot = await readCmsSettingsSnapshot();
+      if (snapshot) {
+        console.warn(
+          `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
+            `USING SNAPSHOT settings (updatedAt: ${snapshot.updatedAt || "?"}).`,
+        );
+        return snapshot;
       }
       console.warn(
         `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
