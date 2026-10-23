@@ -82,6 +82,14 @@ const KidsBikeWeight = lazy(() => import("./components/KidsBikeWeight"));
 const KidsBikeStability = lazy(() => import("./components/KidsBikeStability"));
 const KidsBuyerFeedback = lazy(() => import("./components/KidsBuyerFeedback"));
 const KidsBikeRecalls = lazy(() => import("./components/KidsBikeRecalls"));
+const KidsScooterWheels = lazy(() => import("./components/KidsScooterWheels"));
+const KidsScooterSize = lazy(() => import("./components/KidsScooterSize"));
+const KidsScooterWeight = lazy(() => import("./components/KidsScooterWeight"));
+const KidsScooterPrice = lazy(() => import("./components/KidsScooterPrice"));
+const KidsScooterAge = lazy(() => import("./components/KidsScooterAge"));
+const KidsScooterSafety = lazy(() => import("./components/KidsScooterSafety"));
+const KidsScooterFeedback = lazy(() => import("./components/KidsScooterFeedback"));
+const KidsScooterRecalls = lazy(() => import("./components/KidsScooterRecalls"));
 const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
 const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
@@ -194,6 +202,10 @@ import {
   kidsRecallsSeo,
   buildKidsRecallsDatasetSchema,
 } from "./data/kidsBikeRecalls";
+import {
+  KIDS_SCOOTER_ASSET_PATHS,
+  KIDS_SCOOTER_SEO_BY_PATH,
+} from "./data/kidsScooterSeo";
 import {
   BUYER_FEEDBACK_PATH,
   buyerFeedbackSeo,
@@ -991,6 +1003,21 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "kids-bike-recalls") {
     return {
       activeTab: "kids-bike-recalls",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // The eight kids-scooter asset pages share one dataset and one tab each.
+  // Dispatched from the path list so a new scooter page cannot be added to the
+  // cluster without also being routed here.
+  if (KIDS_SCOOTER_ASSET_PATHS.includes(`/${root}/`)) {
+    return {
+      activeTab: `kids-scooter-${root}`,
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -3094,6 +3121,46 @@ export default function App() {
       return;
     }
 
+    // One effect for all eight kids-scooter asset pages. Each has its own SEO
+    // block in data/kidsScooterSeo.ts, keyed by path; the tab name is
+    // `kids-scooter-<root>` so the path can be recovered from activeTab.
+    if (activeTab.startsWith("kids-scooter-")) {
+      const scooterPath = `/${activeTab.replace(/^kids-scooter-/, "")}/`;
+      const scooterSeo = KIDS_SCOOTER_SEO_BY_PATH[scooterPath];
+      if (scooterSeo) {
+        const seoData = scooterSeo[lang] || scooterSeo.en;
+        const canonicalOrigin =
+          cmsSettings?.seoGlobal?.siteOrigin ||
+          (cmsSettings as any)?.siteOrigin ||
+          (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+          window.location.origin;
+        const canonicalUrl = `${canonicalOrigin}${scooterPath}`;
+        const noIndex = shouldNoIndexCurrentPath(scooterPath, window.location.search, window.location.hostname);
+        const docTitle = buildDocumentTitle(seoData.title);
+        const metaDesc = buildMetaDescription(seoData.description, sanitizeUnsupportedClaims);
+
+        document.title = docTitle;
+        updateMetaTag("description", metaDesc);
+        updateMetaTag("keywords", seoData.keywords.join(", "));
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+        updateCanonicalLink(canonicalUrl);
+        updateMetaProperty("og:url", canonicalUrl);
+        updateSocialMeta(docTitle, metaDesc, DEFAULT_OG_IMAGE_PATH, "website");
+
+        injectJsonLd([
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: docTitle,
+            url: canonicalUrl,
+            description: seoData.description,
+            inLanguage: lang,
+          },
+        ]);
+        return;
+      }
+    }
+
     if (activeTab === "weight-build") {
       const weightSeoData = weightSeo[lang] || weightSeo.en;
       const canonicalOrigin =
@@ -4726,6 +4793,38 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "kids-bike-recalls" && (
           <KidsBikeRecalls lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-wheels" && (
+          <KidsScooterWheels lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-size" && (
+          <KidsScooterSize lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-weight" && (
+          <KidsScooterWeight lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-price" && (
+          <KidsScooterPrice lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-by-age" && (
+          <KidsScooterAge lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-safety-standards" && (
+          <KidsScooterSafety lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-what-buyers-say" && (
+          <KidsScooterFeedback lang={lang} />
+        )}
+
+        {activeTab === "kids-scooter-recalls" && (
+          <KidsScooterRecalls lang={lang} />
         )}
 
         {activeTab === "weight-build" && (

@@ -57,6 +57,7 @@ import { KIDS_BUYER_FEEDBACK_PATH, kidsBuyerFeedbackSeo } from "../data/kidsBuye
 import { KIDS_RECALLS_PATH, kidsRecallsSeo } from "../data/kidsBikeRecalls";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerFeedback";
 import { RECALL_SAFETY_PATH, recallSeo } from "../data/safetyRecallRecord";
+import { KIDS_SCOOTER_SEO_BY_PATH } from "../data/kidsScooterSeo";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
 import {
   GUIDES_TOPIC_PAGES,
@@ -339,6 +340,12 @@ const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; z
   [assetKey(KIDS_RECALLS_PATH)]: kidsRecallsSeo,
   [assetKey(BUYER_FEEDBACK_PATH)]: buyerFeedbackSeo,
   [assetKey(RECALL_SAFETY_PATH)]: recallSeo,
+  // assetKey() strips trailing slashes; KIDS_SCOOTER_SEO_BY_PATH is keyed by the
+  // exported PATH constants, which carry one. Re-key rather than spreading raw,
+  // or every scooter route falls through to the home-keyword fallback.
+  ...Object.fromEntries(
+    Object.entries(KIDS_SCOOTER_SEO_BY_PATH).map(([p, seo]) => [assetKey(p), seo]),
+  ),
 };
 
 function defaultKeywords(seoKey: string, lang: KeywordLang): string[] {

@@ -36,6 +36,7 @@ import { KIDS_WEIGHT_PATH, kidsWeightSeo } from "../src/data/kidsBikeWeight";
 import { KIDS_STABILITY_PATH, kidsStabilitySeo } from "../src/data/kidsBikeStability";
 import { KIDS_BUYER_FEEDBACK_PATH, kidsBuyerFeedbackSeo } from "../src/data/kidsBuyerFeedback";
 import { KIDS_RECALLS_PATH, kidsRecallsSeo } from "../src/data/kidsBikeRecalls";
+import { KIDS_SCOOTER_ASSET_PATHS, KIDS_SCOOTER_SEO_BY_PATH } from "../src/data/kidsScooterSeo";
 import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH, kidsBikeSizingSeo } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH, stabilitySeo } from "../src/data/balanceBikeStability";
@@ -118,6 +119,14 @@ const ASSET_SEO: Array<{
   { label: "asset recalls", route: RECALL_SAFETY_PATH, seo: en(recallSeo) },
   { label: "asset buyer feedback", route: BUYER_FEEDBACK_PATH, seo: en(buyerFeedbackSeo) },
   { label: "asset budget", route: BUDGET_PATH, seo: en(budgetSeo) },
+  // The eight kids-scooter pages carry one SEO map keyed by path; this guard
+  // iterates the same list the site routes on, so a new scooter page cannot be
+  // added without also being title-checked here.
+  ...KIDS_SCOOTER_ASSET_PATHS.map((route, i) => ({
+    label: `asset kids scooter ${i + 1}`,
+    route,
+    seo: en(KIDS_SCOOTER_SEO_BY_PATH[route]),
+  })),
 ];
 
 // --- No authored title may be silently truncated -----------------------------

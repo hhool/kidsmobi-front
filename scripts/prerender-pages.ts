@@ -164,6 +164,11 @@ import {
   kidsRecallTotal,
   buildKidsRecallsDatasetSchema,
 } from "../src/data/kidsBikeRecalls";
+import {
+  KIDS_SCOOTER_ASSET_PATHS,
+  KIDS_SCOOTER_SEO_BY_PATH,
+} from "../src/data/kidsScooterSeo";
+import { renderKidsScooterPages as renderKidsScooterPageBodies } from "./kidsScooterPages";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
@@ -4971,6 +4976,43 @@ function renderKidsBikeRecallsPage(): RoutePage[] {
 }
 
 /**
+ * Prerendered kids-scooter asset pages (8 pages, Plan-B cluster).
+ *
+ * The bodies are built in scripts/kidsScooterPages.ts, which is a separate
+ * module because these eight pages share one dataset (scooterData.generated.ts)
+ * and eight near-identical HTML skeletons. Only the skeleton is shared there —
+ * every string still comes from each page's own string module, which is what
+ * scripts/check-topic-pair-drift.mjs requires.
+ *
+ * Each page gets one WebPage node plus a BreadcrumbList, matching the shape the
+ * other asset pages emit (the guard asserts exactly one node per @type).
+ */
+function renderKidsScooterPages(): RoutePage[] {
+  const origin = "https://balancebiketoddler.com";
+  return renderKidsScooterPageBodies(origin, KIDS_SCOOTER_SEO_BY_PATH).map((p) => ({
+    route: p.route,
+    title: p.title,
+    description: p.description,
+    skipTitleH1: p.skipTitleH1,
+    h1En: p.h1En,
+    keywords: p.keywords,
+    body: `${p.body}${clusterNavHtml(p.route)}`,
+    ogType: "website" as const,
+    jsonLd: [
+      ...p.jsonLd,
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${origin}/` },
+          { "@type": "ListItem", position: 2, name: p.h1En, item: `${origin}${p.route}` },
+        ],
+      },
+    ],
+  }));
+}
+
+/**
  * Prerendered weight & build page (Plan-B Asset 5).
  *
  * Derived from src/data/weightData.generated.ts, itself produced by
@@ -7434,6 +7476,7 @@ async function main() {
     ...renderKidsBikeStabilityPage(),
     ...renderKidsBuyerFeedbackPage(),
     ...renderKidsBikeRecallsPage(),
+    ...renderKidsScooterPages(),
     ...renderWeightPage(),
     ...renderStabilityPage(),
     ...renderAgePage(),
@@ -7567,6 +7610,7 @@ function sitemapPriority(route: string): number {
     KIDS_PRICE_PATH,
     BUYER_FEEDBACK_PATH,
     BUDGET_PATH,
+    ...KIDS_SCOOTER_ASSET_PATHS,
     "/products/balance-bikes/",
   ];
   if (assetRoutes.includes(route)) return 0.9;

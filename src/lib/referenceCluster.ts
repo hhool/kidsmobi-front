@@ -110,6 +110,77 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
       "自 2000 年起 44 起童车 CPSC 召回通知——是平衡车（2 起）的 22 倍——按危害与年份分类。",
   },
   {
+    id: "kids-scooter-wheels",
+    href: "/kids-scooter-wheels/",
+    labelEn: "Kids scooter wheels: 2 or 3",
+    labelZh: "童车滑板车轮数",
+    blurbEn:
+      "Wheel count decides who can ride a scooter. All 7 on record, split two-wheel against three-wheel.",
+    blurbZh: "轮数决定一台滑板车适合谁。7 款全部在册，按两轮与三轮分开对照。",
+  },
+  {
+    id: "kids-scooter-size",
+    href: "/kids-scooter-size/",
+    labelEn: "Kids scooter sizing",
+    labelZh: "童车滑板车尺寸",
+    blurbEn:
+      "Only 3 of 7 publish a handlebar height and none publish a deck height — the measurement that decides whether a toddler can stand on it.",
+    blurbZh: "7 款中仅 3 款公布把手高度，踏板高度一款都没有——而这正是幼儿能否自己站上去的关键。",
+  },
+  {
+    id: "kids-scooter-weight",
+    href: "/kids-scooter-weight/",
+    labelEn: "Kids scooter weight and rider limits",
+    labelZh: "童车滑板车重量与承重",
+    blurbEn:
+      "A scooter's own weight and the rider it carries are different numbers. Both, side by side.",
+    blurbZh: "滑板车的自重与它能承载的骑手，是两个不同的数字。两者并排列出。",
+  },
+  {
+    id: "kids-scooter-price",
+    href: "/kids-scooter-price/",
+    labelEn: "Kids scooter prices",
+    labelZh: "童车滑板车价格",
+    blurbEn: "All 7 priced, and what the gap between a two-wheeler and a three-wheeler buys.",
+    blurbZh: "7 款全部标上价格，以及两轮与三轮之间的价差究竟买到了什么。",
+  },
+  {
+    id: "kids-scooter-by-age",
+    href: "/kids-scooter-by-age/",
+    labelEn: "Kids scooter ages",
+    labelZh: "童车滑板车适龄",
+    blurbEn:
+      "Only 2 of 7 labels carry a number. The rest say Toddler or Youth — reported verbatim, not converted.",
+    blurbZh: "7 款里只有 2 款的年龄标签带数字，其余写的是 Toddler 或 Youth——原样呈现，不做换算。",
+  },
+  {
+    id: "kids-scooter-safety",
+    href: "/kids-scooter-safety-standards/",
+    labelEn: "Kids scooter safety standards",
+    labelZh: "童车滑板车安全标准",
+    blurbEn:
+      "All 7 claim ASTM F963 and CPSC, which makes the field uninformative. What a compliance mark does not prove.",
+    blurbZh: "7 款全部声称符合 ASTM F963 与 CPSC——这让该字段失去区分度。合规标记证明不了什么。",
+  },
+  {
+    id: "kids-scooter-what-buyers-say",
+    href: "/kids-scooter-what-buyers-say/",
+    labelEn: "What buyers say about kids scooters",
+    labelZh: "买家怎么说童用滑板车",
+    blurbEn:
+      "7 retailer-written summaries counted by topic, with the retailer's own ratings beside them.",
+    blurbZh: "7 段零售商撰写的摘要按主题计数，并列出零售商自己公布的评分。",
+  },
+  {
+    id: "kids-scooter-recalls",
+    href: "/kids-scooter-recalls/",
+    labelEn: "Kids scooter recalls",
+    labelZh: "儿童滑板车召回",
+    blurbEn:
+      "4 CPSC notices since 2000 name a kick scooter — 3 of them powered. How that compares to children's bicycles.",
+    blurbZh: "自 2000 年起 4 起 CPSC 通告提及踏板车，其中 3 起为电动。并与童车自行车对照。",
+  },
+  {
     id: "buyer-feedback",
     href: "/balance-bike-what-buyers-say/",
     labelEn: "What buyers say",
