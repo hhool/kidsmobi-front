@@ -208,7 +208,7 @@ export function KidsBikeWeight({ lang = "en" }: KidsBikeWeightProps) {
 
         <ReferenceClusterNav currentPath={KIDS_WEIGHT_PATH} lang={lang} />
         <footer className="border-t border-slate-200 pt-6 text-xs text-slate-400 leading-6">
-          {t.sourceLabel}: {d.source.name} · {d.source.retrievedAt} · {d.source.note[l]}
+          {t.sourceLabel}: {d.source.name} · {d.source.retrievedAt} · {d.source.note}
         </footer>
       </div>
     </article>

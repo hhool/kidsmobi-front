@@ -4232,7 +4232,7 @@ function renderKidsBikeWeightPage(): RoutePage[] {
         </section>
 
         <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
-          Source: ${escapeHtml(d.source.name)} · Compiled: ${escapeHtml(d.source.retrievedAt)} · ${escapeHtml(d.source.note[l])}
+          Source: ${escapeHtml(d.source.name)} · Compiled: ${escapeHtml(d.source.retrievedAt)} · ${escapeHtml(d.source.note)}
         </footer>
       </div>
     </article>
