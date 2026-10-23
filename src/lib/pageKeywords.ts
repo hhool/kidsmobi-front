@@ -59,6 +59,8 @@ import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerF
 import { RECALL_SAFETY_PATH, recallSeo } from "../data/safetyRecallRecord";
 import { KIDS_SCOOTER_SEO_BY_PATH } from "../data/kidsScooterSeo";
 import { KIDS_RIDE_ON_SEO_BY_PATH } from "../data/kidsRideOnSeo";
+import { KIDS_TRICYCLE_SEO_BY_PATH } from "../data/kidsTricycleSeo";
+import { KIDS_STROLLER_SEO_BY_PATH } from "../data/kidsStrollerSeo";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
 import {
   GUIDES_TOPIC_PAGES,
@@ -350,6 +352,14 @@ const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; z
   // Same trailing-slash normalisation for the ride-on cluster.
   ...Object.fromEntries(
     Object.entries(KIDS_RIDE_ON_SEO_BY_PATH).map(([p, seo]) => [assetKey(p), seo]),
+  ),
+  // Same trailing-slash normalisation for the kids-tricycle cluster.
+  ...Object.fromEntries(
+    Object.entries(KIDS_TRICYCLE_SEO_BY_PATH).map(([p, seo]) => [assetKey(p), seo]),
+  ),
+  // Same trailing-slash normalisation for the kids-stroller cluster.
+  ...Object.fromEntries(
+    Object.entries(KIDS_STROLLER_SEO_BY_PATH).map(([p, seo]) => [assetKey(p), seo]),
   ),
 };
 

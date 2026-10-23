@@ -174,6 +174,16 @@ import {
   KIDS_RIDE_ON_SEO_BY_PATH,
 } from "../src/data/kidsRideOnSeo";
 import { renderKidsRideOnPages as renderKidsRideOnPageBodies } from "./kidsRideOnPages";
+import {
+  KIDS_TRICYCLE_ASSET_PATHS,
+  KIDS_TRICYCLE_SEO_BY_PATH,
+} from "../src/data/kidsTricycleSeo";
+import { renderKidsTricyclePages as renderKidsTricyclePageBodies } from "./kidsTricyclePages";
+import {
+  KIDS_STROLLER_ASSET_PATHS,
+  KIDS_STROLLER_SEO_BY_PATH,
+} from "../src/data/kidsStrollerSeo";
+import { renderKidsStrollerPages as renderKidsStrollerPageBodies } from "./kidsStrollerPages";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
@@ -5107,6 +5117,66 @@ function renderKidsRideOnPages(): RoutePage[] {
 }
 
 /**
+ * Prerendered kids-tricycle asset pages (8 pages, Plan-B cluster).
+ * Bodies come from scripts/kidsTricyclePages.ts; each page's strings come from
+ * its own module so check-topic-pair-drift sees eight distinct pages.
+ */
+function renderKidsTricyclePages(): RoutePage[] {
+  const origin = "https://balancebiketoddler.com";
+  return renderKidsTricyclePageBodies(origin, KIDS_TRICYCLE_SEO_BY_PATH).map((p) => ({
+    route: p.route,
+    title: p.title,
+    description: p.description,
+    skipTitleH1: p.skipTitleH1,
+    h1En: p.h1En,
+    keywords: p.keywords,
+    body: `${p.body}${clusterNavHtml(p.route)}`,
+    ogType: "website" as const,
+    jsonLd: [
+      ...p.jsonLd,
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${origin}/` },
+          { "@type": "ListItem", position: 2, name: p.h1En, item: `${origin}${p.route}` },
+        ],
+      },
+    ],
+  }));
+}
+
+/**
+ * Prerendered kids-stroller asset pages (8 pages, Plan-B cluster).
+ * Bodies come from scripts/kidsStrollerPages.ts; each page's strings come from
+ * its own module so check-topic-pair-drift sees eight distinct pages.
+ */
+function renderKidsStrollerPages(): RoutePage[] {
+  const origin = "https://balancebiketoddler.com";
+  return renderKidsStrollerPageBodies(origin, KIDS_STROLLER_SEO_BY_PATH).map((p) => ({
+    route: p.route,
+    title: p.title,
+    description: p.description,
+    skipTitleH1: p.skipTitleH1,
+    h1En: p.h1En,
+    keywords: p.keywords,
+    body: `${p.body}${clusterNavHtml(p.route)}`,
+    ogType: "website" as const,
+    jsonLd: [
+      ...p.jsonLd,
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${origin}/` },
+          { "@type": "ListItem", position: 2, name: p.h1En, item: `${origin}${p.route}` },
+        ],
+      },
+    ],
+  }));
+}
+
+/**
  * Prerendered weight & build page (Plan-B Asset 5).
  *
  * Derived from src/data/weightData.generated.ts, itself produced by
@@ -7572,6 +7642,8 @@ async function main() {
     ...renderKidsBikeRecallsPage(),
     ...renderKidsScooterPages(),
     ...renderKidsRideOnPages(),
+    ...renderKidsTricyclePages(),
+    ...renderKidsStrollerPages(),
     ...renderWeightPage(),
     ...renderStabilityPage(),
     ...renderAgePage(),

@@ -38,6 +38,8 @@ import { KIDS_BUYER_FEEDBACK_PATH } from "../src/data/kidsBuyerFeedback";
 import { KIDS_RECALLS_PATH } from "../src/data/kidsBikeRecalls";
 import { KIDS_SCOOTER_ASSET_PATHS } from "../src/data/kidsScooterSeo";
 import { KIDS_RIDE_ON_ASSET_PATHS } from "../src/data/kidsRideOnSeo";
+import { KIDS_TRICYCLE_ASSET_PATHS } from "../src/data/kidsTricycleSeo";
+import { KIDS_STROLLER_ASSET_PATHS } from "../src/data/kidsStrollerSeo";
 import { SIZING_PATH } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH } from "../src/data/balanceBikeStability";
@@ -75,6 +77,8 @@ const ASSET_PATHS = [
   BUDGET_PATH,
   ...KIDS_SCOOTER_ASSET_PATHS,
   ...KIDS_RIDE_ON_ASSET_PATHS,
+  ...KIDS_TRICYCLE_ASSET_PATHS,
+  ...KIDS_STROLLER_ASSET_PATHS,
 ];
 
 const SECTION_KEYS = ["home", "products", "reviews", "guides", "news", "about"] as const;

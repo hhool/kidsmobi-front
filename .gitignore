@@ -13,6 +13,10 @@ tmp/
 # blocked by the sandbox's delete shim), so those backups must never reach git.
 dist_*/
 dist_prev*/
+# emptyOutDir renames the previous dist aside as a flat set of root-level files
+# (dist_prev_<hash>.html, dist_prev_26_index.html, ...) on some builds, so the
+# directory form above misses them; a bare prefix pattern catches both shapes.
+dist_prev_*
 # CMS snapshots are committed on purpose (2026-10-23). The CF Pages build
 # fetches the live CMS, and the D1 free tier's daily row-read limit runs out
 # regularly — a build with no snapshot in the repo aborts and deploys nothing.

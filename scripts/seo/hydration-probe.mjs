@@ -59,6 +59,22 @@ const ROUTES = [
   '/kids-ride-on-safety-standards/',
   '/kids-ride-on-what-buyers-say/',
   '/kids-ride-on-recalls/',
+  '/kids-tricycle-size-chart/',
+  '/kids-tricycle-by-age/',
+  '/kids-tricycle-price/',
+  '/kids-tricycle-weight/',
+  '/kids-tricycle-types/',
+  '/kids-tricycle-safety-standards/',
+  '/kids-tricycle-what-buyers-say/',
+  '/kids-tricycle-recalls/',
+  '/kids-stroller-size-chart/',
+  '/kids-stroller-by-age/',
+  '/kids-stroller-price/',
+  '/kids-stroller-weight/',
+  '/kids-stroller-types/',
+  '/kids-stroller-safety-standards/',
+  '/kids-stroller-what-buyers-say/',
+  '/kids-stroller-recalls/',
   '/balance-bike-what-buyers-say/',
   '/balance-bike-budget/',
   '/guides/risk/balance-bike-recall-record',
@@ -124,7 +140,7 @@ const HUB_TOPIC_CHILDREN = {
 // route dispatch produced a doubled tab name, so no JSX branch matched). The
 // probe printed "h1: (none)" and still exited 0 — nothing asserted that the
 // page had a heading at all. These routes now carry a hard assertion.
-const ASSET_ROUTE_RE = /^\/(balance-bike|kids-bike|kids-scooter|kids-ride-on)-[a-z-]+\/$/;
+const ASSET_ROUTE_RE = /^\/(balance-bike|kids-bike|kids-scooter|kids-ride-on|kids-tricycle|kids-stroller)-[a-z-]+\/$/;
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
 const chromePath =

@@ -98,6 +98,22 @@ const KidsRideOnAge = lazy(() => import("./components/KidsRideOnAge"));
 const KidsRideOnSafety = lazy(() => import("./components/KidsRideOnSafety"));
 const KidsRideOnFeedback = lazy(() => import("./components/KidsRideOnFeedback"));
 const KidsRideOnRecalls = lazy(() => import("./components/KidsRideOnRecalls"));
+const KidsTricycleSize = lazy(() => import("./components/KidsTricycleSize"));
+const KidsTricycleAge = lazy(() => import("./components/KidsTricycleAge"));
+const KidsTricyclePrice = lazy(() => import("./components/KidsTricyclePrice"));
+const KidsTricycleWeight = lazy(() => import("./components/KidsTricycleWeight"));
+const KidsTricycleTypes = lazy(() => import("./components/KidsTricycleTypes"));
+const KidsTricycleSafety = lazy(() => import("./components/KidsTricycleSafety"));
+const KidsTricycleFeedback = lazy(() => import("./components/KidsTricycleFeedback"));
+const KidsTricycleRecalls = lazy(() => import("./components/KidsTricycleRecalls"));
+const KidsStrollerSize = lazy(() => import("./components/KidsStrollerSize"));
+const KidsStrollerAge = lazy(() => import("./components/KidsStrollerAge"));
+const KidsStrollerPrice = lazy(() => import("./components/KidsStrollerPrice"));
+const KidsStrollerWeight = lazy(() => import("./components/KidsStrollerWeight"));
+const KidsStrollerTypes = lazy(() => import("./components/KidsStrollerTypes"));
+const KidsStrollerSafety = lazy(() => import("./components/KidsStrollerSafety"));
+const KidsStrollerFeedback = lazy(() => import("./components/KidsStrollerFeedback"));
+const KidsStrollerRecalls = lazy(() => import("./components/KidsStrollerRecalls"));
 const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
 const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
@@ -218,6 +234,14 @@ import {
   KIDS_RIDE_ON_ASSET_PATHS,
   KIDS_RIDE_ON_SEO_BY_PATH,
 } from "./data/kidsRideOnSeo";
+import {
+  KIDS_TRICYCLE_ASSET_PATHS,
+  KIDS_TRICYCLE_SEO_BY_PATH,
+} from "./data/kidsTricycleSeo";
+import {
+  KIDS_STROLLER_ASSET_PATHS,
+  KIDS_STROLLER_SEO_BY_PATH,
+} from "./data/kidsStrollerSeo";
 import {
   BUYER_FEEDBACK_PATH,
   buyerFeedbackSeo,
@@ -1048,6 +1072,24 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   // dispatched from the path list for the same reason as the scooter cluster.
   // Same rule as above: the tab name is the path root verbatim.
   if (KIDS_RIDE_ON_ASSET_PATHS.includes(`/${root}/`)) {
+    return {
+      activeTab: root,
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // The eight kids-tricycle and kids-stroller asset pages share one dataset and
+  // one tab each, dispatched from the path list. Same rule as above: the tab
+  // name is the path root verbatim.
+  if (
+    KIDS_TRICYCLE_ASSET_PATHS.includes(`/${root}/`) ||
+    KIDS_STROLLER_ASSET_PATHS.includes(`/${root}/`)
+  ) {
     return {
       activeTab: root,
       activeProductCategory: "all",
@@ -3234,6 +3276,48 @@ export default function App() {
       }
     }
 
+    // One effect for the kids-tricycle and kids-stroller asset pages. Each has
+    // its own SEO block in data/kidsTricycleSeo.ts / data/kidsStrollerSeo.ts,
+    // keyed by path. Same rule as the ride-on cluster: the tab name is the path
+    // root, so the path is recovered verbatim.
+    if (activeTab.startsWith("kids-tricycle-") || activeTab.startsWith("kids-stroller-")) {
+      const clusterPath = `/${activeTab}/`;
+      const clusterSeo =
+        KIDS_TRICYCLE_SEO_BY_PATH[clusterPath] || KIDS_STROLLER_SEO_BY_PATH[clusterPath];
+      if (clusterSeo) {
+        const seoData = clusterSeo[lang] || clusterSeo.en;
+        const canonicalOrigin =
+          cmsSettings?.seoGlobal?.siteOrigin ||
+          (cmsSettings as any)?.siteOrigin ||
+          (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+          window.location.origin;
+        const canonicalUrl = `${canonicalOrigin}${clusterPath}`;
+        const noIndex = shouldNoIndexCurrentPath(clusterPath, window.location.search, window.location.hostname);
+        const docTitle = buildDocumentTitle(seoData.title);
+        const metaDesc = buildMetaDescription(seoData.description, sanitizeUnsupportedClaims);
+
+        document.title = docTitle;
+        updateMetaTag("description", metaDesc);
+        updateMetaTag("keywords", seoData.keywords.join(", "));
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+        updateCanonicalLink(canonicalUrl);
+        updateMetaProperty("og:url", canonicalUrl);
+        updateSocialMeta(docTitle, metaDesc, DEFAULT_OG_IMAGE_PATH, "website");
+
+        injectJsonLd([
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: docTitle,
+            url: canonicalUrl,
+            description: seoData.description,
+            inLanguage: lang,
+          },
+        ]);
+        return;
+      }
+    }
+
     if (activeTab === "weight-build") {
       const weightSeoData = weightSeo[lang] || weightSeo.en;
       const canonicalOrigin =
@@ -4930,6 +5014,56 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "kids-ride-on-recalls" && (
           <KidsRideOnRecalls lang={lang} />
+        )}
+
+        {activeTab === "kids-tricycle-size-chart" && (
+          <KidsTricycleSize lang={lang} />
+        )}
+        {activeTab === "kids-tricycle-by-age" && (
+          <KidsTricycleAge lang={lang} />
+        )}
+        {activeTab === "kids-tricycle-price" && (
+          <KidsTricyclePrice lang={lang} />
+        )}
+        {activeTab === "kids-tricycle-weight" && (
+          <KidsTricycleWeight lang={lang} />
+        )}
+        {activeTab === "kids-tricycle-types" && (
+          <KidsTricycleTypes lang={lang} />
+        )}
+        {activeTab === "kids-tricycle-safety-standards" && (
+          <KidsTricycleSafety lang={lang} />
+        )}
+        {activeTab === "kids-tricycle-what-buyers-say" && (
+          <KidsTricycleFeedback lang={lang} />
+        )}
+        {activeTab === "kids-tricycle-recalls" && (
+          <KidsTricycleRecalls lang={lang} />
+        )}
+
+        {activeTab === "kids-stroller-size-chart" && (
+          <KidsStrollerSize lang={lang} />
+        )}
+        {activeTab === "kids-stroller-by-age" && (
+          <KidsStrollerAge lang={lang} />
+        )}
+        {activeTab === "kids-stroller-price" && (
+          <KidsStrollerPrice lang={lang} />
+        )}
+        {activeTab === "kids-stroller-weight" && (
+          <KidsStrollerWeight lang={lang} />
+        )}
+        {activeTab === "kids-stroller-types" && (
+          <KidsStrollerTypes lang={lang} />
+        )}
+        {activeTab === "kids-stroller-safety-standards" && (
+          <KidsStrollerSafety lang={lang} />
+        )}
+        {activeTab === "kids-stroller-what-buyers-say" && (
+          <KidsStrollerFeedback lang={lang} />
+        )}
+        {activeTab === "kids-stroller-recalls" && (
+          <KidsStrollerRecalls lang={lang} />
         )}
 
         {activeTab === "weight-build" && (

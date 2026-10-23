@@ -38,6 +38,8 @@ import { KIDS_BUYER_FEEDBACK_PATH, kidsBuyerFeedbackSeo } from "../src/data/kids
 import { KIDS_RECALLS_PATH, kidsRecallsSeo } from "../src/data/kidsBikeRecalls";
 import { KIDS_SCOOTER_ASSET_PATHS, KIDS_SCOOTER_SEO_BY_PATH } from "../src/data/kidsScooterSeo";
 import { KIDS_RIDE_ON_ASSET_PATHS, KIDS_RIDE_ON_SEO_BY_PATH } from "../src/data/kidsRideOnSeo";
+import { KIDS_TRICYCLE_ASSET_PATHS, KIDS_TRICYCLE_SEO_BY_PATH } from "../src/data/kidsTricycleSeo";
+import { KIDS_STROLLER_ASSET_PATHS, KIDS_STROLLER_SEO_BY_PATH } from "../src/data/kidsStrollerSeo";
 import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
 import { KIDS_SIZING_PATH, kidsBikeSizingSeo } from "../src/data/kidsBikeSizing";
 import { STABILITY_PATH, stabilitySeo } from "../src/data/balanceBikeStability";
@@ -133,6 +135,18 @@ const ASSET_SEO: Array<{
     label: `asset kids ride-on ${i + 1}`,
     route,
     seo: en(KIDS_RIDE_ON_SEO_BY_PATH[route]),
+  })),
+  // Same for the eight kids-tricycle pages.
+  ...KIDS_TRICYCLE_ASSET_PATHS.map((route, i) => ({
+    label: `asset kids tricycle ${i + 1}`,
+    route,
+    seo: en(KIDS_TRICYCLE_SEO_BY_PATH[route]),
+  })),
+  // Same for the eight kids-stroller pages.
+  ...KIDS_STROLLER_ASSET_PATHS.map((route, i) => ({
+    label: `asset kids stroller ${i + 1}`,
+    route,
+    seo: en(KIDS_STROLLER_SEO_BY_PATH[route]),
   })),
 ];
 
