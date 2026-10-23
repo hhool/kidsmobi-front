@@ -70,7 +70,7 @@ export const kidsStrollerPriceStrings: Record<"en" | "zh", StrollerPriceStrings>
     eyebrow: "Plan-B asset · price",
     navLabel: "Price",
     h1: `Stroller Prices: ${total} Models, ${bandUnder} Under $100`,
-    lead: `Price is the only field every one of the ${total} strollers publishes, so coverage is ${total} of ${total}. The shape is the story: ${bandUnder} sit under $100, ${band100} cluster in the $100–$200 band, and the rest thin out to a ${priceMax} top end. Rating and price turn out to be unrelated facts.`,
+    lead: `Price is the only field every one of the ${total} strollers publishes, so coverage is ${total} of ${total}. The shape is the story: ${bandUnder} sit under $100, ${band100} cluster in the $100–$200 band, and the rest thin out to a $${priceMax} ceiling. Rating and price turn out to be unrelated facts.`,
     coverTitle: "Every stroller carries a price",
     coverLead: `All ${total} listings state a price, from $${priceMin} to $${priceMax}.`,
     bandsTitle: "Where the dollars actually cluster",

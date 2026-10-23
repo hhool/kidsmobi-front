@@ -180,6 +180,14 @@ const APPENDED_PREFIXES = [
   "related reviews",
   "products mentioned",
   "balance bike reference pages",
+  // Per-cluster headings from CLUSTER_HEADINGS in src/lib/referenceCluster.ts.
+  // Each cluster's block renders only that cluster's cards, so the heading
+  // differs per page but is still template chrome in every case.
+  "kids bike reference pages",
+  "kids scooter reference pages",
+  "electric ride-on reference pages",
+  "kids tricycle reference pages",
+  "stroller reference pages",
   "further reading",
   "related datasets",
 ];

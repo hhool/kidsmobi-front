@@ -78,7 +78,7 @@ export const kidsStrollerPriceSeo = {
     title: "Stroller Prices: 45 Models Compared",
     description:
       `All ${n} strollers carry a price, from under $100 to a ` +
-      `${Math.max(...STROLLER_DATASET.rows.map((r) => r.price))} top end. Where the dollars cluster, and why rating and price are separate.`,
+      `$${Math.max(...STROLLER_DATASET.rows.map((r) => r.price))} ceiling. Where the dollars cluster, and why rating and price are separate.`,
     canonical: KIDS_STROLLER_PRICE_PATH,
     keywords: [
       "stroller prices",

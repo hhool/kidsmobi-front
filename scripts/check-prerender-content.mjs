@@ -97,6 +97,25 @@ const publishedCluster = existsSync(CLUSTER_MANIFEST)
 const CLUSTER_TARGETS = publishedCluster.length ? publishedCluster : REFERENCE_CLUSTER;
 const normPath = (value) => value.replace(/\/+$/, "") || "/";
 
+/**
+ * Which cluster a path belongs to. Mirrors clusterGroupOfHref() in
+ * src/lib/referenceCluster.ts, which is the source of truth both render paths
+ * import — this guard is plain node and cannot import it. A path matching no
+ * cluster stays with the balance-bike cluster, exactly as there.
+ */
+const CLUSTER_GROUP_PREFIXES = [
+  [/^\/kids-stroller-/i, "kids-stroller"],
+  [/^\/kids-tricycle-/i, "kids-tricycle"],
+  [/^\/kids-ride-on-/i, "kids-ride-on"],
+  [/^\/kids-scooter-/i, "kids-scooter"],
+  [/^\/kids-bike-/i, "kids-bike"],
+];
+const clusterGroupOf = (path) => {
+  const value = String(path || "").trim();
+  for (const [pattern, group] of CLUSTER_GROUP_PREFIXES) if (pattern.test(value)) return group;
+  return "balance-bike";
+};
+
 const MIN_CLUSTER_LINKING_PAGES = 10;
 
 // Not simply split("<footer"): page bodies legitimately contain their own
@@ -190,8 +209,11 @@ for (const target of CLUSTER_TARGETS) {
   }
 }
 
-// Each host page must link to every target except itself (a card pointing at
-// its own page is filtered out at render time, so seven links is the floor).
+// Each host page must link to every target in its own cluster except itself (a
+// card pointing at its own page is filtered out at render time, so seven links
+// is the floor). Cross-cluster links are deliberately NOT required: the block
+// renders one cluster's cards per page, so a stroller page linking to a
+// kids-bike page would mean the filter had broken.
 for (const path of REFERENCE_CLUSTER) {
   const file = fileForPath(path);
   if (!file) {
@@ -199,8 +221,12 @@ for (const path of REFERENCE_CLUSTER) {
     continue;
   }
   const html = stripFooter(readFileSync(file, "utf8"));
+  const group = clusterGroupOf(path);
   const missing = CLUSTER_TARGETS.filter(
-    (target) => normPath(target) !== normPath(path) && !html.includes(`href="${target}"`),
+    (target) =>
+      clusterGroupOf(target) === group &&
+      normPath(target) !== normPath(path) &&
+      !html.includes(`href="${target}"`),
   );
   if (missing.length) {
     failures.push({ name: "cluster-crosslink", detail: `${path} does not link to ${missing.join(", ")}` });

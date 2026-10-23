@@ -1,8 +1,14 @@
 import { ArrowRight } from "lucide-react";
-import { samePath, useReferenceCluster } from "../lib/referenceCluster";
+import {
+  samePath,
+  useReferenceCluster,
+  clusterGroupOfHref,
+  clusterGroupOfPath,
+  CLUSTER_HEADINGS,
+} from "../lib/referenceCluster";
 
 /**
- * Contextual navigation inside the balance-bike reference cluster.
+ * Contextual navigation inside a category's reference cluster.
  *
  * The reference pages answered 94.7% of this domain's Search Console
  * impressions, yet until now they linked to each other from nothing but the
@@ -12,6 +18,8 @@ import { samePath, useReferenceCluster } from "../lib/referenceCluster";
  * order, wording and targets, and `scripts/prerender-pages.ts` resolves the
  * same list through the same module — so the static HTML and the hydrated view
  * carry identical links, and the CMS can rearrange them without a code change.
+ * Which of those cards a page shows is not configuration: a host renders only
+ * its own cluster's cards (see clusterGroupOfPath).
  */
 export default function ReferenceClusterNav({
   currentPath,
@@ -23,15 +31,23 @@ export default function ReferenceClusterNav({
   heading?: string;
 }) {
   const assets = useReferenceCluster();
-  const items = currentPath ? assets.filter((asset) => !samePath(asset.href, currentPath)) : assets;
+  // The prerender always passes the path explicitly. The SPA falls back to the
+  // URL it is rendering, which is the same route by construction — the three
+  // shared asset-page shells (ClusterAssetPage, RideOnAssetPage,
+  // ScooterAssetPage) render this block without a path and would otherwise
+  // link the page to itself.
+  const path = currentPath ?? (typeof window !== "undefined" ? window.location.pathname : "");
+  const group = clusterGroupOfPath(path);
+  const items = assets
+    .filter((asset) => clusterGroupOfHref(asset.href) === group)
+    .filter((asset) => !samePath(asset.href, path));
   if (!items.length) return null;
   const zh = lang === "zh";
+  const title = heading ?? CLUSTER_HEADINGS[group][zh ? "zh" : "en"];
 
   return (
     <section className="mt-10 border-t border-slate-200 pt-6">
-      <h2 className="text-base font-black text-slate-950">
-        {heading || (zh ? "平衡车参考页" : "Balance bike reference pages")}
-      </h2>
+      <h2 className="text-base font-black text-slate-950">{title}</h2>
       <ul className="mt-3 grid gap-3 sm:grid-cols-2">
         {items.map((asset) => (
           <li key={asset.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">

@@ -25,6 +25,66 @@ export type ReferenceClusterCard = {
   visible?: boolean;
 };
 
+/**
+ * Which cluster a page belongs to.
+ *
+ * The block began as the balance-bike reference cluster and grew one cluster at
+ * a time — kids bikes, scooters, ride-ons, tricycles, strollers. Rendering every
+ * published card on every host page turned it into a site-wide index that buried
+ * each page's actual siblings under 40-odd unrelated links (and put a "Balance
+ * bike reference pages" heading on a stroller page), so a host now renders only
+ * its own cluster's cards.
+ *
+ * The group is derived from the href instead of being stored on the card: the
+ * CMS can repoint a card at any page, and the card should travel with its new
+ * target rather than silently staying in the old cluster. An href matching no
+ * cluster — a hand-added link, say — stays with the balance-bike cluster, which
+ * is where this block was born.
+ */
+export type ClusterGroup =
+  | "balance-bike"
+  | "kids-bike"
+  | "kids-scooter"
+  | "kids-ride-on"
+  | "kids-tricycle"
+  | "kids-stroller";
+
+const CLUSTER_GROUP_BY_PREFIX: Array<[RegExp, ClusterGroup]> = [
+  [/^\/kids-stroller-/i, "kids-stroller"],
+  [/^\/kids-tricycle-/i, "kids-tricycle"],
+  [/^\/kids-ride-on-/i, "kids-ride-on"],
+  [/^\/kids-scooter-/i, "kids-scooter"],
+  [/^\/kids-bike-/i, "kids-bike"],
+];
+
+/** The cluster a card belongs to, taken from its href. */
+export function clusterGroupOfHref(href: string): ClusterGroup {
+  const path = String(href || "").trim();
+  for (const [pattern, group] of CLUSTER_GROUP_BY_PREFIX) {
+    if (pattern.test(path)) return group;
+  }
+  return "balance-bike";
+}
+
+/** The cluster a page belongs to, taken from its own path. */
+export function clusterGroupOfPath(path: string): ClusterGroup {
+  return clusterGroupOfHref(path);
+}
+
+/**
+ * Per-cluster block heading. The balance-bike wording is unchanged because
+ * check-topic-pair-drift.mjs recognises it as template chrome; the other five
+ * are listed there too.
+ */
+export const CLUSTER_HEADINGS: Record<ClusterGroup, { en: string; zh: string }> = {
+  "balance-bike": { en: "Balance bike reference pages", zh: "平衡车参考页" },
+  "kids-bike": { en: "Kids bike reference pages", zh: "儿童自行车参考页" },
+  "kids-scooter": { en: "Kids scooter reference pages", zh: "儿童滑板车参考页" },
+  "kids-ride-on": { en: "Electric ride-on reference pages", zh: "电动骑乘参考页" },
+  "kids-tricycle": { en: "Kids tricycle reference pages", zh: "儿童三轮车参考页" },
+  "kids-stroller": { en: "Stroller reference pages", zh: "婴儿推车参考页" },
+};
+
 export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
   {
     id: "size-chart",

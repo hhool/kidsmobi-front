@@ -198,6 +198,9 @@ import { FOOTER_ARTICLE_LINKS } from "../src/lib/footerArticles";
 import {
   DEFAULT_REFERENCE_CLUSTER,
   resolveReferenceCluster,
+  clusterGroupOfHref,
+  clusterGroupOfPath,
+  CLUSTER_HEADINGS,
   type ReferenceClusterCard,
 } from "../src/lib/referenceCluster";
 import { shortenCardTitle } from "../src/lib/productSeoText";
@@ -459,7 +462,7 @@ function renderSiteFooter(): string {
 }
 
 /**
- * Contextual links inside the balance-bike reference cluster.
+ * Contextual links inside a category's reference cluster.
  *
  * Until now the six reference pages were reachable only from the site-wide
  * footer, which meant no page passed contextual anchor weight into the set —
@@ -467,6 +470,10 @@ function renderSiteFooter(): string {
  * balance-bike queries, so those pages are the ones worth connecting. The
  * footer link stays; these are the in-content links that give the cluster
  * shape, with anchor text matching what each page actually contains.
+ *
+ * Every cluster added since (kids bikes, scooters, ride-ons, tricycles,
+ * strollers) renders the same block, scoped to its own cluster — see
+ * clusterGroupOfPath in src/lib/referenceCluster.ts.
  */
 // The published list is configuration: the CMS arranges settings.referenceCluster
 // and this resolves it through the same module the hydrated component uses, so
@@ -479,12 +486,21 @@ const sameClusterPath = (a: string, b: string): boolean => {
   return norm(a) === norm(b);
 };
 
-function clusterNavHtml(currentPath: string, heading = "Balance bike reference pages"): string {
-  const items = referenceCluster.filter((card) => !sameClusterPath(card.href, currentPath));
+/**
+ * The reference-cluster block, resolved through the same module the hydrated
+ * component uses. A host renders only its own cluster's cards: the list is
+ * configuration, the cluster a page belongs to is its path.
+ */
+function clusterNavHtml(currentPath: string, heading?: string): string {
+  const group = clusterGroupOfPath(currentPath);
+  const items = referenceCluster
+    .filter((card) => clusterGroupOfHref(card.href) === group)
+    .filter((card) => !sameClusterPath(card.href, currentPath));
   if (!items.length) return "";
+  const title = heading ?? CLUSTER_HEADINGS[group].en;
   return `
       <section style="margin: 22px 0 0; border-top: 1px solid #e2e8f0; padding-top: 18px;">
-        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">${escapeHtml(heading)}</h2>
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">${escapeHtml(title)}</h2>
         <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
           ${items
             .map(
