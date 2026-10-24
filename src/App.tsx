@@ -1671,8 +1671,15 @@ export default function App() {
     });
   };
 
-  const navigateToPath = (path: string, options?: { replace?: boolean; preserveScroll?: boolean }) => {
-    const normalizedPath = normalizePathname(path);
+  /**
+   * Keep the /zh prefix when navigating inside a translated section. The URL
+   * is the indexable language variant, so a client-side jump (category chip,
+   * pagination, opening an article) must not silently drop it — otherwise
+   * /zh/guides rewrote itself to /guides and the Chinese page was gone.
+   */
+  const langPath = (path: string): string => (isZhPath(currentPath) ? withZhPrefix(path) : path);
+
+  const navigateToPath = (path: string, options?: { replace?: boolean; preserveScroll?: boolean }) => {    const normalizedPath = normalizePathname(path);
     const shouldReplace = options?.replace ?? false;
     const preserveScroll = options?.preserveScroll ?? false;
     const hasChanged = window.location.pathname !== normalizedPath || window.location.hash.startsWith("#cms");
@@ -4741,14 +4748,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeCategory={activeNewsCategory}
             activeArticleId={activeNewsArticleId}
             productsData={productsData}
-            onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/news" : `/news/${cat}`, { preserveScroll: true })}
+            onCategoryChange={(cat) => navigateToPath(langPath(cat === "all" ? "/news" : `/news/${cat}`), { preserveScroll: true })}
             onArticleOpen={(cat, articleId) => {
               rememberReturnView("news");
-              navigateToPath(`/news/${cat}/${articleId}`, { preserveScroll: true });
+              navigateToPath(langPath(`/news/${cat}/${articleId}`), { preserveScroll: true });
             }}
-            onArticleClose={() => restoreReturnView("news", activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`)}
+            onArticleClose={() => restoreReturnView("news", langPath(activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`))}
             onPageChange={(page) => {
-              const newsPath = activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`;
+              const newsPath = langPath(activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`);
               navigateToPath(page <= 1 ? newsPath : `${newsPath}/page/${page}`, { preserveScroll: true });
             }}
             onPaginationMetaChange={(meta) => setNewsPaginationTotalPages(meta.totalPages)}
@@ -4956,14 +4963,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             onSearchQueryChange={(query) => setActiveGuidesSearchQuery(query)}
             isAdmin={isAdmin}
             onOpenAdminGuideEditor={openAdminGuideEditor}
-            onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/guides" : `/guides/${cat}`, { preserveScroll: true })}
+            onCategoryChange={(cat) => navigateToPath(langPath(cat === "all" ? "/guides" : `/guides/${cat}`), { preserveScroll: true })}
             onArticleOpen={(cat, articleId) => {
               rememberReturnView("guides");
-              navigateToPath(`/guides/${cat}/${articleId}`, { preserveScroll: true });
+              navigateToPath(langPath(`/guides/${cat}/${articleId}`), { preserveScroll: true });
             }}
-            onArticleClose={() => restoreReturnView("guides", activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`)}
+            onArticleClose={() => restoreReturnView("guides", langPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`))}
             onPageChange={(page) => {
-              const guidesPath = activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`;
+              const guidesPath = langPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`);
               navigateToPath(page <= 1 ? guidesPath : `${guidesPath}/page/${page}`, { preserveScroll: true });
             }}
             onPaginationMetaChange={(meta) => setGuidesPaginationTotalPages(meta.totalPages)}

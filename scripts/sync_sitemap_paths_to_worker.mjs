@@ -25,11 +25,12 @@
  *   cd front && npm run build && node scripts/sync_sitemap_paths_to_worker.mjs
  * then `npm run check:workerparity` and redeploy the Worker.
  */
-import { readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
 const root = process.cwd();
-const sitemapPath = resolve(root, 'dist', 'sitemap.xml');
+const distDir = resolve(root, 'dist');
+const sitemapPath = resolve(distDir, 'sitemap.xml');
 const outFile = resolve(root, '..', 'backend', 'api', 'worker', 'src', 'workerSitemapPaths.generated.ts');
 
 const sitemap = readFileSync(sitemapPath, 'utf8');
@@ -52,10 +53,19 @@ const assetPaths = entries
   .filter((e) => e.includes('<priority>0.9</priority>'))
   .map((e) => pathOf(locOf(e)));
 
-// No <lastmod> == no CMS record == invisible to the Worker's D1 scan.
-const staticNoCmsPaths = entries
-  .filter((e) => !e.includes('<lastmod>'))
-  .map((e) => pathOf(locOf(e)));
+// Routes with no CMS record: the prerender writes them explicitly (the
+// "no <lastmod>" proxy broke once the static pages got honest lastmods from
+// their source files). Fall back to the old proxy when the manifest is
+// missing (older builds).
+const staticManifestPath = resolve(distDir, 'sitemap-static-paths.json');
+let staticNoCmsPaths = [];
+if (existsSync(staticManifestPath)) {
+  staticNoCmsPaths = JSON.parse(readFileSync(staticManifestPath, 'utf8'));
+} else {
+  staticNoCmsPaths = entries
+    .filter((e) => !e.includes('<lastmod>'))
+    .map((e) => pathOf(locOf(e)));
+}
 
 for (const [name, list] of [['SITEMAP_ASSET_PATHS', assetPaths], ['STATIC_NO_CMS_PATHS', staticNoCmsPaths]]) {
   if (list.length === 0) {

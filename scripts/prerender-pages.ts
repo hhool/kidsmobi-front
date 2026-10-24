@@ -7999,6 +7999,7 @@ async function main() {
   const evaluationDetailPages = cmsEvaluations
     .map((item) => renderEvaluationDetailPage(item, productMap))
     .filter((page): page is RoutePage => page !== null);
+  const filterPages = renderFilterPages(cmsGuides, cmsNews, cmsEvaluations);
   const retitledReviews = resolveDuplicateTitles(productDetailPages, evaluationDetailPages);
   if (retitledReviews) {
     console.log(`[prerender] ${retitledReviews} CMS review page(s) retitled to stop sharing a <title> with a product page.`);
@@ -8016,7 +8017,7 @@ async function main() {
     zhGuidesHubPage,
     zhNewsHubPage,
     renderReviewsPage(cmsEvaluations),
-    ...renderFilterPages(cmsGuides, cmsNews, cmsEvaluations),
+    ...filterPages,
     renderAboutPage(),
     ...renderTransparencyPages(),
     ...renderSafetyRecallPage(),
@@ -8266,6 +8267,39 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${sitemapUrls}</urlset>\n`;
   await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
   console.log(`[prerender] sitemap.xml: ${pages.length} URL(s) written.`);
+
+  // Manifest of the routes that have no CMS record, so the Worker can publish
+  // them (its D1 scan never sees them). The old proxy — "the entry has no
+  // <lastmod>" — stopped working once the static pages got honest lastmods
+  // from their source files, so the set is written explicitly here and read
+  // by scripts/sync_sitemap_paths_to_worker.mjs.
+  const workerPublishedRoutes = new Set<string>([
+    "",
+    "/products",
+    "/reviews",
+    "/guides",
+    "/news",
+    "/about",
+    "/zh/guides",
+    "/zh/news",
+    ...PRODUCT_CATEGORY_PAGES.map((meta) => `/products/${meta.slug}/`),
+    ...filterPages.map((page) => page.route),
+    ...guideDetailPages.map((page) => page.route),
+    ...newsDetailPages.map((page) => page.route),
+    ...zhGuideDetailPages.map((page) => page.route),
+    ...zhNewsDetailPages.map((page) => page.route),
+    ...evaluationDetailPages.map((page) => page.route),
+    ...productDetailPages.map((page) => page.route),
+  ]);
+  const staticNoCmsPaths = pages
+    .map((page) => page.route)
+    .filter((route) => !workerPublishedRoutes.has(route));
+  await writeFile(
+    path.join(distDir, "sitemap-static-paths.json"),
+    JSON.stringify(staticNoCmsPaths, null, 2),
+    "utf8",
+  );
+  console.log(`[prerender] sitemap-static-paths.json: ${staticNoCmsPaths.length} route(s) without a CMS record.`);
 
   // Publish the resolved reference-cluster list alongside the build. The
   // content guard reads it instead of hardcoding the old asset-page set, so it
