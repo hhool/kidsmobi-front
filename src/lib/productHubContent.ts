@@ -1,3 +1,10 @@
+import {
+  DEFAULT_REFERENCE_CLUSTER,
+  clusterGroupOfHref,
+  type ClusterGroup,
+  type ReferenceClusterCard,
+} from "./referenceCluster";
+
 /**
  * Category-hub editorial content (single source, P1 SEO round).
  *
@@ -167,4 +174,34 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
 /** Hub intro paragraphs + FAQ for a slug (empty arrays when unknown). */
 export function getHubContent(slug: string): HubContent {
   return CATEGORY_HUB_CONTENT[slug] || { intro: [], faqs: [] };
+}
+
+/**
+ * Editorial reference pages (size charts, by-age, safety, recalls, …) surfaced
+ * from each category hub so a shopper browsing /products/strollers/ can reach
+ * the deep guides. Single source for BOTH the prerendered hub and the hydrated
+ * SPA hub (mirrors how getHubContent keeps intro/FAQ in parity).
+ *
+ * The map is category → reference cluster; safety-seats has no editorial
+ * reference cluster of its own, so it is absent and the helpers return [].
+ */
+const HUB_SLUG_TO_CLUSTER: Record<string, ClusterGroup> = {
+  "balance-bikes": "balance-bike",
+  "kids-bikes": "kids-bike",
+  "kids-scooters": "kids-scooter",
+  "electric-cars": "kids-ride-on",
+  strollers: "kids-stroller",
+  "kids-tricycles": "kids-tricycle",
+};
+
+/** The reference cluster a hub should link to, or null when none. */
+export function hubClusterGroup(slug: string): ClusterGroup | null {
+  return HUB_SLUG_TO_CLUSTER[slug] ?? null;
+}
+
+/** Editorial reference pages for a hub's cluster (empty for hubs with none). */
+export function hubReferenceCards(slug: string): ReferenceClusterCard[] {
+  const group = HUB_SLUG_TO_CLUSTER[slug];
+  if (!group) return [];
+  return DEFAULT_REFERENCE_CLUSTER.filter((card) => clusterGroupOfHref(card.href) === group);
 }

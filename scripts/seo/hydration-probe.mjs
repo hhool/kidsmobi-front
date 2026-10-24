@@ -27,6 +27,11 @@ import { SITE_BASE } from './config.mjs';
 const ROUTES = [
   '/',
   '/products/balance-bikes/',
+  '/products/strollers/',
+  '/products/kids-bikes/',
+  '/products/kids-scooters/',
+  '/products/electric-cars/',
+  '/products/kids-tricycles/',
   '/news',
   '/guides',
   '/reviews',

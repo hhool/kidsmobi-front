@@ -38,7 +38,7 @@ import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
 import { productCategoryPath, productDetailPath, productCategoryUrlSlug, productDetailUrlSlug } from "./lib/productCategoryPaths";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS } from "./lib/productFaq";
-import { getHubContent } from "./lib/productHubContent";
+import { getHubContent, hubClusterGroup, hubReferenceCards } from "./lib/productHubContent";
 
 /** Mirrors PRODUCT_COMPARE_HUB_BY_SLUG in scripts/prerender-pages.ts (P1-2). */
 const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
@@ -55,7 +55,6 @@ import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
 import SmartImage from "./components/common/SmartImage";
 import SafetyWeightCalculator from "./components/common/SafetyWeightCalculator";
 import MatchingWizard from "./components/MatchingWizard";
-import ReferenceClusterNav from "./components/ReferenceClusterNav";
 import ProductDetailSkeleton from "./components/ProductDetailSkeleton";
 
 const HomeSection = lazy(() => import("./components/HomeSection"));
@@ -147,7 +146,7 @@ import {
 } from "./lib/canonicalPath";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
-import { setReferenceClusterConfig } from "./lib/referenceCluster";
+import { setReferenceClusterConfig, CLUSTER_HEADINGS } from "./lib/referenceCluster";
 import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -4746,12 +4745,41 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     ))}
                   </div>
                 )}
-                {/* Mirrors the prerendered hub's clusterNavHtml (prerender-pages.ts
+                {/* Mirrors the prerendered hub's hubGuidesHtml (prerender-pages.ts
                     hub body). Without this the createRoot() hydration wipes the
-                    static HTML's in-content link from the balance-bikes hub to
-                    /balance-bike-stability/, which is the page Google currently
-                    ranks for the "stable track balance bike" queries. */}
-                {slug === "balance-bikes" && <ReferenceClusterNav lang={lang} />}
+                    static HTML's in-content links from the hub to its cluster's
+                    reference pages. Renders for every cluster hub; safety-seats
+                    has no cluster so it returns nothing. */}
+                {(() => {
+                  const cards = hubReferenceCards(slug);
+                  if (!cards.length) return null;
+                  const group = hubClusterGroup(slug) as keyof typeof CLUSTER_HEADINGS;
+                  return (
+                    <section className="mt-12 pt-6 border-t border-slate-100">
+                      <h2 className="km-section-title text-slate-900 mb-4">
+                        {lang === "zh" ? CLUSTER_HEADINGS[group].zh : CLUSTER_HEADINGS[group].en}
+                      </h2>
+                      <ul className="grid gap-3 sm:grid-cols-2">
+                        {cards.map((card) => (
+                          <li
+                            key={card.id}
+                            className="bg-slate-50 border border-slate-100 rounded-2xl p-4"
+                          >
+                            <a
+                              href={card.href}
+                              className="font-bold text-orange-600 no-underline"
+                            >
+                              {lang === "zh" ? card.labelZh : card.labelEn}
+                            </a>
+                            <span className="block mt-1 text-sm text-slate-500">
+                              {lang === "zh" ? card.blurbZh : card.blurbEn}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  );
+                })()}
               </section>
             );
           })()}

@@ -220,7 +220,7 @@ import { resolveSectionRouteSeo } from "../src/lib/cmsSectionSeo";
 import type { CMSSettings } from "../src/types";
 import { buildProductDetailKeywords, resolveRouteKeywords, CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
-import { getHubContent } from "../src/lib/productHubContent";
+import { getHubContent, hubClusterGroup, hubReferenceCards } from "../src/lib/productHubContent";
 import { renderRichContentHtml } from "../src/lib/richContentHtml";
 
 const distDir = path.resolve("dist");
@@ -511,6 +511,34 @@ function clusterNavHtml(currentPath: string, heading?: string): string {
         </ul>
       </section>
   `;
+}
+
+/**
+ * Reference-pages block for a category hub (e.g. /products/strollers/).
+ * Surfaces that cluster's editorial guides so a shopper browsing the hub can
+ * reach the deep pages — the new-cluster hubs had no inbound link to their
+ * asset pages at all. Mirrors the hydrated SPA render (App.tsx) so the static
+ * and hydrated link sets stay identical. Returns "" for hubs with no cluster
+ * (safety-seats) and for unknown slugs.
+ */
+function hubGuidesHtml(slug: string): string {
+  const group = hubClusterGroup(slug);
+  if (!group) return "";
+  const items = hubReferenceCards(slug);
+  if (!items.length) return "";
+  const title = CLUSTER_HEADINGS[group].en;
+  return `
+      <section style="margin: 22px 0 0; border-top: 1px solid #e2e8f0; padding-top: 18px;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">${escapeHtml(title)}</h2>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+          ${items
+            .map(
+              (card) =>
+                `<li style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px 16px;"><a href="${escapeHtml(card.href)}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(card.labelEn)}</a><span style="display:block;margin-top:4px;font-size:0.85rem;color:#64748b;">${escapeHtml(card.blurbEn)}</span></li>`,
+            )
+            .join("")}
+        </ul>
+      </section>`;
 }
 
 /**
@@ -7478,7 +7506,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
         </section>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>
         ${hubEditorialHtml}
-        ${meta.slug === "balance-bikes" ? clusterNavHtml("") : ""}
+        ${hubGuidesHtml(meta.slug)}
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
           <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">Compare every kids mobility category →</a></p>
         </section>
