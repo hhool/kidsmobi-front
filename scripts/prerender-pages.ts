@@ -279,6 +279,8 @@ type RoutePage = {
    *  which left /products/ and /reviews/ publishing different keywords after
    *  hydration than in the raw HTML. */
   keywords?: string[];
+  /** hreflang alternates (en / zh / x-default) for the /zh edition scheme. */
+  alternates?: Array<{ hreflang: string; href: string }>;
   /** Skip the page.title <h1> that renderStaticPage emits (used when the
    *  body has its own single <h1>, so the page keeps exactly one h1). */
   skipTitleH1?: boolean;
@@ -286,6 +288,8 @@ type RoutePage = {
    *  page.title (page.title still drives <title> and the JSON-LD name).
    *  See GUIDES_WIZARD_H1 in src/lib/guidesTopicPages.ts. */
   h1En?: string;
+  /** Visible <h1> for any language; wins over h1En. */
+  h1?: string;
   /** Skip the lead description paragraph renderStaticPage puts under the h1.
    *  CMS articles whose body opens with the same sentence were printing it
    *  twice, once as the lead and again as the first paragraph. */
@@ -403,7 +407,7 @@ function renderStaticPage(page: RoutePage): string {
     <article style="max-width: 980px; margin: 0 auto; padding: 40px 20px; color: #0f172a; font-family: Arial, sans-serif; line-height: 1.7;">
       <header style="padding-bottom: 24px; border-bottom: 1px solid #e2e8f0; margin-bottom: 24px;">
         <p style="margin: 0 0 10px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c2410c; font-weight: 900;">BalanceBikeToddler</p>
-        ${page.skipTitleH1 ? "" : `<h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.h1En || page.title)}</h1>`}
+        ${page.skipTitleH1 ? "" : `<h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.h1 || page.h1En || page.title)}</h1>`}
         ${page.skipLeadDescription ? "" : `<p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>`}
       </header>
       ${page.body}
@@ -724,6 +728,7 @@ ${ogImage ? `    <meta property="og:image" content="${escapeHtml(ogImage)}" />
     <meta name="twitter:description" content="${escapeHtml(descTag)}" />
     <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
 ` : "    <meta name=\"twitter:card\" content=\"summary\" />\n"}    <link rel="canonical" href="${escapeHtml(canonical)}" />
+${(page.alternates || []).map((alt) => `    <link rel="alternate" hreflang="${escapeHtml(alt.hreflang)}" href="${escapeHtml(alt.href)}" />\n`).join("")}
 ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" />\n` : ""}<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <style>
       /* CSS cascade-layer hygiene (Lighthouse a11y 2026-10-17): an UNLAYERED
@@ -972,6 +977,142 @@ function pickText(...values: Array<string | undefined>): string {
     if (text) return text;
   }
   return "";
+}
+
+/**
+ * Chinese labels for the /zh edition of the article pages (2026-10-24).
+ * The /zh URLs exist so the Chinese guide and news content can be indexed at
+ * all: until then the language was client state, and a crawler only ever saw
+ * the English page.
+ */
+const ZH_ARTICLE_LABELS = {
+  guidesHub: "选购指南",
+  newsHub: "新闻资讯",
+  shortAnswer: "简短答案",
+  relatedReviews: "相关评测",
+  productsMentioned: "本篇提到的商品",
+  productBlurb: "实验室评分、完整参数与安全检查清单。",
+  published: "发布于",
+  by: "作者",
+  continueGuides: "继续浏览完整指南库",
+  continueNews: "继续浏览全部新闻",
+  clusterNav: "相关选购专题",
+  topicLabels: {
+    beginner: "新手入门",
+    scenario: "骑行场景",
+    budget: "预算选购",
+    risk: "安全与风险",
+    maintenance: "维护保养",
+    special: "额外支持",
+    best: "精选榜单",
+  } as Record<string, string>,
+  channelLabels: {
+    industry: "行业趋势",
+    new_product: "新品发布",
+    science: "科学与安全",
+    brand_news: "品牌动态",
+  } as Record<string, string>,
+};
+
+/**
+ * Chinese edition of the two article hubs (/zh/guides, /zh/news).
+ *
+ * The Chinese guide and news bodies already exist in the CMS (zh.title,
+ * zh.summary, zh.content). Until now they were unreachable: the language was
+ * client state, so a crawler only ever saw the English page. These hubs give
+ * the Chinese corpus an indexable front door, and the detail pages below them
+ * are the actual long-tail assets.
+ */
+function renderZhHub(
+  kind: "guides" | "news",
+  items: Array<{ title: string; summary: string; meta: string; path: string; image: string }>,
+): RoutePage {
+  const isGuides = kind === "guides";
+  const enRoute = isGuides ? "/guides" : "/news";
+  const route = zhRoutePath(enRoute);
+  const h1 = isGuides ? GUIDES_WIZARD_H1.zh : (getPageCopy("zh").news.heroTitle || "童车行业最新资讯");
+  const intro = isGuides
+    ? "这里是 BalanceBikeToddler 的中文选购指南库：每篇指南都写清了适用年龄、尺寸判断、安全标准与预算取舍，并标注了数据来源，方便直接对照自家孩子的身高体重做决定。"
+    : "这里是 BalanceBikeToddler 的中文资讯频道：新品发布、标准修订、召回与安全研究，每条都带日期与来源，方便判断哪些变化真的影响到自家孩子的出行装备。";
+  const countLabel = isGuides ? `共 ${items.length} 篇中文指南。` : `共 ${items.length} 篇中文资讯。`;
+  const cards = items
+    .map(
+      (item) => `
+        <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
+          ${item.image ? `<a class="article-card-thumb" href="${escapeHtml(item.path)}" style="display: block;">
+            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; display: block;" />
+          </a>` : ""}
+          <div style="flex: 1 1 auto; min-width: 0;">
+            <h2 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(item.path)}">${escapeHtml(item.title)}</a></h2>
+            <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(item.summary)}</p>
+            <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(item.meta)}</p>
+          </div>
+        </section>`,
+    )
+    .join("");
+
+  return {
+    route,
+    title: isGuides ? "中文选购指南" : "中文资讯",
+    description: intro.slice(0, 155),
+    h1,
+    skipLeadDescription: true,
+    alternates: languageAlternates(enRoute),
+    body: `
+      <section style="padding: 22px 0;">
+        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;">${escapeHtml(intro)}</p>
+        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">${escapeHtml(countLabel)} 英文版见 <a href="${escapeHtml(enRoute)}">${isGuides ? "the full guide library" : "the news hub"}</a>。</p>
+      </section>
+      <section style="padding: 6px 0 18px; border-top: 1px solid #e2e8f0;">
+        ${cards}
+      </section>
+    `,
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: h1,
+        url: `${PUBLIC_SITE_BASE}${route}`,
+        description: intro.slice(0, 155),
+        inLanguage: "zh-CN",
+        author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
+        datePublished: items.length ? items[items.length - 1].meta.slice(-10) : undefined,
+        dateModified: items.length ? items[0].meta.slice(-10) : undefined,
+        mainEntity: {
+          "@type": "ItemList",
+          numberOfItems: items.length,
+          itemListElement: items.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.title,
+            url: `${PUBLIC_SITE_BASE}${item.path}`,
+          })),
+        },
+      },
+    ],
+  };
+}
+
+/** /zh/<path> — the Chinese edition of an English route. */
+function zhRoutePath(enPath: string): string {
+  if (!enPath || !enPath.startsWith("/")) return enPath;
+  if (enPath === "/") return "/zh";
+  return `/zh${enPath}`;
+}
+
+/**
+ * hreflang alternates for a route that has a Chinese edition: both editions
+ * are self-canonical and point at each other, with x-default on the English
+ * URL (the language a cold visitor gets).
+ */
+function languageAlternates(enPath: string): Array<{ hreflang: string; href: string }> {
+  const en = `${PUBLIC_SITE_BASE}${enPath}`;
+  const zh = `${PUBLIC_SITE_BASE}${zhRoutePath(enPath)}`;
+  return [
+    { hreflang: "en", href: en },
+    { hreflang: "zh", href: zh },
+    { hreflang: "x-default", href: en },
+  ];
 }
 
 /** Ultimate fallback for listing-page dates when no dated content exists. */
@@ -1311,6 +1452,25 @@ function applyCmsSectionSeo(pages: RoutePage[], settings: CmsSettingsPayload | n
     applied += 1;
     console.log(`[prerender] CMS section seo: ${section.route || "/"} -> "${resolved.title}"`);
   }
+
+  // Chinese hubs (/zh/guides, /zh/news) resolve their own TDK from the same
+  // CMS chain with lang="zh" — the same values the hydrated SPA publishes for
+  // the /zh route, so the two render paths cannot drift.
+  for (const zhSection of [
+    { route: "/zh/guides", seoKey: "guides" },
+    { route: "/zh/news", seoKey: "news" },
+  ]) {
+    const resolvedZh = resolveSectionRouteSeo(settings, zhSection.seoKey, "zh");
+    const zhPage = pages.find((candidate) => candidate.route === zhSection.route);
+    if (!zhPage) continue;
+    zhPage.fullTitle = resolvedZh.title;
+    zhPage.description = resolvedZh.description;
+    zhPage.keywords = resolvedZh.keywords.length > 0
+      ? resolvedZh.keywords
+      : resolveRouteKeywords(zhSection.route, "zh");
+    applied += 1;
+    console.log(`[prerender] CMS section seo (zh): ${zhSection.route} -> "${resolvedZh.title}"`);
+  }
   return applied;
 }
 
@@ -1356,6 +1516,7 @@ function relatedProductsHtml(
   products: CmsProductLite[],
   heading: string,
   limit = 3,
+  zh = false,
 ): string {
   if (!products.length) return "";
   const productsById = new Map(products.map((product) => [String(product.id || ""), product]));
@@ -1377,7 +1538,7 @@ function relatedProductsHtml(
       const name = escapeHtml(String(p.name || p.id).trim());
       const brand = String(p.brand || "").trim();
       const label = escapeHtml(brand && !name.toLowerCase().startsWith(brand.toLowerCase()) ? `${brand} ${p.name || p.id}`.trim() : String(p.name || p.id).trim());
-      return `<li style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 16px;"><a href="${escapeHtml(href)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${label}</a><span style="display: block; margin-top: 4px; font-size: 0.85rem; color: #64748b;">Lab score, full specs &amp; safety checklist for the ${name}.</span></li>`;
+      return `<li style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 16px;"><a href="${escapeHtml(href)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${label}</a><span style="display: block; margin-top: 4px; font-size: 0.85rem; color: #64748b;">${zh ? ZH_ARTICLE_LABELS.productBlurb : `Lab score, full specs &amp; safety checklist for the ${name}.`}</span></li>`;
     })
     .join("");
   return `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
@@ -1386,19 +1547,38 @@ function relatedProductsHtml(
       </section>`;
 }
 
-function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [], products: CmsProductLite[] = []): RoutePage | null {
-  const route = guideRoutePath(guide);
-  if (!route) return null;
+function renderGuideDetailPage(
+  guide: CmsGuide,
+  evaluations: CmsEvaluation[] = [],
+  products: CmsProductLite[] = [],
+  lang: "en" | "zh" = "en",
+): RoutePage | null {
+  const enRoute = guideRoutePath(guide);
+  if (!enRoute) return null;
+  const zh = lang === "zh";
+  const route = zh ? zhRoutePath(enRoute) : enRoute;
 
-  const title = pickText(guide.en?.title, guide.zh?.title, guide.id);
-  const summary = pickText(
-    guide.en?.summary,
-    guide.seo?.en?.description,
-    guide.zh?.summary,
-    guide.seo?.zh?.description,
-    "BalanceBikeToddler buying guide for families.",
-  );
-  const content = pickText(guide.en?.content, guide.zh?.content);
+  const title = zh
+    ? pickText(guide.zh?.title, guide.en?.title, guide.id)
+    : pickText(guide.en?.title, guide.zh?.title, guide.id);
+  const summary = zh
+    ? pickText(
+        guide.zh?.summary,
+        guide.seo?.zh?.description,
+        guide.en?.summary,
+        guide.seo?.en?.description,
+        "BalanceBikeToddler 选购指南。",
+      )
+    : pickText(
+        guide.en?.summary,
+        guide.seo?.en?.description,
+        guide.zh?.summary,
+        guide.seo?.zh?.description,
+        "BalanceBikeToddler buying guide for families.",
+      );
+  const content = zh
+    ? pickText(guide.zh?.content, guide.en?.content)
+    : pickText(guide.en?.content, guide.zh?.content);
   // Guides without an authored summary fall back to the description chain,
   // which for these records lands on the article's own opening paragraph —
   // printing the same paragraph three times on one page. Drop the "Short
@@ -1410,12 +1590,18 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
     (openingParagraph.includes(summary) || summary.includes(openingParagraph));
   const summaryIntroHtml = introRepeatsBody
     ? ""
-    : `<p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Short answer:</strong> ${escapeHtml(summary)}</p>`;
+    : `<p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>${zh ? ZH_ARTICLE_LABELS.shortAnswer : "Short answer"}:</strong> ${escapeHtml(summary)}</p>`;
   const relatedReviews = relatedEvaluationsForGuide(`${title} ${summary} ${content}`, evaluations);
-  const relatedProducts = relatedProductsHtml(`${title} ${summary} ${content}`, products, "Products Mentioned in This Guide");
+  const relatedProducts = relatedProductsHtml(
+    `${title} ${summary} ${content}`,
+    products,
+    zh ? ZH_ARTICLE_LABELS.productsMentioned : "Products Mentioned in This Guide",
+    3,
+    zh,
+  );
   const relatedReviewsHtml = relatedReviews.length
     ? `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
-        <h2 style="margin: 0 0 10px; font-size: 0.95rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #94a3b8;">Related Reviews</h2>
+        <h2 style="margin: 0 0 10px; font-size: 0.95rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #94a3b8;">${zh ? ZH_ARTICLE_LABELS.relatedReviews : "Related Reviews"}</h2>
         <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">
           ${relatedReviews
             .map(
@@ -1427,7 +1613,9 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
       </section>`
     : "";
   const topic = guideTopicCategory(guide);
-  const topicLabel = topic.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+  const topicLabel = zh
+    ? ZH_ARTICLE_LABELS.topicLabels[topic] || topic
+    : topic.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
   const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
   const image = toPublicImageUrl(pickText(guide.imageUrl));
@@ -1444,8 +1632,8 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Guides", item: `${PUBLIC_SITE_BASE}/guides` },
-        { "@type": "ListItem", position: 2, name: topicLabel, item: `${PUBLIC_SITE_BASE}/guides/${topic}` },
+        { "@type": "ListItem", position: 1, name: zh ? ZH_ARTICLE_LABELS.guidesHub : "Guides", item: `${PUBLIC_SITE_BASE}${zh ? "/zh/guides" : "/guides"}` },
+        { "@type": "ListItem", position: 2, name: topicLabel, item: `${PUBLIC_SITE_BASE}${zh ? `/zh/guides/${topic}` : `/guides/${topic}`}` },
         { "@type": "ListItem", position: 3, name: title, item: url },
       ],
     },
@@ -1456,7 +1644,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
       description: summary,
       url,
       mainEntityOfPage: url,
-      inLanguage: "en",
+      inLanguage: zh ? "zh-CN" : "en",
       datePublished: published,
       dateModified: published,
       articleSection: topicLabel,
@@ -1478,13 +1666,14 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
     skipLeadDescription: introRepeatsBody,
     image: image || undefined,
     ogType: "article",
+    alternates: languageAlternates(enRoute),
     body: `
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
-        <a href="/guides">Guides</a> › <a href="/guides/${escapeHtml(topic)}">${escapeHtml(topicLabel)}</a>
+        <a href="${zh ? "/zh/guides" : "/guides"}">${zh ? ZH_ARTICLE_LABELS.guidesHub : "Guides"}</a> › <a href="${zh ? `/zh/guides/${escapeHtml(topic)}` : `/guides/${escapeHtml(topic)}`}">${escapeHtml(topicLabel)}</a>
       </nav>
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
-          By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
+          ${zh ? ZH_ARTICLE_LABELS.by : "By"} <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">${zh ? ZH_ARTICLE_LABELS.published : "Published"} ${escapeHtml(published)}</time>
         </p>
         ${summaryIntroHtml}
       </section>
@@ -1494,30 +1683,50 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
       </section>
       ${relatedReviewsHtml}
       ${relatedProducts}
-      ${/balance[\s_-]*bike|walking bike/i.test(`${title} ${summary} ${content}`) ? clusterNavHtml("") : ""}
+      ${/balance[\s_-]*bike|walking bike|平衡车/i.test(`${title} ${summary} ${content}`) ? clusterNavHtml("", zh ? ZH_ARTICLE_LABELS.clusterNav : undefined) : ""}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue browsing the <a href="/guides">full guide library</a>.</p>
+        <p style="margin: 0; font-size: 0.9rem; color: #475569;">${zh ? ZH_ARTICLE_LABELS.continueGuides : "Continue browsing the"} <a href="${zh ? "/zh/guides" : "/guides"}">${zh ? "完整指南库" : "full guide library"}</a>${zh ? "。" : "."}</p>
       </section>
     `,
     jsonLd: schemas,
   };
 }
 
-function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): RoutePage | null {
-  const route = newsRoutePath(item);
-  if (!route) return null;
+function renderNewsDetailPage(
+  item: CmsNews,
+  products: CmsProductLite[] = [],
+  lang: "en" | "zh" = "en",
+): RoutePage | null {
+  const enRoute = newsRoutePath(item);
+  if (!enRoute) return null;
+  const zh = lang === "zh";
+  const route = zh ? zhRoutePath(enRoute) : enRoute;
 
-  const title = pickText(item.en?.title, item.zh?.title, item.id);
-  const summary = pickText(
-    item.en?.summary,
-    item.seo?.en?.description,
-    item.zh?.summary,
-    item.seo?.zh?.description,
-    "Latest kids mobility news from BalanceBikeToddler.",
-  );
-  const content = pickText(item.en?.content, item.zh?.content);
-  const channel = route.split("/")[2] || "industry";
-  const channelLabel = newsCategoryLabel(item);
+  const title = zh
+    ? pickText(item.zh?.title, item.en?.title, item.id)
+    : pickText(item.en?.title, item.zh?.title, item.id);
+  const summary = zh
+    ? pickText(
+        item.zh?.summary,
+        item.seo?.zh?.description,
+        item.en?.summary,
+        item.seo?.en?.description,
+        "BalanceBikeToddler 童车行业最新资讯。",
+      )
+    : pickText(
+        item.en?.summary,
+        item.seo?.en?.description,
+        item.zh?.summary,
+        item.seo?.zh?.description,
+        "Latest kids mobility news from BalanceBikeToddler.",
+      );
+  const content = zh
+    ? pickText(item.zh?.content, item.en?.content)
+    : pickText(item.en?.content, item.zh?.content);
+  const channel = enRoute.split("/")[2] || "industry";
+  const channelLabel = zh
+    ? ZH_ARTICLE_LABELS.channelLabels[String(item.category || "")] || newsCategoryLabel(item)
+    : newsCategoryLabel(item);
   const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
   const image = toPublicImageUrl(pickText(item.imageUrl));
@@ -1534,8 +1743,8 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "News", item: `${PUBLIC_SITE_BASE}/news` },
-        { "@type": "ListItem", position: 2, name: channelLabel, item: `${PUBLIC_SITE_BASE}/news/${channel}` },
+        { "@type": "ListItem", position: 1, name: zh ? ZH_ARTICLE_LABELS.newsHub : "News", item: `${PUBLIC_SITE_BASE}${zh ? "/zh/news" : "/news"}` },
+        { "@type": "ListItem", position: 2, name: channelLabel, item: `${PUBLIC_SITE_BASE}${zh ? `/zh/news/${channel}` : `/news/${channel}`}` },
         { "@type": "ListItem", position: 3, name: title, item: url },
       ],
     },
@@ -1546,7 +1755,7 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
       description: summary,
       url,
       mainEntityOfPage: url,
-      inLanguage: "en",
+      inLanguage: zh ? "zh-CN" : "en",
       datePublished: published,
       dateModified: published,
       articleSection: channelLabel,
@@ -1576,25 +1785,26 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
     skipLeadDescription: newsIntroRepeatsBody,
     image: image || undefined,
     ogType: "article",
+    alternates: languageAlternates(enRoute),
     body: `
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
-        <a href="/news">News</a> › <a href="/news/${escapeHtml(channel)}">${escapeHtml(channelLabel)}</a>
+        <a href="${zh ? "/zh/news" : "/news"}">${zh ? ZH_ARTICLE_LABELS.newsHub : "News"}</a> › <a href="${zh ? `/zh/news/${escapeHtml(channel)}` : `/news/${escapeHtml(channel)}`}">${escapeHtml(channelLabel)}</a>
       </nav>
       ${image ? `<figure style="margin: 0 0 18px;">
         <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-radius: 18px;" />
       </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
-          By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
+          ${zh ? ZH_ARTICLE_LABELS.by : "By"} <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">${zh ? ZH_ARTICLE_LABELS.published : "Published"} ${escapeHtml(published)}</time>
         </p>
-        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Short answer:</strong> ${escapeHtml(summary)}</p>
+        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>${zh ? ZH_ARTICLE_LABELS.shortAnswer : "Short answer"}:</strong> ${escapeHtml(summary)}</p>
       </section>
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
-      ${relatedProductsHtml(`${title} ${summary} ${content}`, products, "Related Products")}
+      ${relatedProductsHtml(`${title} ${summary} ${content}`, products, zh ? ZH_ARTICLE_LABELS.productsMentioned : "Related Products", 3, zh)}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue reading the <a href="/news">latest news</a> or browse the <a href="/guides">guide library</a>.</p>
+        <p style="margin: 0; font-size: 0.9rem; color: #475569;">${zh ? `继续阅读最新<a href="/zh/news">新闻</a>，或浏览<a href="/zh/guides">指南库</a>。` : `Continue reading the <a href="/news">latest news</a> or browse the <a href="/guides">guide library</a>.`}</p>
       </section>
     `,
     jsonLd: schemas,
@@ -7746,6 +7956,46 @@ async function main() {
   const newsDetailPages = cmsNews
     .map((item) => renderNewsDetailPage(item, cmsProductsVisible))
     .filter((page): page is RoutePage => page !== null);
+  // Chinese edition (/zh/...) — only for records that actually carry a
+  // translated title + body, so a /zh URL never serves the English text.
+  const hasZhBody = (record: { zh?: { title?: string; content?: string } }): boolean =>
+    Boolean(String(record?.zh?.title || "").trim() && String(record?.zh?.content || "").trim());
+  const zhGuideDetailPages = cmsGuides
+    .filter(hasZhBody)
+    .map((guide) => renderGuideDetailPage(guide, cmsEvaluations, cmsProductsVisible, "zh"))
+    .filter((page): page is RoutePage => page !== null);
+  const zhNewsDetailPages = cmsNews
+    .filter(hasZhBody)
+    .map((item) => renderNewsDetailPage(item, cmsProductsVisible, "zh"))
+    .filter((page): page is RoutePage => page !== null);
+  const zhGuidesHubPage = renderZhHub(
+    "guides",
+    cmsGuides.flatMap((guide) => {
+      const enRoute = guideRoutePath(guide);
+      if (!enRoute || !hasZhBody(guide)) return [];
+      return [{
+        title: pickText(guide.zh?.title, guide.id),
+        summary: pickText(guide.zh?.summary, guide.seo?.zh?.description, ""),
+        meta: `${guideTopicCategory(guide).replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
+        path: zhRoutePath(enRoute),
+        image: toPublicImageUrl(pickText(guide.imageUrl)),
+      }];
+    }),
+  );
+  const zhNewsHubPage = renderZhHub(
+    "news",
+    cmsNews.flatMap((item) => {
+      const enRoute = newsRoutePath(item);
+      if (!enRoute || !hasZhBody(item)) return [];
+      return [{
+        title: pickText(item.zh?.title, item.id),
+        summary: pickText(item.zh?.summary, item.seo?.zh?.description, ""),
+        meta: `${newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
+        path: zhRoutePath(enRoute),
+        image: toPublicImageUrl(pickText(item.imageUrl)),
+      }];
+    }),
+  );
   const evaluationDetailPages = cmsEvaluations
     .map((item) => renderEvaluationDetailPage(item, productMap))
     .filter((page): page is RoutePage => page !== null);
@@ -7763,6 +8013,8 @@ async function main() {
     ...productDetailPages,
     renderGuidesPage(cmsGuides),
     renderNewsPage(cmsNews),
+    zhGuidesHubPage,
+    zhNewsHubPage,
     renderReviewsPage(cmsEvaluations),
     ...renderFilterPages(cmsGuides, cmsNews, cmsEvaluations),
     renderAboutPage(),
@@ -7789,6 +8041,8 @@ async function main() {
     ...renderBudgetPage(),
     ...guideDetailPages,
     ...newsDetailPages,
+    ...zhGuideDetailPages,
+    ...zhNewsDetailPages,
     ...evaluationDetailPages,
   ];
 
@@ -7927,7 +8181,9 @@ function sitemapPriority(route: string): number {
 }
 
 const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
-  const TRANSPARENCY_LASTMOD = "2026-08-15T00:00:00.000Z";
+  // src/data/transparencyPages.ts last changed 2026-10-16; bump this constant
+  // only when that source really changes — never fake it forward.
+  const TRANSPARENCY_LASTMOD = "2026-10-16T00:00:00.000Z";
   const staticModByRoute = new Map<string, string | null>([
     // The home page's route key is "" (see the loc rendering below), not "/" —
     // keying it "/" left this entry dead and the homepage undated while the
@@ -7954,25 +8210,60 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   }
   staticModByRoute.set("/reviews/single", evalsMax);
   staticModByRoute.set("/reviews/compare", evalsMax);
+  // Static asset pages (the 47 cluster pages) have no CMS record, so their
+  // lastmod comes from the source data file that produced them. These dates
+  // are the real last-content-change dates of those files (2026-10-23 / -24);
+  // bump them when the family is edited — never fake them forward.
+  const ASSET_FAMILY_LASTMOD: Array<{ prefix: string; lastmod: string }> = [
+    { prefix: "/balance-bike-", lastmod: "2026-10-23T00:00:00.000Z" },
+    { prefix: "/kids-bike-", lastmod: "2026-10-23T00:00:00.000Z" },
+    { prefix: "/kids-scooter-", lastmod: "2026-10-23T00:00:00.000Z" },
+    { prefix: "/kids-ride-on-", lastmod: "2026-10-24T00:00:00.000Z" },
+    { prefix: "/kids-tricycle-", lastmod: "2026-10-24T00:00:00.000Z" },
+    { prefix: "/kids-stroller-", lastmod: "2026-10-24T00:00:00.000Z" },
+  ];
+  for (const page of pages) {
+    if (staticModByRoute.has(page.route) || modByRoute.has(page.route)) continue;
+    const family = ASSET_FAMILY_LASTMOD.find((entry) => page.route.startsWith(entry.prefix));
+    if (family) staticModByRoute.set(page.route, family.lastmod);
+  }
+  // The public recall record is generated from src/data/safetyRecallRecord.ts
+  // (last changed 2026-10-24).
+  staticModByRoute.set(RECALL_SAFETY_PATH, "2026-10-24T00:00:00.000Z");
   for (const route of [
     "/transparency/testing-methodology/",
     "/transparency/certification-lab-notes/",
     "/transparency/disclaimer/",
     "/transparency/privacy-policy/",
     "/transparency/terms/",
+    "/transparency/search-data/",
+    "/transparency/review-count-integrity/",
   ]) {
     staticModByRoute.set(route, TRANSPARENCY_LASTMOD);
   }
   const sitemapUrls = pages
     .map((page) => {
-      const mod = modByRoute.get(page.route) ?? staticModByRoute.get(page.route) ?? null;
+      // A /zh page is the same document in the other language, so it inherits
+      // the English route's lastmod and priority tier.
+      const enRoute = page.route.startsWith("/zh/") ? page.route.slice(3) : page.route;
+      const mod =
+        modByRoute.get(page.route) ??
+        modByRoute.get(enRoute) ??
+        staticModByRoute.get(page.route) ??
+        staticModByRoute.get(enRoute) ??
+        null;
       const loc = `${PUBLIC_SITE_BASE}${page.route === "" ? "/" : page.route}`;
       const lastmodXml = mod ? `<lastmod>${escapeHtml(mod)}</lastmod>` : "";
-      const priorityXml = `<priority>${sitemapPriority(page.route).toFixed(1)}</priority>`;
-      return `<url><loc>${escapeHtml(loc)}</loc>${lastmodXml}${priorityXml}</url>`;
+      const priorityXml = `<priority>${sitemapPriority(enRoute).toFixed(1)}</priority>`;
+      // Image sitemap entry (Google Image Search reads these). The cover is the
+      // same 16:9 asset the page renders and its og:image points at.
+      const imageXml = page.image
+        ? `<image:image><image:loc>${escapeHtml(page.image)}</image:loc><image:title>${escapeHtml(page.title)}</image:title></image:image>`
+        : "";
+      return `<url><loc>${escapeHtml(loc)}</loc>${lastmodXml}${priorityXml}${imageXml}</url>`;
     })
     .join("");
-  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapUrls}</urlset>\n`;
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${sitemapUrls}</urlset>\n`;
   await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
   console.log(`[prerender] sitemap.xml: ${pages.length} URL(s) written.`);
 

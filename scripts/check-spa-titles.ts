@@ -256,13 +256,18 @@ for (const [key, route] of Object.entries(CATEGORY_HUB_SLUGS)) {
 // settings.seo[alias] > defaultSeo) and publishes via publishSectionTitle /
 // publishSectionDescription; the prerender does the same through
 // src/lib/cmsSectionSeo.ts. Same functions in, same values out.
-const SECTION_ROUTES: Array<{ label: string; seoKey: string; route: string }> = [
+const SECTION_ROUTES: Array<{ label: string; seoKey: string; route: string; lang?: "en" | "zh" }> = [
   { label: "section home", seoKey: "home", route: "/" },
   { label: "section products", seoKey: "products", route: "/products" },
   { label: "section reviews", seoKey: "reviews", route: "/reviews" },
   { label: "section guides", seoKey: "guides", route: "/guides" },
   { label: "section news", seoKey: "news", route: "/news" },
   { label: "section about", seoKey: "about", route: "/about" },
+  // Chinese editions of the two article hubs. The SPA resolves the section
+  // TDK with lang="zh" when the URL carries the /zh prefix, so the prerender
+  // must publish exactly the same Chinese title/description.
+  { label: "section guides (zh)", seoKey: "guides", route: "/zh/guides", lang: "zh" },
+  { label: "section news (zh)", seoKey: "news", route: "/zh/news", lang: "zh" },
 ];
 
 function unwrapCmsSettings(payload: unknown): CMSSettings | null {
@@ -305,7 +310,7 @@ async function main() {
   const loaded = await loadCmsSettings();
   if (loaded) {
     for (const section of SECTION_ROUTES) {
-      const resolved = resolveSectionRouteSeo(loaded.settings, section.seoKey, "en");
+      const resolved = resolveSectionRouteSeo(loaded.settings, section.seoKey, section.lang ?? "en");
       expectations.push({
         label: section.label,
         route: section.route,

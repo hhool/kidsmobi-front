@@ -118,6 +118,15 @@ const ROUTES = [
   // 2026-10-22 A2 batch — the industry article backing the /news hub keyword
   // "electric dirt bike for kids".
   '/news/industry/electric-dirt-bikes-for-kids',
+  // 2026-10-24 /zh edition — the Chinese hubs and a sample of Chinese detail
+  // pages. The language used to be client state, so these URLs are new; the
+  // probe asserts the hydrated page keeps the Chinese h1 (the prerendered
+  // Chinese TDK must survive hydration) and does not fall back to English.
+  '/zh/guides',
+  '/zh/news',
+  '/zh/guides/beginner/stroller-travel-airplane',
+  '/zh/guides/beginner/balance-bike-size-chart',
+  '/zh/news/industry/electric-dirt-bikes-for-kids',
 ];
 
 // Every hub must still link its own topic indexes AFTER hydration. The

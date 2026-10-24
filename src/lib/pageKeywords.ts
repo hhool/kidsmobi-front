@@ -377,7 +377,11 @@ export function resolveRouteKeywords(
   lang: KeywordLang,
   categoryId?: string,
 ): string[] {
-  const clean = `/${String(routePath || "").replace(/^\/+|\/+$/g, "")}/`;
+  const raw = `/${String(routePath || "").replace(/^\/+|\/+$/g, "")}/`;
+  // The /zh edition of a route resolves to the same keyword set as its
+  // English counterpart — the language is a separate argument, not a different
+  // page type. Without this the /zh routes fell through to the home block.
+  const clean = raw.startsWith("/zh/") ? raw.slice(3) : raw;
 
   // Asset pages.
   const asset = ASSET_SEO_BY_PATH[assetKey(routePath)];

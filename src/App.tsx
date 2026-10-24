@@ -144,6 +144,14 @@ import {
   productCategoryCanonicalPath,
   transparencyCanonicalPath,
 } from "./lib/canonicalPath";
+import {
+  ZH_LANG_PREFIX,
+  hasZhVariant,
+  isZhPath,
+  languageAlternatePath,
+  stripZhPrefix,
+  withZhPrefix,
+} from "./lib/languageRoutes";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
 import { setReferenceClusterConfig, CLUSTER_HEADINGS } from "./lib/referenceCluster";
@@ -821,6 +829,8 @@ type RouteState = {
   activeNewsArticleId?: string;
   activePageIndex: number;
   currentPath: string;
+  // "/zh" when the route is the Chinese edition of an English path.
+  langPrefix?: "zh" | "";
   // True when no SPA route matches the request path. The catch-all Cloudflare
   // Pages redirect still serves index.html with HTTP 200, so hydrated views
   // must self-identify with robots noindex to avoid soft-404 indexing.
@@ -844,13 +854,37 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
       activeGuidesArticleId: guideId,
       activePageIndex: 1,
       currentPath: normalizePathname(pathname),
+      langPrefix: "",
     };
   }
 
   const currentPath = normalizePathname(pathname);
-  const segments = currentPath.split("/").filter(Boolean);
+  // /zh/<path> is the Chinese edition of <path>. Routing decisions run on the
+  // path without the prefix; the prefix itself is kept on currentPath so the
+  // canonical URL stays on the language variant the visitor asked for.
+  const langPrefix = isZhPath(currentPath) ? ("zh" as const) : ("" as const);
+  const routePath = langPrefix ? stripZhPrefix(currentPath) : currentPath;
+  const segments = routePath.split("/").filter(Boolean);
   const [root, sub] = segments;
-  const transparencyPage = getTransparencyPageByPath(currentPath);
+  const transparencyPage = getTransparencyPageByPath(routePath);
+
+  // Only the translated families (guides, news) exist under /zh. A /zh URL for
+  // anything else would serve the English page under a second URL — duplicate
+  // content with a second canonical — so it falls through to the soft-404
+  // branch below (self-canonical + robots noindex).
+  if (langPrefix && !hasZhVariant(routePath)) {
+    return {
+      activeTab: "home",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+      langPrefix,
+      isNotFound: true,
+    };
+  }
 
   if (transparencyPage) {
     return {
@@ -869,7 +903,7 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   // hydrates into the homepage shell with a homepage canonical.
   // It lives at /guides/risk/... since the /safety/ level was retired
   // (2026-10-22); RECALL_SAFETY_PATH is the single source for that route.
-  if (currentPath === RECALL_SAFETY_PATH || currentPath === `${RECALL_SAFETY_PATH}/`) {
+  if (routePath === RECALL_SAFETY_PATH || routePath === `${RECALL_SAFETY_PATH}/`) {
     return {
       activeTab: "safety",
       activeProductCategory: "all",
@@ -1247,6 +1281,7 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
       activeGuidesArticleId,
       activePageIndex,
       currentPath,
+      langPrefix,
     };
   }
 
@@ -1284,6 +1319,7 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
       activeNewsArticleId,
       activePageIndex,
       currentPath,
+      langPrefix,
     };
   }
 
@@ -1339,8 +1375,12 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
 };
 
 export default function App() {
-  // Lang toggle state
-  const [lang, setLang] = useState<"zh" | "en">(() => resolveInitialLang());
+  // Lang toggle state. A /zh URL always wins over the stored preference: the
+  // path is the indexable language variant, so the page must render in that
+  // language even when localStorage says otherwise.
+  const [lang, setLang] = useState<"zh" | "en">(() =>
+    typeof window !== "undefined" && isZhPath(window.location.pathname) ? "zh" : resolveInitialLang(),
+  );
 
   const [isBBT, setIsBBT] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
@@ -1880,6 +1920,40 @@ export default function App() {
   useEffect(() => {
     safeStorageSet("app_lang", lang);
   }, [lang]);
+
+  // Keep the rendered language in step with the URL. A /zh path always means
+  // Chinese; leaving a /zh URL for an English path means English. Paths
+  // without the prefix keep whatever the visitor picked (the toggle stores it).
+  const previousLangPrefixedPath = useRef<boolean>(false);
+  useEffect(() => {
+    if (isZhPath(currentPath)) {
+      setLang("zh");
+      return;
+    }
+    if (previousLangPrefixedPath.current) {
+      setLang("en");
+    }
+  }, [currentPath]);
+
+  useEffect(() => {
+    previousLangPrefixedPath.current = isZhPath(currentPath);
+  }, [currentPath]);
+
+  /**
+   * Language toggle. When the current page has a translated counterpart the
+   * toggle navigates to it (the URL is the indexable variant, so the path has
+   * to change); otherwise it stays a client-side switch, as before.
+   */
+  const toggleLang = () => {
+    if (hasZhVariant(currentPath)) {
+      const target = languageAlternatePath(currentPath);
+      safeStorageSet("app_lang", isZhPath(currentPath) ? "en" : "zh");
+      setLang(isZhPath(currentPath) ? "en" : "zh");
+      navigateToPath(target);
+      return;
+    }
+    setLang((prev) => (prev === "zh" ? "en" : "zh"));
+  };
 
   useEffect(() => {
     safeStorageSet("app_country", countryCode);
@@ -2526,6 +2600,20 @@ export default function App() {
       (cmsSettings as any)?.siteOrigin ||
       (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
       window.location.origin;
+
+    // Language alternates for the translated families (guides, news). Both
+    // editions are self-canonical and cross-linked, so Google can pair them
+    // instead of treating the Chinese page as a duplicate of the English one.
+    if (hasZhVariant(currentPath)) {
+      const enPath = stripZhPrefix(currentPath);
+      const zhPath = withZhPrefix(currentPath);
+      updateHreflangLinks([
+        { hreflang: "en", href: `${canonicalOrigin}${normalizeCanonicalPath(enPath)}` },
+        { hreflang: "zh", href: `${canonicalOrigin}${normalizeCanonicalPath(zhPath)}` },
+        { hreflang: "x-default", href: `${canonicalOrigin}${normalizeCanonicalPath(enPath)}` },
+      ]);
+      return;
+    }
 
     if (normalizeCanonicalPath(currentPath) !== "/") {
       updateHreflangLinks([]);
@@ -3600,7 +3688,11 @@ export default function App() {
     // keep its prerendered TDK. Client-side navigation into a channel leaves
     // the previous path's canonical behind, which does not match — those keep
     // the section values as before.
-    const isReviewsSubIndexRoute = /^\/reviews\/(?:single|compare|value|ranking|safety)\/?$/.test(currentPath);
+    // The /zh edition of a route has the same shape as its English
+    // counterpart, so the prerendered Chinese TDK survives hydration instead
+    // of being overwritten with the English section copy.
+    const routePathForMatch = isZhPath(currentPath) ? stripZhPrefix(currentPath) : currentPath;
+    const isReviewsSubIndexRoute = /^\/reviews\/(?:single|compare|value|ranking|safety)\/?$/.test(routePathForMatch);
     const isChannelRoute =
       (seoKey === "news" && activeNewsCategory !== "all" && !activeNewsArticleId) ||
       (seoKey === "guides" && activeGuidesCategory !== "all" && !activeGuidesArticleId) ||
@@ -3616,9 +3708,9 @@ export default function App() {
     // time. Client-side navigation into an article leaves the previous path's
     // canonical behind, which does not match — those keep the section values.
     const isArticleDetailRoute =
-      (seoKey === "guides" && /^\/guides\/[^/]+\/[^/]+\/?$/.test(currentPath)) ||
-      (seoKey === "news" && /^\/news\/[^/]+\/[^/]+\/?$/.test(currentPath)) ||
-      (seoKey === "reviews" && /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(currentPath));
+      (seoKey === "guides" && /^\/guides\/[^/]+\/[^/]+\/?$/.test(routePathForMatch)) ||
+      (seoKey === "news" && /^\/news\/[^/]+\/[^/]+\/?$/.test(routePathForMatch)) ||
+      (seoKey === "reviews" && /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(routePathForMatch));
     if (isChannelRoute || isArticleDetailRoute) {
       const staticCanonical = document.querySelector("link[rel='canonical']")?.getAttribute("href") || "";
       const selfPath = normalizeCanonicalPath(currentPath);
@@ -4317,7 +4409,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             {/* Mobile Actions */}
             <div className="flex md:hidden items-center gap-2 shrink-0">
               <button 
-                onClick={() => setLang(prev => prev === "zh" ? "en" : "zh")} 
+                onClick={toggleLang} 
                 className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
                 title={lang === "zh" ? "Switch to English" : "切换至中文"}
                 aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
@@ -4571,7 +4663,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
               <div className="flex items-center gap-2">
                 <button 
-                  onClick={() => setLang(prev => prev === "zh" ? "en" : "zh")} 
+                  onClick={toggleLang} 
                   className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
                   title={lang === "zh" ? "Switch to English" : "切换至中文"}
                   aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
