@@ -8,11 +8,22 @@ name: Purge Cloudflare Edge Cache
 # 注意：`secrets` 上下文不能出现在 `if:` 条件里（会被 GitHub 判定为非法 workflow 直接
 # 整体失败、连 job 都不会创建）。因此改在 step 内用 shell 检查 secrets 是否存在，
 # 不存在则打印提示并跳过；存在才执行真正的 purge。
+#
+# 触发方式（2026-10-24 增补 schedule）：
+#   push           —— 前端发版后等 Pages 部署完成再 purge（原有路径）。
+#   schedule       —— 每 2 小时一次。CMS 内容发布（新指南、改产品、配图）只写 D1、
+#                    不产生 push，edge 上的旧副本没有触发源会一直活到 TTL 到期
+#                    （HTML 规则 24h / API 规则 4h）。定时 purge 把这部分 staleness
+#                    也兜住，CMS 改完最迟 2 小时全网可见。
+#   workflow_dispatch —— 手动立即 purge；wait_seconds=0 可跳过等待。
 on:
   push:
     branches:
       - main
       - master
+  schedule:
+    # 每 2 小时（UTC）。GitHub cron 只支持 5 分钟粒度，高峰期可能延迟几分钟。
+    - cron: "0 */2 * * *"
   workflow_dispatch:
     inputs:
       wait_seconds:
@@ -40,7 +51,7 @@ jobs:
           fi
 
       - name: ⏳ Wait for Cloudflare Pages to finish deploying
-        if: steps.guard.outputs.skip != 'true'
+        if: steps.guard.outputs.skip != 'true' && github.event_name == 'push'
         env:
           WAIT: ${{ github.event.inputs.wait_seconds }}
         run: |
@@ -95,6 +106,8 @@ jobs:
 #   CLOUDFLARE_ZONE_ID   = b6c304eb872e0df0b47e9c0d6730a5e7
 #   CLOUDFLARE_API_TOKEN = 具备 Zone | Cache Purge | Edit 权限（只作用于本 zone）
 #
-# 注意：purge 必须发生在 Pages 部署**之后**。提前 purge 会让边缘重新缓存旧版本，
-# 那就等于白做（甚至更糟）。延迟 300s 是按实测 187s 的部署耗时留的余量。
+# 注意：push 触发时，purge 必须发生在 Pages 部署**之后**。提前 purge 会让边缘重新
+# 缓存旧版本，那就等于白做（甚至更糟）。延迟 300s 是按实测 187s 的部署耗时留的余量，
+# 且等待步骤只对 push 生效；schedule 触发时没有部署要等，直接 purge。
 # 若未配置 secrets，本 workflow 会成功结束但跳过 purge —— 此时需到 Cloudflare 面板手动 Purge Everything。
+# 手动立即清理：Actions → Purge Cloudflare Edge Cache → Run workflow，wait_seconds 填 0。
