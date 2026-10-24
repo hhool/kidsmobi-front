@@ -140,7 +140,11 @@ function sanitizeGuideTextForZh(value: string, fallback: string): string {
 
 function sanitizeGuideTitleForZh(value: string, fallback: string): string {
   const normalized = sanitizeGuideTextForZh(value, fallback)
-    .replace(/^[\d\W_]+/, "")
+    // Strip leading punctuation/digits only. \W in JavaScript means
+    // "not [A-Za-z0-9_]", so a CJK title is all \W — the old /^[\d\W_]+/
+    // stripped the entire Chinese title and every guide fell back to its
+    // category label ("新手入门指南") on the Chinese page.
+    .replace(/^[^A-Za-z0-9\u4e00-\u9fff]+/, "")
     .trim();
   if (!normalized) return fallback;
   const cjkCount = countMatches(normalized, /[\u4e00-\u9fff]/g);
