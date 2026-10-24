@@ -886,15 +886,14 @@ export default function NewsSection({
                 <div
                   key={art.id}
                   onClick={() => handleArticleClick(art)}
-                  className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex flex-col sm:flex-row gap-5 sm:gap-6 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group"
+                  className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex gap-5 sm:gap-6 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group"
                 >
-                  {/* Thumbnail: on phones the card stacks and the image runs the
-                      full content width. Both breakpoints use the 16:9 canvas
-                      the /news articles use for their 800x450 covers, so the
-                      photo fills the frame exactly. The old fixed 112px column
-                      cropped the photo into a 110x171 sliver and squeezed the
-                      headline into the rest of the row. */}
-                  <div className="w-full sm:w-36 shrink-0 aspect-video sm:self-start rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
+                  {/* Thumbnail: a compact 16:9 side frame (112px on phones, 144px
+                      from sm up) — the same proportion the guide cards use. The
+                      old code stretched this column to the height of the text
+                      block, which cropped the 800x450 cover into a 110x171
+                      sliver and squeezed the headline. */}
+                  <div className="w-28 sm:w-36 shrink-0 self-start aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
                     {cardImage ? (
                       <img
                         src={cardImage}

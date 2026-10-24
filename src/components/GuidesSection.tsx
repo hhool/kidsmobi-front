@@ -2465,15 +2465,15 @@ export default function GuidesSection({
                     type="button"
                     key={guide.id}
                     onClick={() => handleArticleClick(guide)}
-                    className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-5 flex flex-col gap-4 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
+                    className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-5 flex gap-4 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
                   >
-                    {/* Cover canvas: 16:9, the same ratio the /news articles use
-                        for their 800x450 covers. The guide covers themselves are
-                        square product photos (1500x1500), so the image is fitted
-                        with object-contain — the whole product stays visible and
-                        nothing is cropped into an unrecognisable sliver (the old
-                        80/96px stretched column cut 45% of every photo). */}
-                    <div className="w-full aspect-video shrink-0 rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
+                    {/* Cover canvas: 16:9, the same ratio and the same compact
+                        side-thumbnail size the /news cards use (112px on phones,
+                        144px from sm up). The guide covers themselves are square
+                        product photos (1500x1500), so the image is fitted with
+                        object-contain — the whole product stays visible and
+                        nothing is cropped into an unrecognisable sliver. */}
+                    <div className="w-28 sm:w-36 shrink-0 self-start aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
                       {cardImage ? (
                         <img
                           src={cardImage}

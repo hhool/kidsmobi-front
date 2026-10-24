@@ -760,18 +760,14 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
         animation: app-boot-spin 0.8s linear infinite;
       }
       @keyframes app-boot-spin { to { transform: rotate(360deg); } }
-      /* Article card thumbnails. The desktop layout is a fixed-width 16:9
-         thumbnail next to the story text; on phones the same markup switches
-         to a stacked card (full-width 16:9 image above the text) so the cover
-         is not cropped into a narrow sliver. Mirrors the SPA cards in
-         src/components/NewsSection.tsx and src/components/GuidesSection.tsx.
-         Editorial covers (800x450) fill the frame; square product photos are
-         fitted with object-contain so the whole product stays visible. */
-      @media (max-width: 640px) {
-        .article-card { flex-direction: column !important; align-items: stretch !important; }
-        .article-card-thumb { flex: 0 0 auto !important; width: 100% !important; }
-        .article-card-thumb img { width: 100% !important; height: auto !important; aspect-ratio: 16 / 9; }
-      }
+      /* Article card thumbnails. Every article list uses the same compact
+         geometry as the SPA cards: a 16:9 side frame next to the text
+         (96px on phones, up to 144px on wide screens). The frame keeps the
+         16:9 ratio of the /news covers, and square product photos are fitted
+         with object-contain so the whole product stays visible.
+         Mirrors src/components/NewsSection.tsx and src/components/GuidesSection.tsx. */
+      .article-card-thumb { flex: 0 0 clamp(96px, 22vw, 144px); }
+      .article-card-thumb img { width: 100%; height: auto; aspect-ratio: 16 / 9; }
     </style>
     <script>
       document.documentElement.classList.add("app-js-loading");
@@ -1925,7 +1921,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which guide topics are most useful?</h2>
         ${listedGuides.map((guide) => `
           <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
-            ${guide.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(guide.url).pathname)}" style="flex: 0 0 clamp(96px, 30vw, 160px); display: block;">
+            ${guide.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(guide.url).pathname)}" style="display: block;">
               <img src="${escapeHtml(guide.cover)}" alt="${escapeHtml(guide.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #ffffff; border-radius: 10px; display: block;" />
             </a>` : ""}
             <div style="flex: 1 1 auto; min-width: 0;">
@@ -2109,7 +2105,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which stories are most citable?</h2>
         ${listedNews.map((item) => `
           <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
-            ${item.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(item.url).pathname)}" style="flex: 0 0 clamp(96px, 30vw, 160px); display: block;">
+            ${item.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(item.url).pathname)}" style="display: block;">
               <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; display: block;" />
             </a>` : ""}
             <div style="flex: 1 1 auto; min-width: 0;">
@@ -2591,15 +2587,17 @@ function filterCardGrid(cards: FilterCard[], emptyNote: string): string {
     return `<p style="margin: 0; color: #475569;">${escapeHtml(emptyNote)}</p>`;
   }
   return `
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;">
           ${cards
             .map(
               (card) => `
-            <a href="${escapeHtml(card.path)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; text-decoration: none; color: inherit; background: #ffffff;">
-              ${card.image ? `<span style="display: block; margin: -16px -16px 12px; background: #ffffff; border-radius: 15px 15px 0 0; overflow: hidden;"><img src="${escapeHtml(card.image)}" alt="${escapeHtml(card.title)}" width="640" height="360" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: ${card.fit === "contain" ? "contain" : "cover"}; display: block;" /></span>` : ""}
-              <h3 style="margin: 0 0 8px; font-size: 1rem; color: #0f172a;">${escapeHtml(card.title)}</h3>
-              <p style="margin: 0 0 8px; font-size: 0.9rem; color: #334155;">${escapeHtml(card.summary)}</p>
-              <p style="margin: 0; font-size: 0.85rem; color: #64748b;">${escapeHtml(card.meta)}</p>
+            <a href="${escapeHtml(card.path)}" style="display: flex; gap: 12px; align-items: flex-start; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
+              ${card.image ? `<span style="display: block; flex: 0 0 clamp(72px, 20vw, 108px);"><img src="${escapeHtml(card.image)}" alt="${escapeHtml(card.title)}" width="640" height="360" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: ${card.fit === "contain" ? "contain" : "cover"}; background: #ffffff; border-radius: 10px; display: block;" /></span>` : ""}
+              <span style="display: block; flex: 1 1 auto; min-width: 0;">
+                <h3 style="margin: 0 0 8px; font-size: 1rem; color: #0f172a;">${escapeHtml(card.title)}</h3>
+                <p style="margin: 0 0 8px; font-size: 0.9rem; color: #334155;">${escapeHtml(card.summary)}</p>
+                <p style="margin: 0; font-size: 0.85rem; color: #64748b;">${escapeHtml(card.meta)}</p>
+              </span>
             </a>`,
             )
             .join("")}
