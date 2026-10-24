@@ -2090,18 +2090,19 @@ export default function GuidesSection({
                   shows the same cover: after the byline row, before the summary.
                   Sourced from the guide's CMS imageUrl (a representative product
                   photo); hidden on load failure so a dead URL degrades to the
-                  text-only layout instead of a broken frame. The canvas keeps the
-                  16:9 ratio the /news articles use, and object-contain keeps the
-                  whole square product photo visible instead of cropping it. */}
+                  text-only layout instead of a broken frame. The canvas is 1:1 -
+                  the cover art is square, so it fills the frame with no crop and
+                  no letterboxing. The width is capped (max-w-sm) so a square
+                  hero cannot tower over the article body. */}
               {guide.imageUrl ? (
                 <img
                   src={guide.imageUrl}
                   alt={guide.title}
                   width={800}
-                  height={450}
+                  height={800}
                   loading="eager"
                   decoding="async"
-                  className="w-full h-auto aspect-[16/9] object-contain bg-white rounded-3xl border border-slate-100 shadow-sm"
+                  className="w-full max-w-sm h-auto aspect-square object-cover bg-white rounded-3xl border border-slate-100 shadow-sm"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
               ) : null}
@@ -2471,22 +2472,22 @@ export default function GuidesSection({
                     onClick={() => handleArticleClick(guide)}
                     className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-5 flex gap-4 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
                   >
-                    {/* Cover canvas: 16:9, the same ratio and the same compact
-                        side-thumbnail size the /news cards use (112px on phones,
-                        144px from sm up). The guide covers themselves are square
-                        product photos (1500x1500), so the image is fitted with
-                        object-contain — the whole product stays visible and
-                        nothing is cropped into an unrecognisable sliver. */}
-                    <div className="w-28 sm:w-36 shrink-0 self-start aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
+                    {/* Cover canvas: 1:1, the same square canvas the /news
+                        cards use (104px on phones, 124px from sm up). The guide
+                        covers are square product photos (800x800 now, cut from
+                        the original 1500x1500 shot), so the image fills the
+                        frame with object-cover and the whole product - bars,
+                        seat, all four wheels - stays visible. */}
+                    <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
                       {cardImage ? (
                         <img
                           src={cardImage}
                           alt={guide.title}
-                          width={640}
-                          height={360}
+                          width={800}
+                          height={800}
                           loading="lazy"
                           decoding="async"
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-cover"
                           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                         />
                       ) : (

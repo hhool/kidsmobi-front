@@ -7,7 +7,7 @@
  * og:image with no visible figure above the fold. The four that already had a
  * cover point at the media store (bare bucket keys). The five added here ship
  * in this repo's public/ tree instead, so their imageUrl is root-relative
- * ("/images/news/<slug>-800x450.webp") and the prerender resolves it against
+ * ("/images/news/<slug>-800x800.webp") and the prerender resolves it against
  * the site origin — see toPublicImageUrl in scripts/prerender-pages.ts.
  *
  * Only `imageUrl` is written; every other field on the record is passed back
@@ -26,11 +26,11 @@ const TOKEN = String(process.env.CMS_ADMIN_ALL_TOKEN || "").trim();
 
 // slug -> root-relative cover path (file lives in public/, served by Pages)
 const COVERS = {
-  "electric-dirt-bikes-for-kids": "/images/news/electric-dirt-bikes-for-kids-800x450.webp",
-  "balance-bike-brand-news-october-2026": "/images/news/balance-bike-brand-news-october-2026-800x450.webp",
-  "new-balance-bikes-2026": "/images/news/new-balance-bikes-2026-800x450.webp",
-  "ride-on-safety-standards-2026": "/images/news/ride-on-safety-standards-2026-800x450.webp",
-  "balance-bike-research": "/images/news/balance-bike-research-800x450.webp",
+  "electric-dirt-bikes-for-kids": "/images/news/electric-dirt-bikes-for-kids-800x800.webp",
+  "balance-bike-brand-news-october-2026": "/images/news/balance-bike-brand-news-october-2026-800x800.webp",
+  "new-balance-bikes-2026": "/images/news/new-balance-bikes-2026-800x800.webp",
+  "ride-on-safety-standards-2026": "/images/news/ride-on-safety-standards-2026-800x800.webp",
+  "balance-bike-research": "/images/news/balance-bike-research-800x800.webp",
 };
 
 // Articles that must keep their existing cover — asserted, not written, so a

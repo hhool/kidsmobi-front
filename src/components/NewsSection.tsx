@@ -587,19 +587,21 @@ export default function NewsSection({
 
             {/* Cover image. Mirrors the prerendered hero in scripts/prerender-pages.ts
                 so the raw HTML a crawler reads and the DOM a parent sees carry the
-                same figure in the same position. */}
+                same figure in the same position. The canvas is 1:1 (the covers are
+                800x800 squares) and the width is capped so a square hero cannot
+                tower over the article body. */}
             {(() => {
               const cover = normalizeMediaUrl(resolveCardImage((article as any).imageUrl, article.content));
               if (!cover) return null;
               return (
-                <figure className="m-0">
+                <figure className="m-0 max-w-sm">
                   <img
                     src={cover}
                     alt={article.title}
                     width={800}
-                    height={450}
+                    height={800}
                     loading="eager"
-                    className="w-full h-auto rounded-3xl border border-slate-100 shadow-sm"
+                    className="w-full h-auto aspect-square object-cover rounded-3xl border border-slate-100 shadow-sm"
                   />
                 </figure>
               );
@@ -888,18 +890,19 @@ export default function NewsSection({
                   onClick={() => handleArticleClick(art)}
                   className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex gap-5 sm:gap-6 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group"
                 >
-                  {/* Thumbnail: a compact 16:9 side frame (112px on phones, 144px
-                      from sm up) — the same proportion the guide cards use. The
-                      old code stretched this column to the height of the text
+                  {/* Thumbnail: a compact 1:1 side frame (104px on phones, 124px
+                      from sm up) — the same square canvas the guide cards use.
+                      The old code stretched this column to the height of the text
                       block, which cropped the 800x450 cover into a 110x171
-                      sliver and squeezed the headline. */}
-                  <div className="w-28 sm:w-36 shrink-0 self-start aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
+                      sliver and squeezed the headline. The covers are now
+                      800x800 squares, so object-cover fills the frame exactly. */}
+                  <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
                     {cardImage ? (
                       <img
                         src={cardImage}
                         alt={art.title}
-                        width={640}
-                        height={360}
+                        width={800}
+                        height={800}
                         loading="lazy"
                         decoding="async"
                         className="w-full h-full object-cover"
