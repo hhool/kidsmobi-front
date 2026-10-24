@@ -1453,6 +1453,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
         </p>
         ${summaryIntroHtml}
       </section>
+      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>

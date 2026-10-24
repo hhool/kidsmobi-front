@@ -2037,6 +2037,25 @@ export default function GuidesSection({
                 </div>
               </div>
 
+              {/* Hero image. Mirrors the prerendered static HTML for this route
+                  (prerender-pages.ts renderGuideDetailPage) so the hydrated SPA
+                  shows the same cover: after the byline row, before the summary.
+                  Sourced from the guide's CMS imageUrl (a representative product
+                  photo); hidden on load failure so a dead URL degrades to the
+                  text-only layout instead of a broken frame. */}
+              {guide.imageUrl ? (
+                <img
+                  src={guide.imageUrl}
+                  alt={guide.title}
+                  width={800}
+                  height={450}
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-auto aspect-[16/9] object-cover rounded-3xl border border-slate-100 shadow-sm"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                />
+              ) : null}
+
               <div className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium italic relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
                 <strong>{lang === "en" ? "Summary: " : "概要："}</strong> {guide.summary}
