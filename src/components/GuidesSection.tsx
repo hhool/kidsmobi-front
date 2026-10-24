@@ -285,7 +285,15 @@ const GUIDE_CATEGORY_LABELS: Record<GuideCategoryId, { zh: string; en: string; s
 
 const GUIDE_ALLOWED_TOPIC_CATEGORIES = new Set(["beginner", "scenario", "budget", "risk", "special", "category_spec", "maintenance", "best"]);
 
-function normalizeGuideTopicCategory(value: unknown): GuideArticle["category"] {
+/** Canonical category order: the library groups by topic in this sequence. */
+const GUIDE_TOPIC_ORDER: GuideCategoryId[] = ["beginner", "scenario", "budget", "risk", "special", "maintenance", "best"];
+
+function guideTopicSortIndex(value: unknown): number {
+  const index = GUIDE_TOPIC_ORDER.indexOf(normalizeGuideTopicCategory(value));
+  return index < 0 ? GUIDE_TOPIC_ORDER.length : index;
+}
+
+function normalizeGuideTopicCategory(value: unknown): GuideCategoryId {
   const raw = String(value || "").trim().toLowerCase();
   if (raw === "category_special") return "special";
   if (raw === "category_spec") return "special";
@@ -665,19 +673,10 @@ function getGuidePinnedState(article: GuideArticle): boolean {
   return Boolean((article as any)?.pinned || (article as any)?.featured);
 }
 
-function isGuideFeatured(article: GuideArticle): boolean {
-  return getGuidePinnedState(article);
-}
-
 function getGuidePinOrder(article: GuideArticle): number {
   const raw = Number((article as any)?.pinOrder ?? 0);
   if (!Number.isFinite(raw)) return 0;
   return Math.max(0, Math.floor(raw));
-}
-
-function getGuideProductCategoryKey(article: GuideArticle): string {
-  const key = normalizeGuideProductCategory(article.productCategory);
-  return isGuideCoreProductCategory(key) ? key : "other";
 }
 
 interface GuidesSectionProps {
@@ -1065,35 +1064,13 @@ export default function GuidesSection({
   // Dynamic automatic filtering of all library articles based on Match Wizard active category selection
   const productFilteredArticles = useMemo(() => {
     if (wizardCategory === "all") {
-      // All-category view stays a curated shelf: only pinned / featured guides.
-      // "Pinned" is driven by CMS config (pinOrder > 0 or pinned/featured flags) so
-      // heuristic text filters cannot drop an explicitly configured pin.
-      const cmsPinned = guideArticles.filter((article) => getGuidePinOrder(article) > 0);
-      const cmsFeatured = guideArticles.filter(isGuideFeatured);
-      const configuredSource = cmsPinned.length > 0
-        ? cmsPinned
-        : (cmsFeatured.length > 0 ? cmsFeatured : allGuideArticles.filter(isGuideFeatured));
-
-      const dedupedByProductCategory = new Map<string, GuideArticle>();
-      const sortedForPinPick = [...configuredSource].sort((a, b) => {
-        const pinDiff = getGuidePinOrder(a) - getGuidePinOrder(b);
-        if (pinDiff !== 0) return pinDiff;
-        const priorityDiff = getGuideCategoryPriority(a) - getGuideCategoryPriority(b);
-        if (priorityDiff !== 0) return priorityDiff;
-        return String(b.publishDate || "").localeCompare(String(a.publishDate || ""));
-      });
-
-      for (const article of sortedForPinPick) {
-        const categoryKey = getGuideProductCategoryKey(article);
-        if (!dedupedByProductCategory.has(categoryKey)) {
-          dedupedByProductCategory.set(categoryKey, article);
-        }
-      }
-
-      const curated = Array.from(dedupedByProductCategory.values());
-      // Never render an empty shelf: fall back to the full published library when
-      // nothing has been pinned yet.
-      return curated.length > 0 ? curated : allGuideArticles;
+      // "All Guides" is the whole published library, not a pinned-only shelf.
+      // Restricting it to pinned/featured (one guide per product category) used
+      // to hide every article that CMS had not pinned: 13 of 16 published
+      // guides were unreachable from the hub. CMS pinOrder > 0 still decides
+      // what leads each list — ordering happens in activeArticlesList below —
+      // it just no longer decides what exists.
+      return allGuideArticles;
     }
     // Show everything related to the selected product category. The "Beginners' Bible"
     // text heuristic is only used for ordering (curated copy first) — filtering by it
@@ -1109,7 +1086,17 @@ export default function GuidesSection({
   }, [allGuideArticles, wizardCategory]);
 
   const activeArticlesList = useMemo(() => {
+    // pinOrder > 0 is the CMS "lead the shelf" knob: ascending order first,
+    // unpinned (0) last. The pinned flag alone (no order) still leads the list.
+    const pinRank = (article: GuideArticle) => {
+      const order = getGuidePinOrder(article);
+      return order > 0 ? order : Number.POSITIVE_INFINITY;
+    };
     return [...productFilteredArticles].sort((a, b) => {
+      const aRank = pinRank(a);
+      const bRank = pinRank(b);
+      if (aRank !== bRank) return aRank < bRank ? -1 : 1;
+
       const pinnedDiff = Number(getGuidePinnedState(b)) - Number(getGuidePinnedState(a));
       if (pinnedDiff !== 0) return pinnedDiff;
 
@@ -1118,7 +1105,9 @@ export default function GuidesSection({
         if (priorityDiff !== 0) return priorityDiff;
       }
       if (a.category !== b.category) {
-        return String(a.category).localeCompare(String(b.category));
+        // Group by category in canonical topic order (beginner → maintenance),
+        // so the grid reads as shelves rather than alphabetical noise.
+        return guideTopicSortIndex(a.category) - guideTopicSortIndex(b.category);
       }
       const topicOrderDiff = getGuideTopicOrder(a) - getGuideTopicOrder(b);
       if (topicOrderDiff !== 0) return topicOrderDiff;
@@ -1329,15 +1318,25 @@ export default function GuidesSection({
     }
   };
 
+  // One tile per topic the library actually classifies (GUIDES_TOPIC_PAGE_IDS is
+  // the same list the /guides/<topic> pages and the "Browse by topic" row are
+  // built from). The old four-tile set dropped budget / risk / special, so
+  // articles filed under those topics had no tile to be reached from.
   const categories = lang === "en" ? [
     { id: "all", label: "All Guides", icon: BookOpen, deck: "Full guide library" },
     { id: "beginner", label: "Beginner Entry", icon: Play, deck: "Fit, sizing, first purchase" },
     { id: "scenario", label: "Scenario Guide", icon: Briefcase, deck: "Home, park, commute" },
+    { id: "budget", label: "Budget Guide", icon: Calculator, deck: "Price tiers and value" },
+    { id: "risk", label: "Risk ID Guide", icon: AlertTriangle, deck: "Recalls, standards, checks" },
+    { id: "special", label: "Category Special", icon: Award, deck: "Special-fit and niche models" },
     { id: "maintenance", label: "Maintenance", icon: Wrench, deck: "Care and inspection" }
   ] : [
     { id: "all", label: "全部指南", icon: BookOpen, deck: "完整指南库" },
     { id: "beginner", label: "新手入门", icon: Play, deck: "尺寸、跨高、首购" },
     { id: "scenario", label: "场景指南", icon: Briefcase, deck: "小区、公园、通勤" },
+    { id: "budget", label: "预算指南", icon: Calculator, deck: "价格分级与性价比" },
+    { id: "risk", label: "风险甄别", icon: AlertTriangle, deck: "召回、标准、检查" },
+    { id: "special", label: "品类专项", icon: Award, deck: "特殊需求与细分款" },
     { id: "maintenance", label: "养护清单", icon: Wrench, deck: "刹车、轮胎、连接件" }
   ];
 
@@ -2174,22 +2173,26 @@ export default function GuidesSection({
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-100 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
                       <BookOpen className="w-4 h-4" />
                       {lang === "en"
-                        ? (wizardCategory === "all" ? "Pinned Guides Across Categories" : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products"} Guides`)
-                        : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部"} 专属选购指南`}
+                        ? (wizardCategory === "all" ? "Guides Grouped by Category" : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products"} Guides`)
+                        : (wizardCategory === "all" ? "按分类浏览全部指南" : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部"} 专属选购指南`)}
                     </span>
                     <h2 className="km-section-title">
                       {lang === "en"
                         ? (wizardCategory === "all"
-                            ? "Guide Library: Pinned Guides Across Categories"
+                            ? "Guide Library: Every Published Guide, Grouped by Category"
                             : `Guide Library: ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "Ride-ons"} Buyer's Handbook`)
-                        : `指南库：针对【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部童车"}】的科普与工效测评`}
+                        : (wizardCategory === "all"
+                            ? "指南库：按分类查看全部指南"
+                            : `指南库：针对【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部童车"}】的科普与工效测评`)}
                     </h2>
                     <p className="km-heading-copy km-body-copy text-sm text-slate-600 font-medium max-w-xl">
                       {lang === "en"
                         ? (wizardCategory === "all"
-                            ? "Pinned and featured guides are shown across categories when no product category is selected."
+                            ? "Every published guide is listed here. Pinned guides lead their category; pick a category tile to see only that topic."
                             : `Beginners' Bible articles filtered for ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "your selected category"}. Learn sizing benchmarks, risk indicators, and maintenance habits.`)
-                        : `当前内容已根据您在上方算力面板中选择的商品品类，自动对指南库进行全量过滤，为您高能度匹配【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "当前品类"}】相关的尺寸、安全与养护攻略。`}
+                        : (wizardCategory === "all"
+                            ? "所有已发布的指南都会在这里列出，置顶文章排在分类最前；点击右侧分类即可只看该主题。"
+                            : `当前内容已根据您在上方算力面板中选择的商品品类，自动对指南库进行全量过滤，为您高能度匹配【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "当前品类"}】相关的尺寸、安全与养护攻略。`)}
                     </p>
                     {wizardCategory !== "all" && (
                       <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-orange-200 bg-orange-50/80 px-4 py-3">
@@ -2218,8 +2221,11 @@ export default function GuidesSection({
                   <div className="grid grid-cols-3 gap-3 text-center">
                     {[
                       { value: filteredGuides.length, label: lang === "en" ? "Visible" : "当前展示" },
-                      { value: activeArticlesList.length, label: lang === "en" ? (wizardCategory === "all" ? "Pinned Total" : "Category Total") : (wizardCategory === "all" ? "置顶总数" : "品类指南总数") },
-                      { value: "6x5", label: lang === "en" ? "Shelves" : "分类配置" },
+                      { value: activeArticlesList.length, label: lang === "en" ? "In Library" : "指南总数" },
+                      {
+                        value: new Set(activeArticlesList.map((article) => article.category)).size,
+                        label: lang === "en" ? "Topics" : "覆盖分类",
+                      },
                     ].map((item) => (
                       <div key={item.label} className="rounded-2xl bg-white/75 border border-slate-200 px-3 py-4 shadow-sm">
                         <div className="text-xl font-black text-slate-950">{item.value}</div>
