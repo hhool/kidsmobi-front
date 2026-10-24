@@ -2086,7 +2086,9 @@ export default function GuidesSection({
                   shows the same cover: after the byline row, before the summary.
                   Sourced from the guide's CMS imageUrl (a representative product
                   photo); hidden on load failure so a dead URL degrades to the
-                  text-only layout instead of a broken frame. */}
+                  text-only layout instead of a broken frame. The canvas keeps the
+                  16:9 ratio the /news articles use, and object-contain keeps the
+                  whole square product photo visible instead of cropping it. */}
               {guide.imageUrl ? (
                 <img
                   src={guide.imageUrl}
@@ -2095,7 +2097,7 @@ export default function GuidesSection({
                   height={450}
                   loading="eager"
                   decoding="async"
-                  className="w-full h-auto aspect-[16/9] object-cover rounded-3xl border border-slate-100 shadow-sm"
+                  className="w-full h-auto aspect-[16/9] object-contain bg-white rounded-3xl border border-slate-100 shadow-sm"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
               ) : null}
@@ -2463,18 +2465,24 @@ export default function GuidesSection({
                     type="button"
                     key={guide.id}
                     onClick={() => handleArticleClick(guide)}
-                    className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-5 flex gap-4 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
+                    className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-5 flex flex-col gap-4 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
                   >
-                    <div className="w-20 sm:w-24 shrink-0 self-stretch rounded-2xl overflow-hidden border border-slate-100 bg-orange-50 flex items-center justify-center">
+                    {/* Cover canvas: 16:9, the same ratio the /news articles use
+                        for their 800x450 covers. The guide covers themselves are
+                        square product photos (1500x1500), so the image is fitted
+                        with object-contain — the whole product stays visible and
+                        nothing is cropped into an unrecognisable sliver (the old
+                        80/96px stretched column cut 45% of every photo). */}
+                    <div className="w-full aspect-video shrink-0 rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
                       {cardImage ? (
                         <img
                           src={cardImage}
                           alt={guide.title}
-                          width={96}
-                          height={96}
+                          width={640}
+                          height={360}
                           loading="lazy"
                           decoding="async"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                         />
                       ) : (

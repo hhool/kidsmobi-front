@@ -760,15 +760,17 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
         animation: app-boot-spin 0.8s linear infinite;
       }
       @keyframes app-boot-spin { to { transform: rotate(360deg); } }
-      /* News card thumbnails. The desktop layout is a 160px side thumbnail
-         next to the story text; on phones the same markup switches to a
-         stacked card (full-width 16:10 image above the text) so the 16:9
-         photo is not cropped into a narrow sliver. Mirrors the SPA card in
-         src/components/NewsSection.tsx. */
+      /* Article card thumbnails. The desktop layout is a fixed-width 16:9
+         thumbnail next to the story text; on phones the same markup switches
+         to a stacked card (full-width 16:9 image above the text) so the cover
+         is not cropped into a narrow sliver. Mirrors the SPA cards in
+         src/components/NewsSection.tsx and src/components/GuidesSection.tsx.
+         Editorial covers (800x450) fill the frame; square product photos are
+         fitted with object-contain so the whole product stays visible. */
       @media (max-width: 640px) {
-        .news-card { flex-direction: column !important; align-items: stretch !important; }
-        .news-card-thumb { flex: 0 0 auto !important; width: 100% !important; }
-        .news-card-thumb img { width: 100% !important; height: auto !important; aspect-ratio: 16 / 10; }
+        .article-card { flex-direction: column !important; align-items: stretch !important; }
+        .article-card-thumb { flex: 0 0 auto !important; width: 100% !important; }
+        .article-card-thumb img { width: 100% !important; height: auto !important; aspect-ratio: 16 / 9; }
       }
     </style>
     <script>
@@ -1490,7 +1492,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
         </p>
         ${summaryIntroHtml}
       </section>
-      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
+      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #ffffff; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
@@ -1583,7 +1585,7 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
         <a href="/news">News</a> › <a href="/news/${escapeHtml(channel)}">${escapeHtml(channelLabel)}</a>
       </nav>
       ${image ? `<figure style="margin: 0 0 18px;">
-        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; display: block; border-radius: 18px;" />
+        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-radius: 18px;" />
       </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
@@ -1794,7 +1796,7 @@ function renderEvaluationDetailPage(
 function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
   const articles = guideArticles.slice(0, 5);
   const canonical = "https://balancebiketoddler.com/guides";
-  const listedGuides: Array<{ title: string; summary: string; meta: string; url: string }> = cmsGuides.length
+  const listedGuides: Array<{ title: string; summary: string; meta: string; url: string; cover: string }> = cmsGuides.length
     ? cmsGuides.flatMap((guide) => {
         const route = guideRoutePath(guide);
         if (!route) return [];
@@ -1804,6 +1806,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
           summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
           meta: `${topic.replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
           url: `${PUBLIC_SITE_BASE}${route}`,
+          cover: toPublicImageUrl(pickText(guide.imageUrl)),
         }];
       })
     : articles.map((article) => ({
@@ -1811,6 +1814,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         summary: article.summary,
         meta: `${article.categoryLabel} · ${article.readTime} · ${article.publishDate}`,
         url: `${PUBLIC_SITE_BASE}/guides/${article.category}/${article.id}`,
+        cover: "",
       }));
   const usingCmsGuides = cmsGuides.length > 0;
   const guidesPageDates = deriveListingDates(
@@ -1920,10 +1924,15 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which guide topics are most useful?</h2>
         ${listedGuides.map((guide) => `
-          <section style="padding: 14px 0; border-top: 1px solid #f1f5f9;">
-            <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(guide.url).pathname)}">${escapeHtml(guide.title)}</a></h3>
-            <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(guide.summary)}</p>
-            <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(guide.meta)}</p>
+          <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
+            ${guide.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(guide.url).pathname)}" style="flex: 0 0 clamp(96px, 30vw, 160px); display: block;">
+              <img src="${escapeHtml(guide.cover)}" alt="${escapeHtml(guide.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #ffffff; border-radius: 10px; display: block;" />
+            </a>` : ""}
+            <div style="flex: 1 1 auto; min-width: 0;">
+              <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(guide.url).pathname)}">${escapeHtml(guide.title)}</a></h3>
+              <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(guide.summary)}</p>
+              <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(guide.meta)}</p>
+            </div>
           </section>
         `).join("")}
         ${usingCmsGuides ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedGuides.length} published guide${listedGuides.length === 1 ? "" : "s"} in the library. Browse by topic: ${GUIDES_TOPIC_PAGE_IDS.map((topic) => `<a href="/guides/${topic}">${escapeHtml(GUIDES_TOPIC_PAGES[topic].h1)}</a>`).join(" · ")}.</p>` : ""}
@@ -2099,8 +2108,8 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which stories are most citable?</h2>
         ${listedNews.map((item) => `
-          <section class="news-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
-            ${item.cover ? `<a class="news-card-thumb" href="${escapeHtml(new URL(item.url).pathname)}" style="flex: 0 0 clamp(96px, 30vw, 160px); display: block;">
+          <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
+            ${item.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(item.url).pathname)}" style="flex: 0 0 clamp(96px, 30vw, 160px); display: block;">
               <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; display: block;" />
             </a>` : ""}
             <div style="flex: 1 1 auto; min-width: 0;">
@@ -2547,7 +2556,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
  * families must stay in lockstep with guideTopicCategory(), newsRoutePath()
  * and evaluationRoutePath() above, and with the Worker's deriveContentPath().
  */
-type FilterCard = { title: string; summary: string; meta: string; path: string };
+type FilterCard = { title: string; summary: string; meta: string; path: string; image?: string; fit?: "cover" | "contain" };
 
 type FilterPageConfig = {
   route: string;
@@ -2587,6 +2596,7 @@ function filterCardGrid(cards: FilterCard[], emptyNote: string): string {
             .map(
               (card) => `
             <a href="${escapeHtml(card.path)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; text-decoration: none; color: inherit; background: #ffffff;">
+              ${card.image ? `<span style="display: block; margin: -16px -16px 12px; background: #ffffff; border-radius: 15px 15px 0 0; overflow: hidden;"><img src="${escapeHtml(card.image)}" alt="${escapeHtml(card.title)}" width="640" height="360" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: ${card.fit === "contain" ? "contain" : "cover"}; display: block;" /></span>` : ""}
               <h3 style="margin: 0 0 8px; font-size: 1rem; color: #0f172a;">${escapeHtml(card.title)}</h3>
               <p style="margin: 0 0 8px; font-size: 0.9rem; color: #334155;">${escapeHtml(card.summary)}</p>
               <p style="margin: 0; font-size: 0.85rem; color: #64748b;">${escapeHtml(card.meta)}</p>
@@ -2773,6 +2783,8 @@ function renderFilterPages(
           summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
           meta: `${topic.replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
           path: route,
+          image: toPublicImageUrl(pickText(guide.imageUrl)),
+          fit: "contain" as const,
         },
       ];
     });
@@ -2786,6 +2798,8 @@ function renderFilterPages(
           summary: pickText(item.en?.verdict, item.zh?.verdict, "Independent review with source-based scores.").slice(0, 140),
           meta: `${reviewType} review · ${pickText(item.updatedAt, item.publishedAt).slice(0, 10) || "2026"}`,
           path: route,
+          image: toPublicImageUrl(pickText(item.imageUrl)),
+          fit: "contain" as const,
         },
       ];
     });
@@ -2799,6 +2813,8 @@ function renderFilterPages(
           summary: pickText(item.en?.summary, item.seo?.en?.description, "Latest kids mobility news."),
           meta: `${newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
           path: route,
+          image: toPublicImageUrl(pickText(item.imageUrl)),
+          fit: "cover" as const,
         },
       ];
     });
