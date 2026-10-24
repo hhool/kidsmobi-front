@@ -2102,7 +2102,7 @@ export default function GuidesSection({
                   height={800}
                   loading="eager"
                   decoding="async"
-                  className="w-full max-w-sm h-auto aspect-square object-cover bg-white rounded-3xl border border-slate-100 shadow-sm"
+                  className="w-full max-w-sm h-auto aspect-square object-contain bg-white rounded-3xl border border-slate-100 shadow-sm"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
               ) : null}
@@ -2476,8 +2476,10 @@ export default function GuidesSection({
                         cards use (104px on phones, 124px from sm up). The guide
                         covers are square product photos (800x800 now, cut from
                         the original 1500x1500 shot), so the image fills the
-                        frame with object-cover and the whole product - bars,
-                        seat, all four wheels - stays visible. */}
+                        frame and the whole product - bars, seat, all four
+                        wheels - stays visible. object-contain (not cover) is
+                        deliberate: a 1:1 frame must never crop the artwork, so
+                        even an off-square cover is letterboxed, never cut. */}
                     <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
                       {cardImage ? (
                         <img
@@ -2487,7 +2489,7 @@ export default function GuidesSection({
                           height={800}
                           loading="lazy"
                           decoding="async"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                         />
                       ) : (

@@ -601,7 +601,7 @@ export default function NewsSection({
                     width={800}
                     height={800}
                     loading="eager"
-                    className="w-full h-auto aspect-square object-cover rounded-3xl border border-slate-100 shadow-sm"
+                    className="w-full h-auto aspect-square object-contain rounded-3xl border border-slate-100 shadow-sm"
                   />
                 </figure>
               );
@@ -895,7 +895,10 @@ export default function NewsSection({
                       The old code stretched this column to the height of the text
                       block, which cropped the 800x450 cover into a 110x171
                       sliver and squeezed the headline. The covers are now
-                      800x800 squares, so object-cover fills the frame exactly. */}
+                      800x800 squares whose top/bottom fill is a mirrored blur
+                      of the photo's own edges, so the frame is full and nothing
+                      is cut. object-contain keeps that guarantee explicit: a
+                      1:1 frame never crops the artwork, it letterboxes it. */}
                   <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
                     {cardImage ? (
                       <img
@@ -905,7 +908,7 @@ export default function NewsSection({
                         height={800}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                       />
                     ) : (

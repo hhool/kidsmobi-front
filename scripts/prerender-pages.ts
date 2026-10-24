@@ -771,7 +771,9 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
       /* Article card thumbnails. Every article list uses the same compact
          geometry as the SPA cards: a 1:1 side frame next to the text
          (104px on phones, up to 124px on wide screens). The covers are
-         800x800 squares, so object-cover fills the frame with no crop.
+         800x800 squares, so the frame is full; object-fit: contain guarantees
+         a 1:1 frame never crops the artwork (an off-square cover letterboxes
+         instead of being cut).
          Mirrors src/components/NewsSection.tsx and src/components/GuidesSection.tsx. */
       .article-card-thumb { flex: 0 0 clamp(96px, 22vw, 124px); }
       .article-card-thumb img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
@@ -1042,7 +1044,7 @@ function renderZhHub(
       (item) => `
         <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
           ${item.image ? `<a class="article-card-thumb" href="${escapeHtml(item.path)}" style="display: block;">
-            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; display: block;" />
+            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 10px; display: block;" />
           </a>` : ""}
           <div style="flex: 1 1 auto; min-width: 0;">
             <h2 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(item.path)}">${escapeHtml(item.title)}</a></h2>
@@ -1679,7 +1681,7 @@ function renderGuideDetailPage(
         </p>
         ${summaryIntroHtml}
       </section>
-      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; height: auto; aspect-ratio: 1 / 1; object-fit: cover; background: #ffffff; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
+      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #ffffff; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
@@ -1793,7 +1795,7 @@ function renderNewsDetailPage(
         <a href="${zh ? "/zh/news" : "/news"}">${zh ? ZH_ARTICLE_LABELS.newsHub : "News"}</a> › <a href="${zh ? `/zh/news/${escapeHtml(channel)}` : `/news/${escapeHtml(channel)}`}">${escapeHtml(channelLabel)}</a>
       </nav>
       ${image ? `<figure style="margin: 0 0 18px;">
-        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; height: auto; aspect-ratio: 1 / 1; object-fit: cover; display: block; border-radius: 18px;" />
+        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 18px;" />
       </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
@@ -2134,7 +2136,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         ${listedGuides.map((guide) => `
           <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
             ${guide.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(guide.url).pathname)}" style="display: block;">
-              <img src="${escapeHtml(guide.cover)}" alt="${escapeHtml(guide.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; background: #ffffff; border-radius: 10px; display: block;" />
+              <img src="${escapeHtml(guide.cover)}" alt="${escapeHtml(guide.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #ffffff; border-radius: 10px; display: block;" />
             </a>` : ""}
             <div style="flex: 1 1 auto; min-width: 0;">
               <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(guide.url).pathname)}">${escapeHtml(guide.title)}</a></h3>
@@ -2318,7 +2320,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         ${listedNews.map((item) => `
           <section class="article-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
             ${item.cover ? `<a class="article-card-thumb" href="${escapeHtml(new URL(item.url).pathname)}" style="display: block;">
-              <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; display: block;" />
+              <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 10px; display: block;" />
             </a>` : ""}
             <div style="flex: 1 1 auto; min-width: 0;">
               <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(item.url).pathname)}">${escapeHtml(item.title)}</a></h3>
@@ -2804,7 +2806,7 @@ function filterCardGrid(cards: FilterCard[], emptyNote: string): string {
             .map(
               (card) => `
             <a href="${escapeHtml(card.path)}" style="display: flex; gap: 12px; align-items: flex-start; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
-              ${card.image ? `<span style="display: block; flex: 0 0 clamp(72px, 20vw, 108px);"><img src="${escapeHtml(card.image)}" alt="${escapeHtml(card.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; background: #ffffff; border-radius: 10px; display: block;" /></span>` : ""}
+              ${card.image ? `<span style="display: block; flex: 0 0 clamp(72px, 20vw, 108px);"><img src="${escapeHtml(card.image)}" alt="${escapeHtml(card.title)}" width="800" height="800" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #ffffff; border-radius: 10px; display: block;" /></span>` : ""}
               <span style="display: block; flex: 1 1 auto; min-width: 0;">
                 <h3 style="margin: 0 0 8px; font-size: 1rem; color: #0f172a;">${escapeHtml(card.title)}</h3>
                 <p style="margin: 0 0 8px; font-size: 0.9rem; color: #334155;">${escapeHtml(card.summary)}</p>

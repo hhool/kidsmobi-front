@@ -10,9 +10,11 @@ Why 1:1 and not 16:9:
 
   The news covers are 800x450 editorial photos. Cropping them to a square
   would slice the subject out of frame (a rider on the left, a bike on the
-  right). Instead they get the standard social treatment: the photo is scaled
-  to fit the full 800px width and centred on a blurred, darkened copy of
-  itself, so the canvas is 1:1 but nothing is cropped out of the picture.
+  right). Instead the photo is contained at full canvas width and the space
+  above/below is filled with a mirrored, blurred copy of the photo's own edge
+  strip, so the canvas is 1:1, nothing is cropped, and there is no hard seam
+  where the sharp photo meets the fill (the old scaled-cover bed drew a visible
+  line that looked like the picture had been cut).
 
 Outputs:
   guides -> public/images/guides/<slug>-800x800.webp   (from the ORIGINAL
@@ -83,35 +85,97 @@ def build_product_cover(raw, slug):
 def build_editorial_cover(raw, slug):
     """800x450 editorial photo -> an 800x800 canvas that keeps the whole photo.
 
-    The photo is scaled to the full canvas width and centred; the space above
-    and below is a blurred, darkened copy of the same frame. No pixel of the
-    subject is cropped away.
+    The photo is scaled to the full canvas width and centred. The space above
+    and below is filled with a *mirror of the photo's own edge strip*, blurred
+    into an out-of-focus continuation of the frame.
+
+    Why a mirror rather than the older "scaled-cover copy of the frame": the
+    scaled-cover bed showed a different (zoomed) crop at the seam, so the sharp
+    photo met a differently-framed blur and every cover carried a hard
+    horizontal line - it read as though the top and bottom of the picture had
+    been sliced off. Mirroring the edge strip means the row touching the photo
+    is pixel-identical to the photo's own first/last row, so the seam
+    disappears: nothing looks cut, and no pixel of the subject is cropped away.
     """
     with Image.open(io.BytesIO(raw)) as img:
         img = img.convert("RGB")
         w, h = img.size
 
-        # Background: the same frame, scaled to cover, then blurred and dimmed.
-        scale = max(TARGET / w, TARGET / h)
-        bg = img.resize((max(TARGET, int(round(w * scale))), max(TARGET, int(round(h * scale)))), Image.LANCZOS)
-        bg_w, bg_h = bg.size
-        bg = bg.crop(((bg_w - TARGET) // 2, (bg_h - TARGET) // 2, (bg_w - TARGET) // 2 + TARGET, (bg_h - TARGET) // 2 + TARGET))
-        bg = bg.filter(ImageFilter.GaussianBlur(radius=18)).convert("RGB")
-        bg = Image.blend(bg, Image.new("RGB", bg.size, (12, 16, 24)), 0.45)
-
-        # Foreground: the photo at full canvas width, centred vertically.
-        fg_w = TARGET
-        fg_h = max(1, int(round(h * (fg_w / w))))
+        # Fit the whole photo inside the square canvas (never crop it).
+        scale = min(TARGET / w, TARGET / h)
+        fg_w = max(1, int(round(w * scale)))
+        fg_h = max(1, int(round(h * scale)))
         fg = img.resize((fg_w, fg_h), Image.LANCZOS)
 
+        # Start from a stretched-blur of the frame so both bands always have
+        # colour even when a source is taller than it is wide.
+        bg = img.resize((TARGET, TARGET), Image.LANCZOS).filter(ImageFilter.GaussianBlur(radius=26))
+
         canvas = bg.copy()
-        canvas.paste(fg, (0, (TARGET - fg_h) // 2))
+        y0 = (TARGET - fg_h) // 2
+        x0 = (TARGET - fg_w) // 2
+
+        # --- top band: mirror the photo's top strip, blurred ---
+        if y0 > 0 and fg_h > 0:
+            strip = fg.crop((0, 0, fg_w, min(y0, fg_h))).transpose(Image.FLIP_TOP_BOTTOM)
+            if strip.height != y0:
+                strip = strip.resize((fg_w, y0), Image.LANCZOS)
+            strip = strip.filter(ImageFilter.GaussianBlur(radius=16))
+            canvas.paste(strip, (x0, 0))
+
+        # --- bottom band: mirror the photo's bottom strip, blurred ---
+        bottom_h = TARGET - (y0 + fg_h)
+        if bottom_h > 0 and fg_h > 0:
+            strip = fg.crop((0, fg_h - min(bottom_h, fg_h), fg_w, fg_h)).transpose(Image.FLIP_TOP_BOTTOM)
+            if strip.height != bottom_h:
+                strip = strip.resize((fg_w, bottom_h), Image.LANCZOS)
+            strip = strip.filter(ImageFilter.GaussianBlur(radius=16))
+            canvas.paste(strip, (x0, y0 + fg_h))
+
+        # Sharp photo on top; its edges blend straight into the mirrored blur.
+        canvas.paste(fg, (x0, y0))
         path = os.path.join(NEWS_OUT, f"{slug}-800x800.webp")
         canvas.save(path, "WEBP", quality=82, method=6)
     return path
 
 
+def rebuild_news_only():
+    """Rebuild just the news covers from SOURCE_MAP (no CMS, no token).
+
+    Used when only the compositing changed and the CMS already points at the
+    <slug>-800x800.webp filenames, so there is nothing to repoint.
+    """
+    os.makedirs(NEWS_OUT, exist_ok=True)
+    with open(SOURCE_MAP, encoding="utf-8") as fh:
+        news_sources = json.load(fh).get("news", {})
+    built, failed = 0, []
+    for slug, src in news_sources.items():
+        src = str(src or "").strip()
+        if not src:
+            failed.append(f"{slug}: no source URL")
+            continue
+        if src.startswith("/"):
+            src = "https://balancebiketoddler.com" + src
+        try:
+            data = http_get(src)
+            path = build_editorial_cover(data, slug)
+            print(f"  {os.path.basename(path)}  {os.path.getsize(path) / 1024:.0f}KB  <- {src[-52:]}")
+            built += 1
+        except Exception as exc:  # noqa: BLE001
+            failed.append(f"{slug}: {exc}")
+    print(f"\nnews rebuilt: {built}/{len(news_sources)}")
+    if failed:
+        print("FAILED:")
+        for f in failed:
+            print("  -", f)
+        return 1
+    return 0
+
+
 def main():
+    if "--news-only" in sys.argv:
+        return rebuild_news_only()
+
     token = os.environ.get("CMS_ADMIN_ALL_TOKEN", "")
     write = "--write" in sys.argv
     if not token:
