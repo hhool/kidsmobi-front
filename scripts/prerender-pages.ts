@@ -607,10 +607,13 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   // Section routes carry a CMS-resolved override (page.keywords, set by
   // applyCmsSectionSeo) so the static HTML matches the hydrated SPA exactly;
   // every other route resolves through the shared DEFAULT-based module.
+  // A /zh route resolves the Chinese set — the SPA publishes the Chinese
+  // keywords for the same URL, and the probe compares the two.
+  const pageLang = page.route.startsWith("/zh/") ? "zh" : "en";
   const keywordArr = page.keywords
     ?? (page.product
       ? buildProductDetailKeywords(page.product, "en", String((page.product as CmsProductFull).categoryId || ""))
-      : resolveRouteKeywords(page.route, "en"));
+      : resolveRouteKeywords(page.route, pageLang));
   const keywordTag = keywordArr.join(", ");
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
