@@ -594,7 +594,7 @@ export default function NewsSection({
               const cover = normalizeMediaUrl(resolveCardImage((article as any).imageUrl, article.content));
               if (!cover) return null;
               return (
-                <figure className="m-0 max-w-sm">
+                <figure className="my-0 mx-auto max-w-sm">
                   <img
                     src={cover}
                     alt={article.title}

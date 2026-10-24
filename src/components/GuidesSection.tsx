@@ -2102,7 +2102,7 @@ export default function GuidesSection({
                   height={800}
                   loading="eager"
                   decoding="async"
-                  className="w-full max-w-sm h-auto aspect-square object-contain bg-white rounded-3xl border border-slate-100 shadow-sm"
+                  className="w-full max-w-sm mx-auto h-auto aspect-square object-contain bg-white rounded-3xl border border-slate-100 shadow-sm"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
               ) : null}

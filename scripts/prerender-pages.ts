@@ -1681,7 +1681,7 @@ function renderGuideDetailPage(
         </p>
         ${summaryIntroHtml}
       </section>
-      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #ffffff; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
+      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; margin-left: auto; margin-right: auto; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #ffffff; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
@@ -1795,7 +1795,7 @@ function renderNewsDetailPage(
         <a href="${zh ? "/zh/news" : "/news"}">${zh ? ZH_ARTICLE_LABELS.newsHub : "News"}</a> › <a href="${zh ? `/zh/news/${escapeHtml(channel)}` : `/news/${escapeHtml(channel)}`}">${escapeHtml(channelLabel)}</a>
       </nav>
       ${image ? `<figure style="margin: 0 0 18px;">
-        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 18px;" />
+        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; margin-left: auto; margin-right: auto; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 18px;" />
       </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
