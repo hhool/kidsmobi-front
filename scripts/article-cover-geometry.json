@@ -1,0 +1,1045 @@
+{
+  "canvas": 800,
+  "covers": {
+    "balance-bike-brand-news-october-2026": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\balance-bike-brand-news-october-2026-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "balance-bike-by-age": {
+      "inner": [
+        800,
+        731
+      ],
+      "offset": [
+        0,
+        34
+      ],
+      "out": "public\\images\\guides\\balance-bike-by-age-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1371
+      ]
+    },
+    "balance-bike-maintenance": {
+      "inner": [
+        800,
+        731
+      ],
+      "offset": [
+        0,
+        34
+      ],
+      "out": "public\\images\\guides\\balance-bike-maintenance-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1371
+      ]
+    },
+    "balance-bike-price-tiers": {
+      "inner": [
+        800,
+        686
+      ],
+      "offset": [
+        0,
+        57
+      ],
+      "out": "public\\images\\guides\\balance-bike-price-tiers-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1286
+      ]
+    },
+    "balance-bike-recalls": {
+      "inner": [
+        800,
+        737
+      ],
+      "offset": [
+        0,
+        31
+      ],
+      "out": "public\\images\\guides\\balance-bike-recalls-800x800.webp",
+      "scale": 0.540176,
+      "source": [
+        1481,
+        1364
+      ]
+    },
+    "balance-bike-research": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\balance-bike-research-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "balance-bike-safety-checks": {
+      "inner": [
+        800,
+        642
+      ],
+      "offset": [
+        0,
+        79
+      ],
+      "out": "public\\images\\guides\\balance-bike-safety-checks-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1203
+      ]
+    },
+    "balance-bike-safety-standards": {
+      "inner": [
+        800,
+        650
+      ],
+      "offset": [
+        0,
+        75
+      ],
+      "out": "public\\images\\guides\\balance-bike-safety-standards-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1219
+      ]
+    },
+    "balance-bike-size-chart": {
+      "inner": [
+        764,
+        800
+      ],
+      "offset": [
+        18,
+        0
+      ],
+      "out": "public\\images\\guides\\balance-bike-size-chart-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1432,
+        1500
+      ]
+    },
+    "balance-bike-stability": {
+      "inner": [
+        800,
+        635
+      ],
+      "offset": [
+        0,
+        82
+      ],
+      "out": "public\\images\\guides\\balance-bike-stability-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1190
+      ]
+    },
+    "balance-bike-vs-training-wheels": {
+      "inner": [
+        800,
+        797
+      ],
+      "offset": [
+        0,
+        1
+      ],
+      "out": "public\\images\\guides\\balance-bike-vs-training-wheels-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1495
+      ]
+    },
+    "balance-bike-weight": {
+      "inner": [
+        800,
+        650
+      ],
+      "offset": [
+        0,
+        75
+      ],
+      "out": "public\\images\\guides\\balance-bike-weight-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1219
+      ]
+    },
+    "balance-bike-what-buyers-say": {
+      "inner": [
+        800,
+        579
+      ],
+      "offset": [
+        0,
+        110
+      ],
+      "out": "public\\images\\guides\\balance-bike-what-buyers-say-800x800.webp",
+      "scale": 0.555942,
+      "source": [
+        1439,
+        1041
+      ]
+    },
+    "balance-bikes-extra-support": {
+      "inner": [
+        800,
+        579
+      ],
+      "offset": [
+        0,
+        110
+      ],
+      "out": "public\\images\\guides\\balance-bikes-extra-support-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1086
+      ]
+    },
+    "best-balance-bike-for-1-year-old": {
+      "inner": [
+        800,
+        654
+      ],
+      "offset": [
+        0,
+        73
+      ],
+      "out": "public\\images\\guides\\best-balance-bike-for-1-year-old-800x800.webp",
+      "scale": 0.631413,
+      "source": [
+        1267,
+        1036
+      ]
+    },
+    "choosing-and-using-child-safety-seats": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\choosing-and-using-child-safety-seats-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "electric-dirt-bikes-for-kids": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\electric-dirt-bikes-for-kids-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "foldable-electric-scooter-brands-worldwide": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\foldable-electric-scooter-brands-worldwide-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "graco-modes-pramette-travel-system": {
+      "inner": [
+        800,
+        533
+      ],
+      "offset": [
+        0,
+        133
+      ],
+      "out": "public\\images\\guides\\graco-modes-pramette-travel-system-800x800.webp",
+      "scale": 2.666667,
+      "source": [
+        300,
+        200
+      ]
+    },
+    "how-to-choose-the-perfect-baby-stroller": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\how-to-choose-the-perfect-baby-stroller-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "kids-bike-balance-vs-training-wheels": {
+      "inner": [
+        800,
+        579
+      ],
+      "offset": [
+        0,
+        110
+      ],
+      "out": "public\\images\\guides\\kids-bike-balance-vs-training-wheels-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1086
+      ]
+    },
+    "kids-bike-best-16-inch": {
+      "inner": [
+        800,
+        533
+      ],
+      "offset": [
+        0,
+        133
+      ],
+      "out": "public\\images\\guides\\kids-bike-best-16-inch-800x800.webp",
+      "scale": 2.666667,
+      "source": [
+        300,
+        200
+      ]
+    },
+    "kids-bike-best-20-inch": {
+      "inner": [
+        800,
+        783
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "out": "public\\images\\guides\\kids-bike-best-20-inch-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1469
+      ]
+    },
+    "kids-bike-chain-tire-care": {
+      "inner": [
+        800,
+        794
+      ],
+      "offset": [
+        0,
+        3
+      ],
+      "out": "public\\images\\guides\\kids-bike-chain-tire-care-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1489
+      ]
+    },
+    "kids-bike-coaster-vs-hand-brake": {
+      "inner": [
+        800,
+        652
+      ],
+      "offset": [
+        0,
+        74
+      ],
+      "out": "public\\images\\guides\\kids-bike-coaster-vs-hand-brake-800x800.webp",
+      "scale": 0.671704,
+      "source": [
+        1191,
+        970
+      ]
+    },
+    "kids-bike-first-by-age": {
+      "inner": [
+        800,
+        762
+      ],
+      "offset": [
+        0,
+        19
+      ],
+      "out": "public\\images\\guides\\kids-bike-first-by-age-800x800.webp",
+      "scale": 0.537996,
+      "source": [
+        1487,
+        1417
+      ]
+    },
+    "kids-bike-helmet-fit": {
+      "inner": [
+        784,
+        800
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-bike-helmet-fit-800x800.webp",
+      "scale": 0.562984,
+      "source": [
+        1393,
+        1421
+      ]
+    },
+    "kids-bike-size-chart": {
+      "inner": [
+        800,
+        747
+      ],
+      "offset": [
+        0,
+        26
+      ],
+      "out": "public\\images\\guides\\kids-bike-size-chart-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1400
+      ]
+    },
+    "kids-bike-teach-to-ride": {
+      "inner": [
+        800,
+        634
+      ],
+      "offset": [
+        0,
+        83
+      ],
+      "out": "public\\images\\guides\\kids-bike-teach-to-ride-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1189
+      ]
+    },
+    "kids-bike-under-100": {
+      "inner": [
+        800,
+        791
+      ],
+      "offset": [
+        0,
+        4
+      ],
+      "out": "public\\images\\guides\\kids-bike-under-100-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1483
+      ]
+    },
+    "kids-electric-bike-development-trends-2026": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\kids-electric-bike-development-trends-2026-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "kids-ride-on-12v-vs-24v": {
+      "inner": [
+        800,
+        763
+      ],
+      "offset": [
+        0,
+        18
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-12v-vs-24v-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1430
+      ]
+    },
+    "kids-ride-on-2-seater-vs-single": {
+      "inner": [
+        800,
+        681
+      ],
+      "offset": [
+        0,
+        59
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-2-seater-vs-single-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1277
+      ]
+    },
+    "kids-ride-on-battery-care": {
+      "inner": [
+        800,
+        765
+      ],
+      "offset": [
+        0,
+        17
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-battery-care-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1435
+      ]
+    },
+    "kids-ride-on-best-24v-2-seater": {
+      "inner": [
+        800,
+        717
+      ],
+      "offset": [
+        0,
+        41
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-best-24v-2-seater-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1345
+      ]
+    },
+    "kids-ride-on-best-3-year": {
+      "inner": [
+        800,
+        567
+      ],
+      "offset": [
+        0,
+        116
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-best-3-year-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1064
+      ]
+    },
+    "kids-ride-on-parental-remote": {
+      "inner": [
+        793,
+        800
+      ],
+      "offset": [
+        3,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-parental-remote-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1486,
+        1500
+      ]
+    },
+    "kids-ride-on-tires-grass": {
+      "inner": [
+        800,
+        533
+      ],
+      "offset": [
+        0,
+        133
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-tires-grass-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        999
+      ]
+    },
+    "kids-ride-on-under-200": {
+      "inner": [
+        800,
+        769
+      ],
+      "offset": [
+        0,
+        15
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-under-200-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1441
+      ]
+    },
+    "kids-ride-on-weight-limit": {
+      "inner": [
+        800,
+        681
+      ],
+      "offset": [
+        0,
+        59
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-weight-limit-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1276
+      ]
+    },
+    "kids-ride-on-winter-storage": {
+      "inner": [
+        688,
+        800
+      ],
+      "offset": [
+        56,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-ride-on-winter-storage-800x800.webp",
+      "scale": 0.808898,
+      "source": [
+        851,
+        989
+      ]
+    },
+    "kids-scooter-3-vs-2-wheel": {
+      "inner": [
+        800,
+        738
+      ],
+      "offset": [
+        0,
+        31
+      ],
+      "out": "public\\images\\guides\\kids-scooter-3-vs-2-wheel-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1384
+      ]
+    },
+    "kids-scooter-adjustable-height": {
+      "inner": [
+        487,
+        800
+      ],
+      "offset": [
+        156,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-adjustable-height-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        914,
+        1500
+      ]
+    },
+    "kids-scooter-best-4-year": {
+      "inner": [
+        782,
+        800
+      ],
+      "offset": [
+        9,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-best-4-year-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1467,
+        1500
+      ]
+    },
+    "kids-scooter-best-6-8-school": {
+      "inner": [
+        492,
+        800
+      ],
+      "offset": [
+        154,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-best-6-8-school-800x800.webp",
+      "scale": 0.816327,
+      "source": [
+        603,
+        980
+      ]
+    },
+    "kids-scooter-fix-wobbly-wheel": {
+      "inner": [
+        800,
+        799
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-fix-wobbly-wheel-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1499
+      ]
+    },
+    "kids-scooter-foldable-travel": {
+      "inner": [
+        735,
+        800
+      ],
+      "offset": [
+        32,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-foldable-travel-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1378,
+        1500
+      ]
+    },
+    "kids-scooter-helmet-pads": {
+      "inner": [
+        784,
+        800
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-helmet-pads-800x800.webp",
+      "scale": 0.562984,
+      "source": [
+        1393,
+        1421
+      ]
+    },
+    "kids-scooter-kick-vs-electric": {
+      "inner": [
+        762,
+        800
+      ],
+      "offset": [
+        19,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-kick-vs-electric-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1428,
+        1500
+      ]
+    },
+    "kids-scooter-under-50": {
+      "inner": [
+        762,
+        800
+      ],
+      "offset": [
+        19,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-under-50-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1428,
+        1500
+      ]
+    },
+    "kids-scooter-vs-bike-commute": {
+      "inner": [
+        735,
+        800
+      ],
+      "offset": [
+        32,
+        0
+      ],
+      "out": "public\\images\\guides\\kids-scooter-vs-bike-commute-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1378,
+        1500
+      ]
+    },
+    "new-balance-bikes-2026": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\new-balance-bikes-2026-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "ride-on-safety-standards-2026": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\ride-on-safety-standards-2026-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "strider-bikes-kellys-juvenile-models": {
+      "inner": [
+        800,
+        450
+      ],
+      "offset": [
+        0,
+        175
+      ],
+      "out": "public\\images\\news\\strider-bikes-kellys-juvenile-models-800x800.webp",
+      "scale": 1.0,
+      "source": [
+        800,
+        450
+      ]
+    },
+    "stroller-all-terrain": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-all-terrain-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-double-twins": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-double-twins-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-how-to-clean": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-how-to-clean-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-jogging-guide": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-jogging-guide-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-newborn-picks": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-newborn-picks-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-safety-tips": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-safety-tips-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-travel-airplane": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-travel-airplane-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-travel-system": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-travel-system-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-umbrella-vs-full": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-umbrella-vs-full-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "stroller-under-200": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public\\images\\guides\\stroller-under-200-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "where-to-ride-balance-bike": {
+      "inner": [
+        764,
+        800
+      ],
+      "offset": [
+        18,
+        0
+      ],
+      "out": "public\\images\\guides\\where-to-ride-balance-bike-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1432,
+        1500
+      ]
+    }
+  }
+}

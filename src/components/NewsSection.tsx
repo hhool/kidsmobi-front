@@ -895,10 +895,12 @@ export default function NewsSection({
                       The old code stretched this column to the height of the text
                       block, which cropped the 800x450 cover into a 110x171
                       sliver and squeezed the headline. The covers are now
-                      800x800 squares whose top/bottom fill is a mirrored blur
-                      of the photo's own edges, so the frame is full and nothing
-                      is cut. object-contain keeps that guarantee explicit: a
-                      1:1 frame never crops the artwork, it letterboxes it. */}
+                      800x800 squares that hold the COMPLETE photo: the picture
+                      keeps its full width and the space above/below is filled
+                      with a reflection of the photo's own edges, so the frame is
+                      full and nothing is cut. object-contain keeps that
+                      guarantee explicit: a 1:1 frame never crops the artwork,
+                      it letterboxes it. */}
                   <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
                     {cardImage ? (
                       <img

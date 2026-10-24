@@ -149,6 +149,13 @@ jobs:
       - name: News cover images
         run: npm run check:newscovers
 
+      # 45 of the 56 guide covers were centre-cropped inside the file, so the
+      # subject (wheels, handlebars) was gone before the page ever rendered
+      # it. Nothing in the DOM could show that, because the page uses
+      # object-contain, which letterboxes a cropped file just as happily.
+      - name: Article cover geometry (no crop)
+        run: npm run check:covergeometry
+
       # Pages silently drops every line past ~120, and the SPA fallback is last.
       - name: Redirect budget (dist/_redirects)
         run: npm run check:redirects

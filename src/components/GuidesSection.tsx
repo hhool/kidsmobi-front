@@ -2474,12 +2474,14 @@ export default function GuidesSection({
                   >
                     {/* Cover canvas: 1:1, the same square canvas the /news
                         cards use (104px on phones, 124px from sm up). The guide
-                        covers are square product photos (800x800 now, cut from
-                        the original 1500x1500 shot), so the image fills the
-                        frame and the whole product - bars, seat, all four
-                        wheels - stays visible. object-contain (not cover) is
-                        deliberate: a 1:1 frame must never crop the artwork, so
-                        even an off-square cover is letterboxed, never cut. */}
+                        covers hold the COMPLETE product photo: the source is
+                        scaled to fit the square and the leftover space is
+                        filled with a reflection of the photo's own edge, so
+                        the bars, the seat and all four wheels are IN the file,
+                        not cut out of it. object-contain (not cover) is
+                        deliberate and is the second line of defence: even if a
+                        cover were ever off-square, a 1:1 frame letterboxes it
+                        rather than cutting it. */}
                     <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
                       {cardImage ? (
                         <img

@@ -87,6 +87,7 @@
     "seo:weekly": "node scripts/seo/indexnow-submit.mjs && node scripts/seo/site-health-check.mjs && node scripts/seo/keyword-opportunity-scan.mjs && node scripts/seo/geo-ops.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write",
     "check:newscovers": "node scripts/check-news-covers.mjs",
+    "check:covergeometry": "node scripts/check-cover-geometry.mjs",
     "check:workerparity": "node scripts/check-worker-sitemap-parity.mjs",
     "sync:sitemappaths": "node scripts/sync_sitemap_paths_to_worker.mjs",
     "check:pairdrift": "node scripts/check-topic-pair-drift.mjs",
