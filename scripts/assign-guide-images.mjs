@@ -1,13 +1,14 @@
 /**
- * assign-guide-images.mjs — give every long-tail guide a representative photo.
+ * assign-guide-images.mjs — give every published guide a representative photo.
  *
  * The 40 guides authored in write-40-guides.mjs shipped without an imageUrl, so
  * the /guides grid fell back to the BookOpen icon and the detail pages had no
- * hero. Rather than burn image-generation credits for 40 illustrations, this
+ * hero. Rather than burn image-generation credits for illustrations, this
  * script matches each guide to a real product photo from the existing CMS
  * catalog (213 products, all with public store-hosted images) using the guide's
  * own topic: a travel-stroller guide gets a travel stroller, a 24V ride-on guide
- * gets a 24V ride-on, and so on.
+ * gets a 24V ride-on, and so on. The 16 legacy guides published before that
+ * batch were mapped in the same pass (they had no imageUrl either).
  *
  * Usage:
  *   CMS_ADMIN_ALL_TOKEN=<token> node scripts/assign-guide-images.mjs            # print the mapping
@@ -91,6 +92,30 @@ const RULES = {
   "kids-ride-on-2-seater-vs-single": { cats: ["electric_vehicles"], any: ["2-seater", "2 seater", "ride on", "ride-on"], none: ["scooter", "wiggle", "push car", "tractor"] },
   "kids-ride-on-tires-grass": { cats: ["electric_vehicles"], any: ["all-terrain", "ride on", "ride-on"], none: ["scooter", "wiggle", "push car", "tractor"] },
   "kids-ride-on-winter-storage": { cats: ["electric_vehicles"], any: ["12v", "ride on", "ride-on"], none: ["scooter", "wiggle", "push car", "tractor"] },
+
+  // ---- Legacy library guides (the 16 published before the 40-guide batch) --
+  // These shipped without imageUrl, so their grid cards and detail heroes fell
+  // back to the BookOpen placeholder. The 13 guide-2026-* balance guides share
+  // one product pool; the script spreads unused photos first and only reuses
+  // when the pool runs out (12 pure balance bikes, 14 balance guides). Guides
+  // with a hand-picked product are listed first so they claim it before the
+  // no-preference guides drain the pool.
+  "best-balance-bike-for-1-year-old": { cats: ["balance_bike"], any: ["1 year old", "1-2 years", "12-24 month", "baby balance"], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-weight": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-price-tiers": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "graco-modes-pramette-travel-system": { cats: ["stroller"], any: ["pramette", "travel system"], none: ["wagon"] },
+  "how-to-choose-the-perfect-baby-stroller": { cats: ["stroller"], any: ["stroller"], none: ["wagon", "double", "twin", "jogger", "jogging", "car seat", "umbrella", "travel", "tandem"] },
+  "balance-bike-by-age": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-size-chart": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-vs-training-wheels": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-stability": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-what-buyers-say": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-safety-checks": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-recalls": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-safety-standards": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bikes-extra-support": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "balance-bike-maintenance": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
+  "where-to-ride-balance-bike": { cats: ["balance_bike"], any: [], none: ["tricycle", "push handle", "in 1", "walker"] },
 };
 
 /**
@@ -146,6 +171,14 @@ const PREFERRED = {
   "kids-ride-on-2-seater-vs-single": "electric_vehicles-b0db5k3jf4",
   "kids-ride-on-tires-grass": "electric_vehicles-b0fss9pr84",
   "kids-ride-on-winter-storage": "electric_vehicles-b017hhkgie",
+  // Legacy library guides. The two ASIN-tagged overview guides point at the
+  // exact product they review when it is still in the catalog; the flagship
+  // stroller guide and the weight/price/age topics get a hand-picked match.
+  "graco-modes-pramette-travel-system": "stroller-b07y5vqyfw",
+  "how-to-choose-the-perfect-baby-stroller": "stroller-b0fpfz9yql",
+  "best-balance-bike-for-1-year-old": "balance_bike-b0fvrv5hzb",
+  "balance-bike-weight": "balance_bike-b0fzvlg7yq",
+  "balance-bike-price-tiers": "balance_bike-b09z65pbxp",
 };
 
 function loadExport() {
@@ -198,8 +231,8 @@ function main() {
       problems.push(`${slug}: no matching product (pool ${pool.length})`);
       continue;
     }
-    if (!preferredValid) {
-      problems.push(`${slug}: preferred ${preferredId || "(none)"} not in pool (pool ${pool.length}) -> fell back to ${pick.id}`);
+    if (!preferredValid && preferredId) {
+      problems.push(`${slug}: preferred ${preferredId} not in pool (pool ${pool.length}) -> fell back to ${pick.id}`);
     }
     usedBy.set(pick.id, slug);
     useCount.set(pick.id, (useCount.get(pick.id) || 0) + 1);

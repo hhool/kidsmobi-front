@@ -472,14 +472,22 @@ const PRODUCT_CATEGORY_LABELS: Record<string, { zh: string; en: string }> = {
 };
 
 function isArticleRelatedToProductCategory(article: GuideArticle, productCategory: string): boolean {
-  if (!productCategory) return true;
-  
+  if (!productCategory || productCategory === "all") return true;
+
+  // The wizard chips speak the raw category vocabulary ("scooter", "bicycle",
+  // "balance", "electric_car") while CMS taxonomy and the article mapping
+  // normalize to core ids ("kids_scooters", "kids_bikes", "balance_bike",
+  // "electric_vehicles"). Comparing the two vocabularies directly made every
+  // chip except "stroller" match zero guides — the filtered library rendered
+  // empty with 0 visible / 0 in library. Normalize before comparing.
+  const target = mapWizardCategoryToCoreProductCategory(productCategory);
+
   // 1. Direct match if productCategory metadata is available
   if (article.productCategory) {
-    return article.productCategory === productCategory;
+    return normalizeGuideProductCategory(article.productCategory) === target;
   }
-  
-  if (article.id.includes(`_${productCategory}_`)) {
+
+  if (article.id.includes(`_${productCategory}_`) || article.id.includes(`_${target}_`)) {
     return true;
   }
 
@@ -1339,6 +1347,25 @@ export default function GuidesSection({
     { id: "special", label: "品类专项", icon: Award, deck: "特殊需求与细分款" },
     { id: "maintenance", label: "养护清单", icon: Wrench, deck: "刹车、轮胎、连接件" }
   ];
+
+  // Empty-state copy must name the filter that is actually active: the product
+  // category chip (wizardCategory) narrows the library first, then the topic
+  // tile (selectedCategory) narrows it again. Saying "All Guides" while a
+  // Scooter filter is active pointed users at a reset for the wrong scope.
+  const activeScopeParts: string[] = [];
+  if (wizardCategory !== "all") {
+    activeScopeParts.push(
+      lang === "en"
+        ? PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || wizardCategory
+        : PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || wizardCategory
+    );
+  }
+  if (selectedCategory !== "all") {
+    activeScopeParts.push(categories.find((c) => c.id === selectedCategory)?.label || selectedCategory);
+  }
+  const activeScopeLabel = activeScopeParts.length
+    ? activeScopeParts.join(lang === "en" ? " · " : " · ")
+    : categories.find((c) => c.id === "all")?.label || "all";
 
   return (
     <div id="guides_container" className="space-y-8 animate-fade-in text-left">
@@ -2308,13 +2335,13 @@ export default function GuidesSection({
             {filteredGuides.length === 0 ? (
               <div className="p-16 text-center bg-gradient-to-br from-orange-50/80 to-amber-50/60 border border-orange-100 rounded-[48px] shadow-lg shadow-orange-500/10 space-y-6">
                 <p className="text-slate-400 font-medium">
-                  {searchQuery 
-                    ? (lang === "en" 
-                        ? `No match found for search query "${searchQuery}".` 
+                  {searchQuery
+                    ? (lang === "en"
+                        ? `No match found for search query "${searchQuery}".`
                         : `没有找到匹配关键词 “${searchQuery}” 的指南文章。`)
-                    : (lang === "en" 
-                        ? `No guides found under "${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}".` 
-                        : `在【${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}】主题下，暂时没有该品类的特定科普文章。`)}
+                    : (lang === "en"
+                        ? `No guides found under "${activeScopeLabel}".`
+                        : `在【${activeScopeLabel}】范围内，暂时没有找到匹配的指南文章。`)}
                 </p>
                 <div className="flex justify-center gap-3">
                   {searchQuery && (
@@ -2327,6 +2354,21 @@ export default function GuidesSection({
                       {lang === "en" ? "Clear Search Keyword" : "清除搜索词"}
                     </button>
                   )}
+                  {wizardCategory !== "all" && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWizardCategory("all");
+                        setSelectedCategory("all");
+                        setSearchQuery("");
+                        onPageChange?.(1);
+                      }}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-[11px] font-black uppercase tracking-widest rounded-full hover:-translate-y-0.5 transition-all shadow-md shadow-orange-500/20 active:translate-y-0 cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                      {lang === "en" ? "Show all categories" : "查看全部分类"}
+                    </button>
+                  )}
                   {selectedCategory !== "all" && (
                     <button
                       type="button"
@@ -2337,10 +2379,16 @@ export default function GuidesSection({
                       className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-[11px] font-black uppercase tracking-widest rounded-full hover:-translate-y-0.5 transition-all shadow-md shadow-orange-500/20 active:translate-y-0 cursor-pointer"
                     >
                       <Zap className="w-3.5 h-3.5 fill-white" />
-                      {lang === "en" ? "Show All Category Guides" : "查看此品类全部指南"}
+                      {lang === "en"
+                        ? (wizardCategory === "all"
+                            ? "Show All Category Guides"
+                            : `Show all ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "category"} guides`)
+                        : (wizardCategory === "all"
+                            ? "查看此品类全部指南"
+                            : `查看【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "该品类"}】全部指南`)}
                     </button>
                   )}
-                  {selectedCategory === "all" && !searchQuery && (
+                  {wizardCategory === "all" && selectedCategory === "all" && !searchQuery && (
                     <button
                       type="button"
                       onClick={() => {
