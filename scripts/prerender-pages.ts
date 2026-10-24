@@ -760,6 +760,16 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
         animation: app-boot-spin 0.8s linear infinite;
       }
       @keyframes app-boot-spin { to { transform: rotate(360deg); } }
+      /* News card thumbnails. The desktop layout is a 160px side thumbnail
+         next to the story text; on phones the same markup switches to a
+         stacked card (full-width 16:10 image above the text) so the 16:9
+         photo is not cropped into a narrow sliver. Mirrors the SPA card in
+         src/components/NewsSection.tsx. */
+      @media (max-width: 640px) {
+        .news-card { flex-direction: column !important; align-items: stretch !important; }
+        .news-card-thumb { flex: 0 0 auto !important; width: 100% !important; }
+        .news-card-thumb img { width: 100% !important; height: auto !important; aspect-ratio: 16 / 10; }
+      }
     </style>
     <script>
       document.documentElement.classList.add("app-js-loading");
@@ -964,6 +974,33 @@ function pickText(...values: Array<string | undefined>): string {
     if (text) return text;
   }
   return "";
+}
+
+/** Ultimate fallback for listing-page dates when no dated content exists. */
+const FALLBACK_PAGE_DATE = "2026-08-15";
+
+function isoDay(value: unknown): string {
+  const text = String(value || "").trim().slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(text) ? text : "";
+}
+
+/**
+ * Derive a listing page's datePublished / dateModified from the items it lists:
+ * published = earliest item date, modified = latest item modification. Listing
+ * pages used to hardcode 2026-08-15, which went stale the moment newer content
+ * shipped (a /news hub full of October stories still claimed an August publish
+ * date in both the byline and the JSON-LD).
+ */
+function deriveListingDates(rows: Array<{ pub: string; mod: string }>): { published: string; modified: string } {
+  const clean = rows
+    .map((r) => ({ pub: isoDay(r.pub), mod: isoDay(r.mod) }))
+    .filter((r) => r.pub || r.mod)
+    .map((r) => ({ pub: r.pub || r.mod, mod: r.mod || r.pub }));
+  if (!clean.length) return { published: FALLBACK_PAGE_DATE, modified: FALLBACK_PAGE_DATE };
+  return {
+    published: clean.map((r) => r.pub).sort()[0],
+    modified: clean.map((r) => r.mod).sort()[clean.length - 1],
+  };
 }
 
 // CMS snapshots: every successful fetch overwrites a local snapshot, and the
@@ -1765,7 +1802,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         return [{
           title: pickText(guide.en?.title, guide.zh?.title, guide.id),
           summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
-          meta: `${topic.replace(/_/g, " ")} · ${pickText(guide.updatedAt, guide.publishedAt).slice(0, 10) || "2026-08-15"}`,
+          meta: `${topic.replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
           url: `${PUBLIC_SITE_BASE}${route}`,
         }];
       })
@@ -1776,6 +1813,14 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         url: `${PUBLIC_SITE_BASE}/guides/${article.category}/${article.id}`,
       }));
   const usingCmsGuides = cmsGuides.length > 0;
+  const guidesPageDates = deriveListingDates(
+    usingCmsGuides
+      ? cmsGuides.map((guide) => ({
+          pub: isoDay(guide.publishedAt) || isoDay(guide.updatedAt),
+          mod: isoDay(guide.updatedAt) || isoDay(guide.publishedAt),
+        }))
+      : articles.map((article) => ({ pub: article.publishDate, mod: article.publishDate })),
+  );
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -1817,8 +1862,8 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler Editorial Team",
       },
-      datePublished: "2026-08-15",
-      dateModified: "2026-08-15",
+      datePublished: guidesPageDates.published,
+      dateModified: guidesPageDates.modified,
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: listedGuides.length,
@@ -1866,7 +1911,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> the guide library starts with the practical questions: which size is safest, which frame is easiest to control, and which product fits the family routine.</p>
         <p style="margin: 0 0 14px;">The point is to turn a vague category search into a sequence of decisions that can be checked and compared.</p>
         <p style="margin: 0 0 14px;">Each guide ends with a source check and a clear next step, so readers can move from a quick answer to a confident buying decision without guessing.</p>
-        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="2026-08-15">Published 2026-08-15</time> · <time datetime="2026-08-15">Updated 2026-08-15</time></p>
+        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${guidesPageDates.published}">Published ${guidesPageDates.published}</time> · <time datetime="${guidesPageDates.modified}">Updated ${guidesPageDates.modified}</time></p>
         ${renderSources([
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "baseline children's product safety context" },
           { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides", note: "disclosure context for recommendations" },
@@ -1929,7 +1974,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
             item.seo?.en?.description,
             "Latest kids mobility news from BalanceBikeToddler.",
           ),
-          meta: `${newsCategoryLabel(item)} · ${pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15"}`,
+          meta: `${newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
           url: `${PUBLIC_SITE_BASE}${route}`,
           cover: toPublicImageUrl(pickText(item.imageUrl)),
         }];
@@ -1942,6 +1987,14 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         cover: "",
       }));
   const canonical = "https://balancebiketoddler.com/news";
+  const newsPageDates = deriveListingDates(
+    usingCmsNews
+      ? cmsNews.map((item) => ({
+          pub: isoDay(item.publishedAt) || isoDay(item.updatedAt),
+          mod: isoDay(item.updatedAt) || isoDay(item.publishedAt),
+        }))
+      : articles.map((article) => ({ pub: article.publishDate, mod: article.publishDate })),
+  );
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -1983,8 +2036,8 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler Editorial Team",
       },
-      datePublished: "2026-08-15",
-      dateModified: "2026-08-15",
+      datePublished: newsPageDates.published,
+      dateModified: newsPageDates.modified,
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: listedNews.length,
@@ -2037,7 +2090,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> the news page tracks launches, standards, and industry changes that can alter what parents should buy or avoid.</p>
         <p style="margin: 0 0 14px;">It is written to answer the immediate question first and then show the underlying context.</p>
         <p style="margin: 0 0 14px;">Each item is tied to a date, a category, and a buyer takeaway, which makes the page easier to skim, quote, and compare across updates.</p>
-        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="2026-08-15">Published 2026-08-15</time> · <time datetime="2026-08-15">Updated 2026-08-15</time></p>
+        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${newsPageDates.published}">Published ${newsPageDates.published}</time> · <time datetime="${newsPageDates.modified}">Updated ${newsPageDates.modified}</time></p>
         ${renderSources([
           { label: "EU Toy Safety", href: "https://single-market-economy.ec.europa.eu/sectors/toys/toy-safety_en", note: "regulatory context for toy-adjacent products" },
           { label: "ASTM F963", href: "https://www.astm.org/f0963-23.html", note: "toy safety standard reference" },
@@ -2046,9 +2099,9 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which stories are most citable?</h2>
         ${listedNews.map((item) => `
-          <section style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
-            ${item.cover ? `<a href="${escapeHtml(new URL(item.url).pathname)}" style="flex: 0 0 160px; display: block;">
-              <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 160px; height: 90px; object-fit: cover; border-radius: 10px; display: block;" />
+          <section class="news-card" style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
+            ${item.cover ? `<a class="news-card-thumb" href="${escapeHtml(new URL(item.url).pathname)}" style="flex: 0 0 clamp(96px, 30vw, 160px); display: block;">
+              <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; display: block;" />
             </a>` : ""}
             <div style="flex: 1 1 auto; min-width: 0;">
               <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(item.url).pathname)}">${escapeHtml(item.title)}</a></h3>
@@ -2097,6 +2150,14 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
 function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
   const summary = getPageCopy("en").products;
   const canonical = "https://balancebiketoddler.com/products";
+  // Catalog pages carry no publish date of their own; follow the catalog's own
+  // modification dates instead of a hardcoded constant.
+  const productsPageDates = deriveListingDates(
+    cmsProductsFull.map((product) => ({
+      pub: isoDay(product.updatedAt),
+      mod: isoDay(product.updatedAt),
+    })),
+  );
   const countFor = (slug: string) =>
     cmsProductsFull.filter((product) => productDetailSlugDir(product) === slug).length;
   // Primary categories render full cards; the rest sit in a labelled subordinate
@@ -2166,8 +2227,8 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler Editorial Team",
       },
-      datePublished: "2026-08-15",
-      dateModified: "2026-08-15",
+      datePublished: productsPageDates.published,
+      dateModified: productsPageDates.modified,
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: PRODUCT_CATEGORY_PAGES.length,
@@ -2234,7 +2295,7 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What should you compare first?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> start with size fit, braking behavior, frame weight, and whether the product matches the child's daily routine.</p>
         <p style="margin: 0 0 14px;">The product hub is meant to shorten the route from a broad category search to a specific, defensible choice.</p>
-        <p style="margin: 0 0 14px;">Byline: <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="2026-08-15">Published 2026-08-15</time> · <time datetime="2026-08-15">Updated 2026-08-15</time></p>
+        <p style="margin: 0 0 14px;">Byline: <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${productsPageDates.published}">Published ${productsPageDates.published}</time> · <time datetime="${productsPageDates.modified}">Updated ${productsPageDates.modified}</time></p>
         ${renderSources([
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "baseline children's product safety reference" },
           { label: "ISO 8098", href: "https://www.iso.org/standard/71811.html", note: "children's bicycle safety standard reference" },
@@ -2299,6 +2360,14 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
     .filter((entry): entry is { item: CmsEvaluation; route: string } => Boolean(entry.route));
   const summary = getPageCopy("en").reviews;
   const canonical = "https://balancebiketoddler.com/reviews";
+  const reviewsPageDates = deriveListingDates(
+    reviews.length
+      ? reviews.map((entry) => ({
+          pub: isoDay(entry.item.publishedAt) || isoDay(entry.item.updatedAt),
+          mod: isoDay(entry.item.updatedAt) || isoDay(entry.item.publishedAt),
+        }))
+      : [],
+  );
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -2340,8 +2409,8 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler Editorial Team",
       },
-      datePublished: "2026-08-15",
-      dateModified: "2026-08-15",
+      datePublished: reviewsPageDates.published,
+      dateModified: reviewsPageDates.modified,
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: reviews.length,
@@ -2392,7 +2461,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">How do reviews stay defensible?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> each verdict is tied to a visible score, a named source, and a clear use case so readers can trace the judgment back to evidence.</p>
-        <p style="margin: 0 0 14px;">Byline: <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="2026-08-15">Published 2026-08-15</time> · <time datetime="2026-08-15">Updated 2026-08-15</time></p>
+        <p style="margin: 0 0 14px;">Byline: <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${reviewsPageDates.published}">Published ${reviewsPageDates.published}</time> · <time datetime="${reviewsPageDates.modified}">Updated ${reviewsPageDates.modified}</time></p>
         <p style="margin: 0 0 14px;">The review center is built around clear verdicts, visible scores, and a short trail from conclusion to evidence. That makes each answer easier to compare and reuse.</p>
         <p style="margin: 0;">We also keep the review language close to the public rulebook so the page remains understandable even when a reader only skims the summary.</p>
       </section>
@@ -2581,6 +2650,14 @@ function filterListSchemas(
   cards: FilterCard[],
   faqs: Array<{ q: string; a: string }>,
 ): Array<Record<string, unknown>> {
+  // Channel pages carry each item's date inside its card meta ("topic · 2026-10-24"),
+  // so the page dates follow the content instead of a hardcoded constant.
+  const cardDates = cards
+    .flatMap((card) => String(card.meta || "").match(/\d{4}-\d{2}-\d{2}/g) || [])
+    .sort();
+  const pageDates = cardDates.length
+    ? { published: cardDates[0], modified: cardDates[cardDates.length - 1] }
+    : { published: FALLBACK_PAGE_DATE, modified: FALLBACK_PAGE_DATE };
   return [
     {
       "@context": "https://schema.org",
@@ -2590,8 +2667,8 @@ function filterListSchemas(
       description,
       inLanguage: "en",
       author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
-      datePublished: "2026-08-15",
-      dateModified: "2026-10-04",
+      datePublished: pageDates.published,
+      dateModified: pageDates.modified,
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: cards.length,
@@ -2694,7 +2771,7 @@ function renderFilterPages(
         {
           title: pickText(guide.en?.title, guide.zh?.title, guide.id),
           summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
-          meta: `${topic.replace(/_/g, " ")} · ${pickText(guide.updatedAt, guide.publishedAt).slice(0, 10) || "2026-08-15"}`,
+          meta: `${topic.replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
           path: route,
         },
       ];
@@ -2720,7 +2797,7 @@ function renderFilterPages(
         {
           title: pickText(item.en?.title, item.zh?.title, item.id),
           summary: pickText(item.en?.summary, item.seo?.en?.description, "Latest kids mobility news."),
-          meta: `${newsCategoryLabel(item)} · ${pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15"}`,
+          meta: `${newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
           path: route,
         },
       ];

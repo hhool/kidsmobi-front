@@ -1422,6 +1422,26 @@ export default function EvaluationsSection({
     });
   }, [evaluationsData, lang, productsData, reviewsCopy.reportBadges]);
 
+  // Listing-page dates mirror the prerendered /reviews HTML (deriveListingDates
+  // in scripts/prerender-pages.ts): published = earliest review, modified =
+  // latest modification. Replaces a hardcoded "2026-08-15".
+  const reviewsDates = useMemo(() => {
+    const rows = reviewsList
+      .map((r: any) => {
+        const ev = r?.evaluation || {};
+        return {
+          pub: String(ev.publishedAt || ev.updatedAt || "").slice(0, 10),
+          mod: String(ev.updatedAt || ev.publishedAt || "").slice(0, 10),
+        };
+      })
+      .filter((r: any) => /^\d{4}-\d{2}-\d{2}$/.test(r.pub) || /^\d{4}-\d{2}-\d{2}$/.test(r.mod));
+    if (!rows.length) return { published: "2026-08-15", modified: "2026-08-15" };
+    return {
+      published: rows.map((r: any) => r.pub || r.mod).sort()[0],
+      modified: rows.map((r: any) => r.mod || r.pub).sort()[rows.length - 1],
+    };
+  }, [reviewsList]);
+
   const reviewModeCopy = useMemo(() => {
     return lang === "zh"
       ? {
@@ -1851,8 +1871,8 @@ export default function EvaluationsSection({
         "@type": "Organization",
         name: "BalanceBikeToddler Editorial Team",
       },
-      datePublished: "2026-08-15",
-      dateModified: "2026-08-15",
+      datePublished: reviewsDates.published,
+      dateModified: reviewsDates.modified,
       items: renderList.map((block: any) => {
         const dp = block.product ? translateProduct(block.product, lang) : null;
         const customTitle = dp ? `${dp.brand} ${dp.name} ${reviewsCopy.detailTitleSuffix}` : (lang === "zh" ? block.evaluation.zh.title : block.evaluation.en.title);
@@ -1863,7 +1883,7 @@ export default function EvaluationsSection({
       }),
     });
     return () => clearJsonLd("evaluations-list");
-  }, [lang, renderList, selectedEvaluation, reviewsCopy.heroTitle, reviewsCopy.detailTitleSuffix]);
+  }, [lang, renderList, selectedEvaluation, reviewsCopy.heroTitle, reviewsCopy.detailTitleSuffix, reviewsDates]);
 
   const isSelectedSingle = selectedEvaluation && 
     (selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1);

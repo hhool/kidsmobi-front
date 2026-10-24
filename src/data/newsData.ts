@@ -9,6 +9,8 @@ export interface NewsArticle {
   summary: string;
   content: string;
   publishDate: string;
+  /** Last CMS modification date (YYYY-MM-DD); drives listing-page dateModified. */
+  updatedAt?: string;
   readTime: string;
   author: string;
   views: number;

@@ -159,7 +159,6 @@ export default function NewsSection({
   onActiveArticleMeta,
 }: NewsSectionProps) {
   const newsCopy = getPageCopy(lang).news;
-  const newsDate = "2026-08-15";
   const [newsArticlesState, setNewsArticlesState] = useState<NewsArticle[]>([]);
   const [loadingNews, setLoadingNews] = useState<boolean>(false);
   const [selectedArticleState, setSelectedArticleState] = useState<any | null>(null);
@@ -167,6 +166,24 @@ export default function NewsSection({
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("date"); // 'date' | 'views'
   const breadcrumbsAnchorRef = useRef<HTMLDivElement | null>(null);
+
+  // Listing-page dates mirror the prerendered /news HTML (deriveListingDates
+  // in scripts/prerender-pages.ts): published = earliest story, modified =
+  // latest modification. Replaces a hardcoded "2026-08-15" that went stale
+  // as soon as newer stories shipped.
+  const newsDates = useMemo(() => {
+    const rows = newsArticlesState
+      .map((a) => ({
+        pub: String(a.publishDate || "").slice(0, 10),
+        mod: String(a.updatedAt || a.publishDate || "").slice(0, 10),
+      }))
+      .filter((r) => /^\d{4}-\d{2}-\d{2}$/.test(r.pub) || /^\d{4}-\d{2}-\d{2}$/.test(r.mod));
+    if (!rows.length) return { published: "2026-08-15", modified: "2026-08-15" };
+    return {
+      published: rows.map((r) => r.pub || r.mod).sort()[0],
+      modified: rows.map((r) => r.mod || r.pub).sort()[rows.length - 1],
+    };
+  }, [newsArticlesState]);
 
   const alignViewportToBreadcrumbs = () => {
     if (typeof window === "undefined") return;
@@ -324,11 +341,16 @@ export default function NewsSection({
           const mapped: NewsArticle[] = dbNews.map((n) => {
             const updatedMs = parseNewsTimestamp((n as any).updatedAt);
             const editorialDate = String((n as any).publishDate || "").trim();
+            // Mirror the prerender's chain (publishedAt → updatedAt) so a card's
+            // date does not change when the SPA hydrates over the static HTML.
+            const publishedRaw = String((n as any).publishedAt || "").trim();
             const publishDate = editorialDate
               ? editorialDate.slice(0, 10)
-              : updatedMs > 0
-                ? new Date(updatedMs).toISOString().split("T")[0]
-                : "2026-06-15";
+              : publishedRaw
+                ? publishedRaw.slice(0, 10)
+                : updatedMs > 0
+                  ? new Date(updatedMs).toISOString().split("T")[0]
+                  : "2026-06-15";
             const normalizedCategory = normalizeNewsCategory(String(n.category || "")) || "industry";
             return {
               id: n.id,
@@ -342,6 +364,9 @@ export default function NewsSection({
               author: newsCopy.fallbackAuthor,
               readTime: newsCopy.fallbackReadTime,
               publishDate,
+              updatedAt: updatedMs > 0
+                ? new Date(updatedMs).toISOString().split("T")[0]
+                : publishDate,
               views: 4200,
             };
           });
@@ -465,15 +490,15 @@ export default function NewsSection({
         "@type": "Organization",
         name: "BalanceBikeToddler Editorial Team",
       },
-      datePublished: newsDate,
-      dateModified: newsDate,
+      datePublished: newsDates.published,
+      dateModified: newsDates.modified,
       items: pagedNews.map((article) => ({
         name: article.title,
         url: canonicalUrl,
       })),
     });
     return () => clearJsonLd("news-list");
-  }, [lang, pagedNews, selectedArticleState]);
+  }, [lang, pagedNews, selectedArticleState, newsDates]);
 
   return (
     <div id="news_hub" className="space-y-8 animate-fade-in text-left">
@@ -861,15 +886,20 @@ export default function NewsSection({
                 <div
                   key={art.id}
                   onClick={() => handleArticleClick(art)}
-                  className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex gap-5 sm:gap-6 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group"
+                  className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex flex-col sm:flex-row gap-5 sm:gap-6 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group"
                 >
-                  <div className="w-28 sm:w-36 shrink-0 self-stretch rounded-2xl overflow-hidden border border-slate-100 bg-orange-50 flex items-center justify-center">
+                  {/* Thumbnail: on phones the card stacks and the image runs the
+                      full content width at 16:10. The old fixed 112px column
+                      cropped the 16:9 photo into a 110x171 sliver and squeezed
+                      the headline into the remaining sliver of the row. From
+                      `sm` up the side-by-side layout is unchanged. */}
+                  <div className="w-full sm:w-36 shrink-0 aspect-[16/10] sm:aspect-auto sm:self-stretch rounded-2xl overflow-hidden border border-slate-100 bg-orange-50 flex items-center justify-center">
                     {cardImage ? (
                       <img
                         src={cardImage}
                         alt={art.title}
-                        width={144}
-                        height={144}
+                        width={160}
+                        height={100}
                         loading="lazy"
                         decoding="async"
                         className="w-full h-full object-cover"

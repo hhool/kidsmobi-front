@@ -743,7 +743,6 @@ export default function GuidesSection({
   reviewsData,
   onOpenReviewPath,
 }: GuidesSectionProps) {
-  const guidesDate = "2026-08-15";
   /** Topic index being viewed; see resolveGuidesTopicPage for what it suppresses. */
   const topicPage = resolveGuidesTopicPage(activeCategory, activeArticleId);
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
@@ -751,6 +750,23 @@ export default function GuidesSection({
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
   const [selectedGuideState, setSelectedGuideState] = useState<any | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  // Listing-page dates mirror the prerendered /guides HTML (deriveListingDates
+  // in scripts/prerender-pages.ts): published = earliest guide, modified =
+  // latest modification. Replaces a hardcoded "2026-08-15" that went stale as
+  // soon as newer guides shipped.
+  const guidesDates = useMemo(() => {
+    const rows = guideArticles
+      .map((g) => ({
+        pub: String(g.publishDate || "").slice(0, 10),
+        mod: String(g.updatedAt || g.publishDate || "").slice(0, 10),
+      }))
+      .filter((r) => /^\d{4}-\d{2}-\d{2}$/.test(r.pub) || /^\d{4}-\d{2}-\d{2}$/.test(r.mod));
+    if (!rows.length) return { published: "2026-08-15", modified: "2026-08-15" };
+    return {
+      published: rows.map((r) => r.pub || r.mod).sort()[0],
+      modified: rows.map((r) => r.mod || r.pub).sort()[rows.length - 1],
+    };
+  }, [guideArticles]);
   const [internalSearchQuery, setInternalSearchQuery] = useState<string>("");
   const searchQuery = typeof activeSearchQuery === "string" ? activeSearchQuery : internalSearchQuery;
   const setSearchQuery = (query: string) => {
@@ -874,7 +890,8 @@ export default function GuidesSection({
             imageUrl: String((g as any).imageUrl || "").trim(),
             author: lang === "en" ? "BalanceBikeToddler Expert Team" : "BalanceBikeToddler 专家组",
             readTime: lang === "en" ? "8 min read" : "8 分钟",
-            publishDate: editorialDate ? editorialDate.slice(0, 10) : resolvePublishDate(g.updatedAt),
+            publishDate: editorialDate ? editorialDate.slice(0, 10) : resolvePublishDate((g as any).publishedAt || g.updatedAt),
+            updatedAt: resolvePublishDate(g.updatedAt || (g as any).publishedAt),
             productCategory: normalizeGuideProductCategory(g.taxonomy?.productCategory),
             ...(g.taxonomy?.topicOrder ? { topicOrder: Number(g.taxonomy.topicOrder || 1) } : {}),
           };
@@ -1186,15 +1203,15 @@ export default function GuidesSection({
         "@type": "Organization",
         name: "BalanceBikeToddler Editorial Team",
       },
-      datePublished: guidesDate,
-      dateModified: guidesDate,
+      datePublished: guidesDates.published,
+      dateModified: guidesDates.modified,
       items: pagedGuides.map((guide) => ({
         name: guide.title,
         url: canonicalUrl,
       })),
     });
     return () => clearJsonLd("guides-list");
-  }, [lang, pagedGuides, selectedGuideState]);
+  }, [lang, pagedGuides, selectedGuideState, guidesDates]);
 
   // Match Wizard calculation formula
   const matchRecommendations = useMemo(() => {

@@ -13,6 +13,8 @@ export interface GuideArticle {
   author: string;
   readTime: string;
   publishDate: string;
+  /** Last CMS modification date (YYYY-MM-DD); drives listing-page dateModified. */
+  updatedAt?: string;
   productCategory?: string;
 }
 
