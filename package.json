@@ -88,6 +88,7 @@
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write",
     "check:newscovers": "node scripts/check-news-covers.mjs",
     "check:covergeometry": "node scripts/check-cover-geometry.mjs",
+    "check:heroalign": "node scripts/check-article-hero-alignment.mjs",
     "check:workerparity": "node scripts/check-worker-sitemap-parity.mjs",
     "sync:sitemappaths": "node scripts/sync_sitemap_paths_to_worker.mjs",
     "check:pairdrift": "node scripts/check-topic-pair-drift.mjs",

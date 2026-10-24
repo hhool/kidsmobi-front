@@ -156,6 +156,13 @@ jobs:
       - name: Article cover geometry (no crop)
         run: npm run check:covergeometry
 
+      # The body cover is capped at 384px in a 768px column, so centred and
+      # left-aligned look equally plausible in a diff - and the static HTML
+      # and the SPA have to agree, or one of the two audiences gets a cover
+      # pinned to the left margin.
+      - name: Article hero alignment
+        run: npm run check:heroalign
+
       # Pages silently drops every line past ~120, and the SPA fallback is last.
       - name: Redirect budget (dist/_redirects)
         run: npm run check:redirects
