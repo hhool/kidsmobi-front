@@ -23,6 +23,7 @@ import { getProductDisplayTitle, getProductSkuTitle } from "../lib/productSeoTex
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
 import { buildProductFaqsFromDisplayFields } from "../lib/productFaq";
+import { cmsCacheBustedUrl } from "../lib/cmsD1Service";
 import ProductCarousel from "./ProductCarousel";
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -1183,7 +1184,7 @@ export default function DetailedProductView({
 
     const loadLatestCmsVerdict = async () => {
       try {
-        const response = await fetch("/api/cms/products?onlyPublished=1", {
+        const response = await fetch(cmsCacheBustedUrl("/api/cms/products?onlyPublished=1"), {
           headers: {
             Accept: "application/json",
           },

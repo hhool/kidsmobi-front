@@ -42,8 +42,35 @@ function sanitizeListRows<T>(rows: unknown): T[] {
   return rows.filter((item): item is T => Boolean(item && typeof item === "object"));
 }
 
+/**
+ * Rotates the browser/edge cache key for CMS reads.
+ *
+ * The zone's edge rules hand `/api/cms/*` responses to browsers as
+ * `public, max-age=14400` with no revalidation, so a visitor who loaded the
+ * site before a CMS publish kept rendering the pre-publish payload for up to
+ * four hours. Observed 2026-10-24: freshly deployed JS was already live while
+ * the guide library still served the pre-40-guides API snapshot, which looked
+ * like "the Scooter filter returns 0 guides".
+ *
+ * The Worker normalises its own edge-cache key to pathname + onlyPublished and
+ * re-reads D1 at most once per 300s, so rotating a throwaway query param per
+ * 5-minute bucket only rotates the browser/edge cache key — D1 read volume is
+ * unchanged, and a reload picks up CMS edits within ~5 minutes.
+ */
+const CMS_BROWSER_CACHE_BUSTER_WINDOW_MS = 5 * 60 * 1000;
+
+export function cmsCacheBustedUrl(path: string): string {
+  if (!path.includes("/api/cms/")) return path;
+  const bucket = Math.floor(Date.now() / CMS_BROWSER_CACHE_BUSTER_WINDOW_MS);
+  const separator = path.includes("?") ? "&" : "?";
+  return `${path}${separator}_cb=${bucket}`;
+}
+
 export async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
-  const requestUrl = resolveCMSApiPath(path);
+  const hasBody = init?.body !== undefined && init?.body !== null;
+  // Reads rotate their browser cache key (see cmsCacheBustedUrl); writes must
+  // keep the exact URL the Worker routes on.
+  const requestUrl = resolveCMSApiPath(hasBody ? path : cmsCacheBustedUrl(path));
   let lastError: Error | null = null;
 
   // #48: attach the admin token so the (now gated) CMS writes pass. The token
@@ -52,12 +79,12 @@ export async function requestJson<T>(path: string, init?: RequestInit): Promise<
   // public GET reads.
   const adminToken = String((import.meta as any)?.env?.VITE_CMS_ADMIN_ALL_TOKEN || "").trim();
 
-  // Only send Content-Type when a body is actually present. A GET marked
-  // "Content-Type: application/json" stops being a CORS-simple request, which forces
-  // an extra preflight OPTIONS round trip for no benefit. (Verified against the live
-  // Worker: reads worked either way because /api/* is same-origin on the app host
-  // and only redirects to the Worker host, so this is a tidy-up, not a bug fix.)
-  const hasBody = init?.body !== undefined && init?.body !== null;
+  // Only send Content-Type when a body is actually present (hasBody above): a
+  // GET marked "Content-Type: application/json" stops being a CORS-simple
+  // request, which forces an extra preflight OPTIONS round trip for no benefit.
+  // (Verified against the live Worker: reads worked either way because /api/*
+  // is same-origin on the app host and only redirects to the Worker host, so
+  // this is a tidy-up, not a bug fix.)
 
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     const response = await fetch(requestUrl, {
@@ -341,7 +368,7 @@ export async function dedupeD1CMSCategories(): Promise<{ removed: number; remain
 }
 
 export async function downloadCMSOpsExport(): Promise<void> {
-  const requestUrl = resolveCMSApiPath("/api/cms/ops/export?download=1");
+  const requestUrl = resolveCMSApiPath(cmsCacheBustedUrl("/api/cms/ops/export?download=1"));
   const response = await fetch(requestUrl, {
     headers: {
       Accept: "application/json",
