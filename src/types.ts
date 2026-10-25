@@ -353,6 +353,10 @@ export interface CMSSettings {
     siteOrigin?: string;
     googleSiteVerification?: string;
     defaultRobots?: string;
+    /** GA4 measurement id, e.g. "G-ABC1234DEF". Empty means no analytics. */
+    gaMeasurementId?: string;
+    /** Amazon Associates tracking id, e.g. "yourstore-20". Empty means no affiliate links. */
+    amazonTag?: string;
   };
   pages?: {
     [key: string]: CMSPageConfig;

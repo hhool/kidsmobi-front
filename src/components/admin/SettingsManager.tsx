@@ -162,6 +162,10 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
         siteOrigin: String((s as any)?.seoGlobal?.siteOrigin || (s as any)?.siteOrigin || "").trim(),
         googleSiteVerification: String((s as any)?.seoGlobal?.googleSiteVerification || "").trim(),
         defaultRobots: String((s as any)?.seoGlobal?.defaultRobots || "index,follow,max-image-preview:large").trim(),
+        // Analytics and the affiliate tag. Both are optional: left empty, the
+        // site ships no tracking script and no affiliate link at all.
+        gaMeasurementId: String((s as any)?.seoGlobal?.gaMeasurementId || "").trim(),
+        amazonTag: String((s as any)?.seoGlobal?.amazonTag || "").trim(),
       },
       homeSlots: Array.isArray(s.homeSlots) ? s.homeSlots : [],
     } : {
@@ -173,6 +177,8 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
         siteOrigin: "",
         googleSiteVerification: "",
         defaultRobots: "index,follow,max-image-preview:large",
+        gaMeasurementId: "",
+        amazonTag: "",
       },
     };
 
@@ -585,6 +591,36 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
               })
             }
             placeholder={lang === "zh" ? "例如: https://balancebiketoddler.com" : "e.g. https://balancebiketoddler.com"}
+          />
+
+          <Field
+            label={lang === "zh" ? "GA4 衡量 ID（可选）" : "GA4 Measurement ID (Optional)"}
+            value={settings.seoGlobal?.gaMeasurementId || ""}
+            onChange={(v: string) =>
+              setSettings({
+                ...settings,
+                seoGlobal: {
+                  ...(settings.seoGlobal || {}),
+                  gaMeasurementId: v,
+                },
+              })
+            }
+            placeholder="G-XXXXXXXXXX"
+          />
+
+          <Field
+            label={lang === "zh" ? "Amazon 联盟追踪 ID（可选）" : "Amazon Associates Tag (Optional)"}
+            value={settings.seoGlobal?.amazonTag || ""}
+            onChange={(v: string) =>
+              setSettings({
+                ...settings,
+                seoGlobal: {
+                  ...(settings.seoGlobal || {}),
+                  amazonTag: v,
+                },
+              })
+            }
+            placeholder="yourstore-20"
           />
 
           <Field
