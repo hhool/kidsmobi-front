@@ -212,6 +212,7 @@ import {
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
 import { matchProductsForText } from "../src/lib/relatedProducts";
+import { rankRelatedReviews, type RelatedReviewEntry } from "../src/lib/relatedReviews";
 import {
   buildDocumentTitle,
   buildMetaDescription,
@@ -420,7 +421,7 @@ function renderStaticPage(page: RoutePage): string {
         ${page.skipLeadDescription ? "" : `<p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>`}
       </header>
       ${page.body}
-      ${renderSiteFooter()}
+      ${renderSiteFooter(page.route)}
     </article>
   `;
 }
@@ -461,15 +462,65 @@ const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/review-count-integrity/", label: "Review Count Integrity" },
 ];
 
-function renderSiteFooter(): string {
+/**
+ * Chinese labels for the site-wide footer, keyed by the English link's href.
+ * The hrefs mostly point at English-only pages (transparency, the balance-bike
+ * reference cluster, /products, /reviews) — those keep their English targets
+ * and only the label is translated, exactly like the SPA footer does. The two
+ * hubs that DO have a Chinese edition get the /zh href.
+ */
+const ZH_FOOTER_LABELS: Record<string, string> = {
+  "/products": "产品中心",
+  "/guides": "选购指南",
+  "/reviews": "评测中心",
+  "/news": "新闻资讯",
+  "/about": "关于我们",
+  [RECALL_SAFETY_PATH]: "召回记录",
+  [SIZING_PATH]: "尺寸对照",
+  [SAFETY_PATH]: "安全标准",
+  [WEIGHT_PATH]: "重量与结构",
+  [STABILITY_PATH]: "稳定性与轮距",
+  [AGE_PATH]: "按年龄选车",
+  [BUYER_FEEDBACK_PATH]: "买家怎么说",
+  [BUDGET_PATH]: "预算与价值",
+  "/transparency/testing-methodology/": "方法论",
+  "/transparency/certification-lab-notes/": "认证与标准说明",
+  "/transparency/disclaimer/": "编辑免责声明",
+  "/transparency/privacy-policy/": "隐私政策",
+  "/transparency/terms/": "使用条款",
+  "/transparency/search-data/": "检索数据说明",
+  "/transparency/review-count-integrity/": "评论数量诚信",
+};
+
+function renderSiteFooter(route: string): string {
+  const zh = route.startsWith("/zh/");
   const link = (item: { href: string; label: string }) =>
     `<a href="${escapeHtml(item.href)}" style="margin-right:14px;color:#c2410c;text-decoration:none;">${escapeHtml(item.label)}</a>`;
+  // A Chinese page must not advertise English section names — but the English
+  // footer on a /zh route did exactly that until this was language-aware.
+  const sectionLinks = zh
+    ? FOOTER_SECTION_LINKS.map((item) => ({
+        href: item.href === "/guides" ? "/zh/guides" : item.href === "/news" ? "/zh/news" : item.href,
+        label: ZH_FOOTER_LABELS[item.href] || item.label,
+      }))
+    : FOOTER_SECTION_LINKS;
+  const trustLinks = zh
+    ? FOOTER_TRUST_LINKS.map((item) => ({ ...item, label: ZH_FOOTER_LABELS[item.href] || item.label }))
+    : FOOTER_TRUST_LINKS;
+  // Every footer article has a Chinese edition (the 2026-10-19 editorial
+  // batch), so the /zh footer links the /zh routes with the Chinese titles.
+  const articleLinks = zh
+    ? FOOTER_ARTICLE_LINKS.map((article) => ({ href: zhRoutePath(article.path), label: article.zh }))
+    : FOOTER_ARTICLE_LINKS.map((article) => ({ href: article.path, label: article.en }));
+  const copyright = zh
+    ? "© 2026 BalanceBikeToddler · 儿童骑行与安全选购研究站 · 版权所有"
+    : "© BalanceBikeToddler — evidence-based analysis of kids ride-on and safety gear.";
   return `
       <footer style="margin-top:34px;padding:20px 0 8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;font-size:0.88rem;line-height:2;">
-        <p style="margin:0 0 4px;">${FOOTER_SECTION_LINKS.map(link).join("")}</p>
-        <p style="margin:0 0 4px;">${FOOTER_ARTICLE_LINKS.map((article) => link({ href: article.path, label: article.en })).join("")}</p>
-        <p style="margin:0;">${FOOTER_TRUST_LINKS.map(link).join("")}</p>
-        <p style="margin:10px 0 0;color:#64748b;">© BalanceBikeToddler — evidence-based analysis of kids ride-on and safety gear.</p>
+        <p style="margin:0 0 4px;">${sectionLinks.map(link).join("")}</p>
+        <p style="margin:0 0 4px;">${articleLinks.map(link).join("")}</p>
+        <p style="margin:0;">${trustLinks.map(link).join("")}</p>
+        <p style="margin:10px 0 0;color:#64748b;">${copyright}</p>
       </footer>
   `;
 }
@@ -504,13 +555,14 @@ const sameClusterPath = (a: string, b: string): boolean => {
  * component uses. A host renders only its own cluster's cards: the list is
  * configuration, the cluster a page belongs to is its path.
  */
-function clusterNavHtml(currentPath: string, heading?: string): string {
+function clusterNavHtml(currentPath: string, heading?: string, lang: "en" | "zh" = "en"): string {
   const group = clusterGroupOfPath(currentPath);
   const items = referenceCluster
     .filter((card) => clusterGroupOfHref(card.href) === group)
     .filter((card) => !sameClusterPath(card.href, currentPath));
   if (!items.length) return "";
-  const title = heading ?? CLUSTER_HEADINGS[group].en;
+  const zh = lang === "zh";
+  const title = heading ?? (zh ? CLUSTER_HEADINGS[group].zh : CLUSTER_HEADINGS[group].en);
   return `
       <section style="margin: 22px 0 0; border-top: 1px solid #e2e8f0; padding-top: 18px;">
         <h2 style="margin: 0 0 10px; font-size: 1.2rem;">${escapeHtml(title)}</h2>
@@ -518,7 +570,7 @@ function clusterNavHtml(currentPath: string, heading?: string): string {
           ${items
             .map(
               (card) =>
-                `<li style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px 16px;"><a href="${escapeHtml(card.href)}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(card.labelEn)}</a><span style="display:block;margin-top:4px;font-size:0.85rem;color:#64748b;">${escapeHtml(card.blurbEn)}</span></li>`,
+                `<li style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px 16px;"><a href="${escapeHtml(card.href)}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(zh ? card.labelZh : card.labelEn)}</a><span style="display:block;margin-top:4px;font-size:0.85rem;color:#64748b;">${escapeHtml(zh ? card.blurbZh : card.blurbEn)}</span></li>`,
             )
             .join("")}
         </ul>
@@ -1008,7 +1060,7 @@ const ZH_ARTICLE_LABELS = {
   productBlurb: "实验室评分、完整参数与安全检查清单。",
   published: "发布于",
   by: "作者",
-  continueGuides: "继续浏览完整指南库",
+  continueGuides: "继续浏览",
   continueNews: "继续浏览全部新闻",
   clusterNav: "相关选购专题",
   topicLabels: {
@@ -1075,7 +1127,7 @@ function renderZhHub(
     body: `
       <section style="padding: 22px 0;">
         <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;">${escapeHtml(intro)}</p>
-        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">${escapeHtml(countLabel)} 英文版见 <a href="${escapeHtml(enRoute)}">${isGuides ? "the full guide library" : "the news hub"}</a>。</p>
+        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">${escapeHtml(countLabel)} 英文版见 <a href="${escapeHtml(enRoute)}">${isGuides ? "英文指南库" : "英文资讯"}</a>。</p>
       </section>
       <section style="padding: 6px 0 18px; border-top: 1px solid #e2e8f0;">
         ${cards}
@@ -1530,26 +1582,22 @@ function relatedEvaluationsForGuide(
   guideText: string,
   evaluations: CmsEvaluation[],
   limit = 4,
+  lang: "en" | "zh" = "en",
 ): Array<{ title: string; path: string }> {
-  const text = String(guideText || "").toLowerCase();
-  const stop = new Set(["review", "reviews", "single", "compare", "with", "the", "and", "for", "best"]);
-  return evaluations
+  // Ranking + title language live in the shared lib so the hydrated SPA
+  // (GuidesSection.tsx) ranks the same records the same way.
+  const entries: RelatedReviewEntry[] = evaluations
     .filter((e) => !e.status || e.status === "published")
-    .map((e) => {
-      const title = pickText(e.en?.title, e.zh?.title, e.title);
+    .flatMap((e) => {
+      const enTitle = String(e.en?.title || e.title || "").trim();
+      const zhTitle = String(e.zh?.title || "").trim();
       const type = cmsSlugify(e.type || "single") || "single";
       const slug =
         cmsCapSlug(e.en?.title) || cmsCapSlug(e.zh?.title) || cmsCapSlug(e.slug) || cmsCapSlug(e.title);
-      if (!title || !slug || isMachineIdSlug(slug)) return null;
-      const tokens = title.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length >= 4 && !stop.has(t));
-      const score = tokens.filter((t) => text.includes(t)).length;
-      if (score < 1) return null;
-      return { title, score, path: `/reviews/${type}/${slug}` };
-    })
-    .filter((x): x is { title: string; score: number; path: string } => Boolean(x))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map(({ title, path }) => ({ title, path }));
+      if ((!enTitle && !zhTitle) || !slug || isMachineIdSlug(slug)) return [];
+      return [{ enTitle, zhTitle, path: `/reviews/${type}/${slug}` }];
+    });
+  return rankRelatedReviews(guideText, entries, lang, limit);
 }
 
 /**
@@ -1638,7 +1686,12 @@ function renderGuideDetailPage(
   const summaryIntroHtml = introRepeatsBody
     ? ""
     : `<p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>${zh ? ZH_ARTICLE_LABELS.shortAnswer : "Short answer"}:</strong> ${escapeHtml(summary)}</p>`;
-  const relatedReviews = relatedEvaluationsForGuide(`${title} ${summary} ${content}`, evaluations);
+  const relatedReviews = relatedEvaluationsForGuide(
+    `${title} ${summary} ${content}`,
+    evaluations,
+    4,
+    zh ? "zh" : "en",
+  );
   const relatedProducts = relatedProductsHtml(
     `${title} ${summary} ${content}`,
     products,
@@ -1720,7 +1773,7 @@ function renderGuideDetailPage(
       </nav>
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
-          ${zh ? ZH_ARTICLE_LABELS.by : "By"} <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">${zh ? ZH_ARTICLE_LABELS.published : "Published"} ${escapeHtml(published)}</time>
+          ${zh ? ZH_ARTICLE_LABELS.by : "By"} ${zh ? "BalanceBikeToddler 专家组" : "BalanceBikeToddler Editorial Team"} · <time datetime="${escapeHtml(published)}">${zh ? ZH_ARTICLE_LABELS.published : "Published"} ${escapeHtml(published)}</time>
         </p>
         ${summaryIntroHtml}
       </section>
@@ -1730,9 +1783,9 @@ function renderGuideDetailPage(
       </section>
       ${relatedReviewsHtml}
       ${relatedProducts}
-      ${/balance[\s_-]*bike|walking bike|平衡车/i.test(`${title} ${summary} ${content}`) ? clusterNavHtml("", zh ? ZH_ARTICLE_LABELS.clusterNav : undefined) : ""}
+      ${/balance[\s_-]*bike|walking bike|平衡车/i.test(`${title} ${summary} ${content}`) ? clusterNavHtml("", zh ? ZH_ARTICLE_LABELS.clusterNav : undefined, zh ? "zh" : "en") : ""}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0; font-size: 0.9rem; color: #475569;">${zh ? ZH_ARTICLE_LABELS.continueGuides : "Continue browsing the"} <a href="${zh ? "/zh/guides" : "/guides"}">${zh ? "完整指南库" : "full guide library"}</a>${zh ? "。" : "."}</p>
+        <p style="margin: 0; font-size: 0.9rem; color: #475569;">${zh ? `${ZH_ARTICLE_LABELS.continueGuides}<a href="/zh/guides">完整指南库</a>。` : `Continue browsing the <a href="/guides">full guide library</a>.`}</p>
       </section>
     `,
     jsonLd: schemas,
@@ -1842,7 +1895,7 @@ function renderNewsDetailPage(
       </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
-          ${zh ? ZH_ARTICLE_LABELS.by : "By"} <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">${zh ? ZH_ARTICLE_LABELS.published : "Published"} ${escapeHtml(published)}</time>
+          ${zh ? ZH_ARTICLE_LABELS.by : "By"} ${zh ? "BalanceBikeToddler 专家组" : "BalanceBikeToddler Editorial Team"} · <time datetime="${escapeHtml(published)}">${zh ? ZH_ARTICLE_LABELS.published : "Published"} ${escapeHtml(published)}</time>
         </p>
         <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>${zh ? ZH_ARTICLE_LABELS.shortAnswer : "Short answer"}:</strong> ${escapeHtml(summary)}</p>
       </section>
@@ -8062,7 +8115,7 @@ async function main() {
       return [{
         title: pickText(guide.zh?.title, guide.id),
         summary: pickText(guide.zh?.summary, guide.seo?.zh?.description, ""),
-        meta: `${guideTopicCategory(guide).replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
+        meta: `${ZH_ARTICLE_LABELS.topicLabels[guideTopicCategory(guide)] || guideTopicCategory(guide).replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
         path: zhRoutePath(enRoute),
         image: toPublicImageUrl(pickText(guide.imageUrl)),
       }];
@@ -8076,7 +8129,7 @@ async function main() {
       return [{
         title: pickText(item.zh?.title, item.id),
         summary: pickText(item.zh?.summary, item.seo?.zh?.description, ""),
-        meta: `${newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
+        meta: `${ZH_ARTICLE_LABELS.channelLabels[String(item.category || "")] || newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
         path: zhRoutePath(enRoute),
         image: toPublicImageUrl(pickText(item.imageUrl)),
       }];

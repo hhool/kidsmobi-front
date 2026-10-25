@@ -25,7 +25,18 @@ function renderInline(value: string): string {
   return escapeHtml(value)
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*\n]+)\*/g, "<em>$1</em>")
-    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_match, text: string, url: string) => {
+      // In-site links (relative URLs) open in the same tab and carry no rel —
+      // an internal link is exactly the kind of link a site wants crawled and
+      // followed. Off-site links open in a new tab with noopener. Both
+      // renderers emit the same markup; the relative case used to fall through
+      // this replace entirely and reached the page as the literal string
+      // "[text](/path)".
+      if (/^https?:\/\//i.test(url)) {
+        return `<a href="${url}" target="_blank" rel="nofollow noopener noreferrer">${text}</a>`;
+      }
+      return `<a href="${url}">${text}</a>`;
+    });
 }
 
 /**

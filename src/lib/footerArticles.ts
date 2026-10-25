@@ -4,8 +4,10 @@
  * and the prerendered footer (scripts/prerender-pages.ts) so both render
  * paths expose the same internal links.
  *
- * Routes use the canonical no-trailing-slash form (see canonicalPath.ts);
- * the prerendered HTML is the EN shell, so its labels come from `en`.
+ * Routes use the canonical no-trailing-slash form (see canonicalPath.ts).
+ * Every entry has both an English and a Chinese label: the SPA footer and the
+ * prerendered footer pick by the page's language, and on a /zh route the
+ * footer links the /zh edition of each article (all ten have one).
  */
 export const FOOTER_ARTICLE_LINKS: Array<{ path: string; en: string; zh: string }> = [
   { path: "/guides/budget/balance-bike-price-tiers", en: "Price Tiers Explained", zh: "价格档位解析" },

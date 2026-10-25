@@ -5541,11 +5541,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <ul className="space-y-3 font-medium">
                 <li>
                   <a
-                    href={resolveSeoLink("/guides/")}
+                    href={resolveSeoLink(lang === "zh" ? "/zh/guides/" : "/guides/")}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigateToPath("/guides");
+                      navigateToPath(lang === "zh" ? "/zh/guides" : "/guides");
                     }}
                   >
                     {lang === "en" ? "All Buying Guides" : "全部选购指南"}
@@ -5701,11 +5701,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 {FOOTER_ARTICLE_LINKS.map((article) => (
                   <li key={article.path}>
                     <a
-                      href={resolveSeoLink(article.path)}
+                      href={resolveSeoLink(lang === "zh" ? withZhPrefix(article.path) : article.path)}
                       className="hover:text-orange-500 transition-colors text-slate-400"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigateToPath(article.path);
+                        navigateToPath(lang === "zh" ? withZhPrefix(article.path) : article.path);
                       }}
                     >
                       {lang === "en" ? article.en : article.zh}

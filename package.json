@@ -90,6 +90,7 @@
     "check:covergeometry": "node scripts/check-cover-geometry.mjs",
     "check:heroalign": "node scripts/check-article-hero-alignment.mjs",
     "check:hreflang": "node scripts/check-hreflang.mjs",
+    "check:zh-english": "node scripts/check-zh-english.mjs",
     "check:jsonld": "node scripts/check-jsonld.mjs",
     "check:tracking": "node scripts/check-tracking.mjs",
     "check:workerparity": "node scripts/check-worker-sitemap-parity.mjs",

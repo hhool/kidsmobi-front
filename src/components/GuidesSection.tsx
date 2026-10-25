@@ -29,6 +29,7 @@ import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
 import { getD1CMSGuides } from "../lib/cmsD1Service";
 import { resolveProductDetailCategorySlug } from "../lib/productCategoryPaths";
 import { matchProductsForText } from "../lib/relatedProducts";
+import { rankRelatedReviews, type RelatedReviewEntry } from "../lib/relatedReviews";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
@@ -2022,27 +2023,30 @@ export default function GuidesSection({
         {selectedGuideState ? (() => {
           const guide = translateGuideArticle(selectedGuideState, lang);
           // Pillar->cluster links: match published evaluations whose editorial
-          // title tokens overlap the guide body. Keeps guide and review pages
-          // interlinked so crawlers see a connected topic topology.
+          // title overlaps the guide body. Keeps guide and review pages
+          // interlinked so crawlers see a connected topic topology. Ranking
+          // and the display language are shared with the prerender
+          // (scripts/prerender-pages.ts) via lib/relatedReviews — a Chinese
+          // body is bigram-matched and shows the evaluation's Chinese title,
+          // which exists for every published evaluation.
           const relatedReviews = (() => {
             if (!reviewsData || !reviewsData.length) return [];
-            const text = `${guide.title} ${guide.summary} ${guide.content}`.toLowerCase();
-            const stop = new Set(["review", "reviews", "single", "compare", "with", "the", "and", "for", "best"]);
-            return reviewsData
+            const entries: RelatedReviewEntry[] = reviewsData
               .filter((e) => String(e?.status || "published") === "published")
-              .map((e) => {
-                const title = String(e?.en?.title || e?.zh?.title || e?.title || "").trim();
+              .flatMap((e) => {
+                const enTitle = String(e?.en?.title || e?.title || "").trim();
+                const zhTitle = String(e?.zh?.title || "").trim();
                 const segment = evaluationRouteSegment(e);
-                if (!title || !segment) return null;
-                const tokens = title.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length >= 4 && !stop.has(t));
-                const score = tokens.filter((t) => text.includes(t)).length;
-                if (score < 1) return null;
+                if ((!enTitle && !zhTitle) || !segment) return [];
                 const type = String(e?.type || "single").toLowerCase() || "single";
-                return { title, score, path: `/reviews/${type}/${segment}` };
-              })
-              .filter((x): x is { title: string; score: number; path: string } => Boolean(x))
-              .sort((a, b) => b.score - a.score)
-              .slice(0, 4);
+                return [{ enTitle, zhTitle, path: `/reviews/${type}/${segment}` }];
+              });
+            return rankRelatedReviews(
+              `${guide.title} ${guide.summary} ${guide.content}`,
+              entries,
+              lang,
+              4,
+            );
           })();
           return (
             // Read detail mode view container
@@ -2211,7 +2215,10 @@ export default function GuidesSection({
                   {lang === "zh" ? "相关阅读：" : "Related reading:"}
                 </span>
                 {([
-                  { href: "/news", label: lang === "zh" ? "召回与安全资讯" : "Recall & safety news" },
+                  // /news has a Chinese edition, so the Chinese page links it;
+                  // the products/reviews families do not, and their English
+                  // targets are the only ones that exist.
+                  { href: lang === "zh" ? "/zh/news" : "/news", label: lang === "zh" ? "召回与安全资讯" : "Recall & safety news" },
                   { href: "/products/balance_bike", label: lang === "zh" ? "平衡车评测" : "Balance bike reviews" },
                   { href: "/reviews/safety", label: lang === "zh" ? "安全评测中心" : "Safety audits" },
                 ] as const).map((link) => (

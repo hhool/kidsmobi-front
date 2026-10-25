@@ -26,6 +26,8 @@ const FIXTURE = [
   "",
   "A paragraph with **bold**, *italic* and a [link](https://example.com/page).",
   "",
+  "A paragraph with a [relative link](/guides/beginner/balance-bike-size-chart) too.",
+  "",
   "### H3 heading",
   "",
   "1. Multi-Wheel Support & High Stability",
@@ -77,6 +79,22 @@ for (const line of FIXTURE.split("\n")) {
   if (!/^#{2,4}\s/.test(line)) continue;
   if (reactText.includes(`>${line}<`)) {
     problems.push(`hydrated DOM leaks the literal markdown marker: "${line}"`);
+  }
+}
+
+// The second regression class: a markdown LINK that survives as literal
+// "[text](/path)" text. The prerender's inline renderer once only converted
+// absolute URLs, so every relative link in every article body reached the
+// static page — 320 of them across 59 pages — as literal markdown.
+const htmlText = renderRichContentHtml(FIXTURE);
+const REL = "/guides/beginner/balance-bike-size-chart";
+const anchorRe = new RegExp(`<a href="${REL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]*>relative link</a>`);
+for (const [side, text] of [["prerender", htmlText], ["hydrated", reactText]] as const) {
+  if (!anchorRe.test(text)) {
+    problems.push(`${side} did not render the relative markdown link as an anchor (literal "[text](/path)" leak)`);
+  }
+  if (text.includes(`](${REL})`)) {
+    problems.push(`${side} leaks the literal markdown link syntax "](${REL})"`);
   }
 }
 

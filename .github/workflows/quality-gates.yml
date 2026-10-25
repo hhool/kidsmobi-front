@@ -178,6 +178,13 @@ jobs:
       - name: JSON-LD breadcrumbs
         run: npm run check:jsonld
 
+      # A /zh page is a Chinese page. The prerendered footer, the related-
+      # reviews titles, the hub card meta, the cluster nav and the byline all
+      # leaked English onto the Chinese editions at some point, and none of
+      # it looked like a bug in review - it looked like content.
+      - name: Chinese pages carry no English UI
+        run: npm run check:zh-english
+
       # The analytics and affiliate pipes are configuration-driven, so they
       # are usually switched OFF and their code never runs. These are the
       # invariants that have to hold the day the owner turns them on.

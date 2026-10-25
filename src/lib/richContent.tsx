@@ -73,9 +73,9 @@ export function parseInlineMarkdown(text: string): InlineToken[] {
     } else if (match[5]) {
       tokens.push({ type: "image", alt: match[6] || "", url: match[7] });
     } else if (match[8]) {
-      tokens.push({ type: "video", url: match[8] });
-    } else if (match[9]) {
-      tokens.push({ type: "link", text: match[10], url: match[11] });
+      tokens.push({ type: "video", url: match[9] });
+    } else if (match[10]) {
+      tokens.push({ type: "link", text: match[11], url: match[12] });
     }
     lastIndex = pattern.lastIndex;
   }
@@ -94,8 +94,16 @@ export function renderInlineMarkdown(text: string, keyPrefix: string): React.Rea
       case "italic":
         return <em key={key}>{token.value}</em>;
       case "link":
-        return (
+        // Relative URLs are in-site: same tab, no rel (internal links are the
+        // ones worth following). Absolute URLs leave the site: new tab +
+        // noopener. Mirrors renderInline() in richContentHtml.ts — the two
+        // renderers must not drift on this either.
+        return /^https?:\/\//i.test(token.url) ? (
           <a key={key} href={token.url} target="_blank" rel="nofollow noopener noreferrer" className="text-blue-600 font-bold underline decoration-blue-200 hover:decoration-blue-500 break-all">
+            {token.text}
+          </a>
+        ) : (
+          <a key={key} href={token.url} className="text-blue-600 font-bold underline decoration-blue-200 hover:decoration-blue-500 break-all">
             {token.text}
           </a>
         );
