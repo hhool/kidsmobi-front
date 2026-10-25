@@ -153,6 +153,7 @@ import {
   withZhPrefix,
 } from "./lib/languageRoutes";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
+import { gaHeadSnippet, resolveGaMeasurementId } from "./lib/trackingConfig";
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
 import { setReferenceClusterConfig, CLUSTER_HEADINGS } from "./lib/referenceCluster";
 import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
@@ -2643,6 +2644,25 @@ export default function App() {
       updateMetaTag("google-site-verification", gscVerification);
     } else {
       removeMetaTag("google-site-verification");
+    }
+
+    // Analytics. The id comes from the CMS (so the owner can set it from the
+    // admin panel and have it live without a redeploy) with an environment
+    // variable as the build-time default.
+    //
+    // The static HTML already carries the same snippet when the prerender
+    // knew the id, so this only has to cover the case where the id was
+    // configured after the last build, and it must not add a second copy
+    // when the static HTML already has one.
+    const gaMeasurementId = resolveGaMeasurementId(cmsSettings as any, import.meta.env as any);
+    if (gaMeasurementId && !document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${gaMeasurementId}"]`)) {
+      const holder = document.createElement("div");
+      holder.innerHTML = gaHeadSnippet(gaMeasurementId);
+      while (holder.firstChild) {
+        const node = holder.firstChild;
+        holder.removeChild(node);
+        document.head.appendChild(node);
+      }
     }
 
     const defaultRobotsIndex = String(

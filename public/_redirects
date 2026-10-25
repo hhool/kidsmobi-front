@@ -40,3 +40,16 @@
 /search/ / 200
 /transparency / 200
 /transparency/ / 200
+
+# Paths that outside links still point at. Each one answers 404 today, and a
+# 404 on a URL somebody linked to is a lost visit and a lost signal. Both URL
+# forms get their own rule: Pages matches the source exactly, so "/blog" alone
+# leaves "/blog/" on the 404 page (see the exact-match note above).
+/blog /news 301
+/blog/ /news 301
+/shop /products 301
+/shop/ /products 301
+/contact /about 301
+/contact/ /about 301
+/privacy /transparency 301
+/privacy/ /transparency 301

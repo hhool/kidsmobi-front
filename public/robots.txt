@@ -7,22 +7,36 @@ Disallow: /*?*filter=
 Disallow: /*?*wizard=
 Disallow: /*?*category=
 
-User-agent: Amazonbot
+# AI crawlers.
+#
+# Google-Extended feeds AI Overviews and Gemini, and CCBot feeds Common
+# Crawl - the corpus most third-party AI tools read from. Blocking both means
+# the content never reaches an AI answer, so both are allowed.
+#
+# Bytespider, Applebot-Extended and meta-externalagent are bulk training
+# scrapers rather than search engines, and they stay out.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
 Disallow: /
 
 User-agent: Applebot-Extended
 Disallow: /
 
-User-agent: Bytespider
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
 User-agent: meta-externalagent
+Disallow: /
+
+# Amazonbot reads the product pages for the Product Advertising API, so those
+# have to be crawlable. Everything else on the site stays out of it. Within a
+# group the longest matching rule wins, so /products/ and /api/paapi/ are
+# allowed and everything else falls to the Disallow.
+User-agent: Amazonbot
+Allow: /products/
+Allow: /api/paapi/
 Disallow: /
 
 Sitemap: https://balancebiketoddler.com/sitemap.xml

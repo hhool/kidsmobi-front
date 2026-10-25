@@ -5,6 +5,12 @@ import { newsArticles } from "../src/data/newsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
 import {
+  amazonAffiliateUrl,
+  gaHeadSnippet,
+  resolveAmazonTag,
+  resolveGaMeasurementId,
+} from "../src/lib/trackingConfig";
+import {
   buildDatasetSchema,
   euSinceYear,
   fillTemplate,
@@ -308,6 +314,9 @@ type RoutePage = {
 
 type AppAssets = {
   headTags: string;
+  /** The gtag.js pair, when a measurement id is configured. Empty otherwise, so
+   *  an unconfigured site ships no tracking script at all. */
+  gaSnippet: string;
 };
 
 function escapeHtml(value: string): string {
@@ -786,7 +795,7 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
     </script>
 ${aboutJsonLd || (page.jsonLd ? `    <script type="application/ld+json">${JSON.stringify(page.jsonLd)}</script>` : "")}
 ${appAssets.headTags}
-  </head>
+${appAssets.gaSnippet ? appAssets.gaSnippet + "\n" : ""}  </head>
   <body class="bg-slate-50 text-slate-950 antialiased font-sans">
     <div id="root">
       <div id="app-boot-cover" aria-hidden="true">
@@ -812,6 +821,7 @@ function extractAppAssets(indexHtml: string): AppAssets {
 
   return {
     headTags: tags.map((tag) => `    ${tag}`).join("\n"),
+    gaSnippet: "",
   };
 }
 
@@ -1095,6 +1105,24 @@ function renderZhHub(
       },
     ],
   };
+}
+
+/**
+ * hreflang alternates for the homepage.
+ *
+ * The homepage reads ?currency=USD|GBP|EUR and prices the catalogue
+ * accordingly, so the four URLs are the same page in different currencies
+ * rather than the same page repeated. The SPA already declares these; the
+ * static HTML did not, which left the crawler's view of the homepage
+ * different from the browser's.
+ */
+function currencyAlternates(): Array<{ hreflang: string; href: string }> {
+  return [
+    { hreflang: "en-US", href: `${PUBLIC_SITE_BASE}/?currency=USD` },
+    { hreflang: "en-GB", href: `${PUBLIC_SITE_BASE}/?currency=GBP` },
+    { hreflang: "en-DE", href: `${PUBLIC_SITE_BASE}/?currency=EUR` },
+    { hreflang: "x-default", href: `${PUBLIC_SITE_BASE}/` },
+  ];
 }
 
 /** /zh/<path> — the Chinese edition of an English route. */
@@ -2119,6 +2147,10 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
     // what readers and Google's renderer see, so the static page follows it.
     h1En: GUIDES_WIZARD_H1.en,
     description: "Step-by-step buying guidance for families choosing safer ride-on products.",
+    // The Chinese edition of this hub exists (/zh/guides) and points back at
+    // this URL, so this page has to point at it too. hreflang that only runs
+    // one way is ignored: Google wants the two editions to name each other.
+    alternates: languageAlternates("/guides"),
     body: `
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which questions do parents ask first?</h2>
@@ -2303,6 +2335,10 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
     route: "/news",
     title: usingCmsNews ? "Kids Bike & Stroller News and Industry Updates" : "What is changing in the market?",
     description: "Latest kids mobility news, product launches, and regulatory context with clear sources.",
+    // The Chinese edition of this hub exists (/zh/news) and points back at
+    // this URL, so this page has to point at it too. hreflang that only runs
+    // one way is ignored: Google wants the two editions to name each other.
+    alternates: languageAlternates("/news"),
     body: `
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which updates matter to families?</h2>
@@ -3353,6 +3389,10 @@ function renderHomePage(
     // "BalanceBikeToddler | BalanceBikeToddler" — the brand repeated twice.
     fullTitle: "BalanceBikeToddler | Evidence-Based Kids Bike & Stroller Analysis",
     description: "Evidence-based balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
+    // The currency editions of the homepage. The SPA declares the same set,
+    // and a page that only declares them after hydration is a page a crawler
+    // never sees them on.
+    alternates: currencyAlternates(),
     skipTitleH1: true,
     body: `
       ${navHtml}
@@ -7426,6 +7466,7 @@ function renderProductDetailPage(
   allProducts: CmsProductFull[],
   evaluations: CmsEvaluation[],
   variantLabels: Map<string, string>,
+  amazonTag = "",
 ): RoutePage | null {
   const id = String(product.id || "").trim();
   if (!id) return null;
@@ -7510,6 +7551,13 @@ function renderProductDetailPage(
     suppressedReviewCounts.push(`${id} (${Number(product.reviewCount).toLocaleString("en-US")})`);
   }
   const price = productPriceValue(product);
+  // The outbound "check price" link, when an Amazon Associates tracking id is
+  // configured. The ASIN is already derived above (the product id ends with
+  // it), and the store image URL spells it out as well.
+  const amazonUrl = amazonAffiliateUrl(
+    { id: product.id, imageUrl: product.imageUrl, source: (product as any).source },
+    amazonTag,
+  );
   const categoryHref = productCategoryHrefBySlug(detailSlugDir);
   const categoryLabel =
     PRODUCT_CATEGORY_PAGES.find((item) => item.slug === detailSlugDir)?.label || "All Products";
@@ -7675,7 +7723,11 @@ function renderProductDetailPage(
         ])}
         <section style="margin: 0 0 22px; display: grid; grid-template-columns: minmax(0, 320px) 1fr; gap: 20px; align-items: start;">
           ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}" width="800" height="800" fetchpriority="high" decoding="sync" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 14px; border: 1px solid #e2e8f0;" />` : ""}
-          <div>${statsChips.length ? `<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">${statsChips.join("")}</div>` : ""}</div>
+          <div>${statsChips.length ? `<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">${statsChips.join("")}</div>` : ""}${
+            amazonUrl
+              ? `<a href="${escapeHtml(amazonUrl)}" target="_blank" rel="sponsored nofollow noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 12px; background: #f97316; color: #ffffff; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;">Check price on Amazon &#8599;</a>`
+              : ""
+          }</div>
         </section>
         ${summaryHtml}
         ${descriptionHtml}
@@ -7864,6 +7916,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
+  appAssets.gaSnippet = "";
 
   const [cmsGuides, cmsNews, cmsEvaluations, cmsProducts, cmsSettings] = await Promise.all([
     fetchPublishedGuides(),
@@ -7872,6 +7925,15 @@ async function main() {
     fetchPublishedProducts(),
     fetchCmsSettings(),
   ]);
+
+  // The affiliate tag. Until one is configured the product pages ship no
+  // outbound link at all, so the site never carries a link that earns
+  // nothing. Resolved here, before any page is built: the product pages
+  // need it.
+  const amazonTag = resolveAmazonTag(cmsSettings as any, process.env);
+  if (amazonTag) {
+    console.log(`[prerender] Amazon Associates tag ${amazonTag} applied to the product pages.`);
+  }
 
   // The reference-cluster block is CMS-arranged; resolve it before any page is
   // built so the static HTML ships the same cards, in the same order, as the
@@ -7942,7 +8004,9 @@ async function main() {
   }
   const productVariantLabels = buildProductVariantLabels(cmsProductsFull);
   const productDetailPages = cmsProductsFull
-    .map((product) => renderProductDetailPage(product, cmsProductsFull, cmsEvaluations, productVariantLabels))
+    .map((product) =>
+      renderProductDetailPage(product, cmsProductsFull, cmsEvaluations, productVariantLabels, amazonTag),
+    )
     .filter((page): page is RoutePage => page !== null);
   if (productVariantLabels.size) {
     console.log(
@@ -8059,6 +8123,17 @@ async function main() {
 
   // Section pages (home/products/reviews/guides/news/about) publish the
   // CMS-resolved TDK so the static HTML matches what the hydrated SPA writes.
+  // Analytics: the id comes from the CMS (so the owner can set it from the
+  // admin panel) with an environment variable as the build-time default. The
+  // static HTML and the SPA both inject the same snippet, so a crawler and a
+  // reader are measured the same way.
+  const gaMeasurementId = resolveGaMeasurementId(cmsSettings as any, process.env);
+  appAssets.gaSnippet = gaHeadSnippet(gaMeasurementId);
+  if (gaMeasurementId) {
+    console.log(`[prerender] GA4 measurement id ${gaMeasurementId} injected into every static page.`);
+  }
+
+
   const sectionSeoApplied = applyCmsSectionSeo(pages, cmsSettings);
   if (sectionSeoApplied) {
     console.log(

@@ -163,6 +163,19 @@ jobs:
       - name: Article hero alignment
         run: npm run check:heroalign
 
+      # The Chinese hubs declared their alternates while the English hubs did
+      # not, and the homepage declared its currency editions only after
+      # hydration. An hreflang annotation that runs one way, or that only
+      # exists in the SPA, is one no crawler ever sees.
+      - name: hreflang reciprocity
+        run: npm run check:hreflang
+
+      # The analytics and affiliate pipes are configuration-driven, so they
+      # are usually switched OFF and their code never runs. These are the
+      # invariants that have to hold the day the owner turns them on.
+      - name: Tracking and affiliate links
+        run: npm run check:tracking
+
       # Pages silently drops every line past ~120, and the SPA fallback is last.
       - name: Redirect budget (dist/_redirects)
         run: npm run check:redirects

@@ -89,6 +89,8 @@
     "check:newscovers": "node scripts/check-news-covers.mjs",
     "check:covergeometry": "node scripts/check-cover-geometry.mjs",
     "check:heroalign": "node scripts/check-article-hero-alignment.mjs",
+    "check:hreflang": "node scripts/check-hreflang.mjs",
+    "check:tracking": "node scripts/check-tracking.mjs",
     "check:workerparity": "node scripts/check-worker-sitemap-parity.mjs",
     "sync:sitemappaths": "node scripts/sync_sitemap_paths_to_worker.mjs",
     "check:pairdrift": "node scripts/check-topic-pair-drift.mjs",

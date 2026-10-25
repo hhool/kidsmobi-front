@@ -18,6 +18,7 @@ import {
 } from "recharts";
 import { Product, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
+import { amazonAffiliateUrl, resolveAmazonTag } from "../lib/trackingConfig";
 import { resolveProductImages, normalizeMediaUrl } from "../lib/productImages";
 import { getProductDisplayTitle, getProductSkuTitle } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
@@ -957,6 +958,15 @@ export default function DetailedProductView({
   // Rule set v1: detail textual blocks must come from product data model fields first.
   // This prevents runtime drift from remote overlays and keeps rendering deterministic.
   const displayProduct = translateProduct(product, lang);
+  // The outbound "check price" link. It only appears once an Amazon
+  // Associates tracking id is configured (CMS settings, or the build-time
+  // environment default), so a site without one ships no affiliate link at
+  // all rather than a link that earns nothing.
+  const amazonTag = resolveAmazonTag(cmsSettings as any, import.meta.env as any);
+  const amazonUrl = amazonAffiliateUrl(
+    { id: product.id, imageUrl: (product as any).imageUrl, source: (product as any).source },
+    amazonTag,
+  );
   // Visible/product title (H1, breadcrumb, FAQ, schema name, video title):
   // in zh mode surface the real localized product name (zh.name first segment,
   // per the card convention); in en mode keep the generic "brand + category"
@@ -1471,6 +1481,16 @@ export default function DetailedProductView({
              <span className="text-[10px] text-slate-600 font-bold block uppercase mb-1">{lang === "en" ? "Overall Score" : "综合评分"}</span>
              <strong className="text-2xl font-black text-orange-500">{overallScoreDisplay}</strong>
           </div>
+          {amazonUrl ? (
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="sponsored nofollow noopener noreferrer"
+              className="px-4 py-3 rounded-2xl bg-orange-500 text-[10px] font-black uppercase tracking-widest text-white hover:bg-orange-600 transition-colors text-center"
+            >
+              {lang === "en" ? "Check price on Amazon" : "在 Amazon 查看价格"}
+            </a>
+          ) : null}
         </div>
       </div>
 
