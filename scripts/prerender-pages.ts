@@ -1629,10 +1629,23 @@ function relatedProductsHtml(
   if (!matched.length) return "";
   const items = matched
     .map((p) => {
-      const href = `/products/${resolveProductDetailCategorySlug((productsById.get(p.id) || {}) as Record<string, unknown>)}/${p.id}`;
-      const name = escapeHtml(String(p.name || p.id).trim());
+      const full = (productsById.get(p.id) || {}) as Record<string, unknown> & {
+        id?: string;
+        category?: string;
+        categoryId?: string;
+        name?: string;
+        title?: string;
+        description?: string;
+        zh?: { name?: string };
+      };
+      const href = `/products/${resolveProductDetailCategorySlug(full)}/${p.id}`;
+      // CMS carries a curated zh.name for every product — prefer it on zh
+      // pages (same pick as the SPA's translateProduct path), otherwise the
+      // block leaks the raw English marketplace title.
+      const displayName = String((zh ? full.zh?.name : "") || p.name || p.id).trim();
+      const name = escapeHtml(displayName);
       const brand = String(p.brand || "").trim();
-      const label = escapeHtml(brand && !name.toLowerCase().startsWith(brand.toLowerCase()) ? `${brand} ${p.name || p.id}`.trim() : String(p.name || p.id).trim());
+      const label = escapeHtml(brand && !displayName.toLowerCase().startsWith(brand.toLowerCase()) ? `${brand} ${displayName}`.trim() : displayName);
       return `<li style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 16px;"><a href="${escapeHtml(href)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${label}</a><span style="display: block; margin-top: 4px; font-size: 0.85rem; color: #64748b;">${zh ? ZH_ARTICLE_LABELS.productBlurb : `Lab score, full specs &amp; safety checklist for the ${name}.`}</span></li>`;
     })
     .join("");

@@ -185,6 +185,16 @@ jobs:
       - name: Chinese pages carry no English UI
         run: npm run check:zh-english
 
+      # The zh guide-text sanitizer localizes terms and strips long English
+      # fragments over raw markdown. Both passes used to chew through URLs:
+      # "/guides/budget/balance-bike-price-tiers" was eaten as marketing
+      # English (leaking literal "[text](/" into every hydrated zh guide
+      # body) and "stroller"/"maintenance"/"scooter" inside paths was
+      # rewritten into Chinese (404ing the link). The prerender never ran
+      # the sanitizer, so only the hydrated pages were broken.
+      - name: Guide sanitizer keeps markdown intact
+        run: npm run check:guidetext
+
       # The analytics and affiliate pipes are configuration-driven, so they
       # are usually switched OFF and their code never runs. These are the
       # invariants that have to hold the day the owner turns them on.
