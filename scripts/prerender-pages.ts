@@ -1082,6 +1082,11 @@ function renderZhHub(
       </section>
     `,
     jsonLd: [
+      hubBreadcrumbSchema(
+        `${PUBLIC_SITE_BASE}${route}`,
+        isGuides ? ZH_ARTICLE_LABELS.guidesHub : ZH_ARTICLE_LABELS.newsHub,
+        "首页",
+      ),
       {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
@@ -1108,21 +1113,31 @@ function renderZhHub(
 }
 
 /**
- * hreflang alternates for the homepage.
+ * BreadcrumbList for a section hub (Home > section).
  *
- * The homepage reads ?currency=USD|GBP|EUR and prices the catalogue
- * accordingly, so the four URLs are the same page in different currencies
- * rather than the same page repeated. The SPA already declares these; the
- * static HTML did not, which left the crawler's view of the homepage
- * different from the browser's.
+ * The homepage used to declare hreflang alternates for its three currency
+ * views (?currency=USD|GBP|EUR). Those URLs serve the same HTML whose
+ * canonical points back at "/", so Google was being pointed at targets that
+ * canonicalize elsewhere - the hreflang anti-pattern it ignores - for pages
+ * that are not distinct editions of anything (only the displayed currency
+ * changes, client side). The homepage has no language edition either, so it
+ * now declares no alternates at all; alternates exist exactly where a real
+ * translated edition exists (the guides/news families, see
+ * languageAlternates).
  */
-function currencyAlternates(): Array<{ hreflang: string; href: string }> {
-  return [
-    { hreflang: "en-US", href: `${PUBLIC_SITE_BASE}/?currency=USD` },
-    { hreflang: "en-GB", href: `${PUBLIC_SITE_BASE}/?currency=GBP` },
-    { hreflang: "en-DE", href: `${PUBLIC_SITE_BASE}/?currency=EUR` },
-    { hreflang: "x-default", href: `${PUBLIC_SITE_BASE}/` },
-  ];
+function hubBreadcrumbSchema(
+  canonical: string,
+  sectionLabel: string,
+  homeLabel = "Home",
+): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: homeLabel, item: `${PUBLIC_SITE_BASE}/` },
+      { "@type": "ListItem", position: 2, name: sectionLabel, item: canonical },
+    ],
+  };
 }
 
 /** /zh/<path> — the Chinese edition of an English route. */
@@ -2093,6 +2108,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         sameAs: entitySameAs,
       },
     },
+    hubBreadcrumbSchema(canonical, "Guides"),
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -2276,6 +2292,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         sameAs: entitySameAs,
       },
     },
+    hubBreadcrumbSchema(canonical, "News"),
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -2653,6 +2670,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         sameAs: entitySameAs,
       },
     },
+    hubBreadcrumbSchema(canonical, "Reviews"),
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -3389,10 +3407,10 @@ function renderHomePage(
     // "BalanceBikeToddler | BalanceBikeToddler" — the brand repeated twice.
     fullTitle: "BalanceBikeToddler | Evidence-Based Kids Bike & Stroller Analysis",
     description: "Evidence-based balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
-    // The currency editions of the homepage. The SPA declares the same set,
-    // and a page that only declares them after hydration is a page a crawler
-    // never sees them on.
-    alternates: currencyAlternates(),
+    // No alternates: the homepage has no translated edition, and its currency
+    // views are the same HTML canonicalizing back to "/". Declaring hreflang
+    // for them pointed Google at non-canonical targets (removed 2026-10-25).
+    alternates: [],
     skipTitleH1: true,
     body: `
       ${navHtml}

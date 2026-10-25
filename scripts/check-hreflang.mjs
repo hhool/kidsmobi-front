@@ -9,18 +9,22 @@
  * hydration is one no crawler ever sees.
  *
  * That is not hypothetical. The Chinese hubs declared their alternates while
- * the English hubs (/guides, /news) declared none, and the homepage declared
- * its currency editions in the SPA but not in the static HTML. Both were
- * invisible in review - a link tag that is missing looks exactly like a link
- * tag that is fine.
+ * the English hubs (/guides, /news) declared none. The homepage once declared
+ * hreflang for its three currency views (?currency=USD|GBP|EUR) — but those
+ * URLs serve the same HTML whose canonical points back at "/", so Google was
+ * being pointed at targets that canonicalize elsewhere, the anti-pattern it
+ * ignores. Both were invisible in review - a link tag that is missing (or
+ * that points at the wrong thing) looks exactly like a link tag that is fine.
  *
  * This guard reads the built dist/ and checks:
  *   1. every route that has a Chinese edition declares en / zh / x-default,
  *      and the Chinese edition declares the same set;
  *   2. the two editions point at each other - same URLs on both sides;
- *   3. the homepage declares its currency editions in the static HTML too;
+ *   3. no page anywhere declares an hreflang that carries a query string
+ *      (the removed currency cluster), and the homepage declares none at all;
  *   4. the SPA bundle still contains the rule that emits them, so a later
- *      change cannot quietly drop the client-side half.
+ *      change cannot quietly drop the client-side half - and no longer
+ *      contains the removed ?currency= cluster.
  *
  * Run: npm run check:hreflang   (after `npm run build`)
  */
@@ -124,19 +128,31 @@ for (const [route, file] of en) {
   if (zhUrl && !zhUrl.endsWith(zhRoute)) fail(rel, `hreflang="zh" points at "${zhUrl}", not the Chinese edition`);
 }
 
-// The homepage prices the catalogue in three currencies, so it has three
-// regional editions plus an x-default. The SPA declared them; the static HTML
-// used not to.
+// The homepage declares no alternates: it has no translated edition, and its
+// currency views are the same HTML canonicalizing back to "/". The cluster
+// that used to sit here pointed hreflang at non-canonical targets, which
+// Google ignores - removed 2026-10-25.
 const homeFile = join(DIST, "index.html");
 if (existsSync(homeFile)) {
   const homeAlts = alternates(homeFile);
-  for (const lang of ["en-US", "en-GB", "en-DE", "x-default"]) {
-    if (!homeAlts.has(lang)) {
-      fail("/", `the homepage does not declare hreflang="${lang}" in the static HTML — only the SPA had it`);
-    }
+  if (homeAlts.size > 0) {
+    const listed = [...homeAlts].map(([lang, url]) => `${lang}=${url}`).join(", ");
+    fail("/", `the homepage declares ${homeAlts.size} hreflang alternate(s) (${listed}) — it has no translated or currency edition to point at`);
   }
-  for (const [lang, url] of homeAlts) {
-    if (!url.startsWith(SITE)) fail("/", `hreflang="${lang}" points outside the site: "${url}"`);
+}
+
+// No page may declare an hreflang that carries a query string. Query-param
+// "editions" are the anti-pattern that was removed from the homepage; this
+// keeps it from coming back on any other route. Every target must also be
+// same-origin: a cross-origin hreflang is ignored just the same.
+for (const [route, file] of [...en, ...zh]) {
+  for (const [lang, url] of alternates(file)) {
+    if (url !== SITE && !url.startsWith(`${SITE}/`)) {
+      fail(route, `hreflang="${lang}" points outside the site: "${url}"`);
+    }
+    if (url.includes("?")) {
+      fail(route, `hreflang="${lang}" points at a query-string URL "${url}" — query-param editions are not valid hreflang targets`);
+    }
   }
 }
 
@@ -150,6 +166,9 @@ if (existsSync(assets)) {
     if (!code.includes("x-default")) {
       fail("spa", "the SPA bundle no longer contains the x-default hreflang rule");
     }
+    if (code.includes("?currency=")) {
+      fail("spa", "the SPA bundle still contains the removed ?currency= hreflang cluster");
+    }
   } else {
     fail("spa", "the application bundle was not found in dist/assets");
   }
@@ -161,7 +180,7 @@ console.log(
     {
       ok,
       routePairsChecked: pairs,
-      checked: ["English/Chinese reciprocity", "homepage currency editions", "SPA rule"],
+      checked: ["English/Chinese reciprocity", "homepage declares no alternates", "no query-string hreflang", "SPA rule"],
       problems,
     },
     null,

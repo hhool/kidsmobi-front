@@ -300,12 +300,6 @@ const CURRENCY_TO_COUNTRY_CODE: Record<string, string> = {
   GBP: "GB",
 };
 
-const COUNTRY_HREFLANG_MAP: Record<string, string> = {
-  US: "en-US",
-  GB: "en-GB",
-  DE: "en-DE",
-};
-
 const PRODUCTS_PAGE_KEYWORDS_EN = [
   "jogging stroller",
   "kids bikes",
@@ -2623,18 +2617,13 @@ export default function App() {
       return;
     }
 
-    if (normalizeCanonicalPath(currentPath) !== "/") {
-      updateHreflangLinks([]);
-      return;
-    }
-
-    const homeUrl = `${canonicalOrigin}/`;
-    updateHreflangLinks([
-      { hreflang: COUNTRY_HREFLANG_MAP.US, href: `${homeUrl}?currency=USD` },
-      { hreflang: COUNTRY_HREFLANG_MAP.GB, href: `${homeUrl}?currency=GBP` },
-      { hreflang: COUNTRY_HREFLANG_MAP.DE, href: `${homeUrl}?currency=EUR` },
-      { hreflang: "x-default", href: homeUrl },
-    ]);
+    // Alternates exist exactly where a real translated edition exists (the
+    // guides/news families, handled above). The homepage has no language
+    // edition, and its currency views (?currency=USD|GBP|EUR) are the same
+    // HTML whose canonical points back at "/" — pointing hreflang at URLs
+    // that canonicalize elsewhere is the anti-pattern Google ignores, so the
+    // homepage declares no alternates at all.
+    updateHreflangLinks([]);
   }, [cmsSettings, currentPath]);
 
   // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)

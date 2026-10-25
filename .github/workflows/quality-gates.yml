@@ -164,11 +164,19 @@ jobs:
         run: npm run check:heroalign
 
       # The Chinese hubs declared their alternates while the English hubs did
-      # not, and the homepage declared its currency editions only after
-      # hydration. An hreflang annotation that runs one way, or that only
-      # exists in the SPA, is one no crawler ever sees.
+      # not, and the homepage once declared hreflang for currency views that
+      # canonicalize back to itself. An hreflang annotation that runs one way,
+      # that only exists in the SPA, or that points at a non-canonical target
+      # is one no crawler acts on.
       - name: hreflang reciprocity
         run: npm run check:hreflang
+
+      # The five section hubs shipped no BreadcrumbList at all, so the one
+      # place a "Home > section" trail is most obvious was missing it. An
+      # audit also read the pages as bare because their JSON-LD is an array —
+      # this guard unwraps arrays and pairs Article with its breadcrumb.
+      - name: JSON-LD breadcrumbs
+        run: npm run check:jsonld
 
       # The analytics and affiliate pipes are configuration-driven, so they
       # are usually switched OFF and their code never runs. These are the
