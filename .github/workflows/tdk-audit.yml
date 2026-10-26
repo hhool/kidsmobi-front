@@ -1,0 +1,44 @@
+name: TDK Health Audit
+
+# 背景：用 scripts/audit-tdk.py 全站扫描 /sitemap.xml 里所有页面的 TDK
+# （title / description / keywords / canonical / og:*）。本站点已是 CF Pages 预渲染，
+# 静态 HTML 直接带完整 TDK，且 WAF 只对默认/空 UA 拦 403——带真实浏览器 UA 即 200，
+# 所以是"抓取自己站点"而非"对抗 WAF"，无需任何绕过。
+#
+# 为什么是【定时/手动】而不是每次 push 的构建门禁：
+#   审计要真实请求线上 400+ 个 URL（并发 8）。放进每次构建会拖慢构建、且在线站点
+#   偶发抖动会制造假红。TDK 是发布后才稳定的东西（CMS 改完要等部署），按周巡检 +
+#   发布后手动跑一次就够了。
+#
+# 触发：
+#   schedule         —— 每周一 03:17 UTC 自动跑一次全站体检。
+#   workflow_dispatch —— 手动立即跑（例如大改 CMS 内容/发版后想确认 TDK 没掉）。
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+jobs:
+  tdk-audit:
+    name: Audit site-wide TDK from live sitemap
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 🔎 Run TDK audit (fails on any missing TDK / non-200)
+        run: npm run check:tdk -- --json > /tmp/tdk-audit.json
+
+      - name: 📝 Upload raw JSON on failure (for triage)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tdk-audit-json
+          path: /tmp/tdk-audit.json
+          if-no-files-found: ignore

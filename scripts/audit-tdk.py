@@ -21,7 +21,9 @@ audit-tdk.py — 稳定提取 balancebiketoddler.com（及同类预渲染站点�
 
 import argparse
 import json
+import ssl
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -115,27 +117,40 @@ class StopParsing(Exception):
     pass
 
 
-def fetch(url: str, ua: str = BROWSER_UA, timeout: int = 30) -> tuple[int, str, str]:
-    """跟随重定向（CF Pages 对部分路径发 308），返回 (status, final_url, html)。"""
-    last_status = 0
+def fetch(url: str, ua: str = BROWSER_UA, timeout: int = 30, retries: int = 3) -> tuple[int, str, str]:
+    """跟随重定向（CF Pages 对部分路径发 308），返回 (status, final_url, html)。
+
+    对短暂的网络抖动（连接被重置 / TLS 握手失败 / 超时）做有限重试——
+    高并发抓取时 Cloudflare 边缘可能偶发断开连接，重试即可恢复，
+    而不是整批崩溃。所有网络异常最终都转成 RuntimeError，由调用方收进 Tdk.error。
+    """
     final_url = url
     req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept-Language": "en-US,en;q=0.9"})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            last_status = resp.status
-            final_url = resp.geturl()
-            raw = resp.read()
-        return last_status, final_url, raw.decode("utf-8", "replace")
-    except urllib.error.HTTPError as e:
-        # 4xx/5xx 仍可能带 body（如 WAF 拦截页）
-        body = ""
+    last_err: Exception | None = None
+    transient = (urllib.error.URLError, ConnectionError, TimeoutError, OSError, ssl.SSLError)
+    for attempt in range(retries):
         try:
-            body = e.read().decode("utf-8", "replace")
-        except Exception:
-            pass
-        return e.code, final_url, body
-    except urllib.error.URLError as e:
-        raise RuntimeError(f"network error for {url}: {e.reason}") from e
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                status = resp.status
+                final_url = resp.geturl()
+                raw = resp.read()
+            return status, final_url, raw.decode("utf-8", "replace")
+        except urllib.error.HTTPError as e:
+            # 4xx/5xx 仍可能带 body（如 WAF 拦截页）
+            body = ""
+            try:
+                body = e.read().decode("utf-8", "replace")
+            except Exception:
+                pass
+            return e.code, final_url, body
+        except transient as e:
+            last_err = e
+            if attempt < retries - 1:
+                time.sleep(0.5 * (attempt + 1))  # 退避：0.5s, 1.0s
+                continue
+            reason = getattr(e, "reason", e)
+            raise RuntimeError(f"network error for {url}: {reason}") from e
+    raise RuntimeError(f"network error for {url}: {last_err}") from last_err
 
 
 def robots_allows(target: str, ua: str = BROWSER_UA) -> bool | None:
@@ -157,7 +172,7 @@ def robots_allows(target: str, ua: str = BROWSER_UA) -> bool | None:
 def extract_static(url: str, ua: str) -> Tdk:
     try:
         status, final_url, html = fetch(url, ua)
-    except RuntimeError as e:
+    except Exception as e:  # noqa: BLE001 — 任何异常都收进 error 字段，不整批崩溃
         return Tdk(url=url, status=None, error=str(e))
     if status != 200:
         return Tdk(url=url, status=status, error=f"HTTP {status}")
@@ -225,13 +240,22 @@ def extract_hydrated(url: str, ua: str) -> Tdk | None:
 def collect_urls(args) -> list[str]:
     urls: list[str] = list(args.urls)
     if args.sitemap:
-        _, _, xml = fetch(args.sitemap, args.ua)
+        try:
+            _, _, xml = fetch(args.sitemap, args.ua)
+        except Exception as e:  # noqa: BLE001
+            print(f"[sitemap] 抓取失败: {e}", file=sys.stderr)
+            return urls
         try:
             root = ET.fromstring(xml)
-            # 兼容 <urlset><url><loc>> 与 <sitemapindex>
-            for loc in root.iter():
-                if loc.tag.endswith("loc") and loc.text:
-                    urls.append(loc.text.strip())
+            # 只收集 <url> 元素的【直接子】<loc>（页面 URL）。
+            # 图片 sitemap 扩展把图 URL 放在 <image:image><image:loc> 下，
+            # 它们不是 <url> 的直接子节点，因此自然被排除，不会产生 404 噪声。
+            for url_el in root.iter():
+                if url_el.tag.rsplit("}", 1)[-1] == "url":
+                    for child in url_el:
+                        if child.tag.rsplit("}", 1)[-1] == "loc" and child.text:
+                            urls.append(child.text.strip())
+                            break
         except ET.ParseError as e:
             print(f"[sitemap] 解析失败: {e}", file=sys.stderr)
     return urls
@@ -245,6 +269,10 @@ def main():
     ap.add_argument("--hydrate", action="store_true", help="额外用无头浏览器校验水合后 DOM")
     ap.add_argument("--json", action="store_true", help="输出 JSON")
     ap.add_argument("--no-robots", action="store_true", help="跳过 robots.txt 检查")
+    ap.add_argument("--workers", type=int, default=1,
+                   help="并发抓取线程数（默认 1，顺序；>1 时自动跳过 --hydrate）")
+    ap.add_argument("--fail-on-problem", action="store_true",
+                   help="发现任何 TDK 问题（抓取失败/非200/缺 title/description/keywords）则退出码 1（用作 CI 守卫）")
     args = ap.parse_args()
 
     if not args.urls and not args.sitemap:
@@ -252,12 +280,12 @@ def main():
 
     urls = collect_urls(args)
     results: list[Tdk] = []
-    for url in urls:
+
+    def process(url: str) -> Tdk:
         if not args.no_robots:
             allowed = robots_allows(url, args.ua)
             if allowed is False:
-                results.append(Tdk(url=url, status=None, error="robots.txt disallowed"))
-                continue
+                return Tdk(url=url, status=None, error="robots.txt disallowed")
         tdk = extract_static(url, args.ua)
         if args.hydrate and tdk.error is None:
             hyd = extract_hydrated(url, args.ua)
@@ -270,7 +298,43 @@ def main():
                 if drift:
                     tdk.error = f"HYDRATION DRIFT: {','.join(drift)}"
                 tdk.source = "static+hydrated"
-        results.append(tdk)
+        return tdk
+
+    workers = max(1, int(args.workers or 1))
+    if workers > 1 and not args.hydrate:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            futs = {ex.submit(process, u): u for u in urls}
+            for fut in as_completed(futs):
+                results.append(fut.result())
+        # 保持与 sitemap 相同的 URL 顺序，便于后续 diff
+        order = {u: i for i, u in enumerate(urls)}
+        results.sort(key=lambda r: order.get(r.url, 1 << 30))
+    else:
+        for url in urls:
+            results.append(process(url))
+
+    if args.fail_on_problem:
+        bad = [
+            r for r in results
+            if r.error or (r.status and r.status != 200) or not r.title or not r.description or not r.keywords
+        ]
+        if bad:
+            print(f"[tdk] {len(bad)}/{len(results)} 页存在 TDK 问题：", file=sys.stderr)
+            for r in bad[:50]:
+                reasons = []
+                if r.error:
+                    reasons.append(r.error)
+                elif r.status and r.status != 200:
+                    reasons.append(f"HTTP {r.status}")
+                if not r.title:
+                    reasons.append("missing title")
+                if not r.description:
+                    reasons.append("missing description")
+                if not r.keywords:
+                    reasons.append("missing keywords")
+                print(f"  - {r.url}: {'; '.join(reasons)}", file=sys.stderr)
+            sys.exit(1)
 
     if args.json:
         print(json.dumps([asdict(r) for r in results], ensure_ascii=False, indent=2))
