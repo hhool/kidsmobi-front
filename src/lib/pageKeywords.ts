@@ -141,13 +141,13 @@ export const CATEGORY_TDK_MAP: Record<
   stroller: {
     en: {
       title: "Best Jogging Stroller & Travel Stroller | BalanceBikeToddler",
-      description: "Compare evidence-based jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
-      keywords: ["jogging stroller", "travel stroller", "lightweight stroller", "twin stroller", "baby stroller"],
+      description: "Compare evidence-based jogging stroller, travel stroller, and double stroller models with safety scores, stability metrics, and foldability insights.",
+      keywords: ["jogging stroller", "travel stroller", "double stroller", "lightweight stroller", "baby stroller"],
     },
     zh: {
       title: "2026 慢跑婴儿推车与旅行推车评测 | BalanceBikeToddler",
       description: "对照公开规格比较慢跑婴儿推车、旅行推车与双人推车，重点查看安全评分、稳定性指标与折叠便携表现。",
-      keywords: ["慢跑婴儿推车", "旅行婴儿推车", "轻便婴儿推车", "双人婴儿推车", "婴儿推车"],
+      keywords: ["慢跑婴儿推车", "旅行婴儿推车", "双人婴儿推车", "轻便婴儿推车", "婴儿推车"],
     },
   },
   balance_bike: {

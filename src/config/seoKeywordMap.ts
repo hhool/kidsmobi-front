@@ -6,14 +6,21 @@ interface SeoKeywordEntry {
 }
 
 export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
+  // Fallback block for odd/legacy product categories that have no dedicated
+  // keyword entry. Aligned 2026-10-27 with the 5 site-primary commercial
+  // keywords (balance bike, electric car, double stroller, jogger stroller,
+  // travel stroller); retired the wrong words "twin stroller" and
+  // "kids electric bike", and de-duplicated "toddler bike".
   all: {
-    zh: ["婴儿车", "儿童自行车", "平衡车", "儿童滑板车", "儿童电动车"],
+    zh: ["平衡车", "儿童电动汽车", "双人婴儿推车", "慢跑婴儿推车", "旅行婴儿推车", "儿童自行车", "儿童滑板车"],
     en: [
-      "balance bike toddler",
-      "toddler bike",
-      "twin stroller",
-      "toddler bike",
-      "kids electric bike",
+      "balance bike",
+      "electric car for kids",
+      "double stroller",
+      "jogging stroller",
+      "travel stroller",
+      "kids bike",
+      "kids scooter",
     ],
   },
   strollers: {
@@ -22,23 +29,23 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
       "jogging stroller",
       "travel stroller",
       "lightweight stroller",
-      "twin stroller",
+      "double stroller",
       "baby stroller"
     ],
   },
   double_strollers: {
-    zh: ["双胞胎婴儿车", "并排式双胞胎婴儿推车", "旅行双胞胎婴儿车", "双胞胎慢跑婴儿推车"],
+    zh: ["双人婴儿车", "并排式双人婴儿推车", "旅行双人婴儿车", "双人慢跑婴儿推车"],
     en: [
-      "twin stroller",
-      "twin strollers",
-      "side by side twin stroller",
-      "twin stroller for travel",
-      "twin jogging stroller",
+      "double stroller",
+      "double strollers",
+      "side by side double stroller",
+      "double stroller for travel",
+      "double jogging stroller",
     ],
   },
   jogger_stroller: {
     zh: ["慢跑婴儿推车", "双人慢跑婴儿推车", "慢跑推车评测"],
-    en: ["jogging stroller", "twin jogging stroller", "jogging stroller review"],
+    en: ["jogging stroller", "double jogging stroller", "jogging stroller review"],
   },
   kids_strollers: {
     zh: ["慢跑婴儿推车", "轻便婴儿推车", "旅行婴儿推车"],
