@@ -2015,24 +2015,33 @@ export default function GuidesSection({
               {/* Hero image. Mirrors the prerendered static HTML for this route
                   (prerender-pages.ts renderGuideDetailPage) so the hydrated SPA
                   shows the same cover: after the byline row, before the summary.
-                  Sourced from the guide's CMS imageUrl (a representative product
-                  photo); hidden on load failure so a dead URL degrades to the
-                  text-only layout instead of a broken frame. The canvas is 1:1 -
-                  the cover art is square, so it fills the frame with no crop and
-                  no letterboxing. The width is capped (max-w-sm) so a square
-                  hero cannot tower over the article body. */}
-              {guide.imageUrl ? (
-                <img
-                  src={guide.imageUrl}
-                  alt={guide.title}
-                  width={800}
-                  height={800}
-                  loading="eager"
-                  decoding="async"
-                  className="w-full max-w-sm mx-auto h-auto aspect-square object-contain bg-white rounded-3xl border border-slate-100 shadow-sm"
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-                />
-              ) : null}
+                  Sourced from the guide's CMS imageUrl, which points straight at
+                  the ORIGINAL artwork - the same store media URL the product
+                  pages hotlink - with no composite in between (the old 800x800
+                  square composites padded 53 of the 65 non-square sources with a
+                  blurred mirror of their own edge; that was processing the
+                  picture, and it is gone). The original keeps its own aspect
+                  ratio, so the frame is a fixed-height viewport like the product
+                  detail page's: white, rounded, centred, and object-contain so
+                  the picture is never cropped, whatever its shape. Hidden on load
+                  failure so a dead URL degrades to the text-only layout instead
+                  of a broken frame. */}
+              {(() => {
+                const cover = normalizeMediaUrl(guide.imageUrl);
+                if (!cover) return null;
+                return (
+                  <div className="mx-auto w-full max-w-[560px] h-[300px] sm:h-[400px] bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex items-center justify-center p-4 sm:p-8">
+                    <img
+                      src={cover}
+                      alt={guide.title}
+                      loading="eager"
+                      decoding="async"
+                      className="max-w-full max-h-full object-contain"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                    />
+                  </div>
+                );
+              })()}
 
               <div className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium italic relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
@@ -2410,15 +2419,13 @@ export default function GuidesSection({
                     className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-5 flex gap-4 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
                   >
                     {/* Cover canvas: 1:1, the same square canvas the /news
-                        cards use (104px on phones, 124px from sm up). The guide
-                        covers hold the COMPLETE product photo: the source is
-                        scaled to fit the square and the leftover space is
-                        filled with a reflection of the photo's own edge, so
-                        the bars, the seat and all four wheels are IN the file,
-                        not cut out of it. object-contain (not cover) is
-                        deliberate and is the second line of defence: even if a
-                        cover were ever off-square, a 1:1 frame letterboxes it
-                        rather than cutting it. */}
+                        cards use (104px on phones, 124px from sm up). The cover
+                        is now the ORIGINAL artwork (the store media URL the
+                        product pages hotlink) - only ~12 of the 65 sources are
+                        square, so an off-square original is letterboxed inside
+                        the frame, never cropped. object-contain (not cover) is
+                        what guarantees that: the whole picture stays in the
+                        file and in the frame, bars, seat and all four wheels. */}
                     <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-white flex items-center justify-center">
                       {cardImage ? (
                         <img

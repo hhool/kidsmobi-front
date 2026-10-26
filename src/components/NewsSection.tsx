@@ -587,21 +587,26 @@ export default function NewsSection({
 
             {/* Cover image. Mirrors the prerendered hero in scripts/prerender-pages.ts
                 so the raw HTML a crawler reads and the DOM a parent sees carry the
-                same figure in the same position. The canvas is 1:1 (the covers are
-                800x800 squares) and the width is capped so a square hero cannot
-                tower over the article body. */}
+                same figure in the same position. The cover now points straight at
+                the ORIGINAL artwork (the 800x450 editorial photo, or the store
+                media URL for the four stories whose original lives there) - the
+                old 800x800 square composites padded every 16:9 photo with a
+                blurred mirror of its own edge, which was processing the picture.
+                The original keeps its own aspect ratio, so the frame is a
+                fixed-height viewport like the product detail page's: white,
+                rounded, centred, object-contain, never cropped. */}
             {(() => {
               const cover = normalizeMediaUrl(resolveCardImage((article as any).imageUrl, article.content));
               if (!cover) return null;
               return (
-                <figure className="my-0 mx-auto max-w-sm">
+                <figure className="my-0 mx-auto w-full max-w-[560px] h-[300px] sm:h-[400px] bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex items-center justify-center p-4 sm:p-8">
                   <img
                     src={cover}
                     alt={article.title}
-                    width={800}
-                    height={800}
                     loading="eager"
-                    className="w-full h-auto aspect-square object-contain rounded-3xl border border-slate-100 shadow-sm"
+                    decoding="async"
+                    className="max-w-full max-h-full object-contain"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                   />
                 </figure>
               );
@@ -892,15 +897,11 @@ export default function NewsSection({
                 >
                   {/* Thumbnail: a compact 1:1 side frame (104px on phones, 124px
                       from sm up) — the same square canvas the guide cards use.
-                      The old code stretched this column to the height of the text
-                      block, which cropped the 800x450 cover into a 110x171
-                      sliver and squeezed the headline. The covers are now
-                      800x800 squares that hold the COMPLETE photo: the picture
-                      keeps its full width and the space above/below is filled
-                      with a reflection of the photo's own edges, so the frame is
-                      full and nothing is cut. object-contain keeps that
-                      guarantee explicit: a 1:1 frame never crops the artwork,
-                      it letterboxes it. */}
+                      The cover is the ORIGINAL 16:9 editorial photo now (no
+                      square composite, no blurred mirror bands), so the frame
+                      letterboxes it: object-contain keeps the whole photo in
+                      the frame and never crops it, and the fixed frame keeps
+                      the card geometry identical for every story. */}
                   <div className="w-[104px] sm:w-[124px] shrink-0 self-start aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
                     {cardImage ? (
                       <img

@@ -2528,8 +2528,6 @@ export default function App() {
     updateMetaProperty("og:description", resolvedDescription || resolvedTitle);
     updateMetaProperty("og:image", resolvedImageUrl);
     updateMetaProperty("og:image:secure_url", resolvedImageUrl);
-    updateMetaProperty("og:image:width", "1200");
-    updateMetaProperty("og:image:height", "630");
     updateMetaProperty("og:image:alt", resolvedTitle);
     updateMetaTag("twitter:card", "summary_large_image");
     updateMetaTag("twitter:site", "@bbtreviews");

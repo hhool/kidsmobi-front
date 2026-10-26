@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 /**
- * Sets imageUrl on the news articles that shipped without a cover.
+ * ⚠️ HISTORICAL ONE-SHOT - DO NOT RE-RUN. Superseded on 2026-10-25 by
+ * scripts/set-article-cover-originals.mjs, which repointed every article
+ * cover at its ORIGINAL artwork. Running this file with --apply would move
+ * five news covers BACK to the retired 800x800 square composites.
+ *
+ * Original purpose (2026-10-24, done): set imageUrl on the news articles
+ * that shipped without a cover.
  *
  * Five of the nine published stories had no imageUrl and no inline image, so
  * their cards rendered as bare text on /news and their detail pages carried an

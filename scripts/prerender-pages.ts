@@ -831,13 +831,24 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
       @keyframes app-boot-spin { to { transform: rotate(360deg); } }
       /* Article card thumbnails. Every article list uses the same compact
          geometry as the SPA cards: a 1:1 side frame next to the text
-         (104px on phones, up to 124px on wide screens). The covers are
-         800x800 squares, so the frame is full; object-fit: contain guarantees
-         a 1:1 frame never crops the artwork (an off-square cover letterboxes
+         (104px on phones, up to 124px on wide screens). The covers are the
+         ORIGINAL artwork now (store media URLs / the 800x450 editorial
+         photos) and only ~12 of the 65 sources are square, so the frame
+         letterboxes whatever it is given; object-fit: contain guarantees a
+         1:1 frame never crops the artwork (an off-square cover is letterboxed
          instead of being cut).
          Mirrors src/components/NewsSection.tsx and src/components/GuidesSection.tsx. */
       .article-card-thumb { flex: 0 0 clamp(96px, 22vw, 124px); }
       .article-card-thumb img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+      /* Article detail hero. The cover is the original artwork in its own
+         aspect ratio, framed like the product detail page's viewport: a
+         fixed-height white card, centred in the article column, with the
+         picture object-contain-ed inside it (never cropped). Height lives in
+         this rule, not in the element's inline style, so the media query can
+         raise it on wide screens - an inline height would beat the query.
+         Mirrors the SPA hero's h-[300px] sm:h-[400px]. */
+      .article-hero { height: 300px; }
+      @media (min-width: 640px) { .article-hero { height: 400px; } }
     </style>
     <script>
       document.documentElement.classList.add("app-js-loading");
@@ -1790,7 +1801,7 @@ function renderGuideDetailPage(
         </p>
         ${summaryIntroHtml}
       </section>
-      ${image ? `<div style="padding: 0 0 18px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; margin-left: auto; margin-right: auto; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #ffffff; border-radius: 18px; border: 1px solid #e2e8f0; display: block;" /></div>` : ""}
+      ${image ? `<div style="padding: 0 0 18px;"><div class="article-hero" style="margin-left: auto; margin-right: auto; width: 100%; max-width: 560px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" /></div></div>` : ""}
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
@@ -1903,8 +1914,8 @@ function renderNewsDetailPage(
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
         <a href="${zh ? "/zh/news" : "/news"}">${zh ? ZH_ARTICLE_LABELS.newsHub : "News"}</a> › <a href="${zh ? `/zh/news/${escapeHtml(channel)}` : `/news/${escapeHtml(channel)}`}">${escapeHtml(channelLabel)}</a>
       </nav>
-      ${image ? `<figure style="margin: 0 0 18px;">
-        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" decoding="async" style="width: 100%; max-width: 384px; margin-left: auto; margin-right: auto; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 18px;" />
+      ${image ? `<figure class="article-hero" style="margin: 0 0 18px; margin-left: auto; margin-right: auto; width: 100%; max-width: 560px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px;">
+        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" />
       </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
