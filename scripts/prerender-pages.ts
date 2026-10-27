@@ -689,7 +689,7 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
           "@type": "Organization",
           name: "BalanceBikeToddler",
           url: "https://balancebiketoddler.com/",
-          logo: "https://balancebiketoddler.com/favicon.svg",
+          logo: "https://balancebiketoddler.com/favicon-512x512.png",
           sameAs: entitySameAs,
         },
         {
@@ -703,7 +703,7 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
             "@type": "Organization",
             name: "BalanceBikeToddler",
             url: "https://balancebiketoddler.com/",
-            logo: "https://balancebiketoddler.com/favicon.svg",
+            logo: "https://balancebiketoddler.com/favicon-512x512.png",
             sameAs: entitySameAs,
           },
         },
@@ -793,7 +793,15 @@ ${ogImage ? `    <meta property="og:image" content="${escapeHtml(ogImage)}" />
     <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
 ` : "    <meta name=\"twitter:card\" content=\"summary\" />\n"}    <link rel="canonical" href="${escapeHtml(canonical)}" />
 ${(page.alternates || []).map((alt) => `    <link rel="alternate" hreflang="${escapeHtml(alt.hreflang)}" href="${escapeHtml(alt.href)}" />\n`).join("")}
-${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" />\n` : ""}<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" />\n` : ""}    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#F45B2A" />
     <style>
       /* CSS cascade-layer hygiene (Lighthouse a11y 2026-10-17): an UNLAYERED
          anchor-color rule beats every @layer rule, so it painted ALL anchors
@@ -1750,7 +1758,7 @@ function renderGuideDetailPage(
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: `${PUBLIC_SITE_BASE}/`,
-      logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+      logo: `${PUBLIC_SITE_BASE}/favicon-512x512.png`,
     },
     {
       "@context": "https://schema.org",
@@ -1778,7 +1786,7 @@ function renderGuideDetailPage(
         "@type": "Organization",
         name: "BalanceBikeToddler",
         url: `${PUBLIC_SITE_BASE}/`,
-        logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+        logo: `${PUBLIC_SITE_BASE}/favicon-512x512.png`,
       },
     },
   ];
@@ -1861,7 +1869,7 @@ function renderNewsDetailPage(
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: `${PUBLIC_SITE_BASE}/`,
-      logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+      logo: `${PUBLIC_SITE_BASE}/favicon-512x512.png`,
     },
     {
       "@context": "https://schema.org",
@@ -1889,7 +1897,7 @@ function renderNewsDetailPage(
         "@type": "Organization",
         name: "BalanceBikeToddler",
         url: `${PUBLIC_SITE_BASE}/`,
-        logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+        logo: `${PUBLIC_SITE_BASE}/favicon-512x512.png`,
       },
     },
   ];
@@ -1991,7 +1999,7 @@ function renderEvaluationDetailPage(
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: `${PUBLIC_SITE_BASE}/`,
-      logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+      logo: `${PUBLIC_SITE_BASE}/favicon-512x512.png`,
     },
     {
       "@context": "https://schema.org",
@@ -2167,7 +2175,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: "https://balancebiketoddler.com/",
-      logo: "https://balancebiketoddler.com/favicon.svg",
+      logo: "https://balancebiketoddler.com/favicon-512x512.png",
       sameAs: entitySameAs,
     },
     {
@@ -2181,7 +2189,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler",
         url: "https://balancebiketoddler.com/",
-        logo: "https://balancebiketoddler.com/favicon.svg",
+        logo: "https://balancebiketoddler.com/favicon-512x512.png",
         sameAs: entitySameAs,
       },
     },
@@ -2351,7 +2359,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: "https://balancebiketoddler.com/",
-      logo: "https://balancebiketoddler.com/favicon.svg",
+      logo: "https://balancebiketoddler.com/favicon-512x512.png",
       sameAs: entitySameAs,
     },
     {
@@ -2365,7 +2373,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler",
         url: "https://balancebiketoddler.com/",
-        logo: "https://balancebiketoddler.com/favicon.svg",
+        logo: "https://balancebiketoddler.com/favicon-512x512.png",
         sameAs: entitySameAs,
       },
     },
@@ -2547,7 +2555,7 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: "https://balancebiketoddler.com/",
-      logo: "https://balancebiketoddler.com/favicon.svg",
+      logo: "https://balancebiketoddler.com/favicon-512x512.png",
       sameAs: entitySameAs,
     },
     {
@@ -2561,7 +2569,7 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler",
         url: "https://balancebiketoddler.com/",
-        logo: "https://balancebiketoddler.com/favicon.svg",
+        logo: "https://balancebiketoddler.com/favicon-512x512.png",
         sameAs: entitySameAs,
       },
     },
@@ -2729,7 +2737,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: "https://balancebiketoddler.com/",
-      logo: "https://balancebiketoddler.com/favicon.svg",
+      logo: "https://balancebiketoddler.com/favicon-512x512.png",
       sameAs: entitySameAs,
     },
     {
@@ -2743,7 +2751,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         "@type": "Organization",
         name: "BalanceBikeToddler",
         url: "https://balancebiketoddler.com/",
-        logo: "https://balancebiketoddler.com/favicon.svg",
+        logo: "https://balancebiketoddler.com/favicon-512x512.png",
         sameAs: entitySameAs,
       },
     },
@@ -3458,7 +3466,7 @@ function renderHomePage(
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: "https://balancebiketoddler.com/",
-      logo: "https://balancebiketoddler.com/favicon.svg",
+      logo: "https://balancebiketoddler.com/favicon-512x512.png",
       sameAs: entitySameAs,
     },
     {
@@ -3472,7 +3480,7 @@ function renderHomePage(
         "@type": "Organization",
         name: "BalanceBikeToddler",
         url: "https://balancebiketoddler.com/",
-        logo: "https://balancebiketoddler.com/favicon.svg",
+        logo: "https://balancebiketoddler.com/favicon-512x512.png",
         sameAs: entitySameAs,
       },
     },

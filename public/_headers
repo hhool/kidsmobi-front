@@ -18,3 +18,24 @@
 /sitemap.xml
   Cache-Control: public, max-age=0, must-revalidate
   Cloudflare-CDN-Cache-Control: no-cache
+
+# Favicon set (Google Search reads the raster variants, not the SVG).
+# Content-Type is set explicitly because /* above sends
+# X-Content-Type-Options: nosniff: a wrong guess for .webmanifest makes Chrome
+# refuse the manifest outright, and an odd type for .ico can do the same in
+# browsers that sniff. Keep the URLs stable — Google caches the favicon it
+# finds and only refreshes after recrawling the home page.
+/favicon.ico
+  Content-Type: image/x-icon
+  Cache-Control: public, max-age=604800
+
+/favicon*
+  Cache-Control: public, max-age=604800
+
+/apple-touch-icon.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=604800
+
+/site.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=86400

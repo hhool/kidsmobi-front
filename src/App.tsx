@@ -2579,7 +2579,7 @@ export default function App() {
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: `${origin}/`,
-      logo: `${origin}/favicon.svg`,
+      logo: `${origin}/favicon-512x512.png`,
       sameAs: [
         "https://x.com/bbtreviews"
       ],
@@ -2975,7 +2975,7 @@ export default function App() {
             "@type": "Organization",
             name: "BalanceBikeToddler",
             url: `${window.location.origin}/`,
-            logo: `${window.location.origin}/favicon.svg`,
+            logo: `${window.location.origin}/favicon-512x512.png`,
           },
           websiteSchema,
           {
@@ -3876,7 +3876,7 @@ export default function App() {
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: `${window.location.origin}/`,
-      logo: `${window.location.origin}/favicon.svg`,
+      logo: `${window.location.origin}/favicon-512x512.png`,
       sameAs: [
         "https://x.com/bbtreviews",
       ],
