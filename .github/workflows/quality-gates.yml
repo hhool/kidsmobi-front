@@ -201,6 +201,15 @@ jobs:
       - name: Tracking and affiliate links
         run: npm run check:tracking
 
+      # Google Search showed its default grey globe for every result: the only
+      # declared favicon was an SVG (absent from the formats Google lists for
+      # search favicons) and /favicon.ico was a 404. This pins the raster set,
+      # Google's 48-multiple sizing rule, and the head declarations in BOTH
+      # HTML sources (index.html plus the prerender template) - editing only
+      # index.html changes nothing, because the live pages come from prerender.
+      - name: Favicon set for search results
+        run: npm run check:favicons
+
       # Pages silently drops every line past ~120, and the SPA fallback is last.
       - name: Redirect budget (dist/_redirects)
         run: npm run check:redirects

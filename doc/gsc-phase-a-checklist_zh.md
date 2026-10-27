@@ -124,4 +124,22 @@ https://balancebiketoddler.com/products/kids-tricycles/playard-b08bt16th5
 
 注入已入 live CMS（save 验证全部通过）。预渲染 HTML 待本提交触发的 CF Pages 重建后烘焙进静态页，供爬虫直接读取；SPA 运行时已可读取。重建后可在 Page indexing 观察各 hub 的「入站内链」信号增强。
 
+## 7. 搜索结果图标（favicon）— 已修，待 Google 重抓
+
+**问题**：`site:balancebiketoddler.com` 的结果全部显示 Google 默认灰色地球图标。
+
+**根因（线上实测）**：
+1. 站点唯一声明的图标是 `/favicon.svg`；Google 官方「搜索 favicon 支持格式」为 BMP / GIF / ICO / PNG / JPEG / PPM / TIFF，**不含 SVG**。
+2. 根目录 `/favicon.ico` 返回 **404** —— 这是 Google 与所有旧浏览器探测 host 级图标时的兜底路径。
+3. `apple-touch-icon` 与 `shortcut icon` 当时也指向 SVG（iOS 不解析）。
+
+**已做（2026-10-27）**：由 `public/favicon.svg` 光栅化出 `favicon-48/96/144/192/512x512.png`（48 的倍数，符合 Google 尺寸规则）、`apple-touch-icon.png`(180)、多尺寸 `favicon.ico`(16/32/48)、`site.webmanifest`；`index.html` 与 prerender 模板双处声明 ICO + PNG + manifest；结构化数据 `Organization.logo` 改用 512 方图；`_headers` 显式固定 MIME。线上已验证：8 个资源全部 200、MIME 正确、Googlebot-Image 可抓。守卫 `npm run check:favicons` 已进 CI。
+
+**你要做的**：
+1. 在 GSC 对**首页**（`https://balancebiketoddler.com/`）执行 URL Inspection → **Request indexing**。Google 只在重抓首页时更新 host 级 favicon，抓其它页面无效。
+2. 等 **几天到数周**（官方口径：数天到数周），再搜 `site:` 看图标是否出现。这一项**不会**在 Page indexing 报表里有任何体现，属于搜索外观，无法在 GSC 里主动查进度。
+3. 若数周后仍未出现：检查是否仍为灰色地球 → 复核 `favicon.ico` 是否 200（`curl -I .../favicon.ico`）、是否被 CDN/代理改写 MIME。URL 一旦确定就**不要再改**（Google 要求 favicon URL 稳定）。
+
+---
+
 *本清单由 Agent 基于线上实测（hub 6/6 = 200、sitemap 441/441 = 200、transparency 301 已验证）生成；GSC 后台手动动作需本人操作。*
