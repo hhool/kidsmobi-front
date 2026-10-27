@@ -8536,6 +8536,12 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     // a file route's canonical URL has no trailing slash (the slash form
     // 308-redirects to it).
     ["/evaluations", "/reviews"],
+    // 2026-10-27: /transparency/testing_methodology was the original
+    // underscore-cased URL for the testing-methodology transparency page; the
+    // canonical is now /transparency/testing-methodology/ (trailing slash, the
+    // no-slash form 308-redirects to it). Keep the old underscore URL alive
+    // with a 301 so anything indexed/bookmarked under it lands on canonical.
+    ["/transparency/testing_methodology", "/transparency/testing-methodology/"],
   ];
   // 2026-10-22: pull-along wagons and playards were historically published
   // under /products/strollers/ (the live build predates the kebab-case re-home
