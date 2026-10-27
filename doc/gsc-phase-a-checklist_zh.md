@@ -109,4 +109,19 @@ https://balancebiketoddler.com/products/kids-tricycles/playard-b08bt16th5
 
 ---
 
+## 8. 内部链接加权进度（#228，已执行 2026-10-27）
+
+已通过 CMS 向 **23 篇** 同簇现有指南注入指向 6 个主词 hub 的上下文中链接（英文正文末段一句话回链，锚文本为各 hub 主词），分布：
+
+| Hub | 注入篇数 | 目标指南（部分） |
+|---|---|---|
+| best-jogger-stroller-2026 | 4 | jogging / all-terrain / safety / under-200 |
+| best-travel-stroller-2026 | 6 | travel-system / airplane / lightweight / compact / best-travel-3yo 等 |
+| best-double-stroller-2026 | 3 | double / how-to-choose / newborn |
+| best-balance-bike-2026 | 5 | by-age / size-chart / vs-training-wheels / maintenance / best-1yo |
+| best-electric-car-for-kids-2026 | 5 | best-3 / remote / 12v-vs-24v / under-200 / best-24v-2seater |
+| toddler-electric-car | 4 | weight / battery / tires / best-3 |
+
+注入已入 live CMS（save 验证全部通过）。预渲染 HTML 待本提交触发的 CF Pages 重建后烘焙进静态页，供爬虫直接读取；SPA 运行时已可读取。重建后可在 Page indexing 观察各 hub 的「入站内链」信号增强。
+
 *本清单由 Agent 基于线上实测（hub 6/6 = 200、sitemap 441/441 = 200、transparency 301 已验证）生成；GSC 后台手动动作需本人操作。*
