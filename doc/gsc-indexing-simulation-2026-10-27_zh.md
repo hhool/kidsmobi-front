@@ -109,4 +109,14 @@
 
 ---
 
+---
+
+## 八、部署后复核（增补，2026-10-27）
+
+P1 已实施并部署（`backend` commit `fc86f24` + `6450c78`，Worker 版本 `01de5492`）。
+
+- **sitemap 全量复核（部署后抓 `sitemap.xml`）**：441 条 URL **全部返回 200**，**0 条 3xx、0 条 4xx**。原 16 条 301（wagons×13 + playards×3）已消失——它们现在直接以 `/products/kids-tricycles/…` 进 sitemap，与页面 canonical 一致。
+- **复核中发现的第二项问题（顺带已修）**：对齐改动让 Worker 直接信任 D1 的 `categoryId`，暴露了 `balance_bike-b0d2ngj164` 在 D1 中残留的「tricycle 家族」旧 categoryId——Worker 把它写成 `/products/kids-tricycles/…`（404），而前端按 id 前缀在 `/products/balance-bikes/…` 提供（200）。修法：对「次级/legacy」品类（tricycle 家族 + playard + other）改回「id 前缀优先」，主品类仍与前端逐字一致。部署后该 URL 回到 balance-bikes 且 200。
+- 对报告结论的一处修正：第五节「应修 16 条 301」现已清零，且未引入新的 4xx。当前 sitemap 健康度：**441/441 可索引（200 + 自指 canonical）**。
+
 *本报告为模拟分桶，用于提前定位可修问题；Google Search Console 真实「Page indexing」数字以官方后台为准。*

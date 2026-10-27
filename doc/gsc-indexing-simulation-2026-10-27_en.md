@@ -109,4 +109,14 @@
 
 ---
 
+---
+
+## 8. Post-deploy verification (addendum, 2026-10-27)
+
+P1 was implemented and deployed (`backend` commits `fc86f24` + `6450c78`, Worker version `01de5492`).
+
+- **Full sitemap re-check (post-deploy `sitemap.xml` fetch):** all **441 URLs return 200**, with **0 × 3xx and 0 × 4xx**. The original 16 301s (wagons ×13 + playards ×3) are gone — they now enter the sitemap directly as `/products/kids-tricycles/…`, matching the page canonical.
+- **A second issue found during re-check (also fixed):** the alignment change made the Worker trust the D1 `categoryId` outright, which exposed a stale tricycle-family categoryId on `balance_bike-b0d2ngj164` — the Worker emitted `/products/kids-tricycles/…` (404) while the front serves it at `/products/balance-bikes/…` (200) by id prefix. Fix: for secondary/legacy categories (tricycle family + playard + other) prefer the id prefix again, while primary categories stay byte-for-byte in lockstep with the front. After deploy the URL is back under balance-bikes and 200.
+- One correction to the report's conclusion: the "16 fixable 301s" in §5 are now zero, and no new 4xx was introduced. Current sitemap health: **441/441 indexable (200 + self-canonical)**.
+
 *This report is a simulated bucketing to surface fixable issues early; actual "Page indexing" numbers should be read from Google Search Console.*
