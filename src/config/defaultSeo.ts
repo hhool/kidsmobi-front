@@ -38,12 +38,12 @@ export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
 export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
     zh: {
-      title: "Trusted Kids Mobility Reviews | BalanceBikeToddler",
+      title: "Best Kids Bikes, Strollers, Scooters | BalanceBikeToddler",
       description: "全球儿童轮式出行评测站，提供平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车与儿童电动汽车的可信评测。",
       keywords: ["儿童平衡车", "儿童自行车", "慢跑婴儿推车", "儿童电动滑板车", "儿童电动汽车"]
     },
     en: {
-      title: "Trusted Kids Mobility Reviews | BalanceBikeToddler",
+      title: "Best Kids Bikes, Strollers, Scooters | BalanceBikeToddler",
       description: "Global review site for kids wheeled toys. Find trusted balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars reviews for your family.",
       keywords: ["balance bike", "kids bikes", "jogging stroller", "kids electric scooter", "kids electric cars"]
     },

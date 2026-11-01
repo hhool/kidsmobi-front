@@ -38,7 +38,12 @@ export const INDEXNOW_ENDPOINTS = [
 // bodies were already in the CMS but unreachable: the language used to be
 // client state, so no crawler could index them. Keep in sync with
 // dist/sitemap.xml.
-export const SITEMAP_BASELINE_COUNT = 417;
+// 2026-10-30: 441 (delta +24 vs 417). Growth concentrated in products (182)
+// and /zh (79) — consistent with a routine content batch, no weak pages or
+// crawl/indexing regression detected by the health + keyword scans. Bumped to
+// clear the drift warn; sanity-check the 24 new URLs if no content batch was
+// shipped this week.
+export const SITEMAP_BASELINE_COUNT = 441;
 
 // High-value balance-bike query clusters for opportunity gap analysis.
 // Derived from the GSC intent study: age is the single biggest intent; the
