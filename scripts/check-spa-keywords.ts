@@ -117,15 +117,22 @@ function productByRouteSegment(segment: string): Record<string, any> | undefined
   return products.find((p) => String(p.id || "").toLowerCase() === id);
 }
 
+/** Detects the page locale from a route — /zh/* routes are Chinese. Mirrors the
+ *  prerender's `pageLang = page.route.startsWith("/zh/") ? "zh" : "en"`. */
+function localeOf(route: string): "zh" | "en" {
+  return route.replace(/^\/+|\/+$/g, "").startsWith("zh/") ? "zh" : "en";
+}
+
 function expectedKeywords(route: string): string[] {
+  const lang = localeOf(route);
   const segs = route.split("/").filter(Boolean);
   if (segs[0] === "products" && segs[1] && segs[2]) {
     const product = productByRouteSegment(segs[2]);
     if (product) {
-      return buildProductDetailKeywords(product, "en", String(product.categoryId || ""));
+      return buildProductDetailKeywords(product, lang, String(product.categoryId || ""));
     }
   }
-  return resolveRouteKeywords(route, "en");
+  return resolveRouteKeywords(route, lang);
 }
 
 const REVIEW_TYPE_HUB = /^\/reviews\/(single|compare|value|ranking|safety)\/?$/;
@@ -142,6 +149,11 @@ const SECTION_ROUTES: Array<{ seoKey: string; route: string }> = [
   { seoKey: "guides", route: "/guides" },
   { seoKey: "news", route: "/news" },
   { seoKey: "about", route: "/about" },
+  // Chinese editions of the two article hubs — they resolve their TDK through
+  // the same CMS chain with lang="zh" in the prerender (scripts/prerender-pages.ts
+  // zhSections), so the guard must compare against the zh-resolved set too.
+  { seoKey: "guides", route: "/zh/guides" },
+  { seoKey: "news", route: "/zh/news" },
 ];
 const SECTION_ROUTE_BY_PATH = new Map(SECTION_ROUTES.map((s) => [s.route, s.seoKey]));
 
@@ -183,8 +195,8 @@ async function loadCmsSettings(): Promise<{ settings: CMSSettings; source: strin
 /** Section-route keywords through the shared resolver; null settings fall back
  *  to DEFAULT_SEO_CONFIGS, which is exactly what the prerender publishes when
  *  the CMS is unreachable at build time. */
-function sectionKeywords(settings: CMSSettings | null, seoKey: string): string[] {
-  return resolveSectionRouteSeo(settings, seoKey, "en").keywords;
+function sectionKeywords(settings: CMSSettings | null, seoKey: string, lang: "zh" | "en" = "en"): string[] {
+  return resolveSectionRouteSeo(settings, seoKey, lang).keywords;
 }
 
 // The prerender runs its whole-document claim scrub over the emitted HTML, so a
@@ -196,7 +208,7 @@ function sectionKeywords(settings: CMSSettings | null, seoKey: string): string[]
 function assertScrubCleanKeywords(settings: CMSSettings | null): string[] {
   const offenders: string[] = [];
   for (const section of SECTION_ROUTES) {
-    for (const keyword of sectionKeywords(settings, section.seoKey)) {
+    for (const keyword of sectionKeywords(settings, section.seoKey, localeOf(section.route))) {
       if (sanitizeUnsupportedClaims(keyword) !== keyword) {
         offenders.push(`${section.route} -> "${keyword}"`);
       }
@@ -240,7 +252,6 @@ async function main() {
     for (const offender of scrubOffenders) console.error("  - " + offender);
     process.exit(1);
   }
-  const homeKeywords = sectionKeywords(settings, "home");
   console.log(`check:spakeywords — section keyword expectations from ${loaded.source}.`);
 
   const routes = collectHtmlRoutes();
@@ -266,7 +277,7 @@ async function main() {
     // No route except the home page itself may publish the home keyword block —
     // it is the unknown-route fallback, so seeing it means this route's family
     // has no branch in resolveRouteKeywords (the guides/news/review bug).
-    if (route !== "/" && equals(built, homeKeywords)) {
+    if (route !== "/" && equals(built, sectionKeywords(settings, "home", localeOf(route)))) {
       missing += 1;
       mismatchedExamples.push(`${route} — publishes the HOME fallback keyword block (unknown route in resolveRouteKeywords?)`);
       continue;
@@ -278,7 +289,7 @@ async function main() {
     if (REVIEW_TYPE_HUB.test(route)) continue;
 
     const sectionKey = SECTION_ROUTE_BY_PATH.get(route);
-    const expected = sectionKey ? sectionKeywords(settings, sectionKey) : expectedKeywords(route);
+    const expected = sectionKey ? sectionKeywords(settings, sectionKey, localeOf(route)) : expectedKeywords(route);
     if (!equals(built, expected)) {
       mismatched += 1;
       if (mismatchedExamples.length < 25) {
