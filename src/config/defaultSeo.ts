@@ -43,13 +43,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["儿童平衡车", "儿童自行车", "慢跑婴儿推车", "儿童电动滑板车", "儿童电动汽车"]
     },
     en: {
-      // 2026-11-02 首页 TDK：title 加 ": Reviews" 与 /products 的 "Top …" 区分，避免近似同题；
-      // description 改为 "Independent, spec-based …" 定位（与首页 heroSubtitle 口径一致）。
-      // 注意：线上真源是 CMS seo.home，本处仅兜底，需与 CMS 同步，否则 CMS 覆盖后线上不变。
+      // 2026-11-02 首页/目录页 TDK 分家：/products 改为 "Kids Mobility Product Hub & Specs"
+      // 承接目录意图，首页这才可以回到纯品类标题（原先两页都以 "…Kids Bikes, Strollers
+      // & Scooters" 开头，近似同题互相稀释）。
       // 主干必须 ≤44 字符 = TITLE_MAX_CHARS(65) - " | BalanceBikeToddler"(21)，否则
-      // buildDocumentTitle 会按词截断主干、把 ": Reviews" 整段吃掉（实测 67 字符时
-      // 线上发布成 "Best Kids Bikes, Strollers & Scooters"，与 /products 又撞题）。
-      title: "Kids Bikes, Strollers & Scooters: Reviews | BalanceBikeToddler",
+      // buildDocumentTitle 会按词截断主干、吃掉尾部词（实测 46 字符主干带 ": Reviews"
+      // 时，线上发布成 "Best Kids Bikes, Strollers & Scooters"，后缀整段消失且不报错）。
+      // 注意：线上真源是 CMS seo.home，本处仅兜底，需与 CMS 同步，否则 CMS 覆盖后线上不变。
+      title: "Best Kids Bikes, Strollers & Scooters | BalanceBikeToddler",
       description: "Independent, spec-based comparisons and safety reviews of balance bikes, kids bikes, jogging strollers, kids scooters and kids electric cars.",
       keywords: ["balance bike", "kids scooter", "kids bike", "jogging stroller", "kids electric car"]
     },
@@ -61,15 +62,15 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["婴儿推车", "儿童平衡车", "儿童自行车", "儿童滑板车", "儿童电动车", "儿童安全座椅"],
     },
     en: {
-      // 2026-10-22 A2: keywords reorganized to category-level terms, primary
-      // categories (balance bikes / kids bikes) leading, "twin stroller"
-      // retired — it is a sub-model word inside the stroller category, not a
-      // catalog-level one. This block is the CMS-unreachable fallback, so its
-      // title/description mirror the published CMS copy (they used to lead with
-      // "Twin Strollers & Electric Scooters" — stale since the demotion).
-      title: "Top Kids Bikes, Strollers & Scooters | BalanceBikeToddler",
-      description: "Browse our catalog of balance bikes, kids bikes, toddler bikes and kids scooters. Find the safest ride-on toys for your children.",
-      keywords: ["balance bike", "kids bike", "baby stroller", "kids scooter", "kids electric car"],
+      // 2026-11-02 目录意图独立成题：原先 /products 与首页同以 "…Kids Bikes, Strollers
+      // & Scooters" 开头（只差 Top/Best），两页互相稀释。改为 "Kids Mobility Product
+      // Hub & Specs"，由目录页独占"筛选+规格对比"意图，首页回归品类词。
+      // 关键词回到目录级长尾（toddler bike / balance bike toddler / twin stroller /
+      // kids electric scooter）——"twin stroller" 在 10-22 曾因"是推车子型号而非目录词"
+      // 被退役，此处按 2026-11-02 新稿恢复为目录页关键词。
+      title: "Kids Mobility Product Hub & Specs | BalanceBikeToddler",
+      description: "Filter and compare technical specifications for toddler bikes, balance bikes for toddlers, twin strollers, and kids electric scooters.",
+      keywords: ["toddler bike", "balance bike toddler", "twin stroller", "kids electric scooter"],
     },
   },
   reviews: {
@@ -81,11 +82,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["婴儿推车评测", "平衡车评测", "旅行婴儿推车", "幼儿自行车", "儿童自行车", "慢跑婴儿推车", "儿童平衡车"],
     },
     en: {
+      // 2026-11-02 新稿：description 换成"深度评测 + 生物力学安全审计"口径，关键词按
+      // 评测页真实品类（travel / jogging stroller、kids dirt bike、ride-on）重排。
+      // 注：11-01 曾把这句校准成 "Read unbiased stroller reviews, travel stroller
+      // models, and heavy-duty jogging strollers…"，本次按用户新稿整体替换（如需回滚，
+      // 该句在 commit 82b06be 之前的历史里）。
       title: "Expert Kids Bikes & Stroller Reviews | BalanceBikeToddler",
-      description: "Read unbiased stroller reviews, travel stroller models, and heavy-duty jogging strollers, with specs and scores for every shortlisted model.",
-      // 2026-10-22 A2 微调：按评测品类分布重排（stroller 9 篇 > bicycle 7 > balance 4），
-      // 评测意图词领衔，平衡车词保持第二位（主品类战略）。
-      keywords: ["stroller reviews", "balance bike reviews", "toddler bike", "travel stroller", "toddler balance bike"],
+      description: "In-depth reviews and biomechanical safety audits for travel strollers, jogging strollers, kids dirt bikes, and ride-on toys.",
+      keywords: ["travel stroller", "jogging stroller", "kids dirt bike", "stroller reviews"],
     },
   },
   guides: {
@@ -95,14 +99,13 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["如何选择平衡车", "1岁平衡车", "平衡车尺寸"],
     },
     en: {
-      // The guide library is balance-bike-first (price tiers, by-age,
-      // what-buyers-say, stability). The old title led with "How to Choose a
-      // Baby Stroller & First Balance Bikes" — stroller copy for a page whose
-      // listed guides are all balance bikes, and the 65-char cap amputated the
-      // balance-bike half, leaving a pure-stroller <title> in the raw HTML.
+      // 2026-11-02 新稿：description 回到"stroller 选择 + 1 岁平衡车 + 尺寸表/内缝
+      // 计算器"三件事。注意指南库本身是平衡车优先（价格档/按年龄/what-buyers-say/
+      // 稳定性），stroller 只在少数篇目出现——若后续 GSC 显示该页 stroller 词点击差、
+      // 平衡车词曝光高，应把首句换回平衡车。
       title: "Balance Bike Guides: Age, Size & Budget | BalanceBikeToddler",
-      description: "Step-by-step balance bike guides: pick the right size for your child's age, compare price tiers, and check stability data before you buy.",
-      keywords: ["balance bike by age", "balance bike size guide", "balance bike price tiers", "how to choose a balance bike"],
+      description: "Learn how to choose a baby stroller, pick the best balance bike for a 1-year-old, and use our size charts and inseam calculators.",
+      keywords: ["how to choose a baby stroller", "balance bike for 1 year old", "balance bike size chart"],
     },
   },
   news: {
@@ -112,8 +115,10 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["儿童电动自行车", "儿童越野电动车", "可折叠电动滑板车"],
     },
     en: {
-      title: "Kids Electric Bikes & Foldable Scooter Global News | BalanceBikeToddler",
-      description: "Get the latest global news on kids electric bike trends, electric dirt bike for kids releases, and newly launched foldable electric scooter technologies.",
+      // 2026-11-02 新稿：标题从"电动自行车/滑板车资讯"扩到"资讯 + 标准 + 召回"，
+      // 与站点实际产出的电池安全标准、CPSC 召回内容对齐（原题只覆盖电动品类）。
+      title: "Kids Mobility News, Standards & Recalls | BalanceBikeToddler",
+      description: "Latest news, battery safety standards, and recall updates for kids electric bikes, electric dirt bikes, and foldable scooters.",
       keywords: ["kids electric bike", "electric dirt bike for kids", "foldable electric scooter"],
     },
   },
