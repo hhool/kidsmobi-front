@@ -199,6 +199,7 @@ import {
   GUIDES_TOPIC_PAGES,
   GUIDES_TOPIC_PAGE_IDS,
   GUIDES_WIZARD_H1,
+  type GuidesTopicPageId,
 } from "../src/lib/guidesTopicPages";
 import { FOOTER_ARTICLE_LINKS } from "../src/lib/footerArticles";
 import {
@@ -1000,9 +1001,33 @@ function cmsRouteSegment(input: unknown): string {
   return cmsSlugify(raw);
 }
 
+/**
+ * News channel slugs that get their own page. The SPA can filter on any value
+ * in the record's category field, but the prerender only emits pages for these
+ * four - and none in Chinese. A channel crumb must therefore be linked only
+ * when the page exists, or it is a 404 one click from the article.
+ */
+const NEWS_CHANNEL_PAGE_SLUGS = ["brand_news", "industry", "new_product", "science"];
+
 function guideTopicCategory(guide: CmsGuide): string {
   const topic = String(guide.taxonomy?.topicCategory || guide.category || "").trim();
   return topic || "beginner";
+}
+
+/**
+ * Topic id of the channel page that actually EXISTS for a raw CMS topic value,
+ * or null when none was built. normalizeGuidesTopicId() falls back to
+ * "beginner" so keyword lookups never go empty, but a breadcrumb must not point
+ * at a page nobody rendered: "best" guides have no channel page, and no Chinese
+ * topic page is built at all.
+ */
+function guideChannelPageId(rawTopic: string): GuidesTopicPageId | null {
+  const value = String(rawTopic || "").trim().toLowerCase();
+  const aliased =
+    value === "category_spec" || value === "category_special" ? "special" : value;
+  return (GUIDES_TOPIC_PAGE_IDS as string[]).includes(aliased)
+    ? (aliased as GuidesTopicPageId)
+    : null;
 }
 
 function guideRoutePath(guide: CmsGuide): string | null {
@@ -1758,6 +1783,15 @@ function renderGuideDetailPage(
   const topicLabel = zh
     ? ZH_ARTICLE_LABELS.topicLabels[topic] || topic
     : topic.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+  // guideTopicCategory() returns the RAW CMS taxonomy, and two of its values
+  // have no channel page: "best" (those guides are the commercial cluster, not
+  // one of the six topic pages) and every /zh/guides/<topic> URL, because no
+  // Chinese topic page is built at all. Linking them anyway put a 404 one click
+  // from every article - 114 instances in the 2026-11-03 build. The crumb now
+  // collapses to hub > title when the channel page is missing.
+  // Guard: node scripts/check-internal-links.mjs.
+  const channelId = zh ? null : guideChannelPageId(topic);
+  const channelHref = channelId ? `/guides/${channelId}` : null;
   const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
   const image = toPublicImageUrl(pickText(guide.imageUrl));
@@ -1775,8 +1809,10 @@ function renderGuideDetailPage(
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: zh ? ZH_ARTICLE_LABELS.guidesHub : "Guides", item: `${PUBLIC_SITE_BASE}${zh ? "/zh/guides" : "/guides"}` },
-        { "@type": "ListItem", position: 2, name: topicLabel, item: `${PUBLIC_SITE_BASE}${zh ? `/zh/guides/${topic}` : `/guides/${topic}`}` },
-        { "@type": "ListItem", position: 3, name: title, item: url },
+        ...(channelHref
+          ? [{ "@type": "ListItem", position: 2, name: topicLabel, item: `${PUBLIC_SITE_BASE}${channelHref}` }]
+          : []),
+        { "@type": "ListItem", position: channelHref ? 3 : 2, name: title, item: url },
       ],
     },
     {
@@ -1811,7 +1847,7 @@ function renderGuideDetailPage(
     alternates: languageAlternates(enRoute),
     body: `
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
-        <a href="${zh ? "/zh/guides" : "/guides"}">${zh ? ZH_ARTICLE_LABELS.guidesHub : "Guides"}</a> › <a href="${zh ? `/zh/guides/${escapeHtml(topic)}` : `/guides/${escapeHtml(topic)}`}">${escapeHtml(topicLabel)}</a>
+        <a href="${zh ? "/zh/guides" : "/guides"}">${zh ? ZH_ARTICLE_LABELS.guidesHub : "Guides"}</a>${channelHref ? ` › <a href="${channelHref}">${escapeHtml(topicLabel)}</a>` : ""}
       </nav>
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
@@ -1869,6 +1905,10 @@ function renderNewsDetailPage(
   const channelLabel = zh
     ? ZH_ARTICLE_LABELS.channelLabels[String(item.category || "")] || newsCategoryLabel(item)
     : newsCategoryLabel(item);
+  // Same rule as the guides crumb: link the channel only when a page was built.
+  // Chinese news has a hub (/zh/news) and detail pages but no channel pages.
+  const channelHref =
+    !zh && NEWS_CHANNEL_PAGE_SLUGS.includes(channel) ? `/news/${channel}` : null;
   const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
   const image = toPublicImageUrl(pickText(item.imageUrl));
@@ -1886,8 +1926,10 @@ function renderNewsDetailPage(
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: zh ? ZH_ARTICLE_LABELS.newsHub : "News", item: `${PUBLIC_SITE_BASE}${zh ? "/zh/news" : "/news"}` },
-        { "@type": "ListItem", position: 2, name: channelLabel, item: `${PUBLIC_SITE_BASE}${zh ? `/zh/news/${channel}` : `/news/${channel}`}` },
-        { "@type": "ListItem", position: 3, name: title, item: url },
+        ...(channelHref
+          ? [{ "@type": "ListItem", position: 2, name: channelLabel, item: `${PUBLIC_SITE_BASE}${channelHref}` }]
+          : []),
+        { "@type": "ListItem", position: channelHref ? 3 : 2, name: title, item: url },
       ],
     },
     {
@@ -1930,7 +1972,7 @@ function renderNewsDetailPage(
     alternates: languageAlternates(enRoute),
     body: `
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
-        <a href="${zh ? "/zh/news" : "/news"}">${zh ? ZH_ARTICLE_LABELS.newsHub : "News"}</a> › <a href="${zh ? `/zh/news/${escapeHtml(channel)}` : `/news/${escapeHtml(channel)}`}">${escapeHtml(channelLabel)}</a>
+        <a href="${zh ? "/zh/news" : "/news"}">${zh ? ZH_ARTICLE_LABELS.newsHub : "News"}</a>${channelHref ? ` › <a href="${channelHref}">${escapeHtml(channelLabel)}</a>` : ""}
       </nav>
       ${image ? `<figure class="article-hero" style="margin: 0 0 18px; margin-left: auto; margin-right: auto; width: 100%; max-width: 560px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px;">
         <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" />
