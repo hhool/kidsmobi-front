@@ -38,9 +38,12 @@ export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
 export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
     zh: {
-      title: "Best Kids Bikes, Strollers, Scooters | BalanceBikeToddler",
-      description: "全球儿童轮式出行评测站，提供平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车与儿童电动汽车的可信评测。",
-      keywords: ["儿童平衡车", "儿童自行车", "慢跑婴儿推车", "儿童电动滑板车", "儿童电动汽车"]
+      // 2026-11-03 中文段按新版英文 TDK 重译：原先这里直接放的是英文标题
+      // （"Best Kids Bikes, Strollers, Scooters | …"），中文首页拿不到中文标题。
+      // 中文标题同样自带品牌后缀，整串需 ≤65 字符（publishSectionTitle 的上限）。
+      title: "最佳儿童自行车、婴儿推车与滑板车 | BalanceBikeToddler",
+      description: "独立、基于公开规格参数的对比与安全评测，覆盖平衡车、儿童自行车、慢跑婴儿推车、儿童滑板车与儿童电动汽车。",
+      keywords: ["儿童平衡车", "儿童滑板车", "儿童自行车", "慢跑婴儿推车", "儿童电动汽车"]
     },
     en: {
       // 2026-11-02 首页/目录页 TDK 分家：/products 改为 "Kids Mobility Product Hub & Specs"
@@ -57,9 +60,11 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   products: {
     zh: {
-      title: "童车产品库：平衡车、婴儿推车、自行车与滑板车 | BalanceBikeToddler",
-      description: "浏览 BalanceBikeToddler 产品库，按品类查看儿童平衡车、婴儿推车、儿童自行车、滑板车、电动车与安全座椅，快速筛选更安全的童车方案。",
-      keywords: ["婴儿推车", "儿童平衡车", "儿童自行车", "儿童滑板车", "儿童电动车", "儿童安全座椅"],
+      // 2026-11-03 与英文新题（Kids Mobility Product Hub & Specs）对齐：中文标题
+      // 由"品类罗列"改为"产品库 + 规格参数"，和中文首页的品类标题区分开。
+      title: "童车产品库：规格参数与对比 | BalanceBikeToddler",
+      description: "按技术规格筛选并对比幼儿自行车、幼儿平衡车、双人婴儿推车与儿童电动滑板车，快速锁定适合孩子的童车。",
+      keywords: ["幼儿自行车", "幼儿平衡车", "双人婴儿推车", "儿童电动滑板车"],
     },
     en: {
       // 2026-11-02 目录意图独立成题：原先 /products 与首页同以 "…Kids Bikes, Strollers
@@ -75,11 +80,12 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   reviews: {
     zh: {
-      title: "婴儿推车评测、旅行推车与幼儿自行车安全对比 | BalanceBikeToddler",
-      description: "查看客观评测报告，覆盖旅行婴儿推车、慢跑婴儿推车与幼儿自行车，重点对比结构稳定性、制动表现与实际场景安全性。",
-      // 2026-10-22 A2 微调：按 31 篇评测的真实品类分布重排——stroller 9 / bicycle 7 /
-      // balance 4，评测意图词（"…评测"）领衔，产品型词随后。
-      keywords: ["婴儿推车评测", "平衡车评测", "旅行婴儿推车", "幼儿自行车", "儿童自行车", "慢跑婴儿推车", "儿童平衡车"],
+      // 2026-11-03 与英文新稿（Expert Kids Bikes & Stroller Reviews / 生物力学
+      // 安全审计）对齐重译，中文关键词按 travel / jogging stroller、kids dirt
+      // bike 与推车评测四类重排。
+      title: "儿童自行车与婴儿推车专业评测 | BalanceBikeToddler",
+      description: "深度评测与生物力学安全审计，覆盖旅行婴儿推车、慢跑婴儿推车、儿童越野摩托车与骑乘玩具。",
+      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "儿童越野摩托车", "婴儿推车评测"],
     },
     en: {
       // 2026-11-02 新稿：description 换成"深度评测 + 生物力学安全审计"口径，关键词按
@@ -94,9 +100,11 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   guides: {
     zh: {
-      title: "平衡车选购指南：按年龄与预算挑选 | BalanceBikeToddler",
-      description: "从零开始的平衡车选购指南：按年龄选尺寸、对比价格档位、查看稳定性数据，帮 1 岁左右幼儿家庭做决定。",
-      keywords: ["如何选择平衡车", "1岁平衡车", "平衡车尺寸"],
+      // 2026-11-03 与英文新稿（Age, Size & Budget / 推车选择 + 1 岁平衡车 +
+      // 尺寸表与内缝计算器）对齐：补回英文标题里的"尺寸"，描述覆盖三件事。
+      title: "平衡车指南：年龄、尺寸与预算 | BalanceBikeToddler",
+      description: "手把手教你挑选婴儿推车、为 1 岁宝宝选对平衡车，并用尺寸对照表与腿长（内缝）计算器核对坐高。",
+      keywords: ["如何挑选婴儿推车", "1岁宝宝平衡车", "平衡车尺寸对照表"],
     },
     en: {
       // 2026-11-02 新稿：description 回到"stroller 选择 + 1 岁平衡车 + 尺寸表/内缝
@@ -110,8 +118,11 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   news: {
     zh: {
-      title: "儿童电动出行与折叠滑板车全球资讯 | BalanceBikeToddler",
-      description: "追踪儿童电动自行车、儿童越野电动车与可折叠电动滑板车的新品发布、技术趋势与行业动态。",
+      // 2026-11-03 与英文新题（News, Standards & Recalls）对齐：中文标题从
+      // "电动出行资讯"扩到"资讯 + 安全标准 + 召回"，与站点实际产出的电池安全
+      // 标准、CPSC 召回内容一致。
+      title: "儿童出行资讯、安全标准与召回 | BalanceBikeToddler",
+      description: "儿童电动自行车、儿童越野电动车与可折叠滑板车的最新资讯、电池安全标准与召回动态。",
       keywords: ["儿童电动自行车", "儿童越野电动车", "可折叠电动滑板车"],
     },
     en: {
