@@ -46,7 +46,10 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       // 2026-11-02 首页 TDK：title 加 ": Reviews" 与 /products 的 "Top …" 区分，避免近似同题；
       // description 改为 "Independent, spec-based …" 定位（与首页 heroSubtitle 口径一致）。
       // 注意：线上真源是 CMS seo.home，本处仅兜底，需与 CMS 同步，否则 CMS 覆盖后线上不变。
-      title: "Best Kids Bikes, Strollers & Scooters: Reviews | BalanceBikeToddler",
+      // 主干必须 ≤44 字符 = TITLE_MAX_CHARS(65) - " | BalanceBikeToddler"(21)，否则
+      // buildDocumentTitle 会按词截断主干、把 ": Reviews" 整段吃掉（实测 67 字符时
+      // 线上发布成 "Best Kids Bikes, Strollers & Scooters"，与 /products 又撞题）。
+      title: "Kids Bikes, Strollers & Scooters: Reviews | BalanceBikeToddler",
       description: "Independent, spec-based comparisons and safety reviews of balance bikes, kids bikes, jogging strollers, kids scooters and kids electric cars.",
       keywords: ["balance bike", "kids scooter", "kids bike", "jogging stroller", "kids electric car"]
     },
