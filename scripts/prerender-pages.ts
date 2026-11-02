@@ -332,6 +332,20 @@ function escapeHtml(value: string): string {
 const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
 
 /**
+ * Real profiles the site claims in Organization.sameAs. Kept in ONE place: the
+ * same array used to be copy-pasted into six renderers, so a handle correction
+ * had to be repeated six times and the X handle drifted (bbtreviews in the SPA
+ * vs BalanceBikeToddler in the prerender). Confirmed by the owner 2026-11-03:
+ * the X account is https://x.com/bbtreviews. Only add URLs that resolve to a
+ * profile — a platform root is worse than no sameAs at all.
+ * Guard: npm run check:jsonld.
+ */
+const ENTITY_SAME_AS: string[] = [
+  "https://www.youtube.com/@kidsmobi",
+  "https://x.com/bbtreviews",
+];
+
+/**
  * Characters that are illegal in a URL path but reach us verbatim in a few CMS
  * media records (e.g. one product stores an already-absolute imageUrl whose
  * directory name still contains literal spaces). Emitting them raw produces an
@@ -676,12 +690,8 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
       ? buildProductDetailKeywords(page.product, "en", String((page.product as CmsProductFull).categoryId || ""))
       : resolveRouteKeywords(page.route, pageLang));
   const keywordTag = keywordArr.join(", ");
-  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
-  // name real profiles, not a platform homepage.
-  const entitySameAs = [
-    "https://www.youtube.com/@kidsmobi",
-    "https://x.com/BalanceBikeToddler",
-  ];
+  // Shared list — see ENTITY_SAME_AS (single source for the handle).
+  const entitySameAs = ENTITY_SAME_AS;
   const aboutJsonLd = page.route === "/about"
     ? `    <script type="application/ld+json">${JSON.stringify([
         {
@@ -2163,12 +2173,8 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         }))
       : articles.map((article) => ({ pub: article.publishDate, mod: article.publishDate })),
   );
-  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
-  // name real profiles, not a platform homepage.
-  const entitySameAs = [
-    "https://www.youtube.com/@kidsmobi",
-    "https://x.com/BalanceBikeToddler",
-  ];
+  // Shared list — see ENTITY_SAME_AS (single source for the handle).
+  const entitySameAs = ENTITY_SAME_AS;
   const guidesSchemas = [
     {
       "@context": "https://schema.org",
@@ -2347,12 +2353,8 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         }))
       : articles.map((article) => ({ pub: article.publishDate, mod: article.publishDate })),
   );
-  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
-  // name real profiles, not a platform homepage.
-  const entitySameAs = [
-    "https://www.youtube.com/@kidsmobi",
-    "https://x.com/BalanceBikeToddler",
-  ];
+  // Shared list — see ENTITY_SAME_AS (single source for the handle).
+  const entitySameAs = ENTITY_SAME_AS;
   const newsSchemas = [
     {
       "@context": "https://schema.org",
@@ -2543,12 +2545,8 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
         `<li style="margin-bottom:6px;"><a href="${item.href}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(item.label)}</a> — ${escapeHtml(item.note)}</li>`,
     )
     .join("");
-  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
-  // name real profiles, not a platform homepage.
-  const entitySameAs = [
-    "https://www.youtube.com/@kidsmobi",
-    "https://x.com/BalanceBikeToddler",
-  ];
+  // Shared list — see ENTITY_SAME_AS (single source for the handle).
+  const entitySameAs = ENTITY_SAME_AS;
   const productsSchemas = [
     {
       "@context": "https://schema.org",
@@ -2725,12 +2723,8 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         }))
       : [],
   );
-  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
-  // name real profiles, not a platform homepage.
-  const entitySameAs = [
-    "https://www.youtube.com/@kidsmobi",
-    "https://x.com/BalanceBikeToddler",
-  ];
+  // Shared list — see ENTITY_SAME_AS (single source for the handle).
+  const entitySameAs = ENTITY_SAME_AS;
   const reviewsSchemas = [
     {
       "@context": "https://schema.org",
@@ -3454,12 +3448,8 @@ function renderHomePage(
       <p style="margin:0;font-size:0.85rem;"><a href="${escapeHtml(col.indexHref)}">${escapeHtml(col.indexLabel)} →</a></p>
     </section>`).join("");
 
-  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
-  // name real profiles, not a platform homepage.
-  const entitySameAs = [
-    "https://www.youtube.com/@kidsmobi",
-    "https://x.com/BalanceBikeToddler",
-  ];
+  // Shared list — see ENTITY_SAME_AS (single source for the handle).
+  const entitySameAs = ENTITY_SAME_AS;
   const homeSchemas = [
     {
       "@context": "https://schema.org",

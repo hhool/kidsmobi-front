@@ -148,6 +148,68 @@ for (const fam of FAMILIES) {
   }
 }
 
+// Organization.sameAs has to point at profiles, and every X reference has to
+// use the ONE handle declared in src/lib/socialShare.ts. On 2026-11-03 the
+// prerender copy-pasted the sameAs array into six renderers while the SPA read
+// the constant, so the live HTML said BalanceBikeToddler and the hydrated page
+// said bbtreviews — both valid URLs, so nothing failed loudly. This guard reads
+// the built dist/ so it catches whichever side drifts next.
+const xHandleMatch = readFileSync(resolve("src/lib/socialShare.ts"), "utf8").match(
+  /OFFICIAL_X_HANDLE\s*=\s*"([^"]+)"/,
+);
+const officialX = xHandleMatch ? `https://x.com/${xHandleMatch[1]}` : null;
+// A platform root is worse than no sameAs: it tells a crawler nothing and
+// Google treats it as an unverified profile claim.
+const BARE_PLATFORM_ROOTS = new Set([
+  "https://www.facebook.com",
+  "https://facebook.com",
+  "https://www.instagram.com",
+  "https://instagram.com",
+  "https://x.com",
+  "https://twitter.com",
+  "https://www.youtube.com",
+  "https://youtube.com",
+  "https://www.tiktok.com",
+]);
+
+/** sameAs can hang off a nested publisher/author, so walk the whole tree. */
+function collectSameAs(node, out = []) {
+  if (!node || typeof node !== "object") return out;
+  if (Array.isArray(node)) {
+    for (const item of node) collectSameAs(item, out);
+    return out;
+  }
+  if (Array.isArray(node.sameAs)) {
+    for (const url of node.sameAs) if (typeof url === "string") out.push(url);
+  }
+  for (const value of Object.values(node)) {
+    if (value && typeof value === "object") collectSameAs(value, out);
+  }
+  return out;
+}
+
+if (!officialX) {
+  fail("src/lib/socialShare.ts", "cannot read OFFICIAL_X_HANDLE — the X handle guard is blind");
+}
+
+const sameAsSeen = new Set();
+for (const file of walk(DIST)) {
+  const where = rel(file);
+  // Per page, deduped: the same Organization can appear standalone and again
+  // as a nested publisher, and repeating one problem three times buries the
+  // real count.
+  for (const url of new Set(collectSameAs(jsonLdObjects(readFileSync(file, "utf8"))))) {
+    sameAsSeen.add(url);
+    const normalized = url.replace(/\/+$/, "");
+    if (BARE_PLATFORM_ROOTS.has(normalized)) {
+      fail(where, `sameAs points at the platform root "${url}" — name a real profile instead`);
+    }
+    if (officialX && /^https?:\/\/(www\.)?(x|twitter)\.com\//i.test(url) && normalized !== officialX) {
+      fail(where, `sameAs says "${url}" but the official X handle is "${officialX}"`);
+    }
+  }
+}
+
 const ok = problems.length === 0;
 console.log(
   JSON.stringify(
@@ -155,6 +217,8 @@ console.log(
       ok,
       pagesChecked,
       families: FAMILIES.map((f) => f.url),
+      sameAs: [...sameAsSeen].sort(),
+      officialX,
       problems,
     },
     null,
