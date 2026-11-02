@@ -43,9 +43,12 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["儿童平衡车", "儿童自行车", "慢跑婴儿推车", "儿童电动滑板车", "儿童电动汽车"]
     },
     en: {
-      title: "Best Kids Bikes, Strollers, Scooters | BalanceBikeToddler",
-      description: "Global review site for kids wheeled toys. Find trusted balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars reviews for your family.",
-      keywords: ["balance bike", "kids bikes", "jogging stroller", "kids electric scooter", "kids electric cars"]
+      // 2026-11-02 首页 TDK：title 加 ": Reviews" 与 /products 的 "Top …" 区分，避免近似同题；
+      // description 改为 "Independent, spec-based …" 定位（与首页 heroSubtitle 口径一致）。
+      // 注意：线上真源是 CMS seo.home，本处仅兜底，需与 CMS 同步，否则 CMS 覆盖后线上不变。
+      title: "Best Kids Bikes, Strollers & Scooters: Reviews | BalanceBikeToddler",
+      description: "Independent, spec-based comparisons and safety reviews of balance bikes, kids bikes, jogging strollers, kids scooters and kids electric cars.",
+      keywords: ["balance bike", "kids scooter", "kids bike", "jogging stroller", "kids electric car"]
     },
   },
   products: {
