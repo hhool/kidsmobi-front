@@ -6,6 +6,13 @@
   Strict-Transport-Security: max-age=31536000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  # Clickjacking: frame-ancestors is the CSP directive that still works in
+  # modern browsers; X-Frame-Options is the legacy fallback for the ones that
+  # never implemented it. Only frame-ancestors is set here — a full CSP would
+  # have to allow the inline JSON-LD and the CMS-driven inline styles, and a
+  # half-written policy that blocks them is worse than none.
+  Content-Security-Policy: frame-ancestors 'self'
+  X-Frame-Options: SAMEORIGIN
 
 # Cloudflare Pages caches static files for ~4h by default. That is fine for
 # hashed assets, but it made sitemap.xml serve a stale copy after every deploy

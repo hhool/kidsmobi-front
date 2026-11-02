@@ -676,10 +676,10 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
       ? buildProductDetailKeywords(page.product, "en", String((page.product as CmsProductFull).categoryId || ""))
       : resolveRouteKeywords(page.route, pageLang));
   const keywordTag = keywordArr.join(", ");
+  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
+  // name real profiles, not a platform homepage.
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
-    "https://www.facebook.com",
-    "https://www.instagram.com",
     "https://x.com/BalanceBikeToddler",
   ];
   const aboutJsonLd = page.route === "/about"
@@ -770,7 +770,7 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
     : `${PUBLIC_SITE_BASE}/images/og-site-icon.png`;
   const ogType = page.ogType === "article" ? "article" : "website";
   return `<!doctype html>
-<html lang="en">
+<html lang="${pageLang}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -2163,10 +2163,10 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         }))
       : articles.map((article) => ({ pub: article.publishDate, mod: article.publishDate })),
   );
+  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
+  // name real profiles, not a platform homepage.
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
-    "https://www.facebook.com",
-    "https://www.instagram.com",
     "https://x.com/BalanceBikeToddler",
   ];
   const guidesSchemas = [
@@ -2347,10 +2347,10 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         }))
       : articles.map((article) => ({ pub: article.publishDate, mod: article.publishDate })),
   );
+  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
+  // name real profiles, not a platform homepage.
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
-    "https://www.facebook.com",
-    "https://www.instagram.com",
     "https://x.com/BalanceBikeToddler",
   ];
   const newsSchemas = [
@@ -2543,10 +2543,10 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
         `<li style="margin-bottom:6px;"><a href="${item.href}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(item.label)}</a> — ${escapeHtml(item.note)}</li>`,
     )
     .join("");
+  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
+  // name real profiles, not a platform homepage.
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
-    "https://www.facebook.com",
-    "https://www.instagram.com",
     "https://x.com/BalanceBikeToddler",
   ];
   const productsSchemas = [
@@ -2725,10 +2725,10 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         }))
       : [],
   );
+  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
+  // name real profiles, not a platform homepage.
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
-    "https://www.facebook.com",
-    "https://www.instagram.com",
     "https://x.com/BalanceBikeToddler",
   ];
   const reviewsSchemas = [
@@ -3454,10 +3454,10 @@ function renderHomePage(
       <p style="margin:0;font-size:0.85rem;"><a href="${escapeHtml(col.indexHref)}">${escapeHtml(col.indexLabel)} →</a></p>
     </section>`).join("");
 
+  // Placeholder roots (facebook/instagram) removed 2026-11-03: sameAs must
+  // name real profiles, not a platform homepage.
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
-    "https://www.facebook.com",
-    "https://www.instagram.com",
     "https://x.com/BalanceBikeToddler",
   ];
   const homeSchemas = [
@@ -7871,6 +7871,10 @@ function renderProductDetailPage(
             "@type": "Offer",
             price,
             priceCurrency: "USD",
+            // Same value the hydrated SPA has always emitted (src/App.tsx). The
+            // static HTML lacked it, so Google read two different Offers for one
+            // URL — and availability is required for the Offer rich result.
+            availability: "https://schema.org/InStock",
             url: `${PUBLIC_SITE_BASE}${route}`,
           },
         }

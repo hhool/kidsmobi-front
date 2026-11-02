@@ -3852,6 +3852,16 @@ export default function App() {
     const canonicalPath =
       (seoKey === "products" ? productCategoryCanonicalPath(activeProductCategory) : undefined) ??
       buildCanonicalPathFromPageConfig(pageConfig, currentPath, activePageIndex);
+    // <html lang> follows the resolved route, not the SPA shell's static
+    // default. The prerender now emits lang="zh" for /zh routes, but a
+    // client-side jump from an English page into a Chinese one leaves the
+    // document element claiming English — screen readers then pick an English
+    // voice for Chinese prose, and translation prompts misfire.
+    const documentLang = canonicalPath === "/zh" || canonicalPath.startsWith("/zh/") ? "zh" : "en";
+    if (document.documentElement.lang !== documentLang) {
+      document.documentElement.lang = documentLang;
+    }
+
     const totalPages = resolvePaginationTotalPages();
     const isOutOfRangePagination = totalPages !== null && activePageIndex > totalPages;
     const noIndex =
