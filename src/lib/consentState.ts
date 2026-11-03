@@ -113,6 +113,29 @@ export function consentSignalsFor(
 }
 
 /**
+ * Install the gtag stub, if it is not there yet.
+ *
+ * The stub is what the site talks to before Google's own gtag.js has loaded.
+ * It must push commands onto the queue in the shape Google reads them: an
+ * `arguments` object, which is what Google's own gtag() produces. A plain
+ * array looks equivalent and is not - gtag.js treats a plain array as an
+ * ordinary dataLayer event, ignores it, and the tag then loads without ever
+ * configuring itself: no consent state is applied and no hit is ever sent.
+ * The symptom is a live tag that measures nothing.
+ *
+ * This is the only place the stub is created, so there is one definition of
+ * how a command is queued.
+ */
+export function ensureGoogleTag(): void {
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer || [];
+  if (window.gtag) return;
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+}
+
+/**
  * Put a consent command into the dataLayer.
  *
  * The order matters and this is the only place that decides it: the "default"
@@ -129,13 +152,8 @@ export function pushGoogleConsent(
   waitForUpdateMs?: number,
 ): void {
   if (typeof window === "undefined") return;
-  window.dataLayer = window.dataLayer || [];
-  if (!window.gtag) {
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer.push(args);
-    };
-  }
-  window.gtag("consent", action, {
+  ensureGoogleTag();
+  window.gtag?.("consent", action, {
     ...signals,
     ...(typeof waitForUpdateMs === "number" ? { wait_for_update: waitForUpdateMs } : {}),
   });

@@ -150,7 +150,14 @@ const CONSENT_LOG = () => (window.__bbConsentLog || []).map((entry) => {
   for (const name of ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage']) {
     signals[name] = payload[name] || '(unset)';
   }
-  return { action, signals };
+  // Google reads a command from the dataLayer only when it arrives as an
+  // `arguments` object. A command pushed as a plain array is ignored by
+  // gtag.js, so the tag loads, applies no consent state and sends nothing.
+  const isCommand =
+    Object.prototype.toString.call(entry) === '[object Arguments]' ||
+    Object.prototype.toString.call(entry) === '[object Array]';
+  const isArguments = Object.prototype.toString.call(entry) === '[object Arguments]';
+  return { action, signals, isCommand, isArguments };
 });
 
 /** The analytics cookies in the jar. Empty when nothing was stored. */
@@ -250,6 +257,12 @@ let tagRuns = false;
       `the consent default is not a full denial (${JSON.stringify(defaultEntry.signals)}) - the tag would measure before anybody agreed`,
     );
   }
+  if (defaultEntry && defaultEntry.isArguments === false) {
+    fail(
+      'fresh visitor',
+      'the consent command was queued as a plain array - gtag.js reads a command only when it arrives as an `arguments` object, so it ignores this one and the tag measures nothing',
+    );
+  }
   if (cookies.length) {
     fail('fresh visitor', `analytics cookies were written before consent (${cookies.join(', ')})`);
   }
@@ -278,6 +291,12 @@ let tagRuns = false;
       fail(
         'after accepting',
         `the consent update left analytics storage at "${update.signals.analytics_storage}" - the reader agreed and the tag was not told`,
+      );
+    }
+    if (update && update.isArguments === false) {
+      fail(
+        'after accepting',
+        'the consent update was queued as a plain array - gtag.js would ignore it and keep the denied state',
       );
     }
     if (update && update.signals.analytics_storage === 'granted') {

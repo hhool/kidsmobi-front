@@ -26,6 +26,7 @@
 
 import {
   DENIED_CONSENT,
+  ensureGoogleTag,
   pushGoogleConsent,
   type ConsentSignals,
 } from "./consentState";
@@ -166,11 +167,9 @@ export function loadGoogleAnalyticsScript(
   if (document.querySelector(`script[data-google-analytics="${id}"]`)) return false;
 
   // The stub has to exist before the consent commands are queued, and both
-  // have to exist before the tag loads.
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function gtag(...args: unknown[]) {
-    window.dataLayer.push(args);
-  };
+  // have to exist before the tag loads. The stub lives in consentState.ts so
+  // that there is exactly one definition of how a command is queued.
+  ensureGoogleTag();
 
   // 1. Nothing is granted yet. 500ms is how long the tag waits for a reader
   //    to answer the banner before it sends the cookieless ping.
@@ -187,9 +186,10 @@ export function loadGoogleAnalyticsScript(
   script.dataset.googleAnalytics = id;
   document.head.appendChild(script);
 
-  // 4. The two standard commands.
-  window.gtag("js", new Date());
-  window.gtag("config", id);
+  // 4. The two standard commands. They go through the same stub, so they
+  //    reach the queue in the shape Google reads.
+  window.gtag?.("js", new Date());
+  window.gtag?.("config", id);
   return true;
 }
 

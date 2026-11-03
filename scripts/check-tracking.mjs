@@ -35,9 +35,15 @@
  *      the default denies every one of them, and there is both a "default"
  *      and an "update" command. Without the denied default the tag would
  *      start measuring straight away; without the update a reader who agreed
- *      would stay denied forever.
+ *      would stay denied forever;
+ *   7. the bundle queues Google's commands as an `arguments` object. gtag.js
+ *      reads a command only in that shape - the one its own gtag() produces -
+ *      and ignores an array-shaped command as an ordinary dataLayer event.
+ *      A bundle that pushes an array loads the tag, applies no consent state
+ *      and sends no hit at all: a live tag and an empty property. This rule
+ *      exists because that is exactly what happened (2026-11-04).
  *
- * Rules 3-6 have self-tests at the bottom of this file: each one is checked
+ * Rules 3-7 have self-tests at the bottom of this file: each one is checked
  * against a fixture that must fail and a fixture that must pass, so a
  * widened regex or a loosened condition cannot quietly turn the guard off.
  *
@@ -68,6 +74,12 @@ const AFFILIATE = /https:\/\/www\.amazon\.com\/dp\/([A-Z0-9]{10})\?tag=([A-Za-z0
 const GA_LITERAL = /G-[A-Z0-9]{10}/g;
 const GA_PLACEHOLDER = /^G-X+$/;
 const CONSENT_KEYS = ["cookie_preferences_v1", "cookie_consent_v1"];
+// Google reads a command from the dataLayer only when it arrives as an
+// `arguments` object - the shape Google's own gtag() produces. A command
+// pushed as a plain array is treated as an ordinary dataLayer event and is
+// silently ignored: the tag loads, never configures itself, and measures
+// nothing. The symptom is a live tag and an empty property.
+const DATA_LAYER_ARGUMENTS = /dataLayer\.push\(\s*arguments\s*\)/;
 
 // The four Google Consent Mode v2 signals, and the state a page starts in.
 const CONSENT_SIGNALS = [
@@ -102,10 +114,19 @@ function hasDeniedConsentDefault(code) {
  * the call that sends the consent command, and the call that passes the
  * action. `gtag("consent", action, {...})` compiles to something like
  * `window.gtag("consent", e, {...})` with the action arriving as an
- * argument, so the two never sit next to each other in the output.
+ * argument, so the two never sit next to each other in the output - and
+ * with optional chaining the call becomes `(i=window.gtag)==null||
+ * i.call(window,"consent",e,{...})`. All three shapes are accepted, because
+ * the guard has to keep biting whatever the minifier decides to emit.
  */
+const CONSENT_CALL_SHAPES = [
+  /gtag\??\.\(\s*["']consent["']/,
+  /\(\s*window\s*,\s*["']consent["']/,
+  /gtag\(\s*["']consent["']/,
+];
+
 function hasConsentCommand(code, action) {
-  const sendsConsent = /gtag\(\s*["']consent["']/.test(code);
+  const sendsConsent = CONSENT_CALL_SHAPES.some((shape) => shape.test(code));
   const passesAction = new RegExp(`\\(\\s*["']${action}["']`).test(code);
   return sendsConsent && passesAction;
 }
@@ -192,6 +213,11 @@ function checkSpaBundle(code, configuredId) {
       "the bundle does not wait for the consent decision - the tag would fire before the banner is answered",
     );
   }
+  if (!DATA_LAYER_ARGUMENTS.test(code)) {
+    found.push(
+      "the bundle does not queue Google's commands as an `arguments` object - gtag.js reads commands only in that shape, so an array-shaped command is ignored and the tag measures nothing",
+    );
+  }
 
   return found;
 }
@@ -260,9 +286,13 @@ function runSelfTests() {
   // guard is tested against the shape it will actually meet.
   const consentMode =
     'const Uf={ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied",analytics_storage:"denied"};' +
-    'function zo(e,t,a){window.gtag("consent",e,{...t,...typeof a=="number"?{wait_for_update:a}:{}})}' +
+    'function zo(e,t,a){(i=window.gtag)==null||i.call(window,"consent",e,{...t,...typeof a=="number"?{wait_for_update:a}:{}})}' +
     'zo("default",Uf,500)';
   const consentUpdate = 'zo("update",eh(prefs))';
+  // The stub, the way the minified bundle carries it: the command reaches
+  // the queue as an `arguments` object, which is the shape gtag.js reads.
+  const dataLayerStub =
+    'window.gtag=window.gtag||function gtag(){window.dataLayer.push(arguments)}';
   const cleanBundle = [
     "googletagmanager.com/gtag/js",
     "cookie_preferences_v1",
@@ -270,6 +300,7 @@ function runSelfTests() {
     "sponsored nofollow",
     consentMode,
     consentUpdate,
+    dataLayerStub,
   ].join(" ");
 
   expect(
@@ -325,6 +356,18 @@ function runSelfTests() {
   expect(
     "a bundle missing one of the four signals must be reported",
     checkSpaBundle(missingSignal, "G-52MH8KHF9T").length > 0,
+  );
+
+  // The bug this rule was written for: the stub queued the command as an
+  // array, gtag.js ignored every command, the tag loaded and measured
+  // nothing, and the property stayed empty.
+  const arrayShapedCommand = cleanBundle.replace(
+    "dataLayer.push(arguments)",
+    "dataLayer.push(o)",
+  );
+  expect(
+    "a bundle that queues Google's commands as an array must be reported",
+    checkSpaBundle(arrayShapedCommand, "G-52MH8KHF9T").length > 0,
   );
 
   if (failures.length) {
