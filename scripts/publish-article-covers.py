@@ -50,6 +50,7 @@ import os
 import sys
 import urllib.request
 
+from pathlib import Path
 from PIL import Image, ImageFilter
 
 API_BASE = "https://store.balancebiketoddler.com"
@@ -62,6 +63,21 @@ TARGET = 800  # 1:1 canvas
 # Small values keep the reflection crisp (it reads as a reflection); large
 # values dissolve it quickly (it reads as an out-of-focus continuation).
 BLUR_REACH = 0.45
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def repo_relative(path):
+    """Repo-relative path in POSIX form.
+
+    The geometry manifest is committed to the repo and read by a Node guard
+    on Linux CI. os.path.relpath() returns a Windows path when the publisher
+    runs on Windows (public\\images\\guides\\...), and path.join() does not
+    translate separators, so every cover read back on Linux failed with
+    "cover file missing" even though the file was there. The manifest is a
+    data format shared across machines, so it stores forward slashes.
+    """
+    return Path(os.path.relpath(path, REPO_ROOT)).as_posix()
 
 
 def http_get(url, token=None, timeout=60, attempts=3):
@@ -208,7 +224,7 @@ def build_product_cover(raw, slug):
         path = os.path.join(GUIDE_OUT, f"{slug}-800x800.webp")
         canvas, meta = compose_square(img)
         canvas.save(path, "WEBP", quality=82, method=6)
-    meta["out"] = os.path.relpath(path, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    meta["out"] = repo_relative(path)
     return path, meta
 
 
@@ -225,7 +241,7 @@ def build_editorial_cover(raw, slug):
         path = os.path.join(NEWS_OUT, f"{slug}-800x800.webp")
         canvas, meta = compose_square(img)
         canvas.save(path, "WEBP", quality=82, method=6)
-    meta["out"] = os.path.relpath(path, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    meta["out"] = repo_relative(path)
     return path, meta
 
 

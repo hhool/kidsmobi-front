@@ -154,9 +154,17 @@ for (const [slug, meta] of Object.entries(geometry.covers || {})) {
     fail(`cover/${slug}`, "geometry record does not say which file it wrote");
     continue;
   }
-  const file = join(ROOT, meta.out);
+  // The manifest is written by scripts/publish-article-covers.py, which runs
+  // on whichever machine publishes covers. A manifest produced on Windows
+  // stores backslash separators ("public\\images\\guides\\…"), and path.join()
+  // does not translate them, so every cover read back on Linux CI failed with
+  // "cover file missing" even though the file was there. Normalise the
+  // separators before joining; the publisher now writes POSIX paths, and this
+  // keeps the committed manifest readable either way.
+  const relative = meta.out.replace(/\\/g, "/");
+  const file = join(ROOT, relative);
   if (!existsSync(file)) {
-    fail(`cover/${slug}`, `cover file missing: ${meta.out}`);
+    fail(`cover/${slug}`, `cover file missing: ${relative}`);
     continue;
   }
   if (statSync(file).size < 4_000) {
@@ -164,7 +172,7 @@ for (const [slug, meta] of Object.entries(geometry.covers || {})) {
   }
   const size = webpSize(file);
   if (!size) {
-    fail(`cover/${slug}`, `cover file is not a readable WebP: ${meta.out}`);
+    fail(`cover/${slug}`, `cover file is not a readable WebP: ${relative}`);
   } else if (size.width !== CANVAS || size.height !== CANVAS) {
     fail(`cover/${slug}`, `cover file is ${size.width}x${size.height}, expected ${CANVAS}x${CANVAS}`);
   }
