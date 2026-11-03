@@ -538,7 +538,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "04 / Accounts and sign-in",
-          title: "What an account stores, and which other services touch it",
+          title: "What an account stores, and who else sees it",
           body: [
             "Accounts run on Firebase Authentication, a Google service. Registering with an email address and a password means that address and a hashed version of the password are kept by Firebase; the password itself never reaches us. You can also sign in with Google, and on that path Google is the third party identity provider — once you approve, it shares your name, email address and profile picture with us.",
             "Before an email account is created we send a six-digit verification code to the address you entered, delivered by Resend, the service that delivers our mail. The code expires after five minutes, and what we keep is a hash of it, not the code.",
@@ -598,7 +598,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "账号会存什么，还有哪些第三方服务会碰到它",
           body: [
             "账号体系跑在 Firebase Authentication（Google 的认证服务）上。用邮箱加密码注册时，邮箱地址和密码的哈希值由 Firebase 保存；密码本身不会到我们手里。你也可以用 Google 账号登录，这条路径上 Google 就是第三方身份提供方——你确认授权后，Google 会把姓名、邮箱地址和头像分享给我们。",
-            "创建邮箱账号之前，我们会向你填写的地址发一条六位验证码，由 Resend 投递——那是替我们发信的第三方服务。验证码五分钟过期，我们保存的是它的哈希值，不是验证码本身。",
+            "创建邮箱账号之前，本站会向你填写的地址发一条六位数字码，由 Resend 投递——那是替我们发信的第三方服务。这个码五分钟过期，保存下来的是它的哈希值，码本身不留。",
             "收藏、已保存的孩子尺寸档案、浏览记录和对比草稿都留在你自己浏览器的本地存储里，不会写入我们的云端数据库；清理浏览器存储就会消失。"
           ],
         },
