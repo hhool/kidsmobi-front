@@ -11,6 +11,7 @@
 | `site-health-check.mjs` | 站点体检：robots / sitemap 新鲜度 / 关键页 meta 完整度 / llms.txt / 内链抽样 | 站点周度体检 |
 | `keyword-opportunity-scan.mjs` | 热词机会扫描：抓取全站 meta，对照 query 聚类找内容缺口 + 弱页 | 周度热词机会扫描 |
 | `geo-ops.mjs` | GEO 运维：llms.txt / robots AI 爬虫策略 / JSON-LD / 事实型内容块 | SEO GEO 周度运维 |
+| `wait-for-deploy.mjs` | 等线上服务到预期版本（轮询线上 bundle 的 Consent Mode v2 标记），避免部署未落地时误测旧代码 | CI ⑥ 线上探针前置 |
 
 ## 运行
 

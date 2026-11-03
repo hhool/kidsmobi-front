@@ -1,26 +1,38 @@
 // Consent probe (R-910): does the site track a reader before they agreed to
-// anything?
+// anything, and does it count them at all afterwards?
 //
 // The static-HTML guard (npm run check:tracking) can prove that the prerender
 // no longer writes a GA4 snippet into the pages. It cannot see what the
 // browser does after hydration, and that is where the tracking actually
-// started: the static HTML loaded G-52MH8KHF9T the moment it was parsed, the
-// SPA loaded a second property after consent, and nobody could tell from the
-// inside which of the two was reporting.
+// happens.
 //
-// This probe loads the site in Chromium and watches the network:
+// The site runs Google's Consent Mode v2, so the tag loads for every reader
+// and the CONSENT STATE decides what it may do:
 //
-//   1. a fresh visitor: no request to googletagmanager.com, no GA script in
-//      the DOM - the consent banner is still open;
-//   2. after "Accept All Cookies": the GA script appears, with the id the
-//      site is configured with;
-//   3. a visitor who declines: still nothing, ever;
-//   4. a returning visitor who already agreed: the script comes back on the
-//      next visit, because the decision is stored (R-910: "consent state
-//      stored and respected across sessions").
+//   - before a decision: every signal is denied. No analytics cookie, no
+//     identifier - but the visit is still counted, as a cookieless ping.
+//     This is what keeps the property from going blank, which is what
+//     happened when the tag was only loaded after consent ("basic consent
+//     mode"): every reader who declined was simply not there any more;
+//   - after "Accept All Cookies": analytics storage is granted and the rest
+//     of the visit is measured in full;
+//   - after "Decline Non-Essential": analytics storage stays denied, the
+//     ping stays cookieless, and no cookie is written;
+//   - a returning reader who already agreed gets the granted state applied
+//     before the tag configures itself, so their first pageview is a full
+//     one and not a ping.
+//
+// The probe therefore checks the CONSENT STATE (what the site told Google)
+// and the COOKIE JAR (what Google was allowed to keep) - not whether a
+// script tag happened to appear.
+//
+// The consent commands are read from a dataLayer that the probe installs
+// before the page's own code runs, so the reading does not depend on what
+// the Google tag does with the queue afterwards.
 //
 // Usage: node scripts/seo/consent-probe.mjs
 // Env: SEO_SITE_BASE_URL (defaults to the production site)
+//      CHROME_PATH    (path to a Chromium/Chrome binary, if not on PATH)
 //
 // Playwright and the browser are imported dynamically so the probe degrades
 // to a SKIP (exit 0) where they are missing - the weekly audit must not fail
@@ -50,14 +62,16 @@ try {
 }
 
 const failures = [];
-const notes = [];
 const fail = (what, why) => {
   failures.push({ what, why });
   console.log(`[FAIL] ${what} — ${why}`);
 };
 const pass = (what) => console.log(`[pass] ${what}`);
+const note = (what) => console.log(`[note] ${what}`);
 
 const GA_HOST = 'googletagmanager.com';
+const GA_COLLECT = 'google-analytics.com';
+const CONSENT_SIGNALS = ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'];
 
 /** The measurement id the site is configured with, read off the CMS call. */
 function idFromSettings(payload) {
@@ -72,9 +86,15 @@ function idFromSettings(payload) {
  */
 async function openPage(context) {
   const page = await context.newPage();
-  const state = { gaRequests: [], configuredId: '' };
+  const state = { gaRequests: [], collectRequests: [], configuredId: '', settingsReady: null };
+  let markSettingsReady = () => {};
+  state.settingsReady = new Promise((resolve) => {
+    markSettingsReady = resolve;
+  });
   page.on('request', (req) => {
-    if (req.url().includes(GA_HOST)) state.gaRequests.push(req.url());
+    const url = req.url();
+    if (url.includes(GA_HOST)) state.gaRequests.push(url);
+    if (url.includes(GA_COLLECT)) state.collectRequests.push(url);
   });
   page.on('response', async (res) => {
     if (!res.url().includes('/api/cms/settings')) return;
@@ -84,8 +104,23 @@ async function openPage(context) {
     } catch {
       // A settings payload we cannot read simply means "no id known here".
     }
+    markSettingsReady();
   });
   return { page, state };
+}
+
+/**
+ * Wait for the CMS settings response, which carries the measurement id.
+ *
+ * A fixed wait is not good enough: the settings call crosses the internet and
+ * its timing decides whether the tag has an id to load, so the probe waits
+ * for the answer instead of guessing how long it takes.
+ */
+async function waitForSettings(state, ms = 15000) {
+  await Promise.race([
+    state.settingsReady,
+    new Promise((resolve) => setTimeout(resolve, ms)),
+  ]);
 }
 
 /** What the DOM says about the analytics script. */
@@ -96,13 +131,73 @@ const GA_STATE = () => {
   const ids = scripts
     .map((src) => (/[?&]id=([A-Za-z0-9-]+)/.exec(src) || [])[1] || '')
     .filter(Boolean);
-  return { scripts, ids, dataLayer: (window.dataLayer || []).length };
+  return { scripts, ids };
 };
 
-async function visit(url) {
-  const { page, state } = await openPage(await browser.newContext());
+/**
+ * The consent commands the page sent to Google, oldest first.
+ *
+ * Read from the log the probe installed before the page's own code ran, so
+ * the queue is captured whether or not the Google tag consumed it.
+ */
+const CONSENT_LOG = () => (window.__bbConsentLog || []).map((entry) => {
+  const args = Array.from(entry || []);
+  const action = args[1];
+  const payload = args[2] || {};
+  const signals = {};
+  // The signal names are written out here on purpose: this function is
+  // serialised into the browser, where the module scope does not exist.
+  for (const name of ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage']) {
+    signals[name] = payload[name] || '(unset)';
+  }
+  return { action, signals };
+});
+
+/** The analytics cookies in the jar. Empty when nothing was stored. */
+const GA_COOKIES = () =>
+  document.cookie
+    .split(';')
+    .map((part) => part.trim())
+    .filter((part) => part.startsWith('_ga'))
+    .map((part) => part.split('=')[0]);
+
+/**
+ * Can the Google tag actually run in this environment?
+ *
+ * Some networks (and this machine's sandbox proxy) answer the tag URL with
+ * an empty body, and a <script> that loads nothing never runs. The tag then
+ * never sends anything, so no cookie can ever appear and asserting on the
+ * cookie jar would fail for a reason that has nothing to do with the site.
+ *
+ * The probe therefore does not guess from the response body: it watches the
+ * network. A tag that runs sends a collect request - a cookieless ping when
+ * consent is denied - and that request is the proof.
+ */
+function tagIsRunning(state) {
+  return state.collectRequests.length > 0;
+}
+
+/** A context whose dataLayer records every command the page pushes. */
+async function contextWithConsentLog(browser) {
+  const context = await browser.newContext();
+  await context.addInitScript(() => {
+    window.__bbConsentLog = [];
+    const queue = [];
+    const push = queue.push.bind(queue);
+    queue.push = (...items) => {
+      for (const item of items) window.__bbConsentLog.push(item);
+      return push(...items);
+    };
+    window.dataLayer = queue;
+  });
+  return context;
+}
+
+async function visit(url, context) {
+  const { page, state } = await openPage(context || (await contextWithConsentLog(browser)));
   await page.goto(url, { waitUntil: 'load', timeout: 45000 });
-  await page.waitForTimeout(3500); // hydration + the CMS settings round-trip
+  await waitForSettings(state); // the CMS settings carry the measurement id
+  await page.waitForTimeout(3500); // hydration
   await waitForBanner(page);
   return { page, state };
 }
@@ -116,61 +211,132 @@ async function waitForBanner(page) {
     .catch(() => {});
 }
 
+/** The last consent command for an action, or null. */
+function lastConsent(log, action) {
+  const matches = log.filter((entry) => entry.action === action);
+  return matches.length ? matches[matches.length - 1] : null;
+}
+
+/** Are all four signals denied in this consent command? */
+function allDenied(entry) {
+  return CONSENT_SIGNALS.every((name) => entry.signals[name] === 'denied');
+}
+
 // ---------------------------------------------------------------- 1. fresh visitor
+let tagRuns = false;
 {
-  const { page, state } = await visit(base + '/');
-  const ga = await page.evaluate(GA_STATE);
-  const banner = await page.locator('text=Accept All Cookies').count();
+  const context = await contextWithConsentLog(browser);
+  const { page, state } = await visit(base + '/', context);
+  const banner = await page.locator('button:has-text("Accept All Cookies")').count();
+  const log = await page.evaluate(CONSENT_LOG);
+  const defaultEntry = lastConsent(log, 'default');
+  const cookies = await page.evaluate(GA_COOKIES);
+
+  tagRuns = tagIsRunning(state);
+  if (!tagRuns) {
+    note(
+      'the Google tag never reached Google from this environment (no collect request), so the cookie-jar checks are skipped - the consent commands are still checked',
+    );
+  }
 
   if (!banner) {
     fail('fresh visitor', 'the cookie banner did not appear — there is nothing to consent to');
-  } else if (state.gaRequests.length || ga.scripts.length) {
+  }
+  if (!defaultEntry) {
+    fail('fresh visitor', 'the site never sent a consent default — the tag would measure with no state at all');
+  } else if (!allDenied(defaultEntry)) {
     fail(
       'fresh visitor',
-      `the analytics script loaded before any consent (${ga.scripts.length} script(s), ${state.gaRequests.length} request(s))`,
+      `the consent default is not a full denial (${JSON.stringify(defaultEntry.signals)}) - the tag would measure before anybody agreed`,
     );
-  } else {
-    pass('fresh visitor — no analytics script, no request to Google');
+  }
+  if (cookies.length) {
+    fail('fresh visitor', `analytics cookies were written before consent (${cookies.join(', ')})`);
+  }
+  if (state.configuredId) {
+    const ga = await page.evaluate(GA_STATE);
+    const wrong = ga.ids.filter((id) => id !== state.configuredId);
+    if (wrong.length) {
+      fail('fresh visitor', `the site loaded ${wrong.join(', ')} but is configured with ${state.configuredId}`);
+    }
+  }
+  if (banner && defaultEntry && allDenied(defaultEntry) && !cookies.length) {
+    pass('fresh visitor — every signal denied, no analytics cookie written');
   }
 
   // ---------------------------------------------------------------- 2. accept
   if (banner) {
     await page.locator('button:has-text("Accept All Cookies")').first().click();
     await page.waitForTimeout(2500);
-    const after = await page.evaluate(GA_STATE);
-    if (!state.configuredId) {
-      notes.push('no measurement id is configured on the site — the accept path was not exercised');
-    } else if (!after.ids.length) {
-      fail('after accepting', 'the analytics script did not load even though consent was granted');
-    } else if (after.ids.some((id) => id !== state.configuredId)) {
-      fail('after accepting', `the site loaded ${after.ids.join(", ")} but is configured with ${state.configuredId}`);
-    } else {
-      pass(`after accepting — ${after.ids[0]} loaded`);
+    const afterLog = await page.evaluate(CONSENT_LOG);
+    const update = lastConsent(afterLog, 'update');
+    const afterCookies = await page.evaluate(GA_COOKIES);
+
+    if (!update) {
+      fail('after accepting', 'the site never sent a consent update — the reader agreed and the tag was not told');
+    } else if (update.signals.analytics_storage !== 'granted') {
+      fail(
+        'after accepting',
+        `the consent update left analytics storage at "${update.signals.analytics_storage}" - the reader agreed and the tag was not told`,
+      );
+    }
+    if (update && update.signals.analytics_storage === 'granted') {
+      pass('after accepting — analytics storage granted');
+    }
+
+    // The cookie is written when the tag runs a granted measurement, so the
+    // page is loaded once more with the stored decision: that is the same
+    // path a returning reader takes, and it is deterministic.
+    if (tagRuns) {
+      await page.reload({ waitUntil: 'load', timeout: 45000 });
+      await waitForSettings(state);
+      await page.waitForTimeout(4000);
+      const grantedCookies = await page.evaluate(GA_COOKIES);
+      if (!grantedCookies.length) {
+        fail('after accepting', 'analytics storage was granted but no analytics cookie was written');
+      } else {
+        pass(`after accepting — the analytics cookie was written (${grantedCookies[0]})`);
+      }
     }
   }
   await page.close();
+  await context.close();
 }
 
 // ---------------------------------------------------------------- 3. decline
 {
-  const { page, state } = await visit(base + '/');
-  const banner = await page.locator('text=Accept All Cookies').count();
+  const context = await contextWithConsentLog(browser);
+  const { page } = await visit(base + '/', context);
+  const banner = await page.locator('button:has-text("Accept All Cookies")').count();
   if (banner) {
     await page.locator('button:has-text("Decline Non-Essential")').first().click();
     await page.waitForTimeout(2500);
   }
-  const ga = await page.evaluate(GA_STATE);
-  if (ga.scripts.length || state.gaRequests.length) {
-    fail('after declining', `the analytics script loaded anyway (${ga.scripts.length} script(s))`);
-  } else {
-    pass('after declining — still no analytics script');
+  const log = await page.evaluate(CONSENT_LOG);
+  const update = lastConsent(log, 'update');
+  const cookies = await page.evaluate(GA_COOKIES);
+
+  if (banner && !update) {
+    fail('after declining', 'the site never sent a consent update — the decision was recorded but not handed to the tag');
+  } else if (update && update.signals.analytics_storage !== 'denied') {
+    fail(
+      'after declining',
+      `the consent update granted analytics storage ("${update.signals.analytics_storage}") - the reader declined`,
+    );
+  }
+  if (cookies.length) {
+    fail('after declining', `analytics cookies were written although consent was declined (${cookies.join(', ')})`);
+  }
+  if (banner && update && update.signals.analytics_storage === 'denied' && !cookies.length) {
+    pass('after declining — analytics storage stays denied, no cookie written');
   }
   await page.close();
+  await context.close();
 }
 
 // ---------------------------------------------------------------- 4. returning visitor
 {
-  const context = await browser.newContext();
+  const context = await contextWithConsentLog(browser);
   const { page, state } = await openPage(context);
   await page.goto(base + '/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   await page.evaluate(() => {
@@ -181,14 +347,27 @@ async function waitForBanner(page) {
     );
   });
   await page.reload({ waitUntil: 'load', timeout: 45000 });
+  await waitForSettings(state);
   await page.waitForTimeout(3500);
-  const ga = await page.evaluate(GA_STATE);
+  const log = await page.evaluate(CONSENT_LOG);
+  const update = lastConsent(log, 'update');
+  const cookies = await page.evaluate(GA_COOKIES);
+
   if (!state.configuredId) {
-    notes.push('no measurement id is configured on the site — the returning-reader path was not exercised');
-  } else if (!ga.ids.length) {
-    fail('returning reader', 'the stored consent was not honoured — the analytics script did not come back');
-  } else {
-    pass(`returning reader — ${ga.ids[0]} loaded from the stored decision`);
+    note('no measurement id is configured on the site — the returning-reader path was not exercised');
+  } else if (!update) {
+    fail('returning reader', 'the stored decision was not applied — the tag would count them as a cookieless ping');
+  } else if (update.signals.analytics_storage !== 'granted') {
+    fail(
+      'returning reader',
+      `the stored decision left analytics storage at "${update.signals.analytics_storage}" - the reader had agreed`,
+    );
+  }
+  if (tagRuns && update && update.signals.analytics_storage === 'granted' && !cookies.length) {
+    fail('returning reader', 'analytics storage was granted but no analytics cookie was written');
+  }
+  if (update && update.signals.analytics_storage === 'granted') {
+    pass('returning reader — the stored decision is applied on the next visit');
   }
   await page.close();
   await context.close();
@@ -196,12 +375,12 @@ async function waitForBanner(page) {
 
 await browser.close();
 
-for (const note of notes) console.log(`[note] ${note}`);
-
 if (failures.length > 0) {
   console.log(`\nconsent-probe FAILED — ${failures.length} consent problem(s):`);
   for (const f of failures) console.log(`  ${f.what}: ${f.why}`);
-  console.log('\nR-910: non-essential tracking must not fire before the reader grants consent.');
+  console.log('\nR-910: the consent state must deny everything until the reader grants it.');
   process.exit(1);
 }
-console.log('\nconsent-probe OK — no tracking before consent, tracking after it, and the decision is remembered.');
+console.log(
+  '\nconsent-probe OK — nothing is stored before consent, the decision is handed to the tag, and a reader who agreed is counted in full.',
+);

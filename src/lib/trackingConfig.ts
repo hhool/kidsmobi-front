@@ -16,10 +16,19 @@
  * from configuration at runtime and the loader below is only called once the
  * reader has agreed to analytics (see lib/consentState.ts).
  *
- * Nothing here sends anything. The site only loads a script when an id has
- * actually been configured - an unconfigured site stays script-free, which is
- * also what keeps a privacy-conscious reader from being tracked by accident.
+ * Nothing here sends anything by itself. The site only loads a tag when an id
+ * has actually been configured - an unconfigured site stays script-free, and
+ * that is also what keeps a privacy-conscious reader from being tracked by
+ * accident. Whether a reader is measured in full or only counted as a
+ * cookieless ping is decided by the consent state, not here (see
+ * lib/consentState.ts).
  */
+
+import {
+  DENIED_CONSENT,
+  pushGoogleConsent,
+  type ConsentSignals,
+} from "./consentState";
 
 export interface SeoGlobalLike {
   siteOrigin?: string;
@@ -124,10 +133,21 @@ export function amazonAffiliateUrl(
 /**
  * Load gtag.js for a measurement id.
  *
- * The function does not decide whether it may run - the caller does, and the
- * caller has to have established consent first. Keeping the decision out of
- * this module is the point: a loader that can fire on its own is a loader
- * that eventually fires too early.
+ * The function does not decide whether the reader may be tracked - the
+ * consent state does, and it is set here as well so the order is right:
+ *
+ *   1. the consent default ("denied") is queued FIRST, before the tag loads,
+ *      so the tag never runs without a state to obey;
+ *   2. a decision the reader already made is queued next, so a returning
+ *      reader's first pageview is a full one and not a ping;
+ *   3. only then does the tag load, and it configures itself.
+ *
+ * The tag loads for every reader, which is what Google asks for in Consent
+ * Mode: before consent the reader is counted by a cookieless ping (no
+ * cookie, no identifier), and after consent the same tag switches to full
+ * measurement. A tag that only ever loads after consent - "basic consent
+ * mode" - hands Google nothing at all for the readers who decline, and the
+ * traffic simply vanishes from the property.
  *
  * Returns true when the script was added, false when there was nothing to do
  * (no id, no DOM, or the script is already on the page). Calling it twice
@@ -136,23 +156,49 @@ export function amazonAffiliateUrl(
  * `async` on the loader: a slow or blocked Google endpoint must not hold up
  * the page, and the site's own content is what matters first.
  */
-export function loadGoogleAnalyticsScript(measurementId: string): boolean {
+export function loadGoogleAnalyticsScript(
+  measurementId: string,
+  initial?: ConsentSignals,
+): boolean {
   const id = clean(measurementId);
   if (!GA_ID.test(id)) return false;
   if (typeof document === "undefined") return false;
   if (document.querySelector(`script[data-google-analytics="${id}"]`)) return false;
 
+  // The stub has to exist before the consent commands are queued, and both
+  // have to exist before the tag loads.
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag(...args: unknown[]) {
+    window.dataLayer.push(args);
+  };
+
+  // 1. Nothing is granted yet. 500ms is how long the tag waits for a reader
+  //    to answer the banner before it sends the cookieless ping.
+  pushGoogleConsent("default", DENIED_CONSENT, 500);
+
+  // 2. A decision that was already made, applied before the config so the
+  //    first pageview of a returning reader is a full one.
+  if (initial) pushGoogleConsent("update", initial);
+
+  // 3. The tag.
   const script = document.createElement("script");
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
   script.dataset.googleAnalytics = id;
   document.head.appendChild(script);
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function gtag(...args: unknown[]) {
-    window.dataLayer.push(args);
-  };
+  // 4. The two standard commands.
   window.gtag("js", new Date());
   window.gtag("config", id);
   return true;
+}
+
+/**
+ * Tell the tag what the reader just decided.
+ *
+ * Granted switches analytics storage on for the rest of the visit. Denied
+ * leaves it denied - the visit is still counted, but as a cookieless ping.
+ */
+export function updateGoogleConsentMode(signals: ConsentSignals): void {
+  pushGoogleConsent("update", signals);
 }

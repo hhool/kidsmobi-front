@@ -153,11 +153,11 @@ import {
   withZhPrefix,
 } from "./lib/languageRoutes";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
-import { loadGoogleAnalyticsScript, resolveGaMeasurementId } from "./lib/trackingConfig";
+import { loadGoogleAnalyticsScript, resolveGaMeasurementId, updateGoogleConsentMode } from "./lib/trackingConfig";
 import {
   COOKIE_CONSENT_KEY,
   COOKIE_PREFERENCES_KEY,
-  hasAnalyticsConsent,
+  consentSignalsFor,
   readCookiePreferences,
   type CookieConsentChoice,
 } from "./lib/consentState";
@@ -1393,13 +1393,16 @@ export default function App() {
     return consent !== "all" && consent !== "essential" && consent !== "custom";
   });
 
-  // The analytics script is loaded in ONE place: the SEO/meta effect below,
+  // The analytics tag is loaded in ONE place: the SEO/meta effect below,
   // which re-runs when the CMS settings arrive and therefore knows the
-  // measurement id. A returning reader who had agreed to analytics gets the
-  // script there; a reader who declined never does. This component used to
-  // carry a second, hardcoded property id and a second loader, and the
-  // prerender put a third copy straight into the static HTML - three ways to
-  // track a reader, and all three fired before anybody had agreed to anything.
+  // measurement id. It loads for every reader, because the tag runs in
+  // Google's Consent Mode: with analytics storage denied the reader is
+  // still counted, by a cookieless ping with no cookie and no identifier,
+  // and agreeing switches the same tag to full measurement. This component
+  // used to carry a second, hardcoded property id and a second loader, and
+  // the prerender put a third copy straight into the static HTML - three
+  // ways to track a reader, and all three fired before anybody had agreed to
+  // anything.
 
   const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
 
@@ -2616,12 +2619,17 @@ export default function App() {
     // variable as the build-time default.
     //
     // This is the only place the site can load GA4. The static HTML ships no
-    // analytics script at all, so the load is gated on stored consent rather
-    // than on the page being open (R-910): a returning reader who said yes
-    // gets the script here, a reader who declined never does.
+    // analytics script at all, so the load happens here, after hydration and
+    // with the measurement id the CMS hands out.
+    //
+    // The tag loads for every reader, but the consent state decides what it
+    // may do (R-910). The default is "denied", which still counts the visit
+    // as a cookieless ping - no analytics cookie, no identifier - and a
+    // decision the reader already made is applied before the tag configures
+    // itself, so a returning reader who agreed gets a full pageview.
     const gaMeasurementId = resolveGaMeasurementId(cmsSettings as any, import.meta.env as any);
-    if (gaMeasurementId && hasAnalyticsConsent(readCookiePreferences())) {
-      loadGoogleAnalyticsScript(gaMeasurementId);
+    if (gaMeasurementId) {
+      loadGoogleAnalyticsScript(gaMeasurementId, consentSignalsFor(readCookiePreferences()));
     }
 
     const defaultRobotsIndex = String(
@@ -4332,13 +4340,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       }),
     );
     setShowCookieConsent(false);
-    if (preferences?.analytics ?? (choice === "all")) {
-      // Consent is recorded first, then the loader runs. If the CMS settings
-      // have not landed yet there is no id to load, and the SEO effect above
-      // picks the load up as soon as they arrive.
-      const gaMeasurementId = resolveGaMeasurementId(cmsSettings as any, import.meta.env as any);
-      loadGoogleAnalyticsScript(gaMeasurementId);
-    }
+    // The decision reaches the tag straight away: granted means the rest of
+    // this visit is measured in full, denied means it stays a cookieless
+    // ping. If the tag is not on the page yet - no id yet, or the CMS
+    // settings have not landed - the SEO effect above loads it with the
+    // stored decision as soon as they arrive.
+    updateGoogleConsentMode(
+      consentSignalsFor({ analytics: preferences?.analytics ?? (choice === "all") }),
+    );
   };
 
   return (

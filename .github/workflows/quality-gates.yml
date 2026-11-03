@@ -336,11 +336,17 @@ jobs:
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
 
+      - name: Wait for the expected build to be live
+        # Cloudflare Pages deploys asynchronously. Probing production while the
+        # previous bundle is still being served would measure the old code, so
+        # wait until the live site actually carries the build we expect.
+        run: node scripts/seo/wait-for-deploy.mjs
+
       - name: Probe the live site (SEO_SITE_BASE_URL defaults to production)
         run: |
           node scripts/seo/hydration-probe.mjs
-          # R-910 on production: the live pages must not request Google's tag
-          # host before the reader has agreed to analytics.
+          # R-910 on production: the live pages must hand Google a full denial
+          # before the reader has agreed to anything (Consent Mode v2).
           node scripts/seo/consent-probe.mjs
 
   # ------------------------------------------------------------------ ⑦ 定时失败告警

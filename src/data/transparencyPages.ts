@@ -533,7 +533,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "We do not sell parent attention as a product",
           body: [
             "BalanceBikeToddler avoids advertising trackers and does not sell personal data. We use privacy-sensitive analytics and operational logs only to keep the site stable, detect abuse, and understand which safety resources actually help families.",
-            "The analytics script is not loaded until you have agreed to it: the cookie banner asks first, and choosing \"essential only\" leaves every analytics script switched off.",
+            "Analytics runs in Google's Consent Mode. Until you agree, the tag is loaded with analytics storage denied: it sets no analytics cookie and builds no identifier, though Google still receives a cookieless ping so we can count the visit. Agreeing switches analytics storage on and gives us full page and event data; declining leaves it denied, and the ping stays cookieless.",
             "If we ever expand data use, the rule remains simple: explain it plainly, keep it proportional, and never turn a child's measurements into a growth-hacking asset."
           ],
         },
@@ -591,7 +591,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "不把家长注意力卖成产品",
           body: [
             "BalanceBikeToddler 避免广告追踪器，不出售个人数据。只使用隐私友好的分析和运行日志来保持站点稳定、识别滥用，并理解哪些安全资源真正帮助家庭。",
-            "分析脚本要等你同意之后才会加载：Cookie 横幅先问一遍，选「仅必要」就一个统计脚本都不加载。",
+            "分析走的是 Google 的 Consent Mode（同意模式）：在你同意之前，标签以「分析存储被拒绝」的状态加载——不写分析 Cookie，也不建立标识符；Google 仍会收到一条无 Cookie 的连接侦测（ping），好让我们统计这次访问。你同意之后分析存储才被打开，我们才拿到完整的页面与事件数据；拒绝则维持拒绝，那条 ping 始终无 Cookie。",
             "如果未来扩展数据使用，规则仍然简单：讲清楚、保持比例、绝不把孩子尺寸变成增长黑客资产。"
           ],
         },

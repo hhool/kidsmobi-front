@@ -9,31 +9,35 @@
  * in both states, and this guard checks them in whatever state the build is
  * in:
  *
- *   1. a page carries AT MOST ONE analytics snippet, and a snippet carries a
- *      real measurement id that matches the one it configures;
- *   2. an outbound affiliate link carries a real ASIN and a tracking tag, and
+ *   1. an outbound affiliate link carries a real ASIN and a tracking tag, and
  *      declares itself as paid ("sponsored nofollow") - a paid link that
  *      does not say so is a link the search engines treat as organic;
- *   3. the SPA bundle still declares the paid-link rel, so the hydrated page
+ *   2. the SPA bundle still declares the paid-link rel, so the hydrated page
  *      agrees with the static one.
  *
  * R-910 (consent before tracking) adds the invariants that were missing, and
  * they are the ones that actually bit:
  *
- *   4. the static HTML carries NO analytics loader. The prerender used to
- *      write a GA4 snippet into all 441 static pages, so the tracking fired
- *      while the HTML was being parsed - before the cookie banner was even
- *      shown, and regardless of the answer (R-910). A loader may only appear
- *      inside an explicit consent gate;
- *   5. the SPA bundle carries the consent keys, so the loader has something
+ *   3. the static HTML carries NO analytics loader and no gtag('config') call
+ *      at all. The prerender used to write a GA4 snippet into all 441 static
+ *      pages, so the tracking fired while the HTML was being parsed - before
+ *      the cookie banner was even shown, and regardless of the answer. The
+ *      tag is loaded by the SPA instead, which lets it set the consent state
+ *      first;
+ *   4. the SPA bundle carries the consent keys, so the loader has something
  *      to consult before it fires;
- *   6. the site uses ONE measurement id. The CMS said G-52MH8KHF9T and a
+ *   5. the site uses ONE measurement id. The CMS said G-52MH8KHF9T and a
  *      hardcoded constant in App.tsx said G-DT1W48PVTR, so the site was
  *      reporting into two properties and no reader could be traced. The id
  *      belongs to the CMS (or to a build-time env var), never to a literal
- *      in the code.
+ *      in the code;
+ *   6. the bundle runs Google's Consent Mode v2: all four signals are set,
+ *      the default denies every one of them, and there is both a "default"
+ *      and an "update" command. Without the denied default the tag would
+ *      start measuring straight away; without the update a reader who agreed
+ *      would stay denied forever.
  *
- * Rules 4-6 have self-tests at the bottom of this file: each one is checked
+ * Rules 3-6 have self-tests at the bottom of this file: each one is checked
  * against a fixture that must fail and a fixture that must pass, so a
  * widened regex or a loosened condition cannot quietly turn the guard off.
  *
@@ -53,101 +57,87 @@ if (!existsSync(DIST)) {
 }
 
 const GA_LOADER = /googletagmanager\.com\/gtag\/js\?id=([A-Za-z0-9-]+)/g;
-const GA_CONFIG = /gtag\('config',\s*["']([^"']+)["']\)/g;
 // Any mention of the loader at all - a snippet that builds the URL at
-// runtime counts too, which is why rule 4 is about the string, not the
+// runtime counts too, which is why rule 3 is about the string, not the
 // <script> tag.
 const GA_MENTION = /googletagmanager\.com\/gtag\/js/g;
+const GA_CONFIG = /gtag\(\s*['"]config['"]/g;
 const AFFILIATE = /https:\/\/www\.amazon\.com\/dp\/([A-Z0-9]{10})\?tag=([A-Za-z0-9-]+)/g;
 // A GA4 measurement id written into the bundle. "G-XXXXXXXXXX" is the admin
 // panel's placeholder for the field, not a property, so it is exempt.
 const GA_LITERAL = /G-[A-Z0-9]{10}/g;
 const GA_PLACEHOLDER = /^G-X+$/;
 const CONSENT_KEYS = ["cookie_preferences_v1", "cookie_consent_v1"];
-// The marker a consent-gated static snippet has to carry. Rule 4 only allows
-// a loader in the static HTML when it sits inside a block marked with it.
-const CONSENT_GATE_ID = "bb-analytics-consent-gate";
 
-/** The character ranges covered by the consent-gate script blocks in a page. */
-function consentGateSpans(html) {
-  const spans = [];
-  const re = new RegExp(`<script[^>]*id="${CONSENT_GATE_ID}"[^>]*>[\\s\\S]*?</script>`, "gi");
-  let match;
-  while ((match = re.exec(html)) !== null) {
-    spans.push([match.index, match.index + match[0].length, match[0]]);
-  }
-  return spans;
+// The four Google Consent Mode v2 signals, and the state a page starts in.
+const CONSENT_SIGNALS = [
+  "ad_storage",
+  "ad_user_data",
+  "ad_personalization",
+  "analytics_storage",
+];
+
+/**
+ * Does the code contain one object literal that denies every consent signal?
+ *
+ * The default has to be "denied" for all four, otherwise the tag starts
+ * storing cookies before anybody has answered the banner. The object is
+ * searched for rather than the whole file, because the same bundle also
+ * carries the granted path - the update that follows a reader's choice - and
+ * that one is supposed to say "granted".
+ */
+function hasDeniedConsentDefault(code) {
+  const literals = code.match(/\{[^{}]{0,600}\}/g) || [];
+  return literals.some((literal) =>
+    CONSENT_SIGNALS.every((signal) =>
+      new RegExp(`["']?${signal}["']?\\s*:\\s*["']denied["']`).test(literal),
+    ),
+  );
 }
 
 /**
- * Rules 1 and 4 for one page of static HTML.
+ * Is there a consent command with this action? ("default" / "update")
  *
- * Returns the list of problems found (empty when the page is fine) and the
- * number of analytics loaders it carries.
+ * The built bundle is minified, so the two halves are looked for separately:
+ * the call that sends the consent command, and the call that passes the
+ * action. `gtag("consent", action, {...})` compiles to something like
+ * `window.gtag("consent", e, {...})` with the action arriving as an
+ * argument, so the two never sit next to each other in the output.
+ */
+function hasConsentCommand(code, action) {
+  const sendsConsent = /gtag\(\s*["']consent["']/.test(code);
+  const passesAction = new RegExp(`\\(\\s*["']${action}["']`).test(code);
+  return sendsConsent && passesAction;
+}
+
+/**
+ * Rules 1-3 for one page of static HTML.
  *
- * A snippet inside a consent gate is held to a looser rule on purpose: the
- * gate builds the URL and the gtag call at runtime, so there is no static
- * `gtag('config', ...)` to pair it with. A snippet OUTSIDE a gate is the
- * classic inline pair, and has to look like one.
+ * The static HTML must be free of analytics. The tag is loaded by the SPA,
+ * which sets the consent default before the tag loads - a snippet in the
+ * static HTML would fire first, with no consent state to obey.
  */
 function checkPageAnalytics(html) {
   const found = [];
-  const gates = consentGateSpans(html);
-  const isGated = (index) => gates.some(([start, end]) => index >= start && index < end);
-
   const mentions = [...html.matchAll(GA_MENTION)];
-  const loaders = [...html.matchAll(GA_LOADER)];
   const configs = [...html.matchAll(GA_CONFIG)];
-  const ungatedLoaders = loaders.filter((loader) => !isGated(loader.index));
-  const ungatedConfigs = configs.filter((config) => !isGated(config.index));
 
-  // Rule 4. A loader in the static HTML fires while the page is being
-  // parsed, which is before the cookie banner can be answered. The only way
-  // a loader may live in the static HTML is inside an explicit consent gate
-  // that reads the stored decision first.
   if (mentions.length) {
-    if (!gates.length) {
-      found.push(
-        `carries an analytics loader outside a consent gate (${mentions.length} mention(s)) - the tracking fires before the reader has agreed to anything`,
-      );
-    } else {
-      const outside = mentions.some((mention) => !isGated(mention.index));
-      if (outside) {
-        found.push("carries an analytics loader outside the consent-gated block");
-      } else if (!gates[0][2].includes("cookie_preferences_v1")) {
-        found.push("the consent gate does not read the stored analytics decision");
-      }
-    }
+    found.push(
+      `carries an analytics loader (${mentions.length} mention(s)) - the static HTML must ship no analytics, the SPA loads the tag after it has set the consent state`,
+    );
   }
-
-  // Rule 1. The ungated pair has to look like a beacon: one loader, one
-  // config call, the same id in both.
-  if (ungatedLoaders.length > 1) {
-    found.push(`carries ${ungatedLoaders.length} analytics snippets - a page view would be counted twice`);
-  }
-  for (const loader of loaders) {
-    const id = loader[1];
-    if (!/^G-[A-Za-z0-9]{4,20}$/.test(id)) {
-      found.push(`the analytics snippet carries "${id}", which is not a GA4 measurement id`);
-    }
-  }
-  for (const config of configs) {
-    if (!loaders.some((loader) => loader[1] === config[1])) {
-      found.push(`gtag('config', "${config[1]}") does not match any snippet on the page`);
-    }
-  }
-  if (ungatedLoaders.length === 1 && ungatedConfigs.length === 0) {
-    found.push("the analytics snippet has no gtag('config') call - the loader would report nothing");
-  }
-  if (ungatedLoaders.length === 1 && ungatedConfigs.length > 1) {
-    found.push(`has ${ungatedConfigs.length} gtag('config') calls for ${ungatedLoaders.length} snippet(s)`);
+  if (configs.length) {
+    found.push(
+      `carries ${configs.length} gtag('config') call(s) - the static HTML must ship no analytics, the SPA loads the tag after it has set the consent state`,
+    );
   }
 
   return { problems: found, loaders: mentions.length };
 }
 
 /**
- * Rules 3, 5 and 6 for the SPA bundle.
+ * Rules 2, 4, 5 and 6 for the SPA bundle.
  */
 function checkSpaBundle(code, configuredId) {
   const found = [];
@@ -176,6 +166,33 @@ function checkSpaBundle(code, configuredId) {
       `the bundle pins measurement id "${literals[0]}" but no id is configured in the CMS - put it in settings.seoGlobal.gaMeasurementId so there is one source of truth`,
     );
   }
+
+  // Rule 6. Consent Mode v2.
+  const missingSignals = CONSENT_SIGNALS.filter(
+    (signal) => !new RegExp(`["']?${signal}["']?\\s*:`).test(code),
+  );
+  if (missingSignals.length) {
+    found.push(
+      `the bundle never sets ${missingSignals.join(", ")} - Consent Mode v2 needs all four signals`,
+    );
+  }
+  if (!hasDeniedConsentDefault(code)) {
+    found.push(
+      "the bundle has no consent state that denies every signal - without it the tag measures before anybody agreed",
+    );
+  }
+  if (!hasConsentCommand(code, "default")) {
+    found.push("the bundle never sends the consent default - the tag would start with no state at all");
+  }
+  if (!hasConsentCommand(code, "update")) {
+    found.push("the bundle never sends a consent update - a reader who agreed would stay denied");
+  }
+  if (!code.includes("wait_for_update")) {
+    found.push(
+      "the bundle does not wait for the consent decision - the tag would fire before the banner is answered",
+    );
+  }
+
   return found;
 }
 
@@ -203,66 +220,60 @@ function runSelfTests() {
     if (!condition) failures.push(`${name}${detail ? " — " + detail : ""}`);
   };
 
-  const ungated = `<html><head>
+  // --- the static HTML must be free of analytics ---------------------------
+  const withLoader = `<html><head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-52MH8KHF9T"></script>
     <script>gtag('config', 'G-52MH8KHF9T');</script>
   </head></html>`;
   expect(
-    "an ungated loader in the static HTML must be reported",
-    checkPageAnalytics(ungated).problems.length > 0,
+    "an analytics loader in the static HTML must be reported",
+    checkPageAnalytics(withLoader).problems.length > 0,
     "the loader was accepted",
   );
 
-  const gated = `<html><head>
-    <script id="${CONSENT_GATE_ID}">
-      if (JSON.parse(localStorage.getItem('cookie_preferences_v1')||'{}').analytics) {
-        var s = document.createElement('script');
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-52MH8KHF9T';
-        document.head.appendChild(s);
-      }
+  const withRuntimeLoader = `<html><head>
+    <script>
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-52MH8KHF9T';
     </script>
   </head></html>`;
   expect(
-    "a consent-gated loader must be accepted",
-    checkPageAnalytics(gated).problems.length === 0,
-    JSON.stringify(checkPageAnalytics(gated).problems),
+    "a runtime-built loader in the static HTML must be reported",
+    checkPageAnalytics(withRuntimeLoader).problems.length > 0,
   );
 
-  const gatedButBlind = gated.replace("cookie_preferences_v1", "something_else");
+  const withConfigOnly = `<html><head><script>gtag('config','G-52MH8KHF9T');</script></head></html>`;
   expect(
-    "a gate that does not read the consent state must be reported",
-    checkPageAnalytics(gatedButBlind).problems.length > 0,
+    "a gtag('config') call in the static HTML must be reported",
+    checkPageAnalytics(withConfigOnly).problems.length > 0,
   );
 
-  const twoLoaders = `<html><head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52MH8KHF9T"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DT1W48PVTR"></script>
-  </head></html>`;
+  const cleanPage = `<html><head><title>Balance Bike Toddler</title></head><body></body></html>`;
   expect(
-    "two loaders in one page must be reported",
-    checkPageAnalytics(twoLoaders).problems.length > 0,
+    "a page without analytics must pass",
+    checkPageAnalytics(cleanPage).problems.length === 0,
+    JSON.stringify(checkPageAnalytics(cleanPage).problems),
   );
 
-  const mismatchedConfig = `<html><head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52MH8KHF9T"></script>
-    <script>gtag('config', 'G-DT1W48PVTR');</script>
-  </head></html>`;
-  expect(
-    "a snippet that configures a different id must be reported",
-    checkPageAnalytics(mismatchedConfig).problems.length > 0,
-  );
+  // --- the bundle rules ----------------------------------------------------
+  // The fixtures below are written the way the minified bundle looks, so the
+  // guard is tested against the shape it will actually meet.
+  const consentMode =
+    'const Uf={ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied",analytics_storage:"denied"};' +
+    'function zo(e,t,a){window.gtag("consent",e,{...t,...typeof a=="number"?{wait_for_update:a}:{}})}' +
+    'zo("default",Uf,500)';
+  const consentUpdate = 'zo("update",eh(prefs))';
+  const cleanBundle = [
+    "googletagmanager.com/gtag/js",
+    "cookie_preferences_v1",
+    "cookie_consent_v1",
+    "sponsored nofollow",
+    consentMode,
+    consentUpdate,
+  ].join(" ");
 
-  const configlessSnippet = `<html><head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52MH8KHF9T"></script>
-  </head></html>`;
   expect(
-    "a snippet with no gtag('config') call must be reported",
-    checkPageAnalytics(configlessSnippet).problems.length > 0,
-  );
-
-  const cleanBundle = 'googletagmanager.com/gtag/js cookie_preferences_v1 cookie_consent_v1 sponsored nofollow';
-  expect(
-    "a bundle without a pinned measurement id must pass",
+    "a bundle that runs Consent Mode v2 must pass",
     checkSpaBundle(cleanBundle, "G-52MH8KHF9T").length === 0,
     JSON.stringify(checkSpaBundle(cleanBundle, "G-52MH8KHF9T")),
   );
@@ -283,6 +294,39 @@ function runSelfTests() {
     checkSpaBundle("googletagmanager.com/gtag/js sponsored nofollow", "G-52MH8KHF9T").length > 0,
   );
 
+  const grantedByDefault = cleanBundle.replace(
+    'analytics_storage:"denied"',
+    'analytics_storage:"granted"',
+  );
+  expect(
+    "a bundle that grants analytics by default must be reported",
+    checkSpaBundle(grantedByDefault, "G-52MH8KHF9T").length > 0,
+  );
+
+  const noDefault = cleanBundle.replace(consentMode, "");
+  expect(
+    "a bundle without the consent default must be reported",
+    checkSpaBundle(noDefault, "G-52MH8KHF9T").length > 0,
+  );
+
+  const noUpdate = cleanBundle.replace(consentUpdate, "");
+  expect(
+    "a bundle without the consent update must be reported",
+    checkSpaBundle(noUpdate, "G-52MH8KHF9T").length > 0,
+  );
+
+  const noWait = cleanBundle.replace("wait_for_update:a", "send_after:a");
+  expect(
+    "a bundle that does not wait for the decision must be reported",
+    checkSpaBundle(noWait, "G-52MH8KHF9T").length > 0,
+  );
+
+  const missingSignal = cleanBundle.replace(/ad_user_data:"denied",/, "");
+  expect(
+    "a bundle missing one of the four signals must be reported",
+    checkSpaBundle(missingSignal, "G-52MH8KHF9T").length > 0,
+  );
+
   if (failures.length) {
     console.error(
       JSON.stringify({ ok: false, failed: ["check-tracking self-tests failed"], selfTestFailures: failures }, null, 2),
@@ -295,7 +339,6 @@ runSelfTests();
 
 let pages = 0;
 let withAnalytics = 0;
-let gatedAnalytics = 0;
 let withAffiliate = 0;
 let affiliateLinks = 0;
 let staticLoaders = 0;
@@ -317,13 +360,10 @@ for (const file of walk(DIST)) {
 
   const page = checkPageAnalytics(html);
   for (const problem of page.problems) fail(rel, problem);
-  if (page.loaders > 0) {
-    staticLoaders += page.loaders;
-    if (page.problems.length === 0) gatedAnalytics += 1;
-  }
+  if (page.loaders > 0) staticLoaders += page.loaders;
   if ([...html.matchAll(GA_LOADER)].length === 1) withAnalytics += 1;
 
-  // 2. the affiliate links
+  // 1. the affiliate links
   const links = [...html.matchAll(AFFILIATE)];
   if (links.length) {
     withAffiliate += 1;
@@ -351,7 +391,7 @@ for (const file of walk(DIST)) {
   }
 }
 
-// 3. the SPA must declare the paid-link rel too, so the hydrated page agrees
+// 2. the SPA must declare the paid-link rel too, so the hydrated page agrees
 // with the static one.
 const assets = join(DIST, "assets");
 if (existsSync(assets)) {
@@ -375,14 +415,13 @@ console.log(
       ok,
       pagesChecked: pages,
       pagesWithAnalytics: withAnalytics,
-      pagesWithConsentGatedAnalytics: gatedAnalytics,
       staticAnalyticsLoaders: staticLoaders,
       pagesWithAffiliate: withAffiliate,
       affiliateLinks,
       state:
         staticLoaders === 0
-          ? "the static HTML ships no analytics script - GA4 is loaded by the SPA after consent"
-          : "the static HTML carries a consent-gated analytics snippet",
+          ? "the static HTML ships no analytics - GA4 is loaded by the SPA in Consent Mode v2 (default: every signal denied)"
+          : "the static HTML carries an analytics loader, which must not happen",
       problems,
     },
     null,
