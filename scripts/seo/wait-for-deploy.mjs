@@ -28,7 +28,14 @@ const intervalMs = Number(process.env.DEPLOY_WAIT_INTERVAL || 20) * 1000;
 
 // The strings a Consent Mode v2 build must contain. Property names survive
 // minification, so they are a reliable marker in the shipped bundle.
+//
+// The second marker is the shape the commands are queued in: gtag.js reads a
+// command only when it arrives as an `arguments` object, so a bundle that
+// pushes a plain array loads a tag that never fires. A build from before
+// that fix carries the consent signals but not this marker - which is
+// exactly the pair of states this script has to tell apart.
 const MARKERS = ['ad_user_data', 'ad_personalization', 'analytics_storage'];
+const COMMAND_SHAPE = /dataLayer\.push\(\s*arguments\s*\)/;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -45,7 +52,7 @@ function assetUrls(html) {
 
 /** Does this bundle carry the marker? */
 function hasMarker(code) {
-  return MARKERS.every((m) => code.includes(m));
+  return MARKERS.every((m) => code.includes(m)) && COMMAND_SHAPE.test(code);
 }
 
 /**
