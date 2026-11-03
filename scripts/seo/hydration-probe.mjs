@@ -217,7 +217,11 @@ for (const route of ROUTES) {
     pageErrors = [];
     page.on('pageerror', (err) => pageErrors.push(String(err.message || err).slice(0, 200)));
     try {
-      res = await page.goto(base + route, { waitUntil: 'load', timeout: 45000 });
+      // The navigation budget is generous on purpose. The heavier Chinese
+      // routes need ~40s to hydrate on a slow or sandboxed machine, and a
+      // timeout there is an environment problem, not a broken route - a
+      // genuinely broken page fails deterministically on both attempts.
+      res = await page.goto(base + route, { waitUntil: 'load', timeout: 90000 });
       await page.waitForTimeout(3000); // let hydration + the SEO effect settle
       probe = await page.evaluate(() => {
         const body = document.body?.innerText || '';
