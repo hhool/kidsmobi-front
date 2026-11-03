@@ -6,9 +6,7 @@ import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
 import {
   amazonAffiliateUrl,
-  gaHeadSnippet,
   resolveAmazonTag,
-  resolveGaMeasurementId,
 } from "../src/lib/trackingConfig";
 import {
   buildDatasetSchema,
@@ -316,9 +314,6 @@ type RoutePage = {
 
 type AppAssets = {
   headTags: string;
-  /** The gtag.js pair, when a measurement id is configured. Empty otherwise, so
-   *  an unconfigured site ships no tracking script at all. */
-  gaSnippet: string;
 };
 
 function escapeHtml(value: string): string {
@@ -877,7 +872,7 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
     </script>
 ${aboutJsonLd || (page.jsonLd ? `    <script type="application/ld+json">${JSON.stringify(page.jsonLd)}</script>` : "")}
 ${appAssets.headTags}
-${appAssets.gaSnippet ? appAssets.gaSnippet + "\n" : ""}  </head>
+  </head>
   <body class="bg-slate-50 text-slate-950 antialiased font-sans">
     <div id="root">
       <div id="app-boot-cover" aria-hidden="true">
@@ -903,7 +898,6 @@ function extractAppAssets(indexHtml: string): AppAssets {
 
   return {
     headTags: tags.map((tag) => `    ${tag}`).join("\n"),
-    gaSnippet: "",
   };
 }
 
@@ -8055,7 +8049,6 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
-  appAssets.gaSnippet = "";
 
   const [cmsGuides, cmsNews, cmsEvaluations, cmsProducts, cmsSettings] = await Promise.all([
     fetchPublishedGuides(),
@@ -8262,16 +8255,14 @@ async function main() {
 
   // Section pages (home/products/reviews/guides/news/about) publish the
   // CMS-resolved TDK so the static HTML matches what the hydrated SPA writes.
-  // Analytics: the id comes from the CMS (so the owner can set it from the
-  // admin panel) with an environment variable as the build-time default. The
-  // static HTML and the SPA both inject the same snippet, so a crawler and a
-  // reader are measured the same way.
-  const gaMeasurementId = resolveGaMeasurementId(cmsSettings as any, process.env);
-  appAssets.gaSnippet = gaHeadSnippet(gaMeasurementId);
-  if (gaMeasurementId) {
-    console.log(`[prerender] GA4 measurement id ${gaMeasurementId} injected into every static page.`);
-  }
-
+  //
+  // Analytics: the static HTML deliberately ships NO analytics snippet. The
+  // prerender used to put a GA4 loader into every one of the 441 static
+  // pages, which meant the tracking fired the moment the HTML was parsed -
+  // before the cookie banner had been answered, and regardless of the
+  // answer (R-910). The id now comes from the CMS at runtime and the script
+  // is loaded by the SPA only after analytics consent is on file. Guard:
+  // npm run check:tracking, and the consent probe in CI.
 
   const sectionSeoApplied = applyCmsSectionSeo(pages, cmsSettings);
   if (sectionSeoApplied) {

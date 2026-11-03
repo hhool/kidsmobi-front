@@ -9,12 +9,15 @@
  *   - an environment variable is the fallback, for a build-time default and
  *     for local development where there is no CMS.
  *
- * The static HTML and the SPA have to agree on this. If only the SPA knows
- * about the measurement id, a crawler reading the raw HTML sees no tracking
- * at all, and the two renderers end up sending different numbers.
+ * One id, one place. The static HTML used to carry a GA4 snippet of its own
+ * while the SPA loaded a second, hardcoded property - two properties, half a
+ * pageview each, and tracking that started before the cookie banner was ever
+ * shown. The static HTML now ships no analytics script at all: the id is read
+ * from configuration at runtime and the loader below is only called once the
+ * reader has agreed to analytics (see lib/consentState.ts).
  *
  * Nothing here sends anything. The site only loads a script when an id has
- * actually been configured — an unconfigured site stays script-free, which is
+ * actually been configured - an unconfigured site stays script-free, which is
  * also what keeps a privacy-conscious reader from being tracked by accident.
  */
 
@@ -119,21 +122,37 @@ export function amazonAffiliateUrl(
 }
 
 /**
- * The gtag.js snippet for a measurement id, as a script pair.
+ * Load gtag.js for a measurement id.
+ *
+ * The function does not decide whether it may run - the caller does, and the
+ * caller has to have established consent first. Keeping the decision out of
+ * this module is the point: a loader that can fire on its own is a loader
+ * that eventually fires too early.
+ *
+ * Returns true when the script was added, false when there was nothing to do
+ * (no id, no DOM, or the script is already on the page). Calling it twice
+ * with the same id therefore cannot double-count a pageview.
  *
  * `async` on the loader: a slow or blocked Google endpoint must not hold up
  * the page, and the site's own content is what matters first.
  */
-export function gaHeadSnippet(measurementId: string): string {
+export function loadGoogleAnalyticsScript(measurementId: string): boolean {
   const id = clean(measurementId);
-  if (!GA_ID.test(id)) return "";
-  return (
-    `<script async src="https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}"></script>\n` +
-    `<script>\n` +
-    `  window.dataLayer = window.dataLayer || [];\n` +
-    `  function gtag(){dataLayer.push(arguments);}\n` +
-    `  gtag('js', new Date());\n` +
-    `  gtag('config', ${JSON.stringify(id)});\n` +
-    `</script>`
-  );
+  if (!GA_ID.test(id)) return false;
+  if (typeof document === "undefined") return false;
+  if (document.querySelector(`script[data-google-analytics="${id}"]`)) return false;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+  script.dataset.googleAnalytics = id;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag(...args: unknown[]) {
+    window.dataLayer.push(args);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", id);
+  return true;
 }

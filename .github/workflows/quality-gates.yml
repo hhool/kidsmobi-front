@@ -250,7 +250,7 @@ jobs:
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
 
-      - name: Serve dist and probe every curated route
+      - name: Serve dist and probe every curated route, then the consent gate
         run: |
           set -euo pipefail
           npx vite preview --outDir dist --port 4173 --host 127.0.0.1 > /tmp/vite-preview.log 2>&1 &
@@ -262,6 +262,10 @@ jobs:
           done
           curl -sf http://127.0.0.1:4173/ > /dev/null # hard fail if the server never came up
           SEO_SITE_BASE_URL=http://127.0.0.1:4173 node scripts/seo/hydration-probe.mjs
+          # R-910: the tracking must not start before the reader has agreed to
+          # analytics. Only a browser can see when the script is actually
+          # requested, so the consent gate is probed next to the hydration.
+          SEO_SITE_BASE_URL=http://127.0.0.1:4173 node scripts/seo/consent-probe.mjs
 
   # ------------------------------------------------------------------ ⑤ 每周线上审计
   weekly-audit:
@@ -333,7 +337,11 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Probe the live site (SEO_SITE_BASE_URL defaults to production)
-        run: node scripts/seo/hydration-probe.mjs
+        run: |
+          node scripts/seo/hydration-probe.mjs
+          # R-910 on production: the live pages must not request Google's tag
+          # host before the reader has agreed to analytics.
+          node scripts/seo/consent-probe.mjs
 
   # ------------------------------------------------------------------ ⑦ 定时失败告警
   alert:

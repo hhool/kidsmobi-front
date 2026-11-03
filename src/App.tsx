@@ -153,7 +153,14 @@ import {
   withZhPrefix,
 } from "./lib/languageRoutes";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
-import { gaHeadSnippet, resolveGaMeasurementId } from "./lib/trackingConfig";
+import { loadGoogleAnalyticsScript, resolveGaMeasurementId } from "./lib/trackingConfig";
+import {
+  COOKIE_CONSENT_KEY,
+  COOKIE_PREFERENCES_KEY,
+  hasAnalyticsConsent,
+  readCookiePreferences,
+  type CookieConsentChoice,
+} from "./lib/consentState";
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
 import { setReferenceClusterConfig, CLUSTER_HEADINGS } from "./lib/referenceCluster";
 import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
@@ -778,33 +785,10 @@ const safeStorageRemove = (key: string): void => {
   }
 };
 
-const COOKIE_CONSENT_KEY = "cookie_consent_v1";
-const COOKIE_PREFERENCES_KEY = "cookie_preferences_v1";
-const GOOGLE_ANALYTICS_MEASUREMENT_ID = "G-DT1W48PVTR";
-type CookieConsentChoice = "all" | "essential" | "custom";
 const CMS_ENTRY_SNAPSHOT_KEY = "cms_entry_snapshot_v1";
 
 const isDevAdminBypassEnabled = (): boolean => {
   return safeStorageGet("dev_admin_bypass") === "true";
-};
-
-const loadGoogleAnalytics = () => {
-  if (document.querySelector(`script[data-google-analytics="${GOOGLE_ANALYTICS_MEASUREMENT_ID}"]`)) {
-    return;
-  }
-
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_MEASUREMENT_ID}`;
-  script.dataset.googleAnalytics = GOOGLE_ANALYTICS_MEASUREMENT_ID;
-  document.head.appendChild(script);
-
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function gtag(...args: unknown[]) {
-    window.dataLayer.push(args);
-  };
-  window.gtag("js", new Date());
-  window.gtag("config", GOOGLE_ANALYTICS_MEASUREMENT_ID);
 };
 
 const resolveInitialLang = (): "zh" | "en" => {
@@ -1409,19 +1393,13 @@ export default function App() {
     return consent !== "all" && consent !== "essential" && consent !== "custom";
   });
 
-  useEffect(() => {
-    const rawPreferences = safeStorageGet(COOKIE_PREFERENCES_KEY);
-    if (!rawPreferences) return;
-
-    try {
-      const preferences = JSON.parse(rawPreferences) as { analytics?: boolean };
-      if (preferences.analytics === true) {
-        loadGoogleAnalytics();
-      }
-    } catch (error) {
-      console.warn("Failed to load saved cookie preferences", error);
-    }
-  }, [showCookieConsent]);
+  // The analytics script is loaded in ONE place: the SEO/meta effect below,
+  // which re-runs when the CMS settings arrive and therefore knows the
+  // measurement id. A returning reader who had agreed to analytics gets the
+  // script there; a reader who declined never does. This component used to
+  // carry a second, hardcoded property id and a second loader, and the
+  // prerender put a third copy straight into the static HTML - three ways to
+  // track a reader, and all three fired before anybody had agreed to anything.
 
   const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
 
@@ -2637,19 +2615,13 @@ export default function App() {
     // admin panel and have it live without a redeploy) with an environment
     // variable as the build-time default.
     //
-    // The static HTML already carries the same snippet when the prerender
-    // knew the id, so this only has to cover the case where the id was
-    // configured after the last build, and it must not add a second copy
-    // when the static HTML already has one.
+    // This is the only place the site can load GA4. The static HTML ships no
+    // analytics script at all, so the load is gated on stored consent rather
+    // than on the page being open (R-910): a returning reader who said yes
+    // gets the script here, a reader who declined never does.
     const gaMeasurementId = resolveGaMeasurementId(cmsSettings as any, import.meta.env as any);
-    if (gaMeasurementId && !document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${gaMeasurementId}"]`)) {
-      const holder = document.createElement("div");
-      holder.innerHTML = gaHeadSnippet(gaMeasurementId);
-      while (holder.firstChild) {
-        const node = holder.firstChild;
-        holder.removeChild(node);
-        document.head.appendChild(node);
-      }
+    if (gaMeasurementId && hasAnalyticsConsent(readCookiePreferences())) {
+      loadGoogleAnalyticsScript(gaMeasurementId);
     }
 
     const defaultRobotsIndex = String(
@@ -4361,7 +4333,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
     );
     setShowCookieConsent(false);
     if (preferences?.analytics ?? (choice === "all")) {
-      loadGoogleAnalytics();
+      // Consent is recorded first, then the loader runs. If the CMS settings
+      // have not landed yet there is no id to load, and the SEO effect above
+      // picks the load up as soon as they arrive.
+      const gaMeasurementId = resolveGaMeasurementId(cmsSettings as any, import.meta.env as any);
+      loadGoogleAnalyticsScript(gaMeasurementId);
     }
   };
 

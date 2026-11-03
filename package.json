@@ -79,6 +79,7 @@
     "check:lazyexports": "node scripts/check-lazy-exports.mjs",
     "check:diffreview": "node scripts/ci/diff-review.mjs",
     "check:hydration": "node scripts/seo/hydration-probe.mjs",
+    "check:consent": "node scripts/seo/consent-probe.mjs",
     "check:claims": "npx tsx scripts/check-honesty-claims.ts",
     "check:richparity": "npx tsx scripts/check-rich-parity.tsx",
     "check:redirects": "node scripts/check-redirects.mjs",

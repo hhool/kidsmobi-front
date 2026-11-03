@@ -533,6 +533,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "We do not sell parent attention as a product",
           body: [
             "BalanceBikeToddler avoids advertising trackers and does not sell personal data. We use privacy-sensitive analytics and operational logs only to keep the site stable, detect abuse, and understand which safety resources actually help families.",
+            "The analytics script is not loaded until you have agreed to it: the cookie banner asks first, and choosing \"essential only\" leaves every analytics script switched off.",
             "If we ever expand data use, the rule remains simple: explain it plainly, keep it proportional, and never turn a child's measurements into a growth-hacking asset."
           ],
         },
@@ -590,6 +591,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "不把家长注意力卖成产品",
           body: [
             "BalanceBikeToddler 避免广告追踪器，不出售个人数据。只使用隐私友好的分析和运行日志来保持站点稳定、识别滥用，并理解哪些安全资源真正帮助家庭。",
+            "分析脚本要等你同意之后才会加载：Cookie 横幅先问一遍，选「仅必要」就一个统计脚本都不加载。",
             "如果未来扩展数据使用，规则仍然简单：讲清楚、保持比例、绝不把孩子尺寸变成增长黑客资产。"
           ],
         },
