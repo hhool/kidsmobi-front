@@ -103,6 +103,12 @@ jobs:
       - name: public SEO assets (robots / sitemap / _redirects)
         run: npm run seo:check
 
+      - name: diff-review rule self-test
+        # The honesty rule set has no build dependency, so its self-test runs
+        # here. Without it a rule can decay silently: the bare-实测 catch-all
+        # once blocked legitimate developer prose for a week.
+        run: node scripts/ci/diff-review.mjs --self-test
+
   # ------------------------------------------------------------------ ③ 构建门
   build-gates:
     name: "③ Build + dist guards"

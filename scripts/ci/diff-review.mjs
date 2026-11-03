@@ -68,7 +68,7 @@ const changed = git(["diff", "--name-status", `${base}...${head}`])
   });
 
 const reviewable = changed.filter((c) => c.status !== "D");
-if (reviewable.length === 0) {
+if (reviewable.length === 0 && !process.argv.includes("--self-test")) {
   console.log(`diff-review: no file changes in ${base}...${head} — nothing to review.`);
   process.exit(0);
 }
@@ -110,6 +110,32 @@ for (const c of reviewable) perFile.set(c.file, addedLines(c.file));
 // R1 — Honesty: testing claims the site cannot defend. Compact fast-signal
 // subset of scripts/check-honesty-claims.ts (that guard is authoritative but
 // needs a full build; this one runs pre-build on the diff).
+//
+// Scope note — why there is no bare 实测 in this list. The authoritative
+// guard keeps two different vocabularies on purpose:
+//   - the SOURCE list (scripts/check-honesty-claims.ts) is phrase-level and
+//     deliberately has NO bare 实测 catch-all;
+//   - the RENDERED list (same file, dist phase) DOES have the bare catch-all,
+//     because on a rendered page any 实测 is a claim.
+//
+// This rule scans source lines, so it belongs to the source vocabulary. A
+// bare 实测 in src is already handled: src/lib/unsupportedClaims.ts rewrites
+// every bare 实测 to "规格" at render time (it runs in both renderers), and
+// the authoritative guard's source phase reports 0 findings on the same tree.
+// Flagging it here blocked legitimate prose — a developer's comment saying
+// "实测 46 字符主干带 …" is a note about title length, not a claim about the
+// products, and it turned the push gate red for every developer.
+//
+// The specific phrases stay, because they survive the sanitizer's more
+// specific rules only in shapes that are still claims, and because the
+// authoritative source list carries the same shapes.
+//
+// The 我们… rule carries the authoritative guard's negation veto, for the
+// same reason it does there: the site's own honest copy says "不是我们实测"
+// and "本页面没有任何数据是实测的", and a guard that flags those makes the
+// site unable to state that it did not test. The veto is decided per verb
+// occurrence against the NEAREST 我们 before it, so a disclaimer earlier in
+// the sentence cannot launder a real claim later in the same sentence.
 const BANNED_CLAIMS = [
   { re: /in our test group/i, why: "first-person testing claim (2026-10-16 audit class)" },
   { re: /in our testing/i, why: "first-person testing claim" },
@@ -124,9 +150,51 @@ const BANNED_CLAIMS = [
   { re: /第三方实测/, why: "third-party testing claim (ZH)" },
   { re: /经实测验证/, why: "testing claim (ZH)" },
   { re: /本组测试|测试组中/, why: "first-person testing claim (ZH)" },
-  { re: /(?<!必须)实测/, why: "testing claim (ZH catch-all; 必须实测 is protected consumer advice)" },
-  { re: /我们[^。。<]{0,44}(?:测试|实测|验证)/, why: "unattributed first-person testing (ZH)" },
+  {
+    re: /我们[^。。<]{0,44}(?:测试|实测|验证)/,
+    why: "unattributed first-person testing (ZH)",
+    exempt: negatedFirstPerson,
+  },
 ];
+
+/**
+ * Is this 我们…测试 hit a disclaimer rather than a claim?
+ *
+ * Ported from the authoritative guard (FIRST_PERSON_ZH_DISCLAIMER in
+ * scripts/check-honesty-claims.ts) so both agree on the same sentence.
+ * Two shapes, both phrase-based:
+ *   1. a negation between 我们 and the verb: 我们没有测量 / 我们从未实测
+ *   2. a negation governing the 我们 phrase: 没有任何一项是…我们…测量
+ */
+function negatedFirstPerson(text) {
+  const VERB = /(?:测试|实测|测量|验证)/g;
+  const NEGATION = /(?:没有|未曾|从未|不曾|并非|不是|并无)/;
+  const NEGATION_BEFORE_US = /(?:不是|并非|没有|未曾|从未|不曾|并无)$/;
+  const NEGATION_GOVERNING_US = /(?:没有任何一项是|没有任何数据是|没有任何一项|没有一项|没有一个[^，。]{0,8}是)$/;
+
+  // Every verb occurrence gets its own verdict; the first un-negated one wins.
+  let verbMatch;
+  VERB.lastIndex = 0;
+  while ((verbMatch = VERB.exec(text)) !== null) {
+    const verbAt = verbMatch.index;
+    const usAt = text.lastIndexOf("我们", verbAt);
+    if (usAt < 0) continue;
+    const segment = text.slice(usAt, verbAt + verbMatch[0].length);
+    if (segment.length > 60) continue;
+
+    // Shape 1 — a negation between 我们 and the verb.
+    if (NEGATION.test(segment.slice(0, segment.length - verbMatch[0].length))) continue;
+
+    // Shape 2 — a negation governing the 我们 phrase itself.
+    if (NEGATION_GOVERNING_US.test(text.slice(Math.max(0, usAt - 20), usAt))) continue;
+
+    // Shape 1' — a negation right before 我们 ("不是我们实测").
+    if (NEGATION_BEFORE_US.test(text.slice(Math.max(0, usAt - 6), usAt))) continue;
+
+    return false; // this verb occurrence is a real claim
+  }
+  return true; // every occurrence was negated
+}
 
 // R2 — Project convention: bilingual copy objects must not be `as const`
 // (type UiStrings + Record<"en"|"zh", …> is the convention; as const breaks
@@ -241,8 +309,11 @@ for (const { file } of reviewable) {
 
     // R1 claims (all file types except the guard itself & docs describing them)
     if (!isDoc && !file.includes("check-honesty-claims") && !file.includes("diff-review")) {
-      for (const { re, why } of BANNED_CLAIMS) {
-        if (re.test(text)) hit("honesty-claim", "fail", `"${text.trim().slice(0, 80)}" — ${why}`);
+      for (const { re, why, exempt } of BANNED_CLAIMS) {
+        if (!re.test(text)) continue;
+        // A rule may veto its own hit (the 我们… rule vetoes disclaimers).
+        if (exempt && exempt(text)) continue;
+        hit("honesty-claim", "fail", `"${text.trim().slice(0, 80)}" — ${why}`);
       }
     }
 
@@ -369,6 +440,56 @@ for (const { file } of reviewable) {
   }
   findings.length = 0;
   findings.push(...kept);
+}
+
+// ---------------------------------------------------------------------------
+// Self-test: the honesty rule set, exercised directly.
+//
+// A rule set with no test is a rule set that decays: the bare-实测 catch-all
+// was once here, and it blocked a legitimate developer comment for a week
+// before anyone noticed. These checks pin the two halves of the contract:
+//   - a real claim must still be caught;
+//   - prose that is not a claim must not be.
+// Run with --self-test; the normal review run does not execute them.
+// ---------------------------------------------------------------------------
+if (process.argv.includes("--self-test")) {
+  /** Which banned phrases does this line trip? */
+  const tripped = (text) =>
+    BANNED_CLAIMS.filter(({ re, exempt }) => re.test(text) && !(exempt && exempt(text))).map(({ re }) => re.source);
+
+  const cases = [
+    // [line, must be caught?, note]
+    ['      title: "Best Kids Bikes, Strollers & Scooters | BalanceBikeToddler",', false, "clean copy"],
+    ['      // buildDocumentTitle 会按词截断主干（实测 46 字符主干带 ": Reviews"', false, "a developer note about title length is not a product claim"],
+    ['      heroNote: "数据来自商家商品页文案，不是我们实测。",', false, "the site says it did NOT test — the honest direction"],
+    ['      note: "本页面没有任何数据是实测的。",', false, "the page says no data is measured by us"],
+    ['      // 下单前必须实测孩子头围', false, "consumer advice (measure your child) is protected"],
+    ['      summary: "We tested all 20 models ourselves.",', true, "first-person testing claim (EN)"],
+    ['      summary: "Backed by real testing on the trail.",', true, "testing claim (EN)"],
+    ['      note: "本组测试中我们对比了 30 款平衡车。",', true, "first-person testing claim (ZH)"],
+    ['      note: "所有结论均经实测验证。",', true, "testing claim (ZH)"],
+    ['      note: "第三方实测报告显示…",', true, "third-party testing claim (ZH)"],
+    ['      note: "实验室评测得分最高。",', true, "lab-review claim (ZH)"],
+    ['      note: "我们没有测试过，但我们实测了 30 款。",', true, "a disclaimer must not launder a later real claim in the same sentence"],
+  ];
+
+  let failed = 0;
+  for (const [text, shouldCatch, note] of cases) {
+    const hits = tripped(text);
+    const caught = hits.length > 0;
+    if (caught !== shouldCatch) {
+      failed += 1;
+      console.error(
+        `[self-test] FAIL — ${note}\n           expected ${shouldCatch ? "a hit" : "no hit"}, got ${caught ? hits.join(", ") : "no hit"}\n           line: ${text.trim()}`,
+      );
+    }
+  }
+  if (failed > 0) {
+    console.error(`\ndiff-review self-test FAILED — ${failed} of ${cases.length} case(s) did not behave as specified.`);
+    process.exit(1);
+  }
+  console.log(`diff-review self-test PASS — ${cases.length} case(s).`);
+  process.exit(0);
 }
 
 // ---------------------------------------------------------------------------
