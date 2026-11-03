@@ -29,7 +29,76 @@ type Entry = {
   sample?: string;
   /** Custom matcher for dist HTML (defaults to a case-insensitive literal). */
   regex?: RegExp;
+  /**
+   * Optional veto: when it returns true for a hit, the hit is not reported.
+   * Used where the same words carry two opposite meanings — see
+   * FIRST_PERSON_ZH_DISCLAIMER.
+   */
+  exempt?: (text: string, match: RegExpExecArray) => boolean;
   note?: string;
+};
+
+/**
+ * "We tested it" vs "we did not test it".
+ *
+ * The zh claim regex `我们[^。<]{0,44}(?:测试|实测|测量|验证)` fires on both,
+ * because the disclaimer sentences the asset pages depend on use the same
+ * words:
+ *
+ *   没有任何一项是我们测量的          — nothing here was measured by us
+ *   不是我们自己的测量                — not our own measurement
+ *   没有一个年龄区间是我们测量…       — not one age range was measured by us
+ *
+ * Those are the opposite of a testing claim, and the sanitizer says so
+ * explicitly: `[/不是我们实测/g, "不是我们测量的"]` in
+ * src/lib/unsupportedClaims.ts exists precisely to KEEP the disclaimer
+ * readable ("rewriting them would invert their meaning"). The guard used to
+ * flag the very string the sanitizer is required to produce, so the build
+ * failed on the site's own honesty copy — six consecutive Quality Gates runs
+ * before 2026-11-03 were red for exactly this reason, with nothing else
+ * wrong.
+ *
+ * The veto is therefore: a hit is exempt when a negation governs it. Two
+ * shapes, both phrase-based — single characters are not usable here, 非 and
+ * 无 both occur in ordinary prose ("非专业", "未标注"):
+ *
+ *   1. the negation sits between 我们 and the verb: 我们没有测量 / 我们从未实测
+ *   2. the negation sits before the 我们 phrase: 没有任何一项是…我们…测量
+ *
+ * It is decided per verb occurrence, against the NEAREST 我们 before it, so
+ * a disclaimer earlier in the sentence cannot launder a real claim later in
+ * the same sentence ("我们没有测试过，但我们实测了 30 款" still fails).
+ */
+const FIRST_PERSON_ZH_DISCLAIMER = (text: string, match: RegExpExecArray): boolean => {
+  const VERB = /(?:测试|实测|测量|验证)/g;
+  const NEGATION = /(?:没有|未曾|从未|不曾|并非|不是|并无)/;
+  const NEGATION_BEFORE_US = /(?:不是|并非|没有|未曾|从未|不曾|并无)$/;
+  const NEGATION_GOVERNING_US = /(?:没有任何一项是|没有任何数据是|没有任何一项|没有一项|没有一个[^，。]{0,8}是)$/;
+
+  // Every verb occurrence gets its own verdict; the first un-negated one wins.
+  VERB.lastIndex = 0;
+  let verbMatch: RegExpExecArray | null;
+  while ((verbMatch = VERB.exec(text)) !== null) {
+    const verbAt = verbMatch.index;
+    // The nearest 我们 before this verb. Only one that is close enough to be
+    // the subject of the verb counts.
+    const usAt = text.lastIndexOf("我们", verbAt);
+    if (usAt < 0) continue;
+    const segment = text.slice(usAt, verbAt + verbMatch[0].length);
+    if (segment.length > 60) continue;
+
+    // Shape 1 — a negation between 我们 and the verb.
+    const inner = segment.slice(0, segment.length - verbMatch[0].length);
+    if (NEGATION.test(inner)) continue;
+
+    // Shape 2 — a negation governing the 我们 phrase itself.
+    const before = text.slice(Math.max(0, usAt - 14), usAt);
+    if (NEGATION_BEFORE_US.test(before) || NEGATION_GOVERNING_US.test(before)) continue;
+
+    // Not negated: this verb really is a first-person testing claim.
+    return false;
+  }
+  return true;
 };
 
 const FORBIDDEN: Entry[] = [
@@ -76,7 +145,8 @@ const FORBIDDEN: Entry[] = [
     sample: "我们 1 岁组测试中维护成本最低",
     regex: /我们[^。<]{0,44}(?:测试|实测|测量|验证)/g,
     sanitized: false,
-    note: "fixed in CMS data (balance_bike-b0blmf98s8 zh); the Graco manufacturer copy was attributed instead",
+    exempt: FIRST_PERSON_ZH_DISCLAIMER,
+    note: "fixed in CMS data (balance_bike-b0blmf98s8 zh); the Graco manufacturer copy was attributed instead. A negated form (没有任何一项是我们测量的) is exempt — the sanitizer keeps those disclaimers readable, so the guard must not flag the string the sanitizer is required to produce.",
   },
   {
     text: "岁组测试中",
@@ -174,6 +244,63 @@ function walk(dir: string): string[] {
 
 const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+// Self-test for the first-person disclaimer veto. A veto that is too wide
+// would silence the rule it belongs to, and a veto that is too narrow would
+// keep flagging the disclaimers the sanitizer is required to preserve — so
+// both directions are asserted here rather than discovered in a red build.
+{
+  const CLAIM_ZH = /我们[^。<]{0,44}(?:测试|实测|测量|验证)/g;
+  const reportedIn = (text: string): boolean => {
+    CLAIM_ZH.lastIndex = 0;
+    let m: RegExpExecArray | null;
+    while ((m = CLAIM_ZH.exec(text)) !== null) {
+      if (!FIRST_PERSON_ZH_DISCLAIMER(text, m)) return true;
+    }
+    return false;
+  };
+
+  const REAL_CLAIMS = [
+    "我们 1 岁组测试中维护成本最低",
+    "我们实测了 30 个样品",
+    "我们测试后发现刹车有异响",
+    "我们的测量结果显示车架更稳",
+    "我们验证了这套流程",
+    "我们测试过的结论最可靠",
+    "我们做过对比测试",
+    // A disclaimer earlier in the sentence must not launder a real claim later
+    // in the same sentence.
+    "我们没有测试过任何车型，但我们实测了 30 款，结论可靠",
+    "不是所有人都同意，我们测试了 5 款并给出结论",
+    "没有任何一项是我们测量的；不过我们测试了另外 10 款",
+  ];
+  const DISCLAIMERS = [
+    "没有一个年龄区间是我们测量、平均或推断出来的",
+    "没有任何一项是我们测量的",
+    "不是我们自己的测量",
+    "不是我们实测",
+    "我们没有测量过任何车型",
+    "我们从未做过任何实测",
+  ];
+
+  const missed = REAL_CLAIMS.filter((t) => !reportedIn(t));
+  const wrong = DISCLAIMERS.filter((t) => reportedIn(t));
+  if (missed.length || wrong.length) {
+    console.error(
+      JSON.stringify(
+        {
+          ok: false,
+          error: "the first-person disclaimer veto no longer separates claims from disclaimers",
+          missedRealClaims: missed,
+          wronglyReported: wrong,
+        },
+        null,
+        2,
+      ),
+    );
+    process.exit(1);
+  }
+}
+
 // Drift protection: every phrase the guard expects the sanitizer to neutralise
 // must actually be rewritten by it.
 const uncovered = FORBIDDEN.filter((p) => p.sanitized && sanitizeUnsupportedClaims(p.sample ?? p.text) === (p.sample ?? p.text));
@@ -210,6 +337,7 @@ for (const file of files) {
     let match: RegExpExecArray | null;
     while ((match = regex.exec(html)) !== null) {
       const at = match.index;
+      if (entry.exempt && entry.exempt(html, match)) continue;
       findings.push({
         file: rel,
         phrase: entry.text,
@@ -248,7 +376,12 @@ console.log(JSON.stringify({ ok: true, scanned: files.length, phrases: FORBIDDEN
 // fallback datasets, and the transparency pages. This phase scans the source
 // strings directly, EN + ZH, so a claim can no longer hide by being
 // client-rendered only.
-type SourcePattern = { label: string; regex: RegExp };
+type SourcePattern = {
+  label: string;
+  regex: RegExp;
+  /** Optional veto — see Entry.exempt. */
+  exempt?: (text: string, match: RegExpExecArray) => boolean;
+};
 
 const SOURCE_FORBIDDEN: SourcePattern[] = [
   // EN claim shapes (word-bounded so code identifiers don't false-positive).
@@ -314,7 +447,7 @@ const SOURCE_FORBIDDEN: SourcePattern[] = [
   { label: "本组测试", regex: /本组测试/g },
   { label: "本组对比", regex: /本组对比/g },
   { label: "岁组测试中", regex: /岁组测试中/g },
-  { label: "我们实测", regex: /(?<![是不没未非])我们实测/g },
+  { label: "我们实测", regex: /(?<![是不没未非])我们实测/g, exempt: FIRST_PERSON_ZH_DISCLAIMER },
   { label: "已公示第三方检测", regex: /已公示第三方检测/g },
   { label: "连续疲劳测试", regex: /连续疲劳测试/g },
   { label: "全自研", regex: /全自研/g },
@@ -370,6 +503,7 @@ for (const file of walkSource(resolve(workspaceRoot, "src"))) {
     let match: RegExpExecArray | null;
     while ((match = pattern.regex.exec(text)) !== null) {
       const at = match.index;
+      if (pattern.exempt && pattern.exempt(text, match)) continue;
       sourceFindings.push({
         file: rel,
         phrase: pattern.label,
