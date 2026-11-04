@@ -5,6 +5,7 @@ import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
+import { applyResponsiveImagesToHtml } from "../src/lib/responsiveImages";
 import {
   amazonAffiliateUrl,
   resolveAmazonTag,
@@ -8537,7 +8538,12 @@ async function main() {
   }
 
   for (const page of pages) {
-    const html = sanitizeUnsupportedClaims(renderDocument(page, appAssets));
+    // Criterion 27: rewrite published <img> to the local WebP derivatives.
+    // One call here covers every template, so the SPA and the delivered HTML
+    // read the same generated map and cannot drift apart.
+    const html = applyResponsiveImagesToHtml(
+      sanitizeUnsupportedClaims(renderDocument(page, appAssets)),
+    );
     const routeName = page.route.replace(/^\//, "");
     if (routeName) {
       await rm(path.join(distDir, routeName), { recursive: true, force: true });

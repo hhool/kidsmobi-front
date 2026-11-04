@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FALLBACK_PRODUCT_IMAGE, withImageFallback } from "../../lib/productImages";
+import { responsiveImageFor, RESPONSIVE_SIZES } from "../../lib/responsiveImages";
 
 const EMPTY_FALLBACK_SRCS: string[] = [];
 
@@ -136,7 +137,10 @@ export default function SmartImage({
         loadCandidate(index + 1);
       };
       probe.referrerPolicy = referrerPolicy;
-      probe.src = candidate;
+      // Probe the local WebP derivative when one exists. It is a static file
+      // on our own origin, so this avoids fetching the remote JPG twice and
+      // keeps the mirror-fallback chain for URLs outside the generated map.
+      probe.src = responsiveImageFor(candidate)?.src ?? candidate;
     };
 
     loadCandidate(0);
@@ -146,6 +150,10 @@ export default function SmartImage({
       if (timer) window.clearTimeout(timer);
     };
   }, [candidates, immediateSrc, isNearViewport, priority, referrerPolicy, src]);
+
+  // The SPA and the prerender read the same generated map. A URL with no
+  // derivative keeps its original src and keeps the existing fallback chain.
+  const responsive = responsiveImageFor(resolvedSrc);
 
   const markLoaded = () => {
     setIsLoaded(true);
@@ -165,7 +173,9 @@ export default function SmartImage({
         <div className="absolute inset-0 bg-slate-100 animate-pulse" aria-hidden="true" />
       )}
       <img
-        src={resolvedSrc}
+        src={responsive?.src ?? resolvedSrc}
+        srcSet={responsive?.srcset}
+        sizes={responsive ? RESPONSIVE_SIZES : undefined}
         alt={alt}
         width={width}
         height={height}

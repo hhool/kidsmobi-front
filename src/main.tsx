@@ -1,6 +1,7 @@
 import {Component, StrictMode, type ReactNode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
+import { watchResponsiveImages } from './lib/responsiveImages';
 import './index.css';
 
 const CHUNK_RECOVERY_STORAGE_KEY = 'kidsmobi:chunk-recovery';
@@ -106,6 +107,11 @@ const rootElement = document.getElementById('root');
 if (!rootElement) {
   throw new Error('Root element not found.');
 }
+
+// Criterion 27: every content image the SPA renders gets the same WebP
+// derivatives the delivered HTML publishes. Start observing before the mount
+// so the first render is covered, not just later route changes.
+watchResponsiveImages(rootElement);
 
 /**
  * The Tailwind bundle no longer blocks the first paint: the prerendered pages
