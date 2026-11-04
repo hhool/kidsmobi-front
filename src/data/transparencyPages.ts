@@ -1123,7 +1123,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       seo: {
         title: "Editorial Team & Safety Review Boundary | BalanceBikeToddler",
         description:
-          "Who writes and checks our guides, which public sources we use, and why we do not give professional installation or medical advice for child safety products.",
+          "Who checks these guides, which public sources we use, and why we do not give professional installation or medical advice for child safety products.",
         keywords: ["editorial team", "author credentials", "safety advisory", "review process"],
       },
     },
