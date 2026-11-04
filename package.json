@@ -74,6 +74,7 @@
     "stage2:variants": "node scripts/plan_stage2_variants.mjs",
     "check:titles": "node scripts/check-prerender-titles.mjs",
     "check:spatitles": "npx tsx scripts/check-spa-titles.ts",
+    "check:descriptions": "npx tsx scripts/check-article-descriptions.ts",
     "check:spakeywords": "npx tsx scripts/check-spa-keywords.ts",
     "check:spacanonicals": "npx tsx scripts/check-spa-canonicals.ts",
     "check:lazyexports": "node scripts/check-lazy-exports.mjs",

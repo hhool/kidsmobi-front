@@ -69,7 +69,7 @@ export function kidsWeightFrameNote() {
 export const kidsWeightSeo = {
   en: {
     // Stem = 41 chars (<=44 budget); full title with suffix = 62 (<65).
-    title: "Kids Bike Weight: How Much Does It Weigh?",
+    title: "Kids Bike Weight: How Much Is Too Much?",
     description:
       "Weights for 23 pedal kids' bikes (14 listed): median 19.9 lb (9.0 kg), range " +
       "9.4-29.6 lb - about 4.2x a balance bike. Method and honest caveats.",

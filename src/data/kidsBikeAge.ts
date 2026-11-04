@@ -237,7 +237,7 @@ export function kidsAgeVars() {
 
 export const kidsAgeSeo = {
   en: {
-    title: "Kids Bike by Age: Fits a 2, 6 or 12 Year Old",
+    title: "Kids Bike by Age: 2, 6 or 12 Year Old",
     description:
       `Age is the first thing parents search with, so we counted it: of ${cat.kidsBikesListed} kids bikes, ` +
       `${peak.fitCount} are still rated at ${peak.searchLabel} — the widest stretch of the range — against just ` +

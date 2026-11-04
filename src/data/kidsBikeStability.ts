@@ -259,8 +259,8 @@ export const kidsStabilityStrings: Record<"en" | "zh", KidsStabilityStrings> = {
 
 export const kidsStabilitySeo = {
   en: {
-    // Stem = "Kids Bike Stability: What Listings Publish" (42 chars, <=44 budget).
-    title: "Kids Bike Stability: What Listings Publish",
+    // Stem = "Kids Bike Stability: What Listings Show" (37 chars, <=39 budget).
+    title: "Kids Bike Stability: What Listings Show",
     description:
       `Across ${cov.listed} pedal kids' bikes, ${cov.withTrackSpacing} publish a wheel spacing and ` +
       `${cov.withTireClass} a tyre material. ${cov.mentionsTrainingWheels} mention training wheels. ` +

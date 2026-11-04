@@ -46,7 +46,7 @@ export interface KidsComparisonRow {
 
 export const kidsSafetySeo = {
   en: {
-    title: "Kids Bike Safety: 16 CFR 1512, EN ISO 8098",
+    title: "Kids Bike Safety: 16 CFR 1512",
     description:
       "Which safety rules actually apply to a pedal kids' bike in the US and EU — and which do not. 16 CFR 1512 and CPSIA govern it as a bicycle and a children's product; ASTM F963 and EN 71 do not, because a pedal bike is not a toy. What each requires, and how to verify a bike is compliant.",
     canonical: KIDS_SAFETY_PATH,

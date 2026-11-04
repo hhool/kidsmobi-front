@@ -23,7 +23,7 @@ const n = d.totals.strollers;
 
 export const kidsStrollerSizeSeo = {
   en: {
-    title: "Stroller Sizes: Open and Folded Dimensions",
+    title: "Stroller Sizes: Open and Folded",
     description:
       `All ${n} strollers publish open length, width and height, but only ${d.totals.withFolded} ` +
       `give a folded size. The open and folded inches, and the clearance they leave out.`,

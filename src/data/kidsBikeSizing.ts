@@ -52,7 +52,7 @@ export const kidsBikeSizingDataset = KIDS_SIZING_DATASET as {
 
 export const kidsBikeSizingSeo = {
   en: {
-    title: "Kids Bike Size Chart: Real Specs Compared",
+    title: "Kids Bike Size Chart: Real Specs",
     description:
       "A side-by-side comparison of kids bikes' real specifications — age range, wheel size, weight, frame and brake type — drawn from each product's specification record. Plus how to size a kids bike by inseam and weight.",
     keywords: [

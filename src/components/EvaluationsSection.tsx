@@ -15,6 +15,7 @@ import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
+import SectionFaq from "./SectionFaq";
 import { getPageCopy } from "../config/pageCopy";
 import MultiCompareView from "./MultiCompareView";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
@@ -22,6 +23,7 @@ import { evaluationSlug } from "../lib/evaluationSlug";
 import { resolveProductDetailCategorySlug } from "../lib/productCategoryPaths";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { credibleReviewCount } from "../lib/reviewSignal";
+import { REVIEWS_FAQS, REVIEWS_FAQS_ZH } from "../lib/pageFaq";
 
 function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
   const clampScore = (value: unknown, fallback: number) => {
@@ -2621,6 +2623,10 @@ export default function EvaluationsSection({
         </div>
       </section>
 
+      {/* The visible Q&A the page's FAQPage schema points at. The hub already
+          answers the first two questions in its own sections; this is the
+          third one, which used to exist only inside the JSON-LD. */}
+      <SectionFaq route="/reviews" lang={lang} faqs={[lang === "zh" ? REVIEWS_FAQS_ZH[2] : REVIEWS_FAQS[2]]} />
 
     </div>
   );

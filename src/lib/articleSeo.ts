@@ -9,6 +9,8 @@
  * open.
  */
 
+import { buildDocumentTitle } from "./documentTitle";
+
 export interface ArticleSeoMeta {
   /** Fully formatted <title> (brand suffix included). */
   title: string;
@@ -23,26 +25,19 @@ export interface ArticleSeoMeta {
 
 const BRAND = "BalanceBikeToddler";
 
-/** Appends the brand suffix unless the title already contains it. */
+/**
+ * Appends the brand suffix unless the title already contains it.
+ *
+ * The cap lives in buildDocumentTitle(), not here: this function used to
+ * append the brand and stop, so the hydrated tab title was 61 characters
+ * where the prerendered HTML had a capped 51 — the same URL answering "what
+ * is this page called" in two lengths depending on which renderer ran. The
+ * prerender and the SPA now produce byte-identical titles.
+ */
 export function buildArticleSeoTitle(title: string): string {
   const clean = String(title || "").trim();
   if (!clean) return "";
-  return clean.includes(BRAND) ? clean : `${clean} | ${BRAND}`;
-}
-
-/**
- * Converts markdown-ish article content into a plain-text meta description.
- * Strips HTML tags, markdown markers, and collapses whitespace.
- */
-export function buildArticleSeoDescription(raw: string, maxLen = 155): string {
-  const text = String(raw || "")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/[#>*`_[\]()~|]/g, " ")
-    .replace(/https?:\/\/\S+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  if (!text) return "";
-  return text.length > maxLen ? `${text.slice(0, maxLen - 1).trimEnd()}…` : text;
+  return clean.includes(BRAND) ? clean : buildDocumentTitle(clean);
 }
 
 /**

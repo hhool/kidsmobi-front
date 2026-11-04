@@ -140,7 +140,7 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["BalanceBikeToddler", "独立评测", "儿童出行安全", "评测方法"],
     },
     en: {
-      title: "Independent Kids Bike & Stroller Reviews | BalanceBikeToddler",
+      title: "Independent Reviews of Kids Bikes & Strollers | BalanceBikeToddler",
       description: "Learn about BalanceBikeToddler's evaluation methodology. We review every jogging stroller, balance bike, and kids scooter against published specs, recall records, and owner feedback.",
       keywords: ["BalanceBikeToddler", "independent reviews", "child mobility safety", "evaluation methodology"],
     },

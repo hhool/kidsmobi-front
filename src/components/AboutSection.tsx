@@ -1,6 +1,7 @@
 import React from "react";
 import { ShieldCheck, Award, MessageSquare, Flame, CheckCircle, Lock, Users, Handshake, ShieldAlert } from "lucide-react";
 import Breadcrumbs from "./Breadcrumbs";
+import SectionFaq from "./SectionFaq";
 import { getPageCopy } from "../config/pageCopy";
 
 interface AboutSectionProps {
@@ -539,6 +540,9 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               </a>
           </div>
       </section>
+
+      {/* The visible Q&A the page's FAQPage schema points at. */}
+      <SectionFaq route="/about" lang={lang} />
 
       {/* Global GDPR */}
       <section className="bg-white p-10 rounded-[40px] border border-slate-100 text-center space-y-4 shadow-sm">

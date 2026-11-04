@@ -34,7 +34,8 @@ import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
 import { containsCjk, sanitizeGuideTextForZh, sanitizeGuideTitleForZh } from "../lib/guideTextSanitize";
-import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
+import { buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
+import { buildArticleMetaDescription } from "../lib/articleDescription";
 import {
   resolveGuidesTopicPage,
   GUIDES_WIZARD_H1,
@@ -42,6 +43,7 @@ import {
   GUIDES_TOPIC_PAGES,
 } from "../lib/guidesTopicPages";
 import { guidesArticleKeywords } from "../lib/pageKeywords";
+import { cmsSeoTitleOverride } from "../lib/seoTitleOverrides";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -990,8 +992,18 @@ export default function GuidesSection({
         // prerender itself published the home fallback block.
         const localized = translateGuideArticle(found, lang);
         onActiveArticleMetaRef.current?.({
-          title: buildArticleSeoTitle(localized?.title || found.title),
-          description: buildArticleSeoDescription(localized?.summary || found.summary || found.content),
+          // The repo-owned override wins: it is the same value the prerender
+          // publishes as page.fullTitle, so the static HTML and the hydrated
+          // tab name the page the same way.
+          title:
+            cmsSeoTitleOverride(found.id, lang) ||
+            buildArticleSeoTitle(localized?.title || found.title),
+          description: buildArticleMetaDescription({
+            summary: localized?.summary || found.summary || "",
+            content: localized?.content || found.content || "",
+            lang,
+            kind: "guide",
+          }),
           image: normalizeMediaUrl(resolveCardImage(found.imageUrl, found.content)) || undefined,
           canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
           keywords: guidesArticleKeywords(found.category, lang),

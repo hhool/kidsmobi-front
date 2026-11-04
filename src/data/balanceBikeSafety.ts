@@ -34,7 +34,7 @@ export interface ComparisonRow {
 
 export const safetySeo = {
   en: {
-    title: "Balance Bike Safety: CPSC, ASTM F963, EN 71",
+    title: "Balance Bike Safety: CPSC, ASTM F963",
     description:
       "Which safety standards apply to toddler balance bikes in the US and EU — 16 CFR 1512, CPSIA, ASTM F963, EN 71 — what each requires, and how to verify a bike is compliant.",
     canonical: SAFETY_PATH,

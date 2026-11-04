@@ -6,14 +6,17 @@ import { resolveProductDetailCategorySlug } from "../lib/productCategoryPaths";
 import { matchProductsForText } from "../lib/relatedProducts";
 import type { Product } from "../types";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
-import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
+import { buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
+import { buildArticleMetaDescription } from "../lib/articleDescription";
 import { newsChannelKeywords } from "../lib/pageKeywords";
 import { normalizeMediaUrl } from "../lib/productImages";
 
 import Breadcrumbs from "./Breadcrumbs";
+import SectionFaq from "./SectionFaq";
 import SocialShareButtons from "./common/SocialShareButtons";
 import { getPageCopy } from "../config/pageCopy";
 import { renderRichContent } from "../lib/richContent";
+import { NEWS_FAQS, NEWS_FAQS_ZH } from "../lib/pageFaq";
 
 const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "brand_news", "science"]);
 
@@ -220,7 +223,12 @@ export default function NewsSection({
         // block for every /news route until the pageKeywords branch landed.
         onActiveArticleMetaRef.current?.({
           title: buildArticleSeoTitle(found.title),
-          description: buildArticleSeoDescription(found.summary || found.content),
+          description: buildArticleMetaDescription({
+            summary: found.summary || "",
+            content: found.content || "",
+            lang,
+            kind: "news",
+          }),
           image: normalizeMediaUrl(resolveCardImage(found.imageUrl, found.content)) || undefined,
           canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
           keywords: newsChannelKeywords(found.category, lang),
@@ -986,6 +994,10 @@ export default function NewsSection({
               )}
             </div>
           )}
+          {/* The visible Q&A the page's FAQPage schema points at. The hub
+              already answers the first two questions in its own sections; this
+              is the third one, which used to exist only inside the JSON-LD. */}
+          <SectionFaq route="/news" lang={lang} faqs={[lang === "zh" ? NEWS_FAQS_ZH[2] : NEWS_FAQS[2]]} />
         </div>
       )}
     </div>

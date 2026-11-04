@@ -29,7 +29,7 @@ export interface GuidesTopicFaq {
 export interface GuidesTopicPage {
   /** Visible <h1>. */
   h1: string;
-  /** Full <title> override (already carries the brand suffix, <= 65 chars). */
+  /** Full <title> override (already carries the brand suffix, <= 60 chars). */
   fullTitle: string;
   /** Meta description (<= 155 chars). */
   description: string;
@@ -68,7 +68,7 @@ export const GUIDES_TOPIC_PAGES: Record<GuidesTopicPageId, GuidesTopicPage> = {
   },
   scenario: {
     h1: "Riding Scenarios: Match the Bike to the Ground",
-    fullTitle: "Where & How to Ride: Balance Bike Scenarios | BalanceBikeToddler",
+    fullTitle: "Riding Scenarios by Surface & Terrain | BalanceBikeToddler",
     description:
       "Balance bike guides by riding scenario: pavement, parks, grass, gravel and indoors — how each surface changes what matters in tires and frame weight.",
     introHeading: "Which surface will your rider actually see?",
@@ -94,7 +94,7 @@ export const GUIDES_TOPIC_PAGES: Record<GuidesTopicPageId, GuidesTopicPage> = {
   },
   budget: {
     h1: "Budget Guides: What Each Tier Buys",
-    fullTitle: "Balance Bike on a Budget: Guides & Tiers | BalanceBikeToddler",
+    fullTitle: "Balance Bike Budget: Guides & Tiers | BalanceBikeToddler",
     description:
       "Budget balance bike guides: what each price tier buys, the trade-offs in frame, tires and weight, and the checks that separate a keeper from a dud.",
     introHeading: "What does each price tier actually buy?",
@@ -120,7 +120,7 @@ export const GUIDES_TOPIC_PAGES: Record<GuidesTopicPageId, GuidesTopicPage> = {
   },
   risk: {
     h1: "Safety Risks & Pre-Ride Checks",
-    fullTitle: "Balance Bike Safety Risks & Pre-Ride Checks | BalanceBikeToddler",
+    fullTitle: "Balance Bike Safety: Pre-Ride Checks | BalanceBikeToddler",
     description:
       "Balance bike safety guides: the pre-ride checks that matter, the standards behind them, and how to check recalls before you buy.",
     introHeading: "What should you check before the first ride?",
@@ -146,7 +146,7 @@ export const GUIDES_TOPIC_PAGES: Record<GuidesTopicPageId, GuidesTopicPage> = {
   },
   maintenance: {
     h1: "Maintenance: What Actually Matters",
-    fullTitle: "Balance Bike Maintenance & Upkeep Guides | BalanceBikeToddler",
+    fullTitle: "Balance Bike Maintenance & Upkeep | BalanceBikeToddler",
     description:
       "Balance bike maintenance guides: what actually needs attention, what you can ignore, and how frame material changes the upkeep.",
     introHeading: "What does a balance bike actually need?",
@@ -172,7 +172,7 @@ export const GUIDES_TOPIC_PAGES: Record<GuidesTopicPageId, GuidesTopicPage> = {
   },
   special: {
     h1: "Fit for Riders Who Need Support",
-    fullTitle: "Balance Bike Fit for Extra Support Needs | BalanceBikeToddler",
+    fullTitle: "Balance Bike Fit for Extra Support | BalanceBikeToddler",
     description:
       "Balance bike fit guides for children who need extra support: inseam-first sizing, step-through frames, and the adjustments that matter most.",
     introHeading: "What fit decisions matter when support is the priority?",

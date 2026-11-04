@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir, rm } from "fs/promises";
+import { readFileSync } from "fs";
 import path from "path";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
@@ -223,9 +224,14 @@ import {
 } from "../src/lib/documentTitle";
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 import { resolveSectionRouteSeo } from "../src/lib/cmsSectionSeo";
+import { cmsSeoTitleOverride } from "../src/lib/seoTitleOverrides";
+import { buildArticleMetaDescription } from "../src/lib/articleDescription";
+import { ZH_HUB_INTRO } from "../src/lib/zhHubCopy";
+import { applyBrandSuffix } from "../src/lib/documentTitle";
 import type { CMSSettings } from "../src/types";
 import { buildProductDetailKeywords, resolveRouteKeywords, CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
+import { ABOUT_FAQS, NEWS_FAQS, REVIEWS_FAQS, type PageFaq } from "../src/lib/pageFaq";
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "../src/lib/productHubContent";
 import { renderRichContentHtml } from "../src/lib/richContentHtml";
 
@@ -300,6 +306,15 @@ type RoutePage = {
    *  CMS articles whose body opens with the same sentence were printing it
    *  twice, once as the lead and again as the first paragraph. */
   skipLeadDescription?: boolean;
+  /** The published <meta description>, when it is NOT page.description.
+   *
+   *  page.description is the visible lead paragraph (and the JSON-LD
+   *  description). The snippet is a separate thing: the Chinese teasers are
+   *  one compressed clause of 35-67 characters, and a snippet that short gets
+   *  truncated into a fragment. buildArticleMetaDescription() extends those
+   *  with the article's own opening sentences; every other page leaves this
+   *  unset and the snippet stays page.description. */
+  metaDescription?: string;
   /** Optional canonical path override (used by alias routes that must
    *  consolidate onto the canonical slug-form category URL). */
   canonicalPath?: string;
@@ -391,6 +406,29 @@ function toAbsoluteMediaUrl(raw: unknown): string {
  * blank card rather than a loud failure. Root-relative now stays on
  * PUBLIC_SITE_BASE, which is also the origin the page itself is served from.
  */
+/**
+ * The measured intrinsic size of every article cover.
+ *
+ * G4 row 20 asks for explicit width/height on every image, and row 25 asks
+ * for a layout that does not shift. The article hero carries the ORIGINAL
+ * artwork (a 1500x1384 photo on one guide, an 800x450 editorial illustration
+ * on another), so a guessed ratio reserves the wrong box and the page shifts
+ * when the image lands.
+ *
+ * The sizes were measured once by scripts/fetch-image-dimensions.mjs and are
+ * stored in the repo, so the build stays offline and reproducible.
+ */
+const IMAGE_DIMENSIONS: Record<string, [number, number]> = JSON.parse(
+  readFileSync(path.join(process.cwd(), "scripts", "image-dimensions.json"), "utf8"),
+);
+
+/** The measured size of an article cover, or undefined when it is not known. */
+function imageDimensions(rawUrl: unknown): [number, number] | undefined {
+  const key = String(rawUrl || "").trim();
+  const found = IMAGE_DIMENSIONS[key];
+  return found && found[0] > 0 && found[1] > 0 ? found : undefined;
+}
+
 function toPublicImageUrl(raw: unknown): string {
   const text = String(raw || "").trim().replace(/\\/g, "/");
   if (!text) return "";
@@ -418,6 +456,27 @@ function renderBulletedCards(items: Array<{ title: string; text: string; meta?: 
         </section>
       `).join("")}
     </div>
+  `;
+}
+
+/**
+ * One FAQ pair as a visible section.
+ *
+ * The pairs come from src/lib/pageFaq.ts, the same module that builds the
+ * FAQPage schema for these pages — so a question in the schema is a question
+ * on the page. The G4 hard list (row 17) asks exactly that, and three
+ * questions used to exist only inside the JSON-LD.
+ *
+ * The heading is the question itself, which is the style these pages already
+ * use: every section on /about, /news and /reviews opens with the question
+ * it answers.
+ */
+function renderFaqSection(faq: PageFaq): string {
+  return `
+    <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+      <h2 style="margin: 0 0 12px; font-size: 1.5rem;">${escapeHtml(faq.q)}</h2>
+      <p style="margin: 0 0 14px;"><strong>Short answer:</strong> ${escapeHtml(faq.a)}</p>
+    </section>
   `;
 }
 
@@ -758,7 +817,7 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   // document is scrubbed again after rendering, and a rewrite that lengthens the
   // text ("lab database" -> "specification database") otherwise pushes an
   // already-capped snippet back over the limit.
-  const descTag = buildMetaDescription(page.description, sanitizeUnsupportedClaims);
+  const descTag = page.metaDescription ?? buildMetaDescription(page.description, sanitizeUnsupportedClaims);
   // Keywords meta. The prerender and the hydrated SPA must publish the same set
   // (src/lib/pageKeywords.ts is the single source), so a crawler reading the
   // static HTML and a parent's browser tab agree. Google ignores this tag, but
@@ -829,36 +888,11 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
             sameAs: entitySameAs,
           },
         },
-        {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: [
-            {
-              "@type": "Question",
-              name: "Who wrote this page?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: "It is written by the BalanceBikeToddler Editorial Team with published and updated dates attached.",
-              },
-            },
-            {
-              "@type": "Question",
-              name: "How can readers verify the content?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: "The page provides source links, short quotations, and a table readers can compare directly against the product page.",
-              },
-            },
-            {
-              "@type": "Question",
-              name: "Why include dates and author information?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: "Those fields help search systems and AI platforms understand freshness and accountability.",
-              },
-            },
-          ],
-        },
+        // The FAQPage node is built from the same pairs the page renders
+        // visibly (src/lib/pageFaq.ts), so a question in the schema is a
+        // question on the page. It used to be a second, hand-written list —
+        // and three of its questions appeared nowhere in the rendered text.
+        faqPageSchema(ABOUT_FAQS),
       ])}</script>
 `
     : "";
@@ -1241,8 +1275,8 @@ function renderZhHub(
   const route = zhRoutePath(enRoute);
   const h1 = isGuides ? GUIDES_WIZARD_H1.zh : (getPageCopy("zh").news.heroTitle || "童车行业最新资讯");
   const intro = isGuides
-    ? "这里是 BalanceBikeToddler 的中文选购指南库：每篇指南都写清了适用年龄、尺寸判断、安全标准与预算取舍，并标注了数据来源，方便直接对照自家孩子的身高体重做决定。"
-    : "这里是 BalanceBikeToddler 的中文资讯频道：新品发布、标准修订、召回与安全研究，每条都带日期与来源，方便判断哪些变化真的影响到自家孩子的出行装备。";
+    ? ZH_HUB_INTRO.guides
+    : ZH_HUB_INTRO.news;
   const countLabel = isGuides ? `共 ${items.length} 篇中文指南。` : `共 ${items.length} 篇中文资讯。`;
   const cards = items
     .map(
@@ -1883,7 +1917,9 @@ function renderGuideDetailPage(
   const channelHref = channelId ? `/guides/${channelId}` : null;
   const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
-  const image = toPublicImageUrl(pickText(guide.imageUrl));
+  const rawImage = pickText(guide.imageUrl);
+  const image = toPublicImageUrl(rawImage);
+  const imageSize = imageDimensions(rawImage);
 
   const schemas: Array<Record<string, unknown>> = [
     {
@@ -1929,7 +1965,16 @@ function renderGuideDetailPage(
   return {
     route,
     title,
+    // A repo-owned <title> override, when one exists for this CMS record.
+    // The visible <h1> stays the CMS title; only the tab/search title moves.
+    fullTitle: cmsSeoTitleOverride(guide.id, lang),
     description: summary,
+    metaDescription: buildArticleMetaDescription({
+      summary,
+      content,
+      lang: zh ? "zh" : "en",
+      kind: "guide",
+    }),
     skipLeadDescription: introRepeatsBody,
     image: image || undefined,
     ogType: "article",
@@ -1946,7 +1991,7 @@ function renderGuideDetailPage(
         </p>
         ${summaryIntroHtml}
       </section>
-      ${image ? `<div style="padding: 0 0 18px;"><div class="article-hero" style="margin-left: auto; margin-right: auto; width: 100%; max-width: 560px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" /></div></div>` : ""}
+      ${image ? `<div style="padding: 0 0 18px;"><div class="article-hero" style="margin-left: auto; margin-right: auto; width: 100%; max-width: 560px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px;"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}"${imageSize ? ` width="${imageSize[0]}" height="${imageSize[1]}"` : ""} loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; height: auto; object-fit: contain; display: block;" /></div></div>` : ""}
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
@@ -2002,7 +2047,9 @@ function renderNewsDetailPage(
     !zh && NEWS_CHANNEL_PAGE_SLUGS.includes(channel) ? `/news/${channel}` : null;
   const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
-  const image = toPublicImageUrl(pickText(item.imageUrl));
+  const rawImage = pickText(item.imageUrl);
+  const image = toPublicImageUrl(rawImage);
+  const imageSize = imageDimensions(rawImage);
 
   const schemas: Array<Record<string, unknown>> = [
     {
@@ -2057,6 +2104,12 @@ function renderNewsDetailPage(
     route,
     title,
     description: summary,
+    metaDescription: buildArticleMetaDescription({
+      summary,
+      content,
+      lang: zh ? "zh" : "en",
+      kind: "news",
+    }),
     skipLeadDescription: newsIntroRepeatsBody,
     image: image || undefined,
     ogType: "article",
@@ -2068,7 +2121,7 @@ function renderNewsDetailPage(
         { name: title },
       ])}
       ${image ? `<figure class="article-hero" style="margin: 0 0 18px; margin-left: auto; margin-right: auto; width: 100%; max-width: 560px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px;">
-        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" />
+        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}"${imageSize ? ` width="${imageSize[0]}" height="${imageSize[1]}"` : ""} loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; height: auto; object-fit: contain; display: block;" />
       </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
@@ -2251,6 +2304,9 @@ function renderEvaluationDetailPage(
   return {
     route,
     title,
+    // A repo-owned <title> override, when one exists for this CMS record.
+    // The visible <h1> stays the CMS title; only the tab/search title moves.
+    fullTitle: cmsSeoTitleOverride(item.id, "en"),
     description: verdict || title,
     image: image || undefined,
     ogType: "article",
@@ -2541,36 +2597,8 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         })),
       },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "Which updates matter to families?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The page tracks launches, standards, and industry changes that can alter what parents should buy or avoid.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Which stories are most citable?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The stories with named sources, clear dates, and concise summaries are easiest for readers and AI systems to cite.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Why include a quote on the news page?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "A short attributed quote gives the page a source-backed sentence that crawlers can reuse with context.",
-          },
-        },
-      ],
-    },
+    // Built from the same pairs the page renders visibly (src/lib/pageFaq.ts).
+    faqPageSchema(NEWS_FAQS),
   ];
   return {
     route: "/news",
@@ -2635,6 +2663,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
           <li>The page carries collection and FAQ schema in the server HTML.</li>
         </ul>
       </section>
+      ${renderFaqSection(NEWS_FAQS[2])}
     `,
     // injected as server-visible JSON-LD for crawler access
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -2919,36 +2948,8 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         })),
       },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "How do reviews stay defensible?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Each verdict is tied to a visible score, a named source, and a clear use case so readers can trace the judgment back to evidence.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Which standards guide each verdict?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The page uses FTC disclosure guidance, CPSC children's product context, and bicycle safety references to anchor the review language.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Why add dates and author information?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Dates and author attribution help readers and AI systems judge freshness and accountability.",
-          },
-        },
-      ],
-    },
+    // Built from the same pairs the page renders visibly (src/lib/pageFaq.ts).
+    faqPageSchema(REVIEWS_FAQS),
   ];
   return {
     route: "/reviews",
@@ -3028,6 +3029,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
           <li><a href="https://www.iso.org/standard/71811.html">ISO 8098</a> — bicycle safety baseline</li>
         </ul>
       </section>
+      ${renderFaqSection(REVIEWS_FAQS[2])}
     `,
     jsonLd: reviewsSchemas,
   };
@@ -3454,7 +3456,7 @@ function renderFilterPages(
     {
       route: "/reviews/single",
       title: "Single-Product Reviews",
-      fullTitle: "Single-Product Reviews: Source-Based Scores | BalanceBikeToddler",
+      fullTitle: "Single-Product Reviews: Sourced Scores | BalanceBikeToddler",
       description:
         "Every published single-product review: lab-style scores for safety, comfort, portability, features, and value, with a verdict you can trace.",
       introHeading: "How does a single-product review work?",
@@ -3625,7 +3627,7 @@ function renderHomePage(
     title: "Evidence-based kids ride-on & safety gear",
     // Without an explicit fullTitle the homepage shipped
     // "BalanceBikeToddler | BalanceBikeToddler" — the brand repeated twice.
-    fullTitle: "BalanceBikeToddler | Evidence-Based Kids Bike & Stroller Analysis",
+    fullTitle: "Evidence-Based Kids Mobility Reviews | BalanceBikeToddler",
     description: "Evidence-based balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
     // No alternates: the homepage has no translated edition, and its currency
     // views are the same HTML canonicalizing back to "/". Declaring hreflang
@@ -3792,6 +3794,12 @@ function renderAboutPage(): RoutePage {
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "children's product compliance baseline" },
           { label: "MDN Web Storage API", href: "https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API", note: "browser storage reference for local drafts" },
         ])}
+      </section>
+      ${ABOUT_FAQS.map((faq) => renderFaqSection(faq)).join("")}
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">How can a reader reach us?</h2>
+        <p style="margin: 0 0 14px;"><strong>Short answer:</strong> by email. Corrections, missing sources and product questions all arrive in the same inbox, and a correction that checks out is fixed on the page it applies to rather than buried in a reply.</p>
+        <p style="margin: 0 0 14px;">Write to <a href="mailto:contact@balancebiketoddler.com">contact@balancebiketoddler.com</a>. The address is the same one the site's contact buttons use, so there is one accountable mailbox behind every page on this site.</p>
       </section>
     `,
   };
@@ -8032,7 +8040,10 @@ function renderProductDetailPage(
   return {
     route,
     title: seoTitle,
-    fullTitle: seoTitle.length <= 44 ? `${seoTitle} | BalanceBikeToddler` : seoTitle,
+    // The brand suffix only stays while the WHOLE title fits in the
+    // 60-character budget. On the longer model names it does not fit,
+    // and a searcher looking for a stroller is looking for the stroller.
+    fullTitle: applyBrandSuffix(seoTitle),
     description: metaDescription,
     body,
     image: image || undefined,
@@ -8056,7 +8067,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
           <a href="${escapeHtml(`/products/${productDetailSlugDir(product)}/${cmsRouteSegment(product.id)}`)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
             ${
               toAbsoluteMediaUrl(product.imageUrl)
-                ? `<img src="${escapeHtml(toAbsoluteMediaUrl(product.imageUrl))}" alt="${escapeHtml(productDisplayTitle(product))}" loading="lazy" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;" />`
+                ? `<img src="${escapeHtml(toAbsoluteMediaUrl(product.imageUrl))}" alt="${escapeHtml(productDisplayTitle(product))}" width="800" height="800" loading="lazy" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;" />`
                 : ""
             }
             <h3 style="margin: 0 0 6px; font-size: 0.98rem; color: #0f172a;">${escapeHtml(productDisplayTitle(product))}</h3>

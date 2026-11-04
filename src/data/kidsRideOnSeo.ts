@@ -54,7 +54,7 @@ const n = d.totals.rideOnCars;
 
 export const kidsRideOnVoltageSeo = {
   en: {
-    title: "Kids Ride-On Voltage: 6V, 12V, 24V or 36V",
+    title: "Kids Ride-On Voltage: 6V, 12V, 24V, 36V",
     description:
       `Which battery tier a ride-on car sits in decides its speed, seats and weight. All ${n} cars here, ` +
       `and where each voltage figure actually came from.`,

@@ -21,7 +21,9 @@
 import type { CMSPageConfig, CMSSettings, SEOConfig } from "../types";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig } from "../config/defaultSeo";
 import { sanitizeUnsupportedClaims } from "./unsupportedClaims";
-import { buildMetaDescription, capSeoTitle, SITE_TITLE_SUFFIX, TITLE_MAX_CHARS } from "./documentTitle";
+import { buildDocumentTitle, buildMetaDescription } from "./documentTitle";
+import { META_DESCRIPTION_MIN } from "./articleDescription";
+import { ZH_HUB_INTRO } from "./zhHubCopy";
 
 /** Mirrors src/App.tsx SEO_KEY_TO_PAGE_TYPE (moved here so the resolver is pure). */
 export const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
@@ -141,19 +143,15 @@ export function resolveCmsRouteSeoConfig(
  * must NOT publish an unsupported claim the prerender scrubbed — byte-identical.
  *
  * The scrub can LENGTHEN a title ("Safety Lab" -> "Safety Source-based"), so
- * the Semrush 65-char budget is enforced here too, brand-suffix-aware exactly
- * like buildDocumentTitle(): a title that loses its brand is a title nobody can
- * attribute. Both renderers call this function, so they truncate identically.
+ * the 60-char budget is enforced here too. buildDocumentTitle() owns that
+ * budget: it caps the BODY and always keeps the brand suffix, so a title that
+ * loses its brand is a title nobody can attribute. Both renderers call this
+ * function, so they truncate identically.
  */
 export function publishSectionTitle(title: string): string {
   const scrubbed = sanitizeUnsupportedClaims(String(title || "").trim().replace(/\s+/g, " "));
   if (!scrubbed) return scrubbed;
-  if (scrubbed.length <= TITLE_MAX_CHARS) return scrubbed;
-  if (scrubbed.endsWith(SITE_TITLE_SUFFIX)) {
-    const stem = scrubbed.slice(0, -SITE_TITLE_SUFFIX.length);
-    return `${capSeoTitle(stem, TITLE_MAX_CHARS - SITE_TITLE_SUFFIX.length)}${SITE_TITLE_SUFFIX}`;
-  }
-  return capSeoTitle(scrubbed, TITLE_MAX_CHARS);
+  return buildDocumentTitle(scrubbed);
 }
 
 /**
@@ -161,9 +159,41 @@ export function publishSectionTitle(title: string): string {
  * renderDocument() makes for every other page: ASINs stripped, claims scrubbed,
  * capped at a word boundary. normalizeSeoConfig already trimmed to 155, so the
  * 158-char cap never cuts further here.
+ *
+ * A teaser that is too SHORT is extended with the route's own opening
+ * paragraph before the cap runs. The CMS Chinese teasers are 40-52 characters
+ * — one compressed clause — and a snippet that short is truncated into a
+ * fragment by the search result. The Chinese hubs already print the paragraph
+ * below as their first paragraph, so the snippet quotes the page rather than
+ * repeating it, and both renderers extend identically because both call this
+ * function with the same route context.
  */
-export function publishSectionDescription(description: string): string {
-  return buildMetaDescription(description, sanitizeUnsupportedClaims);
+export function publishSectionDescription(
+  description: string,
+  context?: { seoKey?: string; lang?: "en" | "zh" },
+): string {
+  return buildMetaDescription(
+    extendShortSectionDescription(String(description || "").trim().replace(/\s+/g, " "), context),
+    sanitizeUnsupportedClaims,
+  );
+}
+
+/**
+ * The Chinese hubs' teaser plus the paragraph the hub opens with.
+ *
+ * Only the two Chinese article hubs have an entry: they are the only section
+ * routes with a Chinese edition, and the only ones whose CMS teaser is too
+ * short to use as it is. Every other route keeps its authored description.
+ */
+function extendShortSectionDescription(
+  description: string,
+  context?: { seoKey?: string; lang?: "en" | "zh" },
+): string {
+  if (context?.lang !== "zh") return description;
+  const seoKey = normalizeSeoKey(String(context.seoKey || ""));
+  if (seoKey !== "guides" && seoKey !== "news") return description;
+  if (description.length >= META_DESCRIPTION_MIN) return description;
+  return `${description}${ZH_HUB_INTRO[seoKey]}`;
 }
 
 /**
@@ -181,7 +211,7 @@ export function resolveSectionRouteSeo(
   const normalized = normalizeSeoConfig(seo);
   return {
     title: publishSectionTitle(normalized.title),
-    description: publishSectionDescription(normalized.description),
+    description: publishSectionDescription(normalized.description, { seoKey, lang }),
     keywords: normalized.keywords,
   };
 }

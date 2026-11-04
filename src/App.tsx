@@ -130,7 +130,7 @@ import { getD1CMSSettings, getD1CMSProducts, getD1CMSEvaluations } from "./lib/c
 import type { ArticleSeoMeta } from "./lib/articleSeo";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
-import { buildDocumentTitle, buildMetaDescription } from "./lib/documentTitle";
+import { applyBrandSuffix, buildDocumentTitle, buildMetaDescription } from "./lib/documentTitle";
 import {
   normalizeSeoKey,
   resolveCmsRouteSeoConfig,
@@ -341,8 +341,12 @@ const trimSeoText = (value: string, limit: number) => {
 
 const buildProductDetailTitle = (product: Product, lang: "zh" | "en") => {
   const baseTitle = getProductDisplayTitle(product, lang);
-  const suffix = lang === "zh" ? "评测 | BalanceBikeToddler" : "Review | BalanceBikeToddler";
-  return trimSeoText(`${baseTitle} ${suffix}`, PRODUCT_DETAIL_TITLE_LIMIT);
+  // The brand suffix stays only while the whole title fits in the budget.
+  // This used to be a hard slice at 60 characters, which cut mid-word
+  // ("…Review | BalanceBikeToddl") and named the page differently from the
+  // prerendered HTML.
+  const review = lang === "zh" ? "评测" : "Review";
+  return applyBrandSuffix(`${baseTitle} ${review}`);
 };
 
 const buildProductDetailDescription = (product: Product, lang: "zh" | "en") => {
@@ -3818,7 +3822,7 @@ export default function App() {
     // so hydration can never overwrite the static <title>/description with a
     // different value. scripts/check-spa-titles.ts proves the two agree.
     titleStr = publishSectionTitle(titleStr);
-    descStr = publishSectionDescription(descStr);
+    descStr = publishSectionDescription(descStr, { seoKey, lang });
 
     document.title = titleStr;
     updateMetaTag("description", descStr);

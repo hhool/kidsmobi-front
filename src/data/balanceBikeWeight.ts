@@ -43,7 +43,7 @@ export function headlineFacts() {
 
 export const weightSeo = {
   en: {
-    title: "Balance Bike Weights: 62 Ride-Ons Compared",
+    title: "Balance Bike Weights: 62 Ride-Ons",
     description: d.headline
       ? `Seller-listed weights for ${d.totals.productsScanned} kids' ride-ons: balance bikes median ` +
         `${d.headline.balanceBikeMedianLb} lb vs pedal kids' bikes ${d.headline.kidsBikeMedianLb} lb — ` +

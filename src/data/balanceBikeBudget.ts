@@ -243,7 +243,7 @@ export const budgetStrings: Record<"en" | "zh", BudgetStrings> = {
 
 export const budgetSeo = {
   en: {
-    title: "Budget Balance Bike: Cheap Picks That Last",
+    title: "Budget Balance Bike: Cheap Picks",
     description:
       "Budget balance bikes can still teach balance. Price tiers, frame, tire and weight trade-offs, and the checks that separate a cheap bike worth keeping.",
     canonical: BUDGET_PATH,

@@ -52,7 +52,7 @@ export const sizingDataset = SIZING_DATASET as {
 
 export const sizingSeo = {
   en: {
-    title: "Balance Bike Size Chart: Real Specs Compared",
+    title: "Balance Bike Size Chart: Real Specs",
     description:
       "A side-by-side comparison of balance bikes' real specifications — age range, wheel size, weight, frame and steering limit — drawn from each product's specification record. Plus how to size a balance bike by inseam and weight.",
     keywords: [

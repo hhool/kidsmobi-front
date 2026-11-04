@@ -152,7 +152,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Use the product hub to compare the raw specs that feed our verdicts before you trust any shortlist.",
       },
       seo: {
-        title: "BalanceBikeToddler Independent Disclaimer & Affiliate Disclosure",
+        title: "Editorial Independence & Affiliate Disclosure",
         description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, evidence-first methodology, and clear affiliate disclosure.",
         keywords: ["BalanceBikeToddler disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
       },
@@ -200,7 +200,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "进入产品库比较喂给结论的原始参数，再决定是否信任任何推荐清单。",
       },
       seo: {
-        title: "BalanceBikeToddler Independent Disclaimer & Affiliate Disclosure",
+        title: "Editorial Independence & Affiliate Disclosure",
         description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, evidence-first methodology, and clear affiliate disclosure.",
         keywords: ["BalanceBikeToddler disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
       },
@@ -251,7 +251,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Open the product hub when you want to compare weight, price, and safety fields before reading a final score.",
       },
       seo: {
-        title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
+        title: "Evaluation Methodology: The Evidence Playbook",
         description: "Explore BalanceBikeToddler's methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
         keywords: ["methodology", "kids mobility safety", "brake review", "stroller safety"],
       },
@@ -299,7 +299,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "想在阅读最终分数前比较重量、价格和安全字段，可先打开产品库。",
       },
       seo: {
-        title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
+        title: "Evaluation Methodology: The Evidence Playbook",
         description: "Explore BalanceBikeToddler's methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
         keywords: ["methodology", "kids mobility safety", "brake review", "stroller safety"],
       },
@@ -350,7 +350,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Use the product hub to compare product fields before trusting any certificate badge or marketing claim.",
       },
       seo: {
-        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Standards Matrix",
+        title: "Certification Notes: CPSC, ASTM & ISO",
         description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial source-note handling.",
         keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "safety standards"],
       },
@@ -398,7 +398,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "进入产品库，在相信任何认证徽章或营销话术前先比较产品字段。",
       },
       seo: {
-        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Standards Matrix",
+        title: "Certification Notes: CPSC, ASTM & ISO",
         description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial source-note handling.",
         keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "safety standards"],
       },
@@ -449,7 +449,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "See how measured fit data and local browser drafts are treated before you choose account features or share account-level data.",
       },
       seo: {
-        title: "BalanceBikeToddler Terms of Use: Safety Guidance, Not Legal or Medical Advice",
+        title: "Terms of Use & Safety Guidance",
         description: "Read BalanceBikeToddler’s terms of use: independent editorial guidance, affiliate disclosure, parent responsibility, and safety limits.",
         keywords: ["terms of use", "BalanceBikeToddler terms", "safety guidance", "parent review policy"],
       },
@@ -497,7 +497,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "在选择账号功能或共享账号级数据前，先了解尺寸数据和本地草稿的处理方式。",
       },
       seo: {
-        title: "BalanceBikeToddler Terms of Use: Safety Guidance, Not Legal or Medical Advice",
+        title: "Terms of Use & Safety Guidance",
         description: "Read BalanceBikeToddler’s terms of use: independent editorial guidance, affiliate disclosure, parent responsibility, and safety limits.",
         keywords: ["terms of use", "BalanceBikeToddler terms", "safety guidance", "parent review policy"],
       },
@@ -558,7 +558,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Move from local sizing logic into the product hub when you are ready to compare safer candidates.",
       },
       seo: {
-        title: "BalanceBikeToddler Privacy Policy: Parent Data Firewall",
+        title: "Privacy Policy: The Parent Data Firewall",
         description: "BalanceBikeToddler privacy policy for parents: local Smart Wizard sizing, no sale of child fit data, and narrow account data use.",
         keywords: ["privacy policy", "parent data", "Smart Wizard", "child fit data", "BalanceBikeToddler privacy"],
       },
@@ -616,7 +616,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "完成本地尺寸判断后，再进入产品库比较更安全的候选产品。",
       },
       seo: {
-        title: "BalanceBikeToddler Privacy Policy: Parent Data Firewall",
+        title: "Privacy Policy: The Parent Data Firewall",
         description: "BalanceBikeToddler privacy policy for parents: local Smart Wizard sizing, no sale of child fit data, and narrow account data use.",
         keywords: ["privacy policy", "parent data", "Smart Wizard", "child fit data", "BalanceBikeToddler privacy"],
       },

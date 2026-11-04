@@ -184,7 +184,7 @@ export const CATEGORY_TDK_MAP: Record<
       // CMS does carry 6 adult electric scooters under the same raw category,
       // but none of them is published here. Three of the four previous
       // keywords promised "electric", which the page cannot back up.
-      title: "Best Kids Kick Scooters & 3-Wheel Scooters | BalanceBikeToddler",
+      title: "Kids Kick Scooters & 3-Wheel Models | BalanceBikeToddler",
       description: "Compare source-reviewed kids kick scooters and 3-wheel scooters, including foldable frames, lean-to-steer starters and LED wheel models.",
       keywords: ["kids kick scooter", "3 wheel scooter for kids", "foldable kids scooter", "toddler scooter", "lean to steer scooter"],
     },

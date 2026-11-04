@@ -20,7 +20,12 @@ import path from "node:path";
 const ROOT = process.env.CHECK_TITLES_ROOT || "dist";
 const SITE = "https://balancebiketoddler.com";
 const BRAND_SUFFIX = "| BalanceBikeToddler";
-const MAX_TITLE = 65;
+// The G4 hard list (repos/wb-seo-teardown/references/technical-baseline-34.md,
+// row 1) asks for one unique title per page, 25-60 characters. This guard
+// said 65, which is the budget the site used before that row was read: a
+// 61-65 character title passes here and still gets cut by the search result.
+// scripts/check-title-cap.ts guards the same range with the shared constant.
+const MAX_TITLE = 60;
 const MAX_DESCRIPTION = 158;
 const ASIN = /\bB0[0-9A-Z]{8}\b/;
 const DANGLING = new Set([
@@ -29,6 +34,12 @@ const DANGLING = new Set([
   "those", "it", "its", "is", "are", "was", "we", "our", "you", "your", "who",
   "how", "what", "when", "where", "why", "vs", "vs.",
 ]);
+// The words the CAP refuses to end a cut on (src/lib/documentTitle.ts,
+// TITLE_TAIL_FRAGMENTS) are deliberately NOT here. They describe a cut, not a
+// title: "Balance Bike Budget: Guides & Tiers" is an authored headline that
+// happens to end on "Tiers", and putting the word in this set reported 19
+// perfectly good titles as broken. The cap already guarantees that a cut
+// never lands on one of them.
 
 // Titles go through escapeHtml(), so "&amp;" and "&#39;" are what lands in the
 // file while a searcher (and every length limit) sees "&" and "'". Measuring the
