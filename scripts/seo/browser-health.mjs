@@ -50,6 +50,7 @@
  *   node scripts/seo/browser-health.mjs --check     # diagnose only, change nothing
  *   node scripts/seo/browser-health.mjs --no-probe  # diagnose + browser, skip Lighthouse
  *   node scripts/seo/browser-health.mjs --proxy     # route the browser through 127.0.0.1:7890
+ *   node scripts/seo/browser-health.mjs --direct    # ignore system proxy settings (use after a reboot)
  *
  * Env:
  *   CHROME_BIN         browser binary to start (default: Playwright's headless shell)
@@ -68,10 +69,17 @@ const ROOT = process.cwd();
 const CHECK_ONLY = process.argv.includes('--check');
 const NO_PROBE = process.argv.includes('--no-probe');
 const USE_PROXY = process.argv.includes('--proxy');
+const USE_DIRECT = process.argv.includes('--direct');
 const PROBE_PORT = Number(readFlag('--port', '4181'));
 const PROBE_RUNS = Number(readFlag('--runs', '1'));
 const START_PORT = Number(readFlag('--start-port', '9401'));
+// macOS system settings can point every app at a proxy that is not running
+// (ClashX does not come back after a reboot). Chrome then fails every HTTPS
+// navigation with ERR_PROXY_CONNECTION_FAILED, which looks exactly like a
+// broken TLS stack. --direct overrides those system settings for the browser
+// this script starts, without touching the machine's configuration.
 const PROXY = process.env.PROXY || (USE_PROXY ? 'http://127.0.0.1:7890' : '');
+const DIRECT = USE_DIRECT && !PROXY;
 
 const CHROME_APP = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const PLAYWRIGHT_SHELL_GLOB = `${process.env.HOME}/Library/Caches/ms-playwright/chromium_headless_shell-*/chrome-headless-shell-mac-x64/chrome-headless-shell`;
@@ -277,6 +285,8 @@ async function startBrowser(bin, port) {
   if (PROXY) {
     args.push(`--proxy-server=${PROXY}`);
     args.push('--proxy-bypass-list=127.0.0.1;localhost');
+  } else if (DIRECT) {
+    args.push('--proxy-server=direct://');
   }
   const child = spawn(bin, args, { stdio: ['ignore', 'ignore', 'ignore'], detached: true });
   child.unref();
@@ -350,11 +360,19 @@ async function main() {
     return 0;
   }
 
-  if (report.launchservicesd && report.launchservicesd.cpu < 5) {
-    log('\n-- trying to replace launchservicesd (the kill is expected to report EPERM)');
+  // The repair is only for the WEDGED fingerprint. A healthy launchservicesd
+  // also sits near 0% CPU with a small RSS, so "cpu < 5" alone would kill a
+  // perfectly good daemon on every machine that was just rebooted (the user's
+  // own lsd is killable, unlike the root one). diagnose() already computed the
+  // full fingerprint; use it instead of re-guessing from one field.
+  if (report.launchservicesd && looksWedged(report.launchservicesd)) {
+    log('\n-- launchservicesd has the wedged fingerprint; trying to replace it');
+    log('   (the kill of the root-owned instance is expected to report EPERM)');
     const swap = await replaceLaunchservicesd();
     log(`   lsd pids: ${swap.before.join(',')} -> ${swap.after.join(',')} (fresh: ${swap.fresh.join(',') || 'none'})`);
     if (!swap.fresh.length) log('   nothing was replaced. Attaching to a running browser is the way around it.');
+  } else {
+    log('\n-- launchservicesd is healthy; leaving it alone');
   }
 
   log('\n-- looking for a browser');

@@ -107,5 +107,39 @@ check('the script keeps the diagnosis and the renderer check', () => {
   assert.ok(source.includes('verifyRenderer'), 'an open port is not proof that a renderer answers');
 });
 
+// --- the repair must not fire on a healthy machine -------------------------
+//
+// A freshly rebooted host has a launchservicesd at ~0% CPU with a small RSS.
+// The old guard was just `cpu < 5`, so it killed the healthy daemon (the
+// user-level lsd IS killable, unlike the root one) on every good machine.
+// These are reverse assertions: put the old condition back and they go red.
+check('the repair is gated on the full wedged fingerprint, not CPU alone', () => {
+  const main = source.split('\nasync function main()', 2)[1] || '';
+  assert.ok(
+    main.includes('if (report.launchservicesd && looksWedged(report.launchservicesd))'),
+    'main() must call looksWedged() before replacing the daemon',
+  );
+  assert.ok(
+    !main.includes('if (report.launchservicesd && report.launchservicesd.cpu < 5)'),
+    'the old CPU-only condition would kill a healthy daemon after a reboot',
+  );
+});
+
+check('this machine after a reboot would NOT be repaired', () => {
+  const healthy = { pid: 135, user: 'root', cpu: 3.7, memMb: 7, etime: '00:05:16' };
+  assert.equal(looksWedged(healthy), false);
+  const wedged = { pid: 135, user: 'root', cpu: 0, memMb: 8, etime: '44-19:37:19' };
+  assert.equal(looksWedged(wedged), true);
+});
+
+// After a reboot the system proxy can point at a port nobody listens on.
+// Chrome must be able to ignore it, or every HTTPS navigation fails with
+// ERR_PROXY_CONNECTION_FAILED and looks like a broken TLS stack.
+check('the browser can be started with system proxy settings disabled', () => {
+  assert.ok(source.includes('--direct'), 'the flag must be documented');
+  assert.ok(source.includes("args.push('--proxy-server=direct://')"), 'the flag must reach Chrome');
+  assert.ok(source.includes('const DIRECT = USE_DIRECT && !PROXY;'), '--proxy must win over --direct');
+});
+
 console.log(failures === 0 ? '\nall cases pass' : `\n${failures} case(s) fail`);
 process.exit(failures === 0 ? 0 : 1);
