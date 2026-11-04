@@ -5619,6 +5619,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
+                    href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS["editorial-team"])}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(TRANSPARENCY_PAGE_PATHS["editorial-team"]);
+                    }}
+                  >
+                    {lang === "en" ? "Editorial Team" : "编辑团队与资质"}
+                  </a>
+                </li>
+                <li>
+                  <a
                     href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS["testing-methodology"])}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {

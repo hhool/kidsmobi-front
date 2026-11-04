@@ -613,6 +613,7 @@ const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
   { href: "/transparency/certification-lab-notes/", label: "Certification & Standards Notes" },
   { href: "/transparency/disclaimer/", label: "Editorial Disclaimer" },
+  { href: "/transparency/editorial-team/", label: "Editorial Team & Credentials" },
   { href: "/transparency/privacy-policy/", label: "Privacy Policy" },
   { href: "/transparency/terms/", label: "Terms of Use" },
   { href: "/transparency/search-data/", label: "Search Data" },
@@ -643,6 +644,7 @@ const ZH_FOOTER_LABELS: Record<string, string> = {
   "/transparency/testing-methodology/": "方法论",
   "/transparency/certification-lab-notes/": "认证与标准说明",
   "/transparency/disclaimer/": "编辑免责声明",
+  "/transparency/editorial-team/": "编辑团队与资质",
   "/transparency/privacy-policy/": "隐私政策",
   "/transparency/terms/": "使用条款",
   "/transparency/search-data/": "检索数据说明",
@@ -8704,6 +8706,7 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     "/transparency/terms/",
     "/transparency/search-data/",
     "/transparency/review-count-integrity/",
+    "/transparency/editorial-team/",
   ]) {
     staticModByRoute.set(route, TRANSPARENCY_LASTMOD);
   }

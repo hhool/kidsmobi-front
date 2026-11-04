@@ -45,7 +45,8 @@ export type TransparencyPageKey =
   | "terms"
   | "privacy-policy"
   | "search-data"
-  | "review-count-integrity";
+  | "review-count-integrity"
+  | "editorial-team";
 
 /** A headline figure rendered as a card above the body copy. */
 export type TransparencyPageMetric = {
@@ -104,6 +105,7 @@ export const TRANSPARENCY_PAGE_PATHS: Record<TransparencyPageKey, string> = {
   "privacy-policy": "/transparency/privacy-policy/",
   "search-data": "/transparency/search-data/",
   "review-count-integrity": "/transparency/review-count-integrity/",
+  "editorial-team": "/transparency/editorial-team/",
 };
 
 export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
@@ -1063,6 +1065,120 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         description:
           "Ten catalogue listings carried review counts reaching 47 million. We suppressed them rather than estimate, set a hard credibility ceiling of 200,000, and added a build-time guard.",
         keywords: ["review count integrity", "data transparency", "structured data accuracy", "review credibility"],
+      },
+    },
+  },
+  {
+    key: "editorial-team",
+    en: {
+      path: TRANSPARENCY_PAGE_PATHS["editorial-team"],
+      navLabel: "Editorial Team",
+      title: "Who Checks These Pages, and What We Are Not Allowed to Tell You",
+      subtitle:
+        "We read published specs, recall notices, standards and owner feedback. We are not a certification body, a technician, or a clinician - and our guides say so on the page, not only here.",
+      intro:
+        "Every guide on this site is assembled from public documents and measured facts. When a question moves from 'what does this product say' to 'what should I do for my child', the answer stops being ours to give.",
+      measuredLine: "Editorial desk - BalanceBikeToddler - safety guidance reviewed 2026-11-05",
+      metrics: [
+        { value: "0", label: "Paid placements", note: "no manufacturer supplies a verdict or a draft" },
+        { value: "4", label: "Source classes", note: "published specs, recalls, standards, owner feedback" },
+        { value: "1", label: "Standing rule", note: "no executable installation parameters, ever" },
+      ],
+      sections: [
+        {
+          eyebrow: "01 / Scope",
+          title: "What we are qualified to do",
+          body: [
+            "We compare the numbers a manufacturer publishes against the numbers a standard requires, then check both against recall databases and owner reports. That is desk research, and we say plainly when a claim cannot be verified.",
+            "Product names, model codes and specification lines are descriptions of a catalogue record. They are not a recommendation to buy, fit or install anything.",
+          ],
+        },
+        {
+          eyebrow: "02 / Boundary",
+          title: "What we are not",
+          body: [
+            "We are not a certification body, a Child Passenger Safety Technician, a paediatrician, or a legal adviser. Nothing here is professional installation advice, medical advice, or a substitute for the instructions that came with your product.",
+            "For any decision that affects a child's safety in a vehicle, check the vehicle and product manuals and ask a certified technician. We deliberately do not publish executable angles, torque values, or age and weight thresholds as instructions.",
+          ],
+        },
+        {
+          eyebrow: "03 / Process",
+          title: "How a page is cleared",
+          body: [
+            "A page is drafted from source documents, checked against the catalogue record it cites, and re-read for advice language that crept in. Where two sources conflict, the disagreement stays on the page instead of being averaged away.",
+            "When a manufacturer changes a specification or a recall is issued, the affected page is corrected and the correction is dated. Corrections are not silently folded into the original text.",
+          ],
+        },
+      ],
+      primaryLink: {
+        href: "/transparency/terms/",
+        label: "Read the terms of use",
+        text: "The same boundary in the site's terms: research-backed guidance, not a substitute for professional judgement.",
+      },
+      secondaryLink: {
+        href: "/transparency/testing-methodology/",
+        label: "See the evaluation method",
+        text: "Which documents we read, in what order, and what makes us discard a claim.",
+      },
+      seo: {
+        title: "Editorial Team & Safety Review Boundary | BalanceBikeToddler",
+        description:
+          "Who writes and checks our guides, which public sources we use, and why we do not give professional installation or medical advice for child safety products.",
+        keywords: ["editorial team", "author credentials", "safety advisory", "review process"],
+      },
+    },
+    zh: {
+      path: TRANSPARENCY_PAGE_PATHS["editorial-team"],
+      navLabel: "编辑团队与资质",
+      title: "谁在审这些页面，以及我们不能替你回答什么",
+      subtitle: "我们读公开规格、召回公告、标准文本与用户反馈。我们不是认证机构、不是技师、也不是医生——这条边界写在每一页上，不只写在这里。",
+      intro: "本站每篇指南都由公开文件与可核对的事实拼成。当问题从「这个产品写了什么」变成「我该为孩子怎么做」，答案就不再由我们来给。",
+      measuredLine: "编辑台 · BalanceBikeToddler · 安全提示复核于 2026-11-05",
+      metrics: [
+        { value: "0", label: "付费植入", note: "厂商不提供结论，也不提供初稿" },
+        { value: "4", label: "来源类别", note: "公开规格、召回记录、标准文本、用户反馈" },
+        { value: "1", label: "常设红线", note: "绝不发布可执行的具体安装参数" },
+      ],
+      sections: [
+        {
+          eyebrow: "01 / 范围",
+          title: "我们有资格做什么",
+          body: [
+            "我们把厂商公布的数字与标准要求的数字对照，再用召回数据库和用户反馈核一遍。这是案头研究；某条说法无法核实时，我们会直接写明。",
+            "页面上的商品名、型号与规格行是对目录记录的描述，不是购买、装配或安装的推荐。",
+          ],
+        },
+        {
+          eyebrow: "02 / 边界",
+          title: "我们不是什么",
+          body: [
+            "我们不是认证机构，不是儿童乘员安全技师，不是儿科医生，也不是法律顾问。这里的内容不构成专业安装建议或医疗建议，也不能替代产品随附的说明书。",
+            "凡涉及儿童乘车安全的决定，请查阅车辆与产品说明书，并咨询持证技师。我们刻意不把可执行的角度、扭矩值或年龄体重阈值写成操作指令。",
+          ],
+        },
+        {
+          eyebrow: "03 / 流程",
+          title: "一页内容如何被放行",
+          body: [
+            "先按来源文件起草，再与所引用的目录记录逐条核对，最后重读一遍，把不经意写进来的建议语气找出来。两份来源冲突时，分歧留在页面上，不做平均。",
+            "厂商改了规格或发布召回后，受影响的页面会更正并标注日期；更正不会悄悄揉进原文。",
+          ],
+        },
+      ],
+      primaryLink: {
+        href: "/transparency/terms/",
+        label: "阅读使用条款",
+        text: "同一条边界也写在站点条款里：研究型指引，不替代专业判断。",
+      },
+      secondaryLink: {
+        href: "/transparency/testing-methodology/",
+        label: "查看评估方法",
+        text: "我们读哪些文件、按什么顺序读，以及什么情况下会丢弃一条说法。",
+      },
+      seo: {
+        title: "编辑团队与资质边界 | BalanceBikeToddler",
+        description: "谁在撰写与复核本站指南、使用哪些公开来源，以及为什么我们不提供专业安装或医疗建议。",
+        keywords: ["编辑团队", "作者资质", "安全提示", "审阅流程"],
       },
     },
   },
