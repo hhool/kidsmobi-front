@@ -11,6 +11,42 @@ BalanceBikeToddler is a safety-focused kids mobility review and buying guidance 
 - [News](https://balancebiketoddler.com/news)
 - [About](https://balancebiketoddler.com/about)
 
+## Product categories
+Every category page lists the models it covers, with the specifications and the
+safety notes for that class of ride.
+- [Balance Bikes](https://balancebiketoddler.com/products/balance-bikes/)
+- [Kids Bikes](https://balancebiketoddler.com/products/kids-bikes/)
+- [Kids Scooters](https://balancebiketoddler.com/products/kids-scooters/)
+- [Kids Tricycles](https://balancebiketoddler.com/products/kids-tricycles/)
+- [Strollers](https://balancebiketoddler.com/products/strollers/)
+- [Electric Cars](https://balancebiketoddler.com/products/electric-cars/)
+- [Safety Seats](https://balancebiketoddler.com/products/safety-seats/)
+
+## Comparisons
+Side-by-side pages that put competing models against each other on the same
+criteria, for a parent deciding between two options.
+- [Balance Bike Top Picks](https://balancebiketoddler.com/reviews/compare/balance-bike-top-picks-compare)
+- [Toddler Bike Parent Picks](https://balancebiketoddler.com/reviews/compare/toddler-bike-parent-picks-compare)
+- [Kids Scooter Parent Picks](https://balancebiketoddler.com/reviews/compare/kids-scooter-parent-picks-compare)
+- [Kids Tricycles Parent Picks](https://balancebiketoddler.com/reviews/compare/kids-tricycles-parent-compare)
+- [Electric Cars for Parents](https://balancebiketoddler.com/reviews/compare/electric-cars-parent-compare)
+- [Car Safety Seats for Parents](https://balancebiketoddler.com/reviews/compare/car-safety-seats-parent-compare)
+- [Jogging Strollers for Parents](https://balancebiketoddler.com/reviews/compare/jogging-stroller-parent-compare)
+- [All Comparisons](https://balancebiketoddler.com/reviews/compare)
+- [Single Reviews](https://balancebiketoddler.com/reviews/single)
+
+## News channels
+The site keeps four channels of industry and product news, each written when
+there is something to report rather than on a schedule.
+- [Brand News](https://balancebiketoddler.com/news/brand_news)
+- [Industry News](https://balancebiketoddler.com/news/industry)
+- [New Products](https://balancebiketoddler.com/news/new_product)
+- [Science](https://balancebiketoddler.com/news/science)
+
+## Chinese editions
+- [中文指南](https://balancebiketoddler.com/zh/guides)
+- [中文新闻](https://balancebiketoddler.com/zh/news)
+
 ## Contact
 - Email: hello@balancebiketoddler.com
 - Website: https://balancebiketoddler.com/

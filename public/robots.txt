@@ -13,12 +13,27 @@ Disallow: /*?*category=
 # Crawl - the corpus most third-party AI tools read from. Blocking both means
 # the content never reaches an AI answer, so both are allowed.
 #
+# GPTBot, ClaudeBot and PerplexityBot are the three answer engines that read
+# a page to answer a question rather than to build an index. They are the
+# crawlers this site's own GEO check (scripts/seo/geo-ops.mjs) requires by
+# name, so they are stated here too: a rule that lives only in a script is a
+# rule the crawler never sees.
+#
 # Bytespider, Applebot-Extended and meta-externalagent are bulk training
 # scrapers rather than search engines, and they stay out.
 User-agent: Google-Extended
 Allow: /
 
 User-agent: CCBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
 Allow: /
 
 User-agent: Bytespider
