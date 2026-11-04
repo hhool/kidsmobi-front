@@ -948,7 +948,64 @@ ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(pag
          text-* class. body stays unlayered to keep the exact current backdrop
          over the index.css gradient. */
       @layer theme, base, components, utilities;
-      body { margin: 0; background: #f8fafc; }
+      /* Critical CSS. The bundle is no longer render-blocking (see
+         extractAppAssets), so everything the page needs before that bundle
+         arrives has to be inlined here. The prerendered markup carries only
+         four Tailwind utility classes on <body> (bg-slate-50, text-slate-950,
+         antialiased, font-sans) and styles everything else inline, so this
+         stays deliberately small.
+         The font stacks are the part a reader actually sees: without them the
+         prerendered text paints in the browser's default font until the
+         bundle lands, and the line-height it changes with them moves the
+         page under the reader's feet. The stacks and the two colours mirror
+         the @theme block and the @layer base rules in src/index.css;
+         scripts/check-critical-css.mjs fails the build when the two drift. */
+      :root {
+        --font-sans: "Outfit", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+        --font-display: "Outfit", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+        --color-km-ink: #101828;
+        --color-slate-50: oklch(98.4% .003 247.858);
+        --color-slate-950: oklch(12.9% .042 264.695);
+      }
+      html {
+        font-family: var(--font-sans);
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      body {
+        margin: 0;
+        background: #f8fafc;
+        font-family: var(--font-sans);
+        letter-spacing: 0;
+        line-height: 1.5;
+        color: var(--color-km-ink);
+        min-height: 100vh;
+      }
+      h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+      .font-sans { font-family: var(--font-sans); }
+      .bg-slate-50 { background-color: var(--color-slate-50); }
+      .text-slate-950 { color: var(--color-slate-950); }
+      .antialiased {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      /* The grid backdrop. It paints behind the content and moves nothing, but
+         without it the page changes colour the moment the bundle arrives. */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+        background-size: 48px 48px;
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 80%);
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 80%);
+      }
       @layer utilities {
         a { color: #ea580c; }
       }
@@ -1017,18 +1074,96 @@ ${appAssets.headTags}
 </html>`;
 }
 
-function extractAppAssets(indexHtml: string): AppAssets {
-  const tags = Array.from(indexHtml.matchAll(
-    /<(?:script type="module"[^>]*\ssrc="[^"]+"[^>]*><\/script>|link rel="(?:modulepreload|stylesheet)"[^>]*>)/g,
-  )).map((match) => match[0]);
+/**
+ * The head resources every prerendered page publishes.
+ *
+ * Two rules shape this function.
+ *
+ * 1. Nothing in the head may block the first paint. The Tailwind bundle used
+ *    to ship as a plain <link rel="stylesheet">, which is exactly what the
+ *    teardown audit counts as a render blocker ("441 page(s) block first
+ *    paint") and what Lighthouse's "eliminate render-blocking" reports. It is
+ *    now preloaded and swapped in when it arrives, so the page paints on the
+ *    inlined critical CSS alone. There is deliberately no <noscript>
+ *    fallback: the HTML parser still sees a stylesheet inside <noscript>, so
+ *    it would be counted as a blocker all over again.
+ *
+ * 2. The font stylesheet and the two preconnects are read from the SOURCE
+ *    index.html, not from the built one. The source file is the single truth
+ *    for them, and a build step is free to rewrite what Vite emits - so the
+ *    prerender must not depend on Vite having copied the tags verbatim. The
+ *    bundle no longer @imports them either; see the comment at the top of
+ *    src/index.css.
+ */
+function extractAppAssets(indexHtml: string, sourceIndexHtml: string): AppAssets {
+  const builtLinks = linksInHead(indexHtml);
+  const sourceLinks = linksInHead(sourceIndexHtml);
 
-  if (!tags.some((tag) => tag.startsWith("<script"))) {
+  const moduleScript = indexHtml.match(/<script\b[^>]*\bsrc="[^"]+"[^>]*><\/script>/);
+  if (!moduleScript) {
     throw new Error("Unable to locate the built application module script in dist/index.html");
   }
 
+  const preconnects = sourceLinks.filter((tag) => relOf(tag) === "preconnect");
+  const fontPreloads = sourceLinks.filter(
+    (tag) => relOf(tag) === "preload" && hrefOf(tag).includes("fonts.googleapis.com"),
+  );
+  const modulePreloads = builtLinks.filter((tag) => relOf(tag) === "modulepreload");
+  const stylesheet = builtLinks.find((tag) => relOf(tag) === "stylesheet");
+
+  if (!stylesheet) {
+    throw new Error("Unable to locate the built stylesheet in dist/index.html");
+  }
+  if (fontPreloads.length === 0) {
+    throw new Error("Unable to locate the font stylesheet preload in index.html");
+  }
+
+  // rel="preload" as="style" plus the onload swap is the non-blocking form.
+  // The href and crossorigin are kept exactly as Vite emitted them, so the
+  // preload and the stylesheet that replaces it share one request.
+  const deferredStylesheet = stylesheet
+    .replace('<link rel="stylesheet"', '<link rel="preload" as="style"')
+    .replace(/\s*\/?>$/, ` onload="this.rel='stylesheet'" />`);
+
   return {
-    headTags: tags.map((tag) => `    ${tag}`).join("\n"),
+    headTags: [
+      ...preconnects,
+      ...fontPreloads,
+      deferredStylesheet,
+      moduleScript[0].replace(/\s+/g, " "),
+      ...modulePreloads,
+    ]
+      .map((tag) => `    ${tag}`)
+      .join("\n"),
   };
+}
+
+/**
+ * Every <link> in the head of an HTML document, whitespace-normalised.
+ *
+ * HTML comments are stripped first. A comment that quotes a tag (the fonts
+ * comment in index.html quotes one) is text, not a tag, but a plain regex
+ * cannot tell the difference - and the wrong pick here is silent: the
+ * prerender would rewrite the quoted tag instead of the real stylesheet, and
+ * the real stylesheet would stay a render blocker.
+ */
+function linksInHead(html: string): string[] {
+  const headEnd = html.indexOf("</head>");
+  const head = (headEnd === -1 ? html : html.slice(0, headEnd)).replace(
+    /<!--[\s\S]*?-->/g,
+    "",
+  );
+  return Array.from(head.matchAll(/<link\b[^>]*>/g)).map((match) =>
+    match[0].replace(/\s+/g, " "),
+  );
+}
+
+function relOf(tag: string): string {
+  return (tag.match(/rel="([^"]*)"/) || ["", ""])[1].toLowerCase();
+}
+
+function hrefOf(tag: string): string {
+  return (tag.match(/href="([^"]*)"/) || ["", ""])[1];
 }
 
 /* ------------------------------------------------------------------ *
@@ -8168,7 +8303,8 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
 
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
-  const appAssets = extractAppAssets(indexHtml);
+  const sourceIndexHtml = await readFile(path.join(process.cwd(), "index.html"), "utf8");
+  const appAssets = extractAppAssets(indexHtml, sourceIndexHtml);
 
   const [cmsGuides, cmsNews, cmsEvaluations, cmsProducts, cmsSettings] = await Promise.all([
     fetchPublishedGuides(),

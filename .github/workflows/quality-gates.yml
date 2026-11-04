@@ -207,6 +207,18 @@ jobs:
       - name: Tracking and affiliate links
         run: npm run check:tracking
 
+      # The Tailwind bundle no longer blocks the first paint (it is preloaded and
+      # swapped in when it arrives), so the prerendered pages paint on the CSS
+      # inlined in their <head>. That inlined block repeats values from
+      # src/index.css, and it must not drift: a drifted font stack is invisible
+      # in review and obvious on the page. This also asserts that no prerendered
+      # page ships a blocking <link rel="stylesheet"> - the render blocker the
+      # teardown audit (item 26) and Lighthouse's render-blocking audit both
+      # count. See scripts/seo/render-blocking-probe.mjs for the browser-side
+      # half of the same question.
+      - name: Critical CSS inlined, no blocking stylesheet
+        run: npm run check:criticalcss
+
       # Google Search showed its default grey globe for every result: the only
       # declared favicon was an SVG (absent from the formats Google lists for
       # search favicons) and /favicon.ico was a 404. This pins the raster set,

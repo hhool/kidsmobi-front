@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans+SC:wght@400;500;600;700;800;900&family=Outfit:wght@100..900&display=swap');
+/* The Google Fonts stylesheet is deliberately NOT @import-ed from here.
+   An @import inside the bundle opens a third-party chain - bundle ->
+   fonts.googleapis.com -> fonts.gstatic.com - and the first hop of that
+   chain is render-blocking: Lighthouse measured 1,743 ms wasted on it
+   (186 KB of @font-face rules for a page that needs a handful of subsets).
+   The document head now preconnects to Google Fonts and loads the very
+   same stylesheet non-blockingly (rel="preload" as="style" plus an onload
+   swap). index.html carries those tags; scripts/prerender-pages.ts copies
+   them into every prerendered page, so the two never drift. */
 @import "tailwindcss";
 
 @layer utilities {

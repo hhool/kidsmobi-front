@@ -107,21 +107,79 @@ if (!rootElement) {
   throw new Error('Root element not found.');
 }
 
-try {
-  createRoot(rootElement).render(
-    <StrictMode>
-      <AppErrorBoundary>
-        <App />
-      </AppErrorBoundary>
-    </StrictMode>,
-  );
-} catch (error) {
-  console.error('App bootstrap failed:', error);
-  rootElement.innerHTML = `
+/**
+ * The Tailwind bundle no longer blocks the first paint: the prerendered pages
+ * ship it as rel="preload" plus an onload swap, with the critical CSS inlined
+ * in the head. That means the stylesheet can land AFTER the markup is parsed,
+ * and mounting the app before it arrives would paint a screenful of unstyled
+ * components and then restyle every one of them. Waiting for the same-origin
+ * stylesheet keeps the first painted frame the one the reader sees for the
+ * rest of the page's life.
+ *
+ * Only the app's own stylesheet is waited for. The Google Fonts stylesheet is
+ * a third-party request and must not hold the first render: the font stacks
+ * are in the critical CSS, so the page reads correctly while it loads.
+ */
+function waitForAppStylesheet(): Promise<void> {
+  const links = Array.from(
+    document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"], link[rel="preload"][as="style"]'),
+  ).filter((link) => {
+    const href = link.getAttribute('href') || '';
+    if (!href) return false;
+    try {
+      return new URL(href, window.location.href).origin === window.location.origin;
+    } catch {
+      return false;
+    }
+  });
+
+  if (links.length === 0) return Promise.resolve();
+
+  return Promise.all(
+    links.map(
+      (link) =>
+        new Promise<void>((resolve) => {
+          if (link.rel === 'stylesheet' && link.sheet) {
+            resolve();
+            return;
+          }
+          const settle = () => resolve();
+          link.addEventListener('load', settle, { once: true });
+          link.addEventListener('error', settle, { once: true });
+        }),
+    ),
+  ).then(() => undefined);
+}
+
+/**
+ * A stylesheet that never arrives must not leave the reader on the boot
+ * cover forever. The app mounts unstyled in that case, which is a lesser
+ * evil than a permanent spinner.
+ */
+function withTimeout(promise: Promise<void>, timeoutMs: number): Promise<void> {
+  return Promise.race([
+    promise,
+    new Promise<void>((resolve) => window.setTimeout(resolve, timeoutMs)),
+  ]);
+}
+
+withTimeout(waitForAppStylesheet(), 5000).then(() => {
+  try {
+    createRoot(rootElement).render(
+      <StrictMode>
+        <AppErrorBoundary>
+          <App />
+        </AppErrorBoundary>
+      </StrictMode>,
+    );
+  } catch (error) {
+    console.error('App bootstrap failed:', error);
+    rootElement.innerHTML = `
     <main style="padding:24px;max-width:820px;margin:0 auto;color:#1f2937;line-height:1.6;">
       <h1 style="font-size:20px;margin-bottom:12px;">Page Recovery Mode</h1>
       <p style="margin-bottom:8px;">Application bootstrap failed, so a blank page was prevented.</p>
       <p style="opacity:.8;">Please refresh the page and try again.</p>
     </main>
   `;
-}
+  }
+});

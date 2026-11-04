@@ -3,6 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fonts. This stylesheet used to be @import-ed from src/index.css, which
+         put a third-party hop in front of every paint (bundle -> Google Fonts
+         CSS -> font files). It is preloaded here and swapped in when it
+         arrives, so it never blocks the first paint. There is deliberately no
+         noscript fallback: a stylesheet link inside a noscript block is still
+         a stylesheet to the HTML parser, and the teardown audit counts it as a
+         render blocker.
+         scripts/prerender-pages.ts copies these three tags out of this file
+         into every prerendered page's head, so dev and production always load
+         the same fonts. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      crossorigin
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans+SC:wght@400;500;600;700;800;900&family=Outfit:wght@100..900&display=swap"
+      onload="this.rel='stylesheet'"
+    />
     <title>Best Kids Bikes, Scooters, Jogging Strollers & Cars | BalanceBikeToddler</title>
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="author" content="BalanceBikeToddler Editorial Team" />
