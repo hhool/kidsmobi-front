@@ -82,6 +82,8 @@
     "check:hydration": "node scripts/seo/hydration-probe.mjs",
     "check:consent": "node scripts/seo/consent-probe.mjs",
     "check:renderblocking": "node scripts/seo/render-blocking-probe.mjs --run",
+    "check:browser": "node scripts/seo/browser-health.mjs",
+    "check:browserhealth": "node scripts/seo/browser-health.selftest.mjs",
     "check:claims": "npx tsx scripts/check-honesty-claims.ts",
     "check:richparity": "npx tsx scripts/check-rich-parity.tsx",
     "check:redirects": "node scripts/check-redirects.mjs",

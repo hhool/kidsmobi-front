@@ -23,12 +23,17 @@
 //
 // Usage:
 //   node scripts/seo/render-blocking-probe.mjs --report <lighthouse.json> [...]
-//   node scripts/seo/render-blocking-probe.mjs --run [--runs 3] [--port 4181]
+//   node scripts/seo/render-blocking-probe.mjs --run [--runs 3] [--port 4181] [--chrome-port 9345]
 //   node scripts/seo/render-blocking-probe.mjs --self-test
+//
+// --chrome-port makes Lighthouse attach to a browser that is already running
+// instead of launching one. That is the only way to get a Lighthouse run on a
+// host where launching a browser is broken - see scripts/seo/browser-health.mjs.
 //
 // Env:
 //   LIGHTHOUSE_BIN  path to lighthouse's cli/index.js (or the npm bin)
 //   CHROME_PATH     path to a Chromium/Chrome binary
+//   LIGHTHOUSE_PORT attach to this DevTools port instead of launching Chrome
 //
 // Exit codes:
 //   0  no render-blocking resource (or a clean SKIP: nothing to run against)
@@ -180,7 +185,7 @@ function readArg(flag, fallback) {
   return i !== -1 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
 }
 
-async function runLighthouse({ entry, runs, port }) {
+async function runLighthouse({ entry, runs, port, chromePort }) {
   const outDir = path.resolve('.runs/lh');
   mkdirSync(outDir, { recursive: true });
 
@@ -195,6 +200,11 @@ async function runLighthouse({ entry, runs, port }) {
     const reports = [];
     for (let i = 1; i <= runs; i += 1) {
       const out = path.join(outDir, `render-blocking-${i}.json`);
+      // A browser that is already running can be attached to. On a host where
+      // launching a browser is broken (a wedged launchservicesd makes Chrome
+      // hang before it opens its debugging port), attaching is the only way
+      // to get a Lighthouse run at all.
+      const attach = chromePort ? ['--port=' + chromePort] : ['--chrome-flags=--headless=new --no-sandbox'];
       const code = await new Promise((resolve) => {
         const child = spawn(
           process.execPath,
@@ -204,15 +214,23 @@ async function runLighthouse({ entry, runs, port }) {
             '--output=json',
             `--output-path=${out}`,
             '--quiet',
-            '--chrome-flags=--headless=new --no-sandbox',
+            ...attach,
           ],
-          { stdio: 'ignore' },
+          { stdio: ['ignore', 'pipe', 'pipe'] },
         );
-        child.on('close', resolve);
-        child.on('error', () => resolve(1));
+        let noise = '';
+        child.stdout.on('data', (d) => {
+          noise += d.toString();
+        });
+        child.stderr.on('data', (d) => {
+          noise += d.toString();
+        });
+        child.on('close', (c) => resolve({ code: c, noise }));
+        child.on('error', () => resolve({ code: 1, noise }));
       });
-      if (code !== 0 || !existsSync(out)) {
-        throw new Error(`lighthouse run ${i} failed (exit ${code})`);
+      if (code.code !== 0 || !existsSync(out)) {
+        const tail = code.noise.trim().split('\n').slice(-4).join(' | ');
+        throw new Error(`lighthouse run ${i} failed (exit ${code.code})${tail ? `: ${tail}` : ''}`);
       }
       reports.push(JSON.parse(readFileSync(out, 'utf8')));
       console.log(`  run ${i}/${runs} -> ${path.relative(process.cwd(), out)}`);
@@ -305,9 +323,13 @@ async function main() {
     }
     const runs = Number(readArg('--runs', '3'));
     const port = Number(readArg('--port', '4181'));
-    console.log(`render-blocking-probe — ${runs} Lighthouse run(s) against the local preview on :${port}`);
+    const chromePort = readArg('--chrome-port', process.env.LIGHTHOUSE_PORT || '');
+    console.log(
+      `render-blocking-probe — ${runs} Lighthouse run(s) against the local preview on :${port}` +
+        (chromePort ? ` (attaching to the browser on :${chromePort})` : ''),
+    );
     try {
-      reports.push(...(await runLighthouse({ entry, runs, port })));
+      reports.push(...(await runLighthouse({ entry, runs, port, chromePort })));
     } catch (e) {
       console.log(`render-blocking-probe SKIP — Lighthouse could not run: ${String(e.message || e)}`);
       process.exit(0);
