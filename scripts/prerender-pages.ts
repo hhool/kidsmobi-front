@@ -422,6 +422,93 @@ function renderBulletedCards(items: Array<{ title: string; text: string; meta?: 
 }
 
 
+const PUBLIC_SITE_BASE = "https://balancebiketoddler.com";
+
+/**
+ * The visible breadcrumb, rendered from the page's own BreadcrumbList.
+ *
+ * A page that declares a BreadcrumbList but shows no trail tells a reader two
+ * different stories about where they are: the schema says "Home > Budget
+ * balance bike", the page says nothing. Search engines read the same two
+ * stories. 245 of the site's 441 pages were in that state.
+ *
+ * The trail is rendered from the schema rather than written out again, so the
+ * two cannot drift: the schema is the list, and the visible trail is a
+ * rendering of it. The last segment is the page you are on, so it is text
+ * with aria-current="page" — a link back to the page you are already on
+ * points nowhere.
+ *
+ * Returns "" for a page with no BreadcrumbList, or for one that already
+ * renders its own trail (the product, article and review renderers each
+ * write theirs, and those now name the same segments as their schema).
+ */
+function renderVisibleBreadcrumb(page: RoutePage): string {
+  if (page.body.includes('aria-label="Breadcrumb"')) {
+    return "";
+  }
+  const nodes = page.jsonLd ?? [];
+  const list = nodes.find(
+    (node) => node["@type"] === "BreadcrumbList" && Array.isArray(node.itemListElement),
+  );
+  if (!list) {
+    return "";
+  }
+  const items = (list.itemListElement as Array<Record<string, unknown>>)
+    .filter((item) => typeof item.name === "string" && item.name)
+    .map((item) => ({
+      name: String(item.name),
+      href: typeof item.item === "string" ? String(item.item) : "",
+    }));
+  if (items.length < 2) {
+    return "";
+  }
+  const siteBase = PUBLIC_SITE_BASE.replace(/\/$/, "");
+  const crumbs = items.map((item) => ({
+    name: item.name,
+    href: item.href.startsWith(siteBase) ? item.href.slice(siteBase.length) || "/" : item.href,
+  }));
+  return breadcrumbTrail(crumbs);
+}
+
+type Crumb = { name: string; href?: string };
+
+/**
+ * One definition of how a breadcrumb looks.
+ *
+ * Four renderers write a trail - product pages, article pages, review pages,
+ * and the pages whose trail is rendered from their own schema. A reader who
+ * moves from a guide to a product page should not have to learn the trail
+ * twice, so the look is defined once here rather than copied four times.
+ *
+ * Three details are not decoration:
+ *
+ * - the separator sits inside an `aria-hidden` span, because a screen reader
+ *   that announces "greater-than" between two names is reading punctuation
+ *   as content;
+ * - the last segment is text, not a link: it is the page you are on, and a
+ *   trail whose last step points back at its own page says "you can go
+ *   somewhere" when there is nowhere to go. `aria-current="page"` says "you
+ *   are here" to a reader who cannot see the trail;
+ * - the links carry the site's own accent and no underline, so the trail
+ *   reads as a trail rather than as three hyperlinks in a row.
+ */
+function breadcrumbTrail(crumbs: Crumb[]): string {
+  if (crumbs.length < 2) {
+    return "";
+  }
+  const segments = crumbs.map((crumb, index) => {
+    const last = index === crumbs.length - 1;
+    // The separator belongs between two segments, never in front of the first.
+    const separator = index > 0 ? ` <span aria-hidden="true">›</span> ` : "";
+    const label = escapeHtml(crumb.name);
+    if (last || !crumb.href) {
+      return `${separator}<span aria-current="page" style="color: #c2410c;">${label}</span>`;
+    }
+    return `${separator}<a href="${escapeHtml(crumb.href)}" style="color: #c2410c; text-decoration: none;">${label}</a>`;
+  });
+  return `<nav aria-label="Breadcrumb" style="margin: 0 0 18px; font-size: 0.86rem; color: #64748b;">${segments.join("")}</nav>`;
+}
+
 function renderStaticPage(page: RoutePage): string {
   return `
     <article style="max-width: 980px; margin: 0 auto; padding: 40px 20px; color: #0f172a; font-family: Arial, sans-serif; line-height: 1.7;">
@@ -430,6 +517,7 @@ function renderStaticPage(page: RoutePage): string {
         ${page.skipTitleH1 ? "" : `<h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.h1 || page.h1En || page.title)}</h1>`}
         ${page.skipLeadDescription ? "" : `<p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>`}
       </header>
+      ${renderVisibleBreadcrumb(page)}
       ${page.body}
       ${renderSiteFooter(page.route)}
     </article>
@@ -715,6 +803,14 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
         },
         {
           "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            { "@type": "ListItem", position: 2, name: "About", item: "https://balancebiketoddler.com/about" },
+          ],
+        },
+        {
+          "@context": "https://schema.org",
           "@type": "AboutPage",
           name: `${page.title} | BalanceBikeToddler`,
           url: canonical,
@@ -911,7 +1007,6 @@ function extractAppAssets(indexHtml: string): AppAssets {
  * the build keeps working and silently falls back to the bundled data.
  * ------------------------------------------------------------------ */
 
-const PUBLIC_SITE_BASE = "https://balancebiketoddler.com";
 const CMS_BASE_URL = (
   process.env.PRERENDER_CMS_BASE ||
   process.env.CMS_API_BASE_URL ||
@@ -1840,9 +1935,11 @@ function renderGuideDetailPage(
     ogType: "article",
     alternates: languageAlternates(enRoute),
     body: `
-      <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
-        <a href="${zh ? "/zh/guides" : "/guides"}">${zh ? ZH_ARTICLE_LABELS.guidesHub : "Guides"}</a>${channelHref ? ` › <a href="${channelHref}">${escapeHtml(topicLabel)}</a>` : ""}
-      </nav>
+      ${breadcrumbTrail([
+        { name: zh ? ZH_ARTICLE_LABELS.guidesHub : "Guides", href: zh ? "/zh/guides" : "/guides" },
+        ...(channelHref ? [{ name: topicLabel, href: channelHref }] : []),
+        { name: title },
+      ])}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
           ${zh ? ZH_ARTICLE_LABELS.by : "By"} ${zh ? "BalanceBikeToddler 专家组" : "BalanceBikeToddler Editorial Team"} · <time datetime="${escapeHtml(published)}">${zh ? ZH_ARTICLE_LABELS.published : "Published"} ${escapeHtml(published)}</time>
@@ -1965,9 +2062,11 @@ function renderNewsDetailPage(
     ogType: "article",
     alternates: languageAlternates(enRoute),
     body: `
-      <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
-        <a href="${zh ? "/zh/news" : "/news"}">${zh ? ZH_ARTICLE_LABELS.newsHub : "News"}</a>${channelHref ? ` › <a href="${channelHref}">${escapeHtml(channelLabel)}</a>` : ""}
-      </nav>
+      ${breadcrumbTrail([
+        { name: zh ? ZH_ARTICLE_LABELS.newsHub : "News", href: zh ? "/zh/news" : "/news" },
+        ...(channelHref ? [{ name: channelLabel, href: channelHref }] : []),
+        { name: title },
+      ])}
       ${image ? `<figure class="article-hero" style="margin: 0 0 18px; margin-left: auto; margin-right: auto; width: 100%; max-width: 560px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px;">
         <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" loading="eager" decoding="async" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" />
       </figure>` : ""}
@@ -2156,9 +2255,11 @@ function renderEvaluationDetailPage(
     image: image || undefined,
     ogType: "article",
     body: `
-      <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
-        <a href="/reviews">Reviews</a> › <a href="/reviews/${isCompare ? "compare" : "single"}">${escapeHtml(reviewTypeLabel)}</a>
-      </nav>
+      ${breadcrumbTrail([
+        { name: "Reviews", href: "/reviews" },
+        { name: reviewTypeLabel, href: `/reviews/${isCompare ? "compare" : "single"}` },
+        { name: title },
+      ])}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
           By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
@@ -2663,6 +2764,14 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
             text: "It gives readers a quick comparison map before they dive into individual product pages or reviews.",
           },
         },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+        { "@type": "ListItem", position: 2, name: "Products", item: "https://balancebiketoddler.com/products" },
       ],
     },
   ];
@@ -3573,6 +3682,10 @@ function renderAboutPage(): RoutePage {
     title: "Who is behind the recommendations?",
     description: "Editorial process, trust signals, and source-backed context for the site.",
     body: `
+      ${breadcrumbTrail([
+        { name: "Home", href: "/" },
+        { name: "About" },
+      ])}
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">How do we work?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> we review the evidence first, then write the recommendation, and then attach named sources so parents can verify the claim.</p>
@@ -7451,16 +7564,12 @@ function productCategoryHrefBySlug(slug: string): string {
 }
 
 function renderProductBreadcrumb(products: Array<{ name: string; href: string }>): string {
-  return `
-        <nav aria-label="Breadcrumb" style="margin: 0 0 18px; font-size: 0.86rem; color: #64748b;">
-          ${products
-            .map(
-              (crumb, index) =>
-                `${index > 0 ? ' <span aria-hidden="true">›</span> ' : ""}<a href="${escapeHtml(crumb.href)}" style="color: #c2410c; text-decoration: none;">${escapeHtml(crumb.name)}</a>`,
-            )
-            .join("")}
-        </nav>
-      `;
+  // The last crumb is the page you are on, so it is not a link: a trail whose
+  // last step points back at the page it sits on reads as a step that goes
+  // somewhere, and search engines read the same way. It carries
+  // aria-current="page" instead, which is the attribute that says "you are
+  // here" to a reader who cannot see the trail.
+  return breadcrumbTrail(products);
 }
 
 /**
