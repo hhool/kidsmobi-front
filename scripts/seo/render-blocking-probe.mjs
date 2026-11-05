@@ -54,6 +54,9 @@ import { spawn } from 'node:child_process';
 import dns from 'node:dns/promises';
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import net from 'node:net';
+import { createHash } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
 
 const SELF_TEST = process.argv.includes('--self-test');
 const REPORT_ONLY = process.argv.includes('--report');
@@ -163,7 +166,56 @@ export function networkItems(report) {
   return items;
 }
 
-export function judgeFidelity(report) {
+/**
+ * The node the Largest Contentful Paint metric names.
+ *
+ * Lighthouse 13 reports it inside the `lcp-breakdown-insight` audit as a
+ * `node` item; older reports carry it in `largest-contentful-paint-element`.
+ * Both are read, and the first one that answers wins.
+ */
+/**
+ * The phases of the Largest Contentful Paint, as Lighthouse reports them.
+ *
+ * The phase names matter: a report whose LCP element is an image carries
+ * `resourceLoadDelay` and `resourceLoadDuration`; a report whose LCP element
+ * is a paragraph of text carries neither, because a text block has no
+ * resource to load.
+ */
+export function lcpPhases(report) {
+  const audits = (report || {}).audits || {};
+  const insight = audits['lcp-breakdown-insight'];
+  const items = insight && insight.details && Array.isArray(insight.details.items) ? insight.details.items : [];
+  const phases = {};
+  for (const item of items) {
+    if (!item || item.type !== 'table') continue;
+    for (const row of Array.isArray(item.items) ? item.items : []) {
+      if (row && row.subpart) phases[row.subpart] = Number(row.duration || 0);
+    }
+  }
+  return phases;
+}
+
+export function lcpElementNode(report) {
+  const audits = (report || {}).audits || {};
+  const insight = audits['lcp-breakdown-insight'];
+  const insightItems = insight && insight.details && Array.isArray(insight.details.items) ? insight.details.items : [];
+  for (const item of insightItems) {
+    if (item && item.type === 'node' && item.selector) {
+      return { selector: item.selector, boundingRect: item.boundingRect || null, snippet: item.snippet || '' };
+    }
+  }
+  const legacy = audits['largest-contentful-paint-element'];
+  const legacyItems = legacy && legacy.details && Array.isArray(legacy.details.items) ? legacy.details.items : [];
+  for (const item of legacyItems) {
+    const node = item && item.node;
+    if (node && node.selector) {
+      return { selector: node.selector, boundingRect: node.boundingRect || null, snippet: node.snippet || '' };
+    }
+  }
+  return null;
+}
+
+export function judgeFidelity(report, options = {}) {
   const items = networkItems(report);
   if (!items.length) {
     return {
@@ -172,11 +224,63 @@ export function judgeFidelity(report) {
       notes: [],
     };
   }
+  // The rules are scoped by the OBJECT that was measured, not by how strict
+  // the caller feels. A variant that is a document has no SPA to take the
+  // production data path, and a variant whose hero is deliberately absent
+  // has a text block as its largest paint. Both are different objects, not
+  // worse measurements - and every rule still applies to the object it was
+  // written for.
+  const expectSpa = options.expectSpa !== false;
+  const expectLcpImage = options.expectLcpImage !== false;
   const problems = [];
   const notes = [];
 
+  // The report must have measured the build it is filed under. A leftover
+  // preview server on the port answers with a DIFFERENT build, and every
+  // number it produces is perfectly plausible - this was measured: four
+  // rounds filed as the as-shipped control were in fact the no-fonts variant,
+  // which reports LCP 829ms.
+  //
+  // The fingerprint is the document itself: its decoded size is the size of
+  // the built index.html, so a report of another build cannot carry it. The
+  // hashed entry bundle is checked too, because two variants patched from
+  // one build share a bundle and differ only in the HTML.
+  if (options.expectedDocumentSize) {
+    const document =
+      items.find((item) => (item.resourceType || '') === 'Document') ||
+      items.find((item) => {
+        const url = String(item.url || '');
+        if (!/^https?:\/\/[^/]+\/(?:$|[?#])/.test(url)) return false;
+        return !/\.(js|css|woff2?|png|jpe?g|webp|gif|svg|ico|json|xml)(\?|$)/i.test(url);
+      });
+    const served = document ? Number(document.resourceSize || 0) : 0;
+    if (!served) {
+      problems.push('the report carries no document request, so the build it measured cannot be identified');
+    } else if (served !== options.expectedDocumentSize) {
+      problems.push(
+        `the report's document is ${served} bytes but it is filed as a build whose document is ` +
+          `${options.expectedDocumentSize} bytes - it is a report of a different build`,
+      );
+    }
+  }
+  if (options.expectedEntry) {
+    const served = items
+      .map((item) => String(item.url || ''))
+      .map((url) => (url.match(/assets\/index-[A-Za-z0-9_-]+\.js/) || [])[0])
+      .filter(Boolean);
+    const unique = [...new Set(served)];
+    if (!unique.length) {
+      problems.push('the report carries no entry bundle request, so the build it measured cannot be identified');
+    } else if (!unique.includes(options.expectedEntry)) {
+      problems.push(
+        `the report measured ${unique.join(', ')} but it is filed as ${options.expectedEntry} - it is a ` +
+          'report of a different build',
+      );
+    }
+  }
+
   const productionPath = items.filter((item) => /\/api\/v2\//.test(String(item.url || '')));
-  if (!productionPath.length) {
+  if (expectSpa && !productionPath.length) {
     problems.push('the SPA never called /api/v2/ - it did not take the production data path');
   }
   const unreachable = items.filter((item) => /workers\.dev/.test(String(item.url || '')));
@@ -227,6 +331,74 @@ export function judgeFidelity(report) {
   for (const item of uncompressed) {
     problems.push(
       `${item.url} transferred ${item.transferSize} of ${item.resourceSize} bytes - compression is not on`,
+    );
+  }
+
+  // The metric has to describe something the reader can still see. Two
+  // measured ways this goes wrong, both of them produce a number that looks
+  // excellent and means nothing:
+  //
+  //   - The LCP element is gone by the time the report is written. The
+  //     first-paint cover is destroyed at the hand-over, so a candidate that
+  //     came from inside it is measured at a 0x0 box - the metric names an
+  //     element that is no longer on the page.
+  //   - The LCP element is inside the cover in the first place, because the
+  //     app behind it had not rendered when the trace ended. A page whose
+  //     SPA never mounted reports the cover's paragraph as its largest
+  //     paint, and an audit that reads the number calls that a pass.
+  //
+  // Both were measured on this site. A build with the third-party font
+  // traffic removed closed the trace before the homepage rendered and
+  // reported LCP 829 ms, while the real page painted its hero at 6,296 ms.
+  // That report would have passed item 23.
+  const lcpNode = lcpElementNode(report);
+  if (lcpNode) {
+    const rect = lcpNode.boundingRect || {};
+    if (!rect.width || !rect.height) {
+      problems.push(
+        `the LCP element (${lcpNode.selector}) has a ${rect.width || 0}x${rect.height || 0} box - it is not on the page any more, so the metric describes nothing`,
+      );
+    }
+    if (expectSpa && /bbt-first-paint-cover/.test(lcpNode.selector)) {
+      problems.push(
+        `the LCP element is inside the first-paint cover (${lcpNode.selector}) - the cover is transient and the app behind it had not rendered when the trace ended`,
+      );
+    }
+  } else {
+    // A report that carries the LCP breakdown but does not name the element
+    // cannot be shown to describe the page that was measured. Two of the
+    // false-green reports were caught exactly here: Lighthouse could not
+    // name the element at all, because the trace closed before the homepage
+    // had rendered. A report with no LCP breakdown at all is a different
+    // matter - it simply does not carry the information.
+    const audits = report.audits || {};
+    if (audits['lcp-breakdown-insight'] || audits['largest-contentful-paint-element']) {
+      problems.push(
+        'the report does not name the LCP element, so it cannot be shown to describe the page that was measured',
+      );
+    }
+  }
+
+  // The LCP element must be an image, not a paragraph of text. On the
+  // homepage the largest painted content is the hero's background
+  // photograph, so a report whose LCP is a text block is a report whose
+  // trace ended before the homepage had rendered - the same failure as
+  // above, in the shape Lighthouse reports when it cannot name the element
+  // at all.
+  //
+  // Every report of the real page carries both resource phases; the two
+  // false-green reports do not carry either. A variant whose hero is
+  // deliberately absent is a different object: there the largest paint IS
+  // a text block, and the rule would misread it as a broken run.
+  const phases = lcpPhases(report);
+  if (
+    expectLcpImage &&
+    Object.keys(phases).length &&
+    !('resourceLoadDuration' in phases) &&
+    !('resourceLoadDelay' in phases)
+  ) {
+    problems.push(
+      'the LCP breakdown carries no resource phase - the LCP element is a text block, so the trace ended before the page\'s main image was painted',
     );
   }
 
@@ -298,18 +470,58 @@ function lighthouseEntry() {
 // routing rules and proxies /api to the real store, which is what the live
 // site does. Lighthouse has to see the same routing the crawler sees.
 // ---------------------------------------------------------------------------
-async function waitForServer(port, timeoutMs = 20000) {
+async function waitForServer(port, fingerprint, timeoutMs = 20000) {
   const deadline = Date.now() + timeoutMs;
+  let lastError = '';
   while (Date.now() < deadline) {
     try {
       const res = await fetch(`http://127.0.0.1:${port}/`, { signal: AbortSignal.timeout(2000) });
-      if (res.ok) return true;
-    } catch {
-      /* not up yet */
+      if (!res.ok) {
+        lastError = `status ${res.status}`;
+      } else {
+        const html = await res.text();
+        const digest = createHash('sha256').update(html, 'utf8').digest('hex');
+        if (fingerprint && digest !== fingerprint.sha256) {
+          // The port already had a server on it and that server answers with
+          // a different build. The numbers would be plausible and wrong.
+          throw new Error(
+            `the server on port ${port} is serving a DIFFERENT build - expected ${fingerprint.entry} ` +
+              `(${fingerprint.size} bytes), got ${(html.match(/assets\/index-[A-Za-z0-9_-]+\.js/) || ['an unknown bundle'])[0]} ` +
+              `(${Buffer.byteLength(html, 'utf8')} bytes)`,
+          );
+        }
+        return true;
+      }
+    } catch (error) {
+      if (error.message.includes('DIFFERENT build')) throw error;
+      lastError = `${error.message}${error.cause ? ` / ${error.cause.message}` : ''}`;
     }
     await new Promise((r) => setTimeout(r, 400));
   }
+  console.log(`  waitForServer(${port}) gave up; last error: ${lastError}`);
   return false;
+}
+
+/** The fingerprint of the document this probe is supposed to measure. */
+function documentFingerprint() {
+  const file = path.resolve('dist/index.html');
+  if (!existsSync(file)) return null;
+  const html = readFileSync(file, 'utf8');
+  return {
+    entry: (html.match(/assets\/index-[A-Za-z0-9_-]+\.js/) || [])[0] || null,
+    sha256: createHash('sha256').update(html, 'utf8').digest('hex'),
+    size: Buffer.byteLength(html, 'utf8'),
+  };
+}
+
+/** Is this port free? A busy port is a failed measurement, not a warning. */
+function portFree(port) {
+  return new Promise((resolve) => {
+    const probe = net.createServer();
+    probe.once('error', () => resolve(false));
+    probe.once('listening', () => probe.close(() => resolve(true)));
+    probe.listen(port, '127.0.0.1');
+  });
 }
 
 function readArg(flag, fallback) {
@@ -323,13 +535,32 @@ async function runLighthouse({ entry, runs, port, chromePort, host }) {
   const base = `http://${host}:${port}`;
 
   const preview = spawn(process.execPath, [path.resolve('scripts/preview-dist.mjs'), String(port)], {
-    stdio: 'ignore',
+    stdio: ['ignore', 'pipe', 'pipe'],
     detached: false,
   });
+  // The server's own output is the only diagnosis when it refuses to come up.
+  let previewNoise = '';
+  preview.stdout.on('data', (d) => {
+    previewNoise += d.toString();
+  });
+  preview.stderr.on('data', (d) => {
+    previewNoise += d.toString();
+  });
   try {
-    if (!(await waitForServer(port))) {
-      throw new Error(`preview server did not come up on ${port}`);
+    const fingerprint = documentFingerprint();
+    if (!fingerprint) {
+      throw new Error('dist/index.html does not exist - build the site first');
     }
+    if (!(await portFree(port))) {
+      throw new Error(
+        `port ${port} is already in use - a leftover preview server would be measured instead of this ` +
+          'build. Free the port and run again.',
+      );
+    }
+    if (!(await waitForServer(port, fingerprint))) {
+      throw new Error(`preview server did not come up on ${port}${previewNoise ? `: ${previewNoise.trim()}` : ''}`);
+    }
+    console.log(`  serving ${fingerprint.entry} (${fingerprint.size} bytes) on ${port}`);
     await warmPreview(base);
     const reports = [];
     for (let i = 1; i <= runs; i += 1) {
@@ -500,6 +731,52 @@ function selfTest() {
     { url: 'http://localtest.me:4181/api/v2/categories?withStats=false', transferSize: 462, resourceSize: 462, statusCode: 200 },
     { url: 'http://localtest.me:4181/assets/index-OASAr2mz.js', transferSize: 0, resourceSize: 1217070, statusCode: -1 },
   ]);
+  // A run whose Largest Contentful Paint names a node. The shape is the one
+  // Lighthouse 13 writes; the values are the ones a measured report carried.
+  const withLcpNode = (selector, rect, phases) => {
+    const report = net([
+      { url: 'http://localtest.me:4181/', transferSize: 7635, resourceSize: 28479, statusCode: 200 },
+      { url: 'http://localtest.me:4181/api/v2/categories?withStats=false', transferSize: 462, resourceSize: 462, statusCode: 200 },
+    ]);
+    const items = [];
+    if (phases) {
+      items.push({
+        type: 'table',
+        items: Object.entries(phases).map(([subpart, duration]) => ({ subpart, duration })),
+      });
+    }
+    if (selector) items.push({ type: 'node', selector, boundingRect: rect });
+    report.audits['lcp-breakdown-insight'] = { details: { type: 'list', items } };
+    return report;
+  };
+  const heroPhases = {
+    timeToFirstByte: 11,
+    resourceLoadDelay: 956,
+    resourceLoadDuration: 5190,
+    elementRenderDelay: 445,
+  };
+  const lcpOnThePage = withLcpNode(
+    'div#home_layout > section#home_banner_anchor > div.absolute > div.absolute',
+    { top: 225, bottom: 990, left: 17, right: 395, width: 378, height: 765 },
+    heroPhases,
+  );
+  const lcpDestroyed = withLcpNode(
+    'div#bbt-first-paint-cover > article > section > p',
+    { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 },
+    heroPhases,
+  );
+  const lcpInsideTheCover = withLcpNode(
+    'div#bbt-first-paint-cover > article > section > p',
+    { top: 120, bottom: 180, left: 20, right: 380, width: 360, height: 60 },
+    heroPhases,
+  );
+  // A text block has no resource to load, so the breakdown carries no
+  // resource phase at all. Lighthouse does not name the element in this
+  // shape, and the report describes a page whose hero never painted.
+  const lcpTextBlock = withLcpNode(null, null, {
+    timeToFirstByte: 15,
+    elementRenderDelay: 498,
+  });
   const fidelityCases = [
     ['a production-shaped run is faithful', judgeFidelity(faithful), 'pass'],
     ['a run stuck on the local aggregator is not', judgeFidelity(localOnly), 'fail'],
@@ -507,6 +784,28 @@ function selfTest() {
     ['a third-party failure is a note, not a different object', judgeFidelity(thirdPartyFailed), 'pass'],
     ['a failure on the page own origin is a different object', judgeFidelity(ownOriginFailed), 'fail'],
     ['a report without network requests cannot be cleared', judgeFidelity(empty), 'unknown'],
+    ['an LCP element that is on the page is faithful', judgeFidelity(lcpOnThePage), 'pass'],
+    ['an LCP element that is no longer on the page is not', judgeFidelity(lcpDestroyed), 'fail'],
+    ['an LCP element inside the transient cover is not', judgeFidelity(lcpInsideTheCover), 'fail'],
+    ['an LCP element that is a text block is not', judgeFidelity(lcpTextBlock), 'fail'],
+    // The build fingerprint. A leftover preview server on the port answers
+    // with a different build and produces perfectly plausible numbers; the
+    // document's decoded size is what tells the two apart.
+    [
+      'a report of the build it is filed under is faithful',
+      judgeFidelity(faithful, { expectedDocumentSize: 28479, expectedEntry: 'assets/index-OASAr2mz.js' }),
+      'pass',
+    ],
+    [
+      'a report of ANOTHER build is not',
+      judgeFidelity(faithful, { expectedDocumentSize: 30716, expectedEntry: 'assets/index-OASAr2mz.js' }),
+      'fail',
+    ],
+    [
+      'a report whose entry bundle is another build is not',
+      judgeFidelity(faithful, { expectedDocumentSize: 28479, expectedEntry: 'assets/index-OTHER.js' }),
+      'fail',
+    ],
   ];
   for (const [name, got, want] of fidelityCases) {
     const good = got.status === want;
@@ -585,9 +884,15 @@ async function main() {
   let unknown = false;
   let unfaithful = false;
   const summaryRuns = [];
+  // The probe measures dist/ - so the reports it judges have to be reports
+  // of that build, and the fingerprint says so.
+  const fingerprint = documentFingerprint();
   reports.forEach((report, i) => {
     const verdict = judge(report);
-    const fidelity = judgeFidelity(report);
+    const fidelity = judgeFidelity(report, {
+      expectedEntry: fingerprint ? fingerprint.entry : null,
+      expectedDocumentSize: fingerprint ? fingerprint.size : null,
+    });
     const metrics = summarizeMetrics(report);
     const label = report.finalUrl || report.requestedUrl || `report ${i + 1}`;
     summaryRuns.push({
@@ -679,4 +984,6 @@ async function main() {
   console.log('render-blocking-probe PASS');
 }
 
-main();
+// Only measure when this file is the entry point. Other scripts import
+// judgeFidelity() from here, and importing must not start a measurement.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
