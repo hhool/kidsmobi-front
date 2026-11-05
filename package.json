@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs && npx tsx scripts/prerender-pages.ts",
+    "build": "npm run build:fonts:subset && vite build && mkdir -p .runs/home-ssr && cp dist/index.html .runs/home-ssr/spa-shell.html && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs && npx tsx scripts/prerender-pages.ts && npm run build:home",
+    "build:home": "bash scripts/build-home.sh",
     "favicons:generate": "node scripts/generate-favicons.mjs",
     "check:favicons": "node scripts/check-favicons.mjs",
     "start": "node dist/server.cjs",
@@ -104,8 +105,10 @@
     "check:criticalcss": "node scripts/check-critical-css.mjs",
     "check:firstpaint": "node scripts/check-first-paint.mjs",
     "check:heropreload": "node scripts/check-hero-preload.mjs",
+    "check:heroweight": "node scripts/check-hero-weight.mjs",
     "build:fonts": "node scripts/build-fonts.mjs",
     "check:fonts": "node scripts/check-fonts.mjs",
+    "check:statichome": "node scripts/build-static-home.mjs --self-test && node scripts/extract-critical-css.mjs --self-test && node scripts/build-font-subset.mjs --self-test",
     "check:workerparity": "node scripts/check-worker-sitemap-parity.mjs",
     "sync:sitemappaths": "node scripts/sync_sitemap_paths_to_worker.mjs",
     "check:pairdrift": "node scripts/check-topic-pair-drift.mjs",
@@ -114,7 +117,8 @@
     "data:tricycles": "node scripts/fetch_tricycle_data.mjs",
     "data:strollers": "node scripts/fetch_stroller_data.mjs",
     "check:guidetext": "npx tsx scripts/check-guide-sanitize-links.ts",
-    "check:tdk": "python3 scripts/audit-tdk.py --sitemap https://balancebiketoddler.com/sitemap.xml --no-robots --workers 8 --fail-on-problem"
+    "check:tdk": "python3 scripts/audit-tdk.py --sitemap https://balancebiketoddler.com/sitemap.xml --no-robots --workers 8 --fail-on-problem",
+    "build:fonts:subset": "node scripts/build-font-subset.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1073.0",

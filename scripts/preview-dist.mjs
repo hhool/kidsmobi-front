@@ -34,7 +34,11 @@ import zlib from "node:zlib";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-const distDir = path.resolve("dist");
+// The directory to serve. It defaults to the repository's dist/, but it can
+// be pointed anywhere with PREVIEW_DIST_DIR - the Lighthouse variant bench
+// (.runs/lh-variants.mjs) serves one copy of the build per variant, and it
+// has to be sure the server answers with the bytes of THAT variant.
+const distDir = path.resolve(process.env.PREVIEW_DIST_DIR || "dist");
 const port = Number(process.argv[2] || 4181);
 const STORE_ORIGIN = "https://store.balancebiketoddler.com";
 

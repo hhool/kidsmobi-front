@@ -731,6 +731,15 @@ function selfTest() {
     { url: 'http://localtest.me:4181/api/v2/categories?withStats=false', transferSize: 462, resourceSize: 462, statusCode: 200 },
     { url: 'http://localtest.me:4181/assets/index-OASAr2mz.js', transferSize: 0, resourceSize: 1217070, statusCode: -1 },
   ]);
+  // A report of the STATIC HOMEPAGE: one document, an image, a stylesheet.
+  // There is no entry bundle in it - there is no React to mount - so there is
+  // no /api/v2/ call to make. This is the object the homepage ships as, and
+  // it is the fixture the "a document is not held to the SPA data path" rule
+  // is written against.
+  const documentOnly = net([
+    { url: 'http://localtest.me:4181/', transferSize: 48220, resourceSize: 192698, statusCode: 200 },
+    { url: 'http://localtest.me:4181/images/derived/f9a9c78f5329c3a1-800.webp', transferSize: 40211, resourceSize: 40211, statusCode: 200 },
+  ]);
   // A run whose Largest Contentful Paint names a node. The shape is the one
   // Lighthouse 13 writes; the values are the ones a measured report carried.
   const withLcpNode = (selector, rect, phases) => {
@@ -788,6 +797,13 @@ function selfTest() {
     ['an LCP element that is no longer on the page is not', judgeFidelity(lcpDestroyed), 'fail'],
     ['an LCP element inside the transient cover is not', judgeFidelity(lcpInsideTheCover), 'fail'],
     ['an LCP element that is a text block is not', judgeFidelity(lcpTextBlock), 'fail'],
+    // The homepage now ships as a static document: no entry bundle, no
+    // /api/v2/ call, because there is no React to mount. The rule that says
+    // "the SPA must have taken the production data path" is scoped by the
+    // object, so it does not apply to a document - and it still applies to
+    // everything else, which the second case proves.
+    ['a document with no SPA call is not held to the SPA data path', judgeFidelity(documentOnly, { expectSpa: false }), 'pass'],
+    ['the same document IS held to the SPA data path by default', judgeFidelity(documentOnly), 'fail'],
     // The build fingerprint. A leftover preview server on the port answers
     // with a different build and produces perfectly plausible numbers; the
     // document's decoded size is what tells the two apart.
@@ -887,11 +903,27 @@ async function main() {
   // The probe measures dist/ - so the reports it judges have to be reports
   // of that build, and the fingerprint says so.
   const fingerprint = documentFingerprint();
+  // Does the build under measurement boot the SPA at all?
+  //
+  // The homepage now ships as a static document: there is no entry bundle in
+  // it, so there is no React to mount and no /api/v2/ call to make. The
+  // fidelity rules are scoped by the object that was measured, so the rule
+  // that says "the SPA must have taken the production data path" has to be
+  // switched off for a document - and it is switched off by READING the
+  // document, not by a flag somebody remembers to pass.
+  //
+  // The rule itself does not change: a build that still has an entry bundle
+  // is still held to it.
+  const expectSpa = fingerprint ? fingerprint.entry !== null : true;
+  if (!expectSpa) {
+    console.log('  the document under measurement has no entry bundle - it is a document, not an SPA');
+  }
   reports.forEach((report, i) => {
     const verdict = judge(report);
     const fidelity = judgeFidelity(report, {
       expectedEntry: fingerprint ? fingerprint.entry : null,
       expectedDocumentSize: fingerprint ? fingerprint.size : null,
+      expectSpa,
     });
     const metrics = summarizeMetrics(report);
     const label = report.finalUrl || report.requestedUrl || `report ${i + 1}`;

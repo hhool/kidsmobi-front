@@ -7,7 +7,7 @@ import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
 import { applyResponsiveImagesToHtml } from "../src/lib/responsiveImages";
 import { applyFirstPaintToHtml } from "../src/lib/firstPaint";
-import { HERO_BG_IMAGES, HERO_IMAGE_ORIGIN } from "../src/lib/heroImages";
+import { HERO_BG_IMAGES } from "../src/lib/heroImages";
 import {
   amazonAffiliateUrl,
   resolveAmazonTag,
@@ -3799,8 +3799,13 @@ function renderHomePage(
     // from the document head starts the request in parallel with the scripts.
     // The URL comes from src/lib/heroImages.ts, the same module the SPA
     // renders the hero from, so the two cannot drift apart.
+    //
+    // There is no preconnect any more. The photograph is served from this
+    // origin (src/lib/heroImages.ts says why), and a preconnect to our own
+    // host buys nothing: it spends a header on a connection that is already
+    // open.
     preloadImage: HERO_BG_IMAGES[0],
-    preconnectOrigins: [HERO_IMAGE_ORIGIN],
+    preconnectOrigins: [],
     body: `
       ${navHtml}
       <section style="padding:30px 0 22px;">

@@ -242,6 +242,21 @@ jobs:
       - name: Homepage hero image is discoverable in the document
         run: npm run check:heropreload
 
+      # Discoverable is not enough - it also has to be small. On Lighthouse's
+      # mobile preset (562.5 ms of request latency, 1.6 Mbps) the hero's bytes
+      # go straight into the Largest Contentful Paint: the same photograph at
+      # 960 px / 102 KB measured 2,330 ms and at 768 px / 35 KB measured
+      # 1,797 ms, against a 2,000 ms budget.
+      #
+      # The trap this closes is that the wrong file looks right. The hero is
+      # painted at 62 % opacity under a dark gradient, so a well-meaning 2x
+      # re-export is indistinguishable on screen and costs 600 ms of paint.
+      # The guard pins the width, the aspect the layout was measured at, the
+      # byte ceiling, and that each file is really a WebP rather than a PNG
+      # with the extension renamed.
+      - name: Homepage hero stays inside its paint budget
+        run: npm run check:heroweight
+
       # The webfonts were served from Google: 465,802 bytes across seven
       # requests, and they moved the LCP by 3,284 ms - not because of the byte
       # count, but because a second origin is a second connection and bytes

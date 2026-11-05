@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef, FormEvent, useMemo, lazy, Suspense, type MouseEvent as ReactMouseEvent } from "react";
+import { lazySection } from "./lib/lazySection";
+import { isStaticDocument, STATIC_LANG_HREF } from "./lib/staticDocument";
+import StaticHeaderNav from "./components/StaticHeaderNav";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Baby,
@@ -40,6 +43,24 @@ import { productCategoryPath, productDetailPath, productCategoryUrlSlug, product
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS } from "./lib/productFaq";
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "./lib/productHubContent";
 
+/**
+ * Is this the static homepage document?
+ *
+ * The homepage ships as a static document (src/ssr/home-entry.tsx renders
+ * the REAL React homepage at build time), because that is the only shape
+ * that clears audit items 23 and 24. The document has no React, so the
+ * header's controls become links. See src/lib/staticDocument.ts.
+ *
+ * Read once at module scope: the build sets the flag before this module
+ * is imported, and it never changes afterwards. In the browser bundle the
+ * flag is never set, so every branch below takes the SPA path and the
+ * browser build behaves exactly as it did before.
+ */
+const STATIC_DOCUMENT = isStaticDocument();
+
+/** The brand mark: a div in the SPA, a link in the document. */
+const LogoTag = (STATIC_DOCUMENT ? "a" : "div") as any;
+
 /** Mirrors PRODUCT_COMPARE_HUB_BY_SLUG in scripts/prerender-pages.ts (P1-2). */
 const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
   "balance-bikes": "/reviews/compare/balance-bike-top-picks-compare",
@@ -57,65 +78,65 @@ import SafetyWeightCalculator from "./components/common/SafetyWeightCalculator";
 import MatchingWizard from "./components/MatchingWizard";
 import ProductDetailSkeleton from "./components/ProductDetailSkeleton";
 
-const HomeSection = lazy(() => import("./components/HomeSection"));
-const NewsSection = lazy(() => import("./components/NewsSection"));
-const ProductsSection = lazy(() => import("./components/ProductsSection"));
-const EvaluationsSection = lazy(() => import("./components/EvaluationsSection"));
-const GuidesSection = lazy(() => import("./components/GuidesSection"));
-const AboutSection = lazy(() => import("./components/AboutSection"));
-const AuthSection = lazy(() => import("./components/AuthSection"));
-const DetailedProductView = lazy(() => import("./components/DetailedProductView"));
-const AdminPanel = lazy(() => import("./components/AdminPanel"));
-const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
-const SafetyRecallRecord = lazy(() => import("./components/SafetyRecallRecord"));
-const BalanceBikeSizing = lazy(() => import("./components/BalanceBikeSizing"));
-const KidsBikeSizing = lazy(() => import("./components/KidsBikeSizing"));
-const BalanceBikeSafety = lazy(() => import("./components/BalanceBikeSafety"));
-const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
-const BalanceBikeStability = lazy(() => import("./components/BalanceBikeStability"));
-const BalanceBikeAge = lazy(() => import("./components/BalanceBikeAge"));
-const KidsBikeAge = lazy(() => import("./components/KidsBikeAge"));
-const KidsBikePrice = lazy(() => import("./components/KidsBikePrice"));
-const KidsBikeSafety = lazy(() => import("./components/KidsBikeSafety"));
-const KidsBikeWeight = lazy(() => import("./components/KidsBikeWeight"));
-const KidsBikeStability = lazy(() => import("./components/KidsBikeStability"));
-const KidsBuyerFeedback = lazy(() => import("./components/KidsBuyerFeedback"));
-const KidsBikeRecalls = lazy(() => import("./components/KidsBikeRecalls"));
-const KidsScooterWheels = lazy(() => import("./components/KidsScooterWheels"));
-const KidsScooterSize = lazy(() => import("./components/KidsScooterSize"));
-const KidsScooterWeight = lazy(() => import("./components/KidsScooterWeight"));
-const KidsScooterPrice = lazy(() => import("./components/KidsScooterPrice"));
-const KidsScooterAge = lazy(() => import("./components/KidsScooterAge"));
-const KidsScooterSafety = lazy(() => import("./components/KidsScooterSafety"));
-const KidsScooterFeedback = lazy(() => import("./components/KidsScooterFeedback"));
-const KidsScooterRecalls = lazy(() => import("./components/KidsScooterRecalls"));
-const KidsRideOnVoltage = lazy(() => import("./components/KidsRideOnVoltage"));
-const KidsRideOnWeight = lazy(() => import("./components/KidsRideOnWeight"));
-const KidsRideOnSize = lazy(() => import("./components/KidsRideOnSize"));
-const KidsRideOnPrice = lazy(() => import("./components/KidsRideOnPrice"));
-const KidsRideOnAge = lazy(() => import("./components/KidsRideOnAge"));
-const KidsRideOnSafety = lazy(() => import("./components/KidsRideOnSafety"));
-const KidsRideOnFeedback = lazy(() => import("./components/KidsRideOnFeedback"));
-const KidsRideOnRecalls = lazy(() => import("./components/KidsRideOnRecalls"));
-const KidsTricycleSize = lazy(() => import("./components/KidsTricycleSize"));
-const KidsTricycleAge = lazy(() => import("./components/KidsTricycleAge"));
-const KidsTricyclePrice = lazy(() => import("./components/KidsTricyclePrice"));
-const KidsTricycleWeight = lazy(() => import("./components/KidsTricycleWeight"));
-const KidsTricycleTypes = lazy(() => import("./components/KidsTricycleTypes"));
-const KidsTricycleSafety = lazy(() => import("./components/KidsTricycleSafety"));
-const KidsTricycleFeedback = lazy(() => import("./components/KidsTricycleFeedback"));
-const KidsTricycleRecalls = lazy(() => import("./components/KidsTricycleRecalls"));
-const KidsStrollerSize = lazy(() => import("./components/KidsStrollerSize"));
-const KidsStrollerAge = lazy(() => import("./components/KidsStrollerAge"));
-const KidsStrollerPrice = lazy(() => import("./components/KidsStrollerPrice"));
-const KidsStrollerWeight = lazy(() => import("./components/KidsStrollerWeight"));
-const KidsStrollerTypes = lazy(() => import("./components/KidsStrollerTypes"));
-const KidsStrollerSafety = lazy(() => import("./components/KidsStrollerSafety"));
-const KidsStrollerFeedback = lazy(() => import("./components/KidsStrollerFeedback"));
-const KidsStrollerRecalls = lazy(() => import("./components/KidsStrollerRecalls"));
-const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
-const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
-const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
+const HomeSection = lazySection("./components/HomeSection", () => import("./components/HomeSection"));
+const NewsSection = lazySection("./components/NewsSection", () => import("./components/NewsSection"));
+const ProductsSection = lazySection("./components/ProductsSection", () => import("./components/ProductsSection"));
+const EvaluationsSection = lazySection("./components/EvaluationsSection", () => import("./components/EvaluationsSection"));
+const GuidesSection = lazySection("./components/GuidesSection", () => import("./components/GuidesSection"));
+const AboutSection = lazySection("./components/AboutSection", () => import("./components/AboutSection"));
+const AuthSection = lazySection("./components/AuthSection", () => import("./components/AuthSection"));
+const DetailedProductView = lazySection("./components/DetailedProductView", () => import("./components/DetailedProductView"));
+const AdminPanel = lazySection("./components/AdminPanel", () => import("./components/AdminPanel"));
+const TransparencyPage = lazySection("./components/TransparencyPage", () => import("./components/TransparencyPage"));
+const SafetyRecallRecord = lazySection("./components/SafetyRecallRecord", () => import("./components/SafetyRecallRecord"));
+const BalanceBikeSizing = lazySection("./components/BalanceBikeSizing", () => import("./components/BalanceBikeSizing"));
+const KidsBikeSizing = lazySection("./components/KidsBikeSizing", () => import("./components/KidsBikeSizing"));
+const BalanceBikeSafety = lazySection("./components/BalanceBikeSafety", () => import("./components/BalanceBikeSafety"));
+const BalanceBikeWeight = lazySection("./components/BalanceBikeWeight", () => import("./components/BalanceBikeWeight"));
+const BalanceBikeStability = lazySection("./components/BalanceBikeStability", () => import("./components/BalanceBikeStability"));
+const BalanceBikeAge = lazySection("./components/BalanceBikeAge", () => import("./components/BalanceBikeAge"));
+const KidsBikeAge = lazySection("./components/KidsBikeAge", () => import("./components/KidsBikeAge"));
+const KidsBikePrice = lazySection("./components/KidsBikePrice", () => import("./components/KidsBikePrice"));
+const KidsBikeSafety = lazySection("./components/KidsBikeSafety", () => import("./components/KidsBikeSafety"));
+const KidsBikeWeight = lazySection("./components/KidsBikeWeight", () => import("./components/KidsBikeWeight"));
+const KidsBikeStability = lazySection("./components/KidsBikeStability", () => import("./components/KidsBikeStability"));
+const KidsBuyerFeedback = lazySection("./components/KidsBuyerFeedback", () => import("./components/KidsBuyerFeedback"));
+const KidsBikeRecalls = lazySection("./components/KidsBikeRecalls", () => import("./components/KidsBikeRecalls"));
+const KidsScooterWheels = lazySection("./components/KidsScooterWheels", () => import("./components/KidsScooterWheels"));
+const KidsScooterSize = lazySection("./components/KidsScooterSize", () => import("./components/KidsScooterSize"));
+const KidsScooterWeight = lazySection("./components/KidsScooterWeight", () => import("./components/KidsScooterWeight"));
+const KidsScooterPrice = lazySection("./components/KidsScooterPrice", () => import("./components/KidsScooterPrice"));
+const KidsScooterAge = lazySection("./components/KidsScooterAge", () => import("./components/KidsScooterAge"));
+const KidsScooterSafety = lazySection("./components/KidsScooterSafety", () => import("./components/KidsScooterSafety"));
+const KidsScooterFeedback = lazySection("./components/KidsScooterFeedback", () => import("./components/KidsScooterFeedback"));
+const KidsScooterRecalls = lazySection("./components/KidsScooterRecalls", () => import("./components/KidsScooterRecalls"));
+const KidsRideOnVoltage = lazySection("./components/KidsRideOnVoltage", () => import("./components/KidsRideOnVoltage"));
+const KidsRideOnWeight = lazySection("./components/KidsRideOnWeight", () => import("./components/KidsRideOnWeight"));
+const KidsRideOnSize = lazySection("./components/KidsRideOnSize", () => import("./components/KidsRideOnSize"));
+const KidsRideOnPrice = lazySection("./components/KidsRideOnPrice", () => import("./components/KidsRideOnPrice"));
+const KidsRideOnAge = lazySection("./components/KidsRideOnAge", () => import("./components/KidsRideOnAge"));
+const KidsRideOnSafety = lazySection("./components/KidsRideOnSafety", () => import("./components/KidsRideOnSafety"));
+const KidsRideOnFeedback = lazySection("./components/KidsRideOnFeedback", () => import("./components/KidsRideOnFeedback"));
+const KidsRideOnRecalls = lazySection("./components/KidsRideOnRecalls", () => import("./components/KidsRideOnRecalls"));
+const KidsTricycleSize = lazySection("./components/KidsTricycleSize", () => import("./components/KidsTricycleSize"));
+const KidsTricycleAge = lazySection("./components/KidsTricycleAge", () => import("./components/KidsTricycleAge"));
+const KidsTricyclePrice = lazySection("./components/KidsTricyclePrice", () => import("./components/KidsTricyclePrice"));
+const KidsTricycleWeight = lazySection("./components/KidsTricycleWeight", () => import("./components/KidsTricycleWeight"));
+const KidsTricycleTypes = lazySection("./components/KidsTricycleTypes", () => import("./components/KidsTricycleTypes"));
+const KidsTricycleSafety = lazySection("./components/KidsTricycleSafety", () => import("./components/KidsTricycleSafety"));
+const KidsTricycleFeedback = lazySection("./components/KidsTricycleFeedback", () => import("./components/KidsTricycleFeedback"));
+const KidsTricycleRecalls = lazySection("./components/KidsTricycleRecalls", () => import("./components/KidsTricycleRecalls"));
+const KidsStrollerSize = lazySection("./components/KidsStrollerSize", () => import("./components/KidsStrollerSize"));
+const KidsStrollerAge = lazySection("./components/KidsStrollerAge", () => import("./components/KidsStrollerAge"));
+const KidsStrollerPrice = lazySection("./components/KidsStrollerPrice", () => import("./components/KidsStrollerPrice"));
+const KidsStrollerWeight = lazySection("./components/KidsStrollerWeight", () => import("./components/KidsStrollerWeight"));
+const KidsStrollerTypes = lazySection("./components/KidsStrollerTypes", () => import("./components/KidsStrollerTypes"));
+const KidsStrollerSafety = lazySection("./components/KidsStrollerSafety", () => import("./components/KidsStrollerSafety"));
+const KidsStrollerFeedback = lazySection("./components/KidsStrollerFeedback", () => import("./components/KidsStrollerFeedback"));
+const KidsStrollerRecalls = lazySection("./components/KidsStrollerRecalls", () => import("./components/KidsStrollerRecalls"));
+const BalanceBikeBuyerFeedback = lazySection("./components/BalanceBikeBuyerFeedback", () => import("./components/BalanceBikeBuyerFeedback"));
+const BalanceBikeBudget = lazySection("./components/BalanceBikeBudget", () => import("./components/BalanceBikeBudget"));
+const ComparisonDashboard = lazySection("./components/ComparisonDashboard", () => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
 import {
@@ -1408,7 +1429,14 @@ export default function App() {
   // ways to track a reader, and all three fired before anybody had agreed to
   // anything.
 
-  const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
+  // The build-time SSR renderer (src/ssr/home-entry.tsx) renders the app
+  // outside a browser. Reading window here would throw before the first
+  // render, so the read is guarded and falls back to the homepage's own
+  // route - which is the route the static renderer is producing.
+  const initialRouteState = resolveRouteState(
+    typeof window !== "undefined" ? window.location.pathname : "/",
+    typeof window !== "undefined" ? window.location.hash : "",
+  );
 
   // 2. Active Tab Router: home, news, products, reviews, guides, about, auth
   const [activeTab, setActiveTab] = useState<string>(initialRouteState.activeTab);
@@ -1883,7 +1911,11 @@ export default function App() {
 
   // Country & Currency State
   const [countryCode] = useState<string>(() => {
-    const params = new URLSearchParams(window.location.search);
+    // Guarded for the build-time SSR renderer (src/ssr/home-entry.tsx): no
+    // window means no query string, and the homepage renders in US dollars.
+    const params = new URLSearchParams(
+      typeof window !== "undefined" ? window.location.search : "",
+    );
     const requestedCurrency = String(params.get("currency") || "").trim().toUpperCase();
     const countryFromCurrency = CURRENCY_TO_COUNTRY_CODE[requestedCurrency];
     if (countryFromCurrency) {
@@ -2011,7 +2043,12 @@ export default function App() {
   const [savedProducts, setSavedProducts] = useState<Product[]>([]);
   const [compareList, setCompareList] = useState<Product[]>(() => {
     try {
-      const cached = localStorage.getItem("unauth_compare_list");
+      // Guarded for the build-time SSR renderer (src/ssr/home-entry.tsx):
+      // there is no localStorage outside a browser, so there is no cache.
+      const cached =
+        typeof localStorage !== "undefined"
+          ? localStorage.getItem("unauth_compare_list")
+          : null;
       if (cached) {
         return JSON.parse(cached);
       }
@@ -2054,7 +2091,12 @@ export default function App() {
 
   const [viewHistory, setViewHistory] = useState<Product[]>(() => {
     try {
-      const cached = localStorage.getItem("unauth_view_history");
+      // Guarded for the build-time SSR renderer (src/ssr/home-entry.tsx):
+      // there is no localStorage outside a browser, so there is no cache.
+      const cached =
+        typeof localStorage !== "undefined"
+          ? localStorage.getItem("unauth_view_history")
+          : null;
       if (cached) {
         return JSON.parse(cached);
       }
@@ -2071,7 +2113,15 @@ export default function App() {
 
   // Global CMS settings, Products, and Evaluations state
   const [cmsSettings, setCmsSettings] = useState<CMSSettings | null>(null);
-  const [productsData, setProductsData] = useState<Product[]>([]);
+  // The build-time SSR renderer (src/ssr/home-entry.tsx) hands the published
+  // CMS products over through this global. App.tsx's own effect fills this
+  // state in the browser; under a static render that effect never runs, so
+  // without this handoff the delivered homepage would ship zero product
+  // cards. In the browser the global is absent and the state starts empty,
+  // exactly as before.
+  const [productsData, setProductsData] = useState<Product[]>(
+    () => ((globalThis as any).__BBT_SSR_PRODUCTS__ as Product[] | undefined) ?? [],
+  );
   const [evaluationsData, setEvaluationsData] = useState<Evaluation[]>([]);
 
   // Publish the CMS-arranged reference cluster to every consumer of the block
@@ -4405,7 +4455,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           
           <div className="flex w-full md:w-auto items-center justify-between">
             {/* Brand Logo and custom version stamp */}
-            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={openHomeFromTopNav}>
+            <LogoTag
+              className="flex items-center gap-3 cursor-pointer select-none shrink-0"
+              {...(STATIC_DOCUMENT ? { href: "/" } : { onClick: openHomeFromTopNav })}
+            >
               <div className="bg-orange-500 p-2 sm:p-2.5 rounded-2xl shadow-lg shadow-orange-500/20">
                 <Baby className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
               </div>
@@ -4417,10 +4470,22 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {isBBT ? (t as any).bbtSubTitle : t.subTitle}
                 </p>
               </div>
-            </div>
+            </LogoTag>
 
             {/* Mobile Actions */}
             <div className="flex md:hidden items-center gap-2 shrink-0">
+              {STATIC_DOCUMENT ? (
+                <a
+                  href={STATIC_LANG_HREF}
+                  className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
+                  title={lang === "zh" ? "Switch to English" : "切换至中文"}
+                  aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
+                >
+                  <Globe className="w-4 h-4" aria-hidden="true" />
+                </a>
+              ) : (
+                <>
+
               <button 
                 onClick={toggleLang} 
                 className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
@@ -4443,6 +4508,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               >
                 <Award className="w-5 h-5" />
               </button>
+            
+                </>
+              )}
             </div>
           </div>
 
@@ -4450,6 +4518,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto md:overflow-visible no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
             <div className="relative w-full md:w-auto">
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto md:overflow-visible mx-auto md:mx-0">
+                {STATIC_DOCUMENT ? (
+                  <StaticHeaderNav lang={lang} />
+                ) : (
+                <>
                 <button
                   onClick={() => {
                     openHomeFromTopNav();
@@ -4611,11 +4683,25 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     {lang === "zh" ? "管理后台" : "Admin"}
                   </button>
                 )}
+                </>
+                )}
               </nav>
             </div>
 
             {/* Header Search & Auth & Lang (Desktop) */}
             <div className="hidden md:flex items-center gap-3 shrink-0">
+              {STATIC_DOCUMENT ? (
+                <a
+                  href={STATIC_LANG_HREF}
+                  className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
+                  title={lang === "zh" ? "Switch to English" : "切换至中文"}
+                  aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
+                >
+                  <Globe className="w-4 h-4" aria-hidden="true" />
+                </a>
+              ) : (
+                <>
+
               <div className="relative group hidden md:block">
                 <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors z-10 pointer-events-none ${isSearchFocused ? "text-orange-500" : "text-slate-400"}`} />
                 <input 
@@ -4699,6 +4785,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </button>
 
               </div>
+            
+                </>
+              )}
             </div>
           </div>
 
