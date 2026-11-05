@@ -7,6 +7,7 @@ import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
 import { applyResponsiveImagesToHtml } from "../src/lib/responsiveImages";
 import { applyFirstPaintToHtml } from "../src/lib/firstPaint";
+import { HERO_BG_IMAGES, HERO_IMAGE_ORIGIN } from "../src/lib/heroImages";
 import {
   amazonAffiliateUrl,
   resolveAmazonTag,
@@ -327,6 +328,14 @@ type RoutePage = {
    *  (Lighthouse lcp-discovery: the hero was discovered only when the parser
    *  reached the <body>, delaying LCP under throttling). */
   preloadImage?: string;
+  /** Origins to <link rel="preconnect"> for this page only.
+   *
+   *  The site-wide preconnects in index.html are copied into every page, so a
+   *  per-page one cannot go there: the hero images are served by a third
+   *  party and only the homepage shows them. Opening a connection to that
+   *  origin on all 442 pages would spend a handshake on pages that never ask
+   *  for the image. */
+  preconnectOrigins?: string[];
 };
 
 type AppAssets = {
@@ -933,7 +942,7 @@ ${ogImage ? `    <meta property="og:image" content="${escapeHtml(ogImage)}" />
     <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
 ` : "    <meta name=\"twitter:card\" content=\"summary\" />\n"}    <link rel="canonical" href="${escapeHtml(canonical)}" />
 ${(page.alternates || []).map((alt) => `    <link rel="alternate" hreflang="${escapeHtml(alt.hreflang)}" href="${escapeHtml(alt.href)}" />\n`).join("")}
-${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" />\n` : ""}    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+${(page.preconnectOrigins || []).map((origin) => `    <link rel="preconnect" href="${escapeHtml(origin)}" />\n`).join("")}${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" />\n` : ""}    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png" />
@@ -3773,6 +3782,15 @@ function renderHomePage(
     // for them pointed Google at non-canonical targets (removed 2026-10-25).
     alternates: [],
     skipTitleH1: true,
+    // The homepage's Largest Contentful Paint is the hero's background image.
+    // A CSS `background-image` is invisible to the HTML parser, so the
+    // browser only learned about the 141 KB file when React painted the hero
+    // - which put the download behind the whole entry bundle. Preloading it
+    // from the document head starts the request in parallel with the scripts.
+    // The URL comes from src/lib/heroImages.ts, the same module the SPA
+    // renders the hero from, so the two cannot drift apart.
+    preloadImage: HERO_BG_IMAGES[0],
+    preconnectOrigins: [HERO_IMAGE_ORIGIN],
     body: `
       ${navHtml}
       <section style="padding:30px 0 22px;">

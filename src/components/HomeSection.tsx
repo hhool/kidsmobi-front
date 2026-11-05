@@ -19,6 +19,7 @@ import { getProductImageAlt, getProductSkuTitle, sanitizeScrapedSnippet, shorten
 import { productCategoryPath } from "../lib/productCategoryPaths";
 import { formatCurrencyFromUsd } from "../lib/currency";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
+import { HERO_BG_IMAGES } from "../lib/heroImages";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
 import Breadcrumbs from "./Breadcrumbs";
 import MatchingWizard from "./MatchingWizard";
@@ -191,11 +192,10 @@ export default function HomeSection({
     return () => window.removeEventListener("bbt:open-wizard", openWizard);
   }, []);
 
-  // Background Carousel Slideshow for Hero Section (2 scenario-based images: stroller & balance bike)
-  const bgImages = useMemo(() => [
-    "https://plus.unsplash.com/premium_photo-1681881804080-ab1e78652c98?fm=jpg&q=60&w=960&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJhbXxlbnwwfHwwfHx8MA%3D%3D", // Stroller scenario
-    "https://plus.unsplash.com/premium_photo-1661715303160-9fecfaba31a9?fm=jpg&q=60&w=960&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGtpZCUyMGJpa2V8ZW58MHx8MHx8fDA%3D"  // Balance bike / kids active riding scenario
-  ], []);
+  // Background Carousel Slideshow for Hero Section (2 scenario-based images: stroller & balance bike).
+  // The URLs live in src/lib/heroImages.ts because the prerenderer has to
+  // preload the first one — see the note there.
+  const bgImages = HERO_BG_IMAGES;
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
   useEffect(() => {

@@ -231,6 +231,17 @@ jobs:
       - name: Static first screen holds until the SPA has its content
         run: npm run check:firstpaint
 
+      # The homepage hero is the LCP, and it is a CSS background-image - a
+      # thing the HTML parser cannot see. Without a preload the browser only
+      # learned about the 141 KB file after the SPA had mounted: measured on
+      # the live site the request did not start until 2,083 ms. The prerender
+      # now preloads it from the document head (27 ms) and preconnects to the
+      # origin. The guard reads the built page, so a dropped tag fails the
+      # build, and it compares the preloaded URL against the one the SPA
+      # paints - a preload of the wrong image is worse than no preload at all.
+      - name: Homepage hero image is discoverable in the document
+        run: npm run check:heropreload
+
       # Google Search showed its default grey globe for every result: the only
       # declared favicon was an SVG (absent from the formats Google lists for
       # search favicons) and /favicon.ico was a 404. This pins the raster set,
