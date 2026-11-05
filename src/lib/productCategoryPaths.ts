@@ -13,6 +13,17 @@
  * category, inferred from the raw categoryId or (for legacy "other" rows)
  * from the product id prefix.
  */
+import { PRUNED_PRODUCTS } from "../data/prunedProducts.generated";
+
+/**
+ * Merged listings: id -> the listing that absorbed it.
+ *
+ * The prune plan (scripts/plan_stage1_prune.mjs) removes duplicate listings
+ * and records where each one went. The site keeps rendering the merged rows
+ * in some tables, so the URL has to follow the merge.
+ */
+const MERGED_INTO: Record<string, string> =
+  (PRUNED_PRODUCTS as { duplicateOf?: Record<string, string> }).duplicateOf || {};
 
 export const PRODUCT_CATEGORY_URL_SLUGS: Record<string, string> = {
   // primary category ids
@@ -71,9 +82,18 @@ export function productCategoryPath(categoryIdOrSlug: string): string {
   return `/products/${productCategoryUrlSlug(categoryIdOrSlug)}`;
 }
 
-/** Detail page path for in-app navigation and internal links. */
+/**
+ * Detail page path for in-app navigation and internal links.
+ *
+ * A listing that stage 1 merged into another has no page of its own - the
+ * prerenderer stopped emitting it - so the path has to point at the listing
+ * that absorbed it. Every card renders through this function, so the rewrite
+ * lives here rather than in one component: the delivered homepage shipped a
+ * link to a merged id and the internal link guard answered 404.
+ */
 export function productDetailPath(categoryId: string, productId: string): string {
-  return `/products/${productDetailUrlSlug(categoryId, productId)}/${productId}`;
+  const id = MERGED_INTO[productId] || productId;
+  return `/products/${productDetailUrlSlug(categoryId, id)}/${id}`;
 }
 
 /**

@@ -138,6 +138,52 @@ function hasConsentCommand(code, action) {
  * which sets the consent default before the tag loads - a snippet in the
  * static HTML would fire first, with no consent state to obey.
  */
+/**
+ * The static homepage's own beacon.
+ *
+ * The homepage ships as a document, so the SPA never loads the tag there and
+ * the page carried no analytics at all for one build - G4 item 33 read it as
+ * "1 of 442 page(s) carry no <script src>". The fix is a deferred,
+ * same-origin file that sends nothing before consent.
+ *
+ * That file is NOT an exception to "no analytics in the static HTML": the
+ * document still carries no tag and no gtag call. The rule this guard now
+ * states is narrower and checkable: exactly ONE page may reference the
+ * beacon, it must be deferred, it must carry the measurement id, and the
+ * beacon's own source must set every signal to denied before it names the
+ * tag.
+ */
+const BEACON_TAG = /<script\b[^>]*src="\/scripts\/analytics-boot\.js"[^>]*>/gi;
+
+export function judgeBeaconSource(code) {
+  const problems = [];
+  if (/googletagmanager\.com\/gtag\/js/.test(code) === false) {
+    problems.push("the beacon never names the tag it is supposed to load");
+  }
+  if (!/window\.dataLayer\.push\(arguments\)/.test(code)) {
+    problems.push(
+      "the beacon pushes a plain value into dataLayer - gtag.js ignores anything that is not an arguments object",
+    );
+  }
+  const denied = ["ad_storage", "ad_user_data", "ad_personalization", "analytics_storage"].filter(
+    (signal) => new RegExp(`${signal}:\\s*"denied"`).test(code),
+  );
+  if (denied.length !== 4) {
+    problems.push(
+      `the beacon's consent default denies ${denied.length} of 4 signals (${denied.join(", ")})`,
+    );
+  }
+  if (!/wait_for_update:\s*500/.test(code)) {
+    problems.push("the beacon's consent default carries no wait_for_update window");
+  }
+  const defaultAt = code.search(/"consent"\s*,\s*"default"/);
+  const tagAt = code.indexOf("googletagmanager.com/gtag/js");
+  if (defaultAt === -1 || defaultAt > tagAt) {
+    problems.push("the beacon names the tag before it sets the consent default - the first hit would leave unconsented");
+  }
+  return problems;
+}
+
 function checkPageAnalytics(html) {
   const found = [];
   const mentions = [...html.matchAll(GA_MENTION)];
@@ -370,6 +416,38 @@ function runSelfTests() {
     checkSpaBundle(arrayShapedCommand, "G-52MH8KHF9T").length > 0,
   );
 
+  // The homepage's beacon. Every rule has to be able to fail, because this
+  // file is the only thing between a fast homepage and one that measures
+  // before anybody agreed.
+  const cleanBeacon = [
+    "window.dataLayer = window.dataLayer || [];",
+    "function gtag() { window.dataLayer.push(arguments); }",
+    'gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ' +
+      'ad_personalization: "denied", analytics_storage: "denied", wait_for_update: 500 });',
+    'script.src = "https://www.googletagmanager.com/gtag/js?id=" + id;',
+  ].join("\n");
+  expect("a conforming beacon passes", judgeBeaconSource(cleanBeacon).length === 0);
+  expect(
+    "a beacon that names the tag before the consent default must be reported",
+    judgeBeaconSource(
+      'script.src = "https://www.googletagmanager.com/gtag/js?id=" + id;\n' +
+        'gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ' +
+        'ad_personalization: "denied", analytics_storage: "denied", wait_for_update: 500 });',
+    ).length > 0,
+  );
+  expect(
+    "a beacon that grants a signal by default must be reported",
+    judgeBeaconSource(cleanBeacon.replace('analytics_storage: "denied"', 'analytics_storage: "granted"')).length > 0,
+  );
+  expect(
+    "a beacon without the wait window must be reported",
+    judgeBeaconSource(cleanBeacon.replace("wait_for_update: 500", "")).length > 0,
+  );
+  expect(
+    "a beacon that queues a plain array must be reported",
+    judgeBeaconSource(cleanBeacon.replace("window.dataLayer.push(arguments)", "window.dataLayer.push(x)")).length > 0,
+  );
+
   if (failures.length) {
     console.error(
       JSON.stringify({ ok: false, failed: ["check-tracking self-tests failed"], selfTestFailures: failures }, null, 2),
@@ -382,6 +460,7 @@ runSelfTests();
 
 let pages = 0;
 let withAnalytics = 0;
+const beaconPages = [];
 let withAffiliate = 0;
 let affiliateLinks = 0;
 let staticLoaders = 0;
@@ -404,6 +483,22 @@ for (const file of walk(DIST)) {
   const page = checkPageAnalytics(html);
   for (const problem of page.problems) fail(rel, problem);
   if (page.loaders > 0) staticLoaders += page.loaders;
+
+  // The homepage's own beacon: deferred, one page, and it must name a
+  // measurement id. Anything else is the SPA's job.
+  const beaconTags = [...html.matchAll(BEACON_TAG)].map((match) => match[0]);
+  if (beaconTags.length) {
+    beaconPages.push(rel);
+    if (beaconTags.length > 1) fail(rel, `${beaconTags.length} analytics beacons on one page`);
+    for (const tag of beaconTags) {
+      if (!/\bdefer\b/.test(tag)) {
+        fail(rel, "the analytics beacon is not deferred - it would delay the first paint");
+      }
+      if (!/\bdata-ga="G-[A-Z0-9]+"/i.test(tag)) {
+        fail(rel, "the analytics beacon carries no measurement id");
+      }
+    }
+  }
   if ([...html.matchAll(GA_LOADER)].length === 1) withAnalytics += 1;
 
   // 1. the affiliate links
@@ -434,6 +529,25 @@ for (const file of walk(DIST)) {
   }
 }
 
+// 1b. Exactly one page may carry the beacon, and the beacon's source has to
+// earn it: the consent default comes first, all four signals denied, and the
+// command goes in as an arguments object.
+if (beaconPages.length === 0) {
+  fail("beacon", "no page references /scripts/analytics-boot.js - the static homepage would ship no analytics");
+} else if (beaconPages.length > 1) {
+  fail(
+    "beacon",
+    `${beaconPages.length} pages reference the beacon (${beaconPages.slice(0, 5).join(", ")}) - ` +
+      "only the static homepage has no SPA to load the tag",
+  );
+}
+const beaconFile = join(DIST, "scripts", "analytics-boot.js");
+if (!existsSync(beaconFile)) {
+  fail("beacon", "dist/scripts/analytics-boot.js does not exist but a page references it");
+} else {
+  for (const problem of judgeBeaconSource(readFileSync(beaconFile, "utf8"))) fail("beacon", problem);
+}
+
 // 2. the SPA must declare the paid-link rel too, so the hydrated page agrees
 // with the static one.
 const assets = join(DIST, "assets");
@@ -459,11 +573,16 @@ console.log(
       pagesChecked: pages,
       pagesWithAnalytics: withAnalytics,
       staticAnalyticsLoaders: staticLoaders,
+      beaconPages,
       pagesWithAffiliate: withAffiliate,
       affiliateLinks,
       state:
         staticLoaders === 0
-          ? "the static HTML ships no analytics - GA4 is loaded by the SPA in Consent Mode v2 (default: every signal denied)"
+          ? `the static HTML ships no tag; the SPA loads GA4 in Consent Mode v2 and ${
+              beaconPages.length === 1
+                ? "the static homepage loads it through its own deferred beacon after consent"
+                : "no page has its own beacon"
+            } (default: every signal denied)`
           : "the static HTML carries an analytics loader, which must not happen",
       problems,
     },

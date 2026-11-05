@@ -197,10 +197,26 @@ function check({ htmlPaths, read, source, prerenderSource, applyTwice }) {
   for (const p of htmlPaths) {
     const html = read(p);
     const count = html.split(tag).length - 1;
-    // public/404.html is a static, dependency-free error page with no #root
-    // and no SPA entry. It must NOT get a cover: there is nothing to reveal.
-    if (!html.includes('id="root"')) {
-      if (count !== 0) problems.push(`R4 ${p}: static page without #root carries a boot script`);
+    // Two kinds of page have nothing to hand over, and neither may carry the
+    // script:
+    //
+    //   - public/404.html: a dependency-free error page with no #root and no
+    //     SPA entry;
+    //   - the static homepage: it DOES have #root (it wraps the rendered
+    //     markup) but it ships no SPA bundle at all, so there is no takeover
+    //     to script. It says so itself - scripts/build-static-home.mjs emits
+    //     `<style id="bbt-static-home">`, and that marker is what this
+    //     exemption keys on, not the absence of #root.
+    //
+    // The exemption cannot be used to hide a broken page: a page carrying the
+    // marker AND the SPA bundle is a contradiction and fails, and a page
+    // without the marker still needs exactly one boot script.
+    const isStaticHome = html.includes('id="bbt-static-home"');
+    if (isStaticHome && /<script\b[^>]*\bsrc="[^"]*\/assets\/index-[^"]*\.js"/.test(html)) {
+      problems.push(`R4 ${p}: the static homepage loads the SPA bundle it exists to remove`);
+    }
+    if (isStaticHome || !html.includes('id="root"')) {
+      if (count !== 0) problems.push(`R4 ${p}: a page with no SPA carryover carries a boot script`);
       continue;
     }
     if (count !== 1) {
@@ -616,6 +632,26 @@ function selfTest() {
   };
 
   expect("00 clean tree passes", s, false);
+  // The static homepage: it declares itself, ships no SPA, and therefore has
+  // no hand-over to script. Both halves of the exemption are asserted - the
+  // shape it allows, and the contradiction it must still refuse.
+  const staticHome = (extra = "") =>
+    `<html><head><style id="bbt-static-home"></style></head><body>` +
+    `<div id="root"><p>home</p></div>${extra}</body></html>`;
+  expect("00a a declared static homepage needs no boot script", {
+    ...s,
+    read: () => staticHome(),
+  }, false);
+  expect("00b a declared static homepage that loads the SPA bundle fails", {
+    ...s,
+    read: () =>
+      `<html><head><style id="bbt-static-home"></style></head><body>` +
+      `<div id="root"></div><script src="/assets/index-abc.js"></script></body></html>`,
+  }, true);
+  expect("00c a static homepage that still carries a boot script fails", {
+    ...s,
+    read: () => staticHome(s.boot),
+  }, true);
   expect("01 missing boot script fails", { ...s, read: () => s.page("") }, true);
   expect("02 duplicated boot script fails", { ...s, read: () => s.page(s.boot + s.boot) }, true);
   expect("03 boot script in <head> fails", {

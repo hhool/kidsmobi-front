@@ -6,8 +6,27 @@ import {
   type KidsBuyerFeedbackStrings,
 } from "../data/kidsBuyerFeedback";
 import ReferenceClusterNav from "./ReferenceClusterNav";
+import { PRUNED_PRODUCTS } from "../data/prunedProducts.generated";
 
 type Props = { lang?: "zh" | "en" };
+
+/**
+ * Where a listing's name should send the reader.
+ *
+ * Stage 1 of the prune plan merged 18 duplicate listings into the one that
+ * absorbed them, and the prerenderer stopped emitting pages for the merged
+ * ids - but this table still renders from the un-pruned dataset. On the SPA
+ * that was invisible: a click went through the client router. On the
+ * delivered document it was a 404, and the internal link guard named it
+ * (`/products/kids-bikes/kids_bikes-b0dhr7xkqq`).
+ *
+ * So a merged listing now links to the page that absorbed it, which is what
+ * the prune decision already means. The listing itself stays in the table:
+ * the row's information is real, only its destination moved.
+ */
+const MERGED_INTO = (PRUNED_PRODUCTS as { duplicateOf?: Record<string, string> }).duplicateOf || {};
+
+const productHref = (id: string) => `/products/kids-bikes/${MERGED_INTO[id] || id}`;
 
 const d = KIDS_REVIEW_DATASET;
 const total = d.kidsBikeSummaries;
@@ -130,7 +149,7 @@ export default function KidsBuyerFeedback({ lang = "en" }: Props) {
                   <tr key={listing.id} className="border-b border-slate-100 last:border-0">
                     <td className="py-3 pl-4 pr-3 text-sm text-slate-700 max-w-[420px]">
                       <a
-                        href={`/products/kids-bikes/${listing.id}`}
+                        href={productHref(listing.id)}
                         className="hover:text-orange-600 transition-colors"
                       >
                         {listing.name}

@@ -43,6 +43,10 @@ const HERO_MODULE = path.join(ROOT, "src", "lib", "heroImages.ts");
 const EXPECTED_WIDTH = 768;
 /** The byte ceiling. 40 KiB is 5 KiB of headroom over the current 34.8 KB. */
 const MAX_BYTES = 40 * 1024;
+/** The width of the small candidate the document offers small screens. */
+const SMALL_WIDTH = 480;
+/** Its ceiling: 20 KiB, with headroom over the current 17.8 KB. */
+const SMALL_MAX_BYTES = 20 * 1024;
 /** The aspect the hero box was measured against. */
 const EXPECTED_ASPECT = 3 / 2;
 const ASPECT_TOLERANCE = 0.02;
@@ -95,7 +99,7 @@ export function readWebpHeader(buffer) {
  * Kept separate from the filesystem so the self-test can feed it the shapes
  * that must fail without writing 40 KiB fixtures to disk.
  */
-export function judgeHero(label, meta) {
+export function judgeHero(label, meta, { expectedWidth = EXPECTED_WIDTH, maxBytes = MAX_BYTES } = {}) {
   const issues = [];
   if (!meta.exists) {
     issues.push(`${label}: the file does not exist`);
@@ -106,10 +110,10 @@ export function judgeHero(label, meta) {
     return issues;
   }
   const { width, height } = meta.header;
-  if (width !== EXPECTED_WIDTH) {
+  if (width !== expectedWidth) {
     issues.push(
-      `${label}: it is ${width} px wide, but the measured width is ${EXPECTED_WIDTH} px ` +
-        `(the paint budget was measured at ${EXPECTED_WIDTH})`,
+      `${label}: it is ${width} px wide, but the measured width is ${expectedWidth} px ` +
+        `(the paint budget was measured at ${EXPECTED_WIDTH} px)`,
     );
   }
   const aspect = height > 0 ? width / height : 0;
@@ -119,14 +123,20 @@ export function judgeHero(label, meta) {
         `${EXPECTED_ASPECT.toFixed(3)}:1 - a squashed re-export crops differently under object-cover`,
     );
   }
-  if (meta.bytes > MAX_BYTES) {
+  if (meta.bytes > maxBytes) {
     issues.push(
-      `${label}: it is ${(meta.bytes / 1024).toFixed(1)} KiB, over the ${MAX_BYTES / 1024} KiB ` +
+      `${label}: it is ${(meta.bytes / 1024).toFixed(1)} KiB, over the ${maxBytes / 1024} KiB ` +
         `ceiling - on the preset's 1.6 Mbps this costs about ` +
-        `${Math.round(((meta.bytes - MAX_BYTES) / 1024 / 1600) * 8000)} ms of paint`,
+        `${Math.round(((meta.bytes - maxBytes) / 1024 / 1600) * 8000)} ms of paint`,
     );
   }
   return issues;
+}
+
+/** The 480 px sibling of a 768 px hero, by the naming rule the encoder uses. */
+export function smallSiblingOf(url) {
+  const match = /^(.*\/hero-[a-z]+)-768\.webp$/.exec(url);
+  return match ? `${match[1]}-480.webp` : null;
 }
 
 /** Read `HERO_BG_IMAGES` out of the module that owns it. */
@@ -202,6 +212,31 @@ function selfTest() {
     readWebpHeader(truncated),
   ]);
 
+  // The small candidate: same rules, its own width and ceiling. A guard that
+  // judged it at 768 would fail every correct build, and one that skipped it
+  // would let a 960 px file be shipped as the "small" candidate.
+  const small = { exists: true, header: { ok: true, width: 480, height: 320, format: "VP8" }, bytes: 17_774 };
+  cases.push([
+    "the 480 px candidate passes at its own width",
+    judgeHero("s", small, { expectedWidth: 480, maxBytes: 20 * 1024 }).length === 0,
+    judgeHero("s", small, { expectedWidth: 480, maxBytes: 20 * 1024 }),
+  ]);
+  cases.push([
+    "a 768 px file used as the small candidate fails",
+    judgeHero("s", good, { expectedWidth: 480, maxBytes: 20 * 1024 }).length > 0,
+    judgeHero("s", good, { expectedWidth: 480, maxBytes: 20 * 1024 }),
+  ]);
+  cases.push([
+    "the sibling name is derived from the 768 name",
+    smallSiblingOf("/images/home/hero-stroller-768.webp") === "/images/home/hero-stroller-480.webp",
+    smallSiblingOf("/images/home/hero-stroller-768.webp"),
+  ]);
+  cases.push([
+    "a name that is not a hero has no sibling",
+    smallSiblingOf("/images/derived/x-800.webp") === null,
+    smallSiblingOf("/images/derived/x-800.webp"),
+  ]);
+
   // The module reader.
   const listSource =
     'export const A = "/images/home/a.webp";\nexport const B = "/images/home/b.webp";\nexport const HERO_BG_IMAGES: readonly string[] = [A, B];';
@@ -264,6 +299,32 @@ function main() {
     if (issues.length === 0) {
       const { width, height } = readWebpHeader(buffer);
       ok(`${label}: ${width}x${height}, ${(buffer.length / 1024).toFixed(1)} KiB`);
+    }
+
+    // The document ships this hero with a second candidate (item 27 asks for
+    // two, and a small screen should not download the 768 file). The sibling
+    // is judged by the same rules at its own width, because "small" is only a
+    // saving if it is actually small.
+    const smallUrl = smallSiblingOf(url);
+    if (!smallUrl) {
+      fail(`${label}: its name carries no -768 suffix, so no small candidate can be derived`);
+      continue;
+    }
+    const smallFile = path.join(ROOT, "public", smallUrl.replace(/^\//, ""));
+    if (!existsSync(smallFile)) {
+      fail(`${label}: the second candidate ${smallUrl} does not exist - the document asks for it`);
+      continue;
+    }
+    const smallBuffer = readFileSync(smallFile);
+    const smallIssues = judgeHero(`${label} small`, {
+      exists: true,
+      header: readWebpHeader(smallBuffer),
+      bytes: smallBuffer.length,
+    }, { expectedWidth: SMALL_WIDTH, maxBytes: SMALL_MAX_BYTES });
+    for (const issue of smallIssues) fail(issue);
+    if (smallIssues.length === 0) {
+      const { width, height } = readWebpHeader(smallBuffer);
+      ok(`${label} small: ${width}x${height}, ${(smallBuffer.length / 1024).toFixed(1)} KiB`);
     }
   }
 

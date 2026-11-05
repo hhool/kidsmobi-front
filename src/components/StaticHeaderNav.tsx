@@ -44,7 +44,7 @@ export default function StaticHeaderNav({ lang }: StaticHeaderNavProps) {
     { href: "/products", label: t.navProducts },
     { href: "/reviews", label: t.navEvaluations },
     { href: "/guides", label: t.navGuides },
-    { href: "/news/page/1", label: t.navNews },
+    { href: "/news", label: t.navNews },
     { href: "/about", label: t.navAbout },
   ];
 

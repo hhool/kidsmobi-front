@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, FormEvent, useMemo, lazy, Suspense, type MouseEvent as ReactMouseEvent } from "react";
 import { lazySection } from "./lib/lazySection";
 import { isStaticDocument, STATIC_LANG_HREF } from "./lib/staticDocument";
+import BrandMark from "./components/BrandMark";
 import StaticHeaderNav from "./components/StaticHeaderNav";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -24,7 +25,6 @@ import {
   ChevronRight,
   ChevronLeft,
   Twitter,
-  Facebook,
   Youtube,
   Music,
   X,
@@ -5526,7 +5526,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     slot held a letter "K" (the pre-rebrand KidsMobi mark)
                     until 2026-10-21, so the footer was the only place still
                     wearing the old brand. */}
-                <img src="/favicon.svg" alt="" width={32} height={32} className="w-8 h-8 rounded-lg" />
+                <BrandMark className="w-8 h-8 rounded-lg" />
                 <span className="text-xl font-display font-black text-white tracking-tighter">BalanceBikeToddler</span>
               </div>
               <p className="text-slate-400 leading-relaxed font-medium pr-4">
@@ -5541,11 +5541,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Products" : "产品中心"}
               </p>
-              <ul className="space-y-3 font-medium">
+              <ul className="font-medium">
                 <li>
                   <a
                     href={resolveSeoLink("/products/kids-bikes/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/products/kids_bikes");
@@ -5557,7 +5557,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink("/products/balance-bikes/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/products/balance_bike");
@@ -5569,7 +5569,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink("/products/strollers/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/products/stroller");
@@ -5581,7 +5581,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink("/products/kids-scooters/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/products/kids_scooters");
@@ -5592,8 +5592,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={resolveSeoLink("/products/electric_car/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    href={resolveSeoLink("/products/electric-cars/")}
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/products/electric_vehicles");
@@ -5604,8 +5604,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={resolveSeoLink("/products/safety_seat/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    href={resolveSeoLink("/products/safety-seats/")}
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/products/car_seat");
@@ -5624,11 +5624,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}
               </p>
-              <ul className="space-y-3 font-medium">
+              <ul className="font-medium">
                 <li>
                   <a
                     href={resolveSeoLink(lang === "zh" ? "/zh/guides/" : "/guides/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath(lang === "zh" ? "/zh/guides" : "/guides");
@@ -5640,7 +5640,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink("/guides/beginner/balance-bike-size-chart")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/guides/beginner/balance-bike-size-chart");
@@ -5652,7 +5652,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink("/guides/beginner/balance-bike-weight")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/guides/beginner/balance-bike-weight");
@@ -5664,7 +5664,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink("/guides/risk/balance-bike-safety-standards")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/guides/risk/balance-bike-safety-standards");
@@ -5676,7 +5676,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink("/guides/risk/balance-bike-recalls")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/guides/risk/balance-bike-recalls");
@@ -5693,11 +5693,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Transparency" : "透明度与标准"}
               </p>
-              <ul className="space-y-3 font-medium">
+              <ul className="font-medium">
                 <li>
                   <a
                     href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS.disclaimer)}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath(TRANSPARENCY_PAGE_PATHS.disclaimer);
@@ -5709,7 +5709,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS["editorial-team"])}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath(TRANSPARENCY_PAGE_PATHS["editorial-team"]);
@@ -5721,7 +5721,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS["testing-methodology"])}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath(TRANSPARENCY_PAGE_PATHS["testing-methodology"]);
@@ -5733,7 +5733,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS.certification)}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath(TRANSPARENCY_PAGE_PATHS.certification);
@@ -5745,7 +5745,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS.terms)}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath(TRANSPARENCY_PAGE_PATHS.terms);
@@ -5757,7 +5757,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS["privacy-policy"])}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath(TRANSPARENCY_PAGE_PATHS["privacy-policy"]);
@@ -5769,7 +5769,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href="/about"
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
                       navigateToPath("/about");
@@ -5781,7 +5781,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <li>
                   <a
                     href="mailto:hello@balancebiketoddler.com"
-                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                   >
                     {lang === "en" ? "Contact" : "联系"}
                   </a>
@@ -5795,12 +5795,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Guides & News" : "指南与动态"}
               </p>
-              <ul className="space-y-3 font-medium">
+              <ul className="font-medium">
                 {FOOTER_ARTICLE_LINKS.map((article) => (
                   <li key={article.path}>
                     <a
                       href={resolveSeoLink(lang === "zh" ? withZhPrefix(article.path) : article.path)}
-                      className="hover:text-orange-500 transition-colors text-slate-400"
+                      className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                       onClick={(event) => {
                         event.preventDefault();
                         navigateToPath(lang === "zh" ? withZhPrefix(article.path) : article.path);
@@ -5827,15 +5827,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   title={lang === "en" ? "Follow us on X" : "X 官方账号"}
                 >
                   <Twitter className="w-4 h-4" />
-                </a>
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
-                  title="Share on Facebook"
-                >
-                  <Facebook className="w-4 h-4" />
                 </a>
               </div>
               <div className="pt-2">

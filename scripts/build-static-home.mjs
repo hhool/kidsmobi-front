@@ -42,10 +42,213 @@
  *   node scripts/build-static-home.mjs --self-test
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 
 function readArg(flag, fallback) {
   const i = process.argv.indexOf(flag);
   return i !== -1 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
+}
+
+/* ------------------------------------------------------------------------- *
+ * The images of the delivered document
+ *
+ * Three rules, and the reason they live HERE rather than in the components:
+ * the rules are about the DOCUMENT the crawler receives, and the SPA renders
+ * the same React tree without a document to put images in. Measured on the
+ * first static build that shipped, three G4 items went red on the homepage
+ * alone, each of them a fact about the delivered HTML and not about the page:
+ *
+ *   - item 20: the 27 product photographs carried no width/height, so the
+ *     browser had no intrinsic size to reserve and nothing to lay out
+ *     against. The SPA never showed this because the SPA's HTML had no <img>
+ *     at all - React created them after the bundle ran.
+ *   - item 27: the footer's brand mark was `<img src="/favicon.svg">`, which
+ *     is neither AVIF nor WebP and has no second srcset candidate. A vector
+ *     mark does not belong in a raster element; it is inlined instead.
+ *   - item 27 again: the hero, a full-bleed photograph, had exactly one
+ *     candidate. It now has the 480 px sibling it already needed for small
+ *     screens.
+ *
+ * What these functions must NOT do is invent a number. Every attribute comes
+ * from the file on disk, and a missing file throws: a build that cannot read
+ * an image's size is a broken build, not a page with no dimensions.
+ * ------------------------------------------------------------------------- */
+
+/**
+ * The pixel size of a WebP, read from its header.
+ *
+ * Dependency-free on purpose: this runs in the site's own build, which is
+ * also the edge's build, and pulling an image library in to read four
+ * integers would be a heavier dependency than the whole homepage.
+ *
+ * All three container shapes are handled because the build must not care
+ * which encoder produced a file: VP8 (lossy), VP8L (lossless) and VP8X
+ * (extended - what any file with alpha or animation uses).
+ */
+export function webpSize(buffer) {
+  if (buffer.length < 30) throw new Error("not a WebP: shorter than a header");
+  if (buffer.toString("ascii", 0, 4) !== "RIFF" ||
+      buffer.toString("ascii", 8, 12) !== "WEBP") {
+    throw new Error("not a WebP: the RIFF/WEBP signature is missing");
+  }
+  const chunk = buffer.toString("ascii", 12, 16);
+  if (chunk === "VP8 ") {
+    if (!(buffer[23] === 0x9d && buffer[24] === 0x01 && buffer[25] === 0x2a)) {
+      throw new Error("not a WebP: the VP8 chunk has no start code");
+    }
+    return {
+      width: buffer.readUInt16LE(26) & 0x3fff,
+      height: buffer.readUInt16LE(28) & 0x3fff,
+    };
+  }
+  if (chunk === "VP8L") {
+    if (buffer[20] !== 0x2f) throw new Error("not a WebP: the VP8L chunk has no signature");
+    const bits = buffer.readUInt32LE(21);
+    return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+  }
+  if (chunk === "VP8X") {
+    return { width: buffer.readUIntLE(24, 3) + 1, height: buffer.readUIntLE(27, 3) + 1 };
+  }
+  throw new Error(`not a WebP: unknown chunk ${JSON.stringify(chunk)}`);
+}
+
+/**
+ * Insert attributes before a tag's closing bracket.
+ *
+ * A self-closing tag needs its slash removed first: inserting before `>` in
+ * `<img ... />` leaves `<img ... / width="768">`, and the browser reads the
+ * rest of the tag as part of a bogus attribute.
+ */
+export function insertAttrs(tag, attrs) {
+  return tag.replace(/\s*\/\s*>$/, ">").replace(/>$/, ` ${attrs}>`);
+}
+
+/** The 480 px sibling of a 768 px hero, by the naming rule the encoder uses. */
+export function heroSmallOf(src) {
+  const match = /^(.*\/hero-[a-z]+)-768\.webp$/.exec(src);
+  return match ? `${match[1]}-480.webp` : null;
+}
+
+/** Read a document-relative URL off the disk, or fail the build. */
+export function localFile(src, root, label) {
+  if (/^(?:[a-z]+:)?\/\//i.test(src) || src.startsWith("data:")) {
+    throw new Error(
+      `${label}: <img src="${src}"> is not a file this build can measure - ` +
+        `the document cannot ship an image whose size nobody knows`,
+    );
+  }
+  const file = join(root, src.replace(/^\/+/, ""));
+  if (!existsSync(file)) throw new Error(`${label}: <img src="${src}"> is not on disk at ${file}`);
+  return file;
+}
+
+/**
+ * Give every <img> the intrinsic size of the file it points at.
+ *
+ * The attributes are also the CLS fix, not just the audit's: a box with no
+ * reserved ratio moves when the photograph lands. Here the CSS pins both
+ * dimensions (`h-full w-full`), so the attributes change nothing on screen -
+ * they are the fact the browser lays out against before the CSS applies.
+ */
+export function withImageDimensions(markup, { root, label = "document" } = {}) {
+  return markup.replace(/<img\b[^>]*>/gi, (tag) => {
+    if (/\bwidth="/.test(tag) && /\bheight="/.test(tag)) return tag;
+    const src = (/\bsrc="([^"]+)"/.exec(tag) || [])[1];
+    if (!src) return tag;
+    const { width, height } = webpSize(readFileSync(localFile(src, root, label)));
+    return insertAttrs(tag, `width="${width}" height="${height}"`);
+  });
+}
+
+/**
+ * Give the hero its second candidate.
+ *
+ * A full-bleed photograph served at one width is served too wide for a small
+ * phone and too narrow for a large one. The 480 px sibling costs 9.7 KB and
+ * is only fetched when the viewport asks for it; `sizes="100vw"` is the
+ * truth for a full-bleed layer, and the preset device (412 CSS px at DPR
+ * 1.75 = 721 device px) still resolves to the 768 file - which is why the
+ * measured LCP does not move.
+ */
+export function withHeroSrcSet(markup, { root, label = "document" } = {}) {
+  return markup.replace(/<img\b[^>]*>/gi, (tag) => {
+    if (/\bsrcset="/.test(tag)) return tag;
+    const src = (/\bsrc="([^"]+)"/.exec(tag) || [])[1];
+    const small = src ? heroSmallOf(src) : null;
+    if (!small) return tag;
+    const smallWidth = webpSize(readFileSync(localFile(small, root, label))).width;
+    const largeWidth = webpSize(readFileSync(localFile(src, root, label))).width;
+    return insertAttrs(
+      tag,
+      `srcset="${small} ${smallWidth}w, ${src} ${largeWidth}w" sizes="100vw"`,
+    );
+  });
+}
+
+/**
+ * Draw the footer's brand mark as the vector it is.
+ *
+ * The image is read from `public/favicon.svg` - the same file the browser tab
+ * and the Organization JSON-LD already point at - so there is one copy of the
+ * artwork and the mark cannot drift from the icon. The gradient id is
+ * namespaced because an inline SVG shares the document's id space.
+ */
+export function inlineBrandMark(markup, { svgPath }) {
+  const svg = readFileSync(svgPath, "utf8").trim();
+  const viewBox = (/\bviewBox="([^"]+)"/.exec(svg) || [])[1] || "0 0 256 256";
+  const body = svg
+    .slice(svg.indexOf(">") + 1)
+    .replace(/id="bg"/g, 'id="bbt-mark-bg"')
+    .replace(/url\(#bg\)/g, "url(#bbt-mark-bg)")
+    .replace(/\s*\n\s*/g, " ")
+    .trim();
+  const replaced = markup.replace(/<img\b[^>]*\bsrc="\/favicon\.svg"[^>]*>/i, (tag) => {
+    const width = (/\bwidth="([^"]+)"/.exec(tag) || [])[1] || "32";
+    const height = (/\bheight="([^"]+)"/.exec(tag) || [])[1] || "32";
+    const cls = (/\bclass="([^"]*)"/.exec(tag) || [])[1] || "w-8 h-8";
+    return (
+      `<svg viewBox="${viewBox}" width="${width}" height="${height}" ` +
+      `aria-hidden="true" focusable="false" class="${cls}">${body}</svg>`
+    );
+  });
+
+  // The <img> had a preload, because React 19's server renderer emits one per
+  // image. The mark is now drawn inline, so that preload has nothing to fetch
+  // and would sit in the head promising a file the document never asks for -
+  // which is the same orphan preload the guard already refuses elsewhere.
+  return replaced.replace(
+    /<link\b[^>]*\brel="preload"[^>]*\bas="image"[^>]*\bhref="\/favicon\.svg"[^>]*>/gi,
+    "",
+  );
+}
+
+/** All three image rules, in the order that matters (the vector first). */
+export function enhanceDocumentImages(markup, { root, svgPath } = {}) {
+  let out = markup;
+  if (svgPath && existsSync(svgPath)) out = inlineBrandMark(out, { svgPath });
+  out = withHeroSrcSet(out, { root });
+  out = withImageDimensions(out, { root });
+  return out;
+}
+
+/**
+ * Make the hero's preload ask for the same candidate the <img> will.
+ *
+ * A preload names ONE file. If the picture gains candidates and the preload
+ * does not, the browser preloads the 768 file and then the <img> asks for it
+ * again in a different form - the preload cache key includes the descriptors,
+ * so a preload without imagesrcset does not satisfy an <img> with one, and
+ * the photograph is downloaded twice on the connection the LCP is waiting on.
+ */
+export function withHeroPreloadSrcSet(html) {
+  return html.replace(
+    /<link\b[^>]*\brel="preload"[^>]*\bas="image"[^>]*\bhref="(\/images\/home\/hero-[a-z]+)-768\.webp"[^>]*>/gi,
+    (tag, base) =>
+      insertAttrs(
+        tag,
+        `imagesrcset="${base}-480.webp 480w, ${base}-768.webp 768w" imagesizes="100vw"`,
+      ),
+  );
 }
 
 /**
@@ -94,8 +297,31 @@ export const STATIC_CSS = `/* Static homepage only. The SPA does not need these.
 .bbt-faq > .bbt-faq-summary::-webkit-details-marker { display: none; }
 .bbt-faq[open] .bbt-faq-plus { transform: rotate(45deg); color: var(--color-orange-500); }
 html { scroll-behavior: smooth; }
-#primary_tab_viewport > * { animation: none !important; }
-#home_layout > section ~ section { content-visibility: auto; contain-intrinsic-size: auto 800px; }`.trim();
+#primary_tab_viewport > * { animation: none !important; }`.trim();
+
+/*
+ * NO `content-visibility: auto` ON THE SECTIONS. It was here, and it was
+ * wrong twice over.
+ *
+ * `#home_layout > section ~ section { content-visibility: auto;
+ * contain-intrinsic-size: auto 800px }` was added on the belief that keeping
+ * the below-the-fold sections out of layout before first paint is what the
+ * TBT budget needed. Measured (3 paired rounds, Lighthouse 13.6, production
+ * -faithful local preview, interleaved so machine drift cannot land on one
+ * side): LCP 1742 vs 1740 ms (+2 ms, neutral) and TBT 174 vs 70 ms - the
+ * rule COSTS about 104 ms of blocking time, consistently (+104/+98/+149 per
+ * round). It does not skip work; it adds a style-and-containment pass on top
+ * of the work the sections do anyway.
+ *
+ * And it broke the page. A skipped section reports its `contain-intrinsic-size`
+ * placeholder (800 px) as its box while its children are still laid out, so
+ * the FAQ section - 1392 px of real content - claimed 800 px, the footer was
+ * placed 592 px too high, and the last two FAQ panels overlapped the footer's
+ * first links. axe reported those links as "partially obscured, smallest space
+ * 17x28", which took Lighthouse accessibility to 0.96. The invariant that
+ * broke is simple and is now asserted by checkDocument: no section may be
+ * smaller than the content it contains.
+ */
 
 /**
  * The Latin font subset, INLINED into the document instead of linked.
@@ -202,24 +428,36 @@ export const ENHANCEMENT_SCRIPT = `
       : null;
     if (!trigger) return;
     var action = trigger.getAttribute("data-bbt-consent-action");
+    var analytics;
+    var functional;
     if (action === "all") {
-      writeDecision("all", true, true);
+      analytics = true;
+      functional = true;
     } else if (action === "essential") {
-      writeDecision("essential", false, true);
+      analytics = false;
+      functional = true;
     } else if (action === "custom") {
       if (panel) panel.classList.toggle("hidden");
       return;
     } else if (action === "save") {
       var analyticsBox = banner.querySelector("[data-bbt-consent-analytics]");
       var functionalBox = banner.querySelector("[data-bbt-consent-functional]");
-      writeDecision(
-        "custom",
-        analyticsBox ? analyticsBox.checked : false,
-        functionalBox ? functionalBox.checked : true
-      );
+      analytics = analyticsBox ? analyticsBox.checked : false;
+      functional = functionalBox ? functionalBox.checked : true;
     } else {
       return;
     }
+    writeDecision(action === "save" ? "custom" : action, analytics, functional);
+
+    // The beacon listens for this. localStorage alone would only be read
+    // once, when the document loads, so a reader who agrees in this visit
+    // would never be counted.
+    try {
+      window.dispatchEvent(new CustomEvent("bbt:consent", {
+        detail: { analytics: analytics, functional: functional }
+      }));
+    } catch (e) { /* an old browser without CustomEvent simply has no beacon */ }
+
     banner.remove();
   });
 })();`.trim();
@@ -244,6 +482,33 @@ export function readFontSheet(path = FONT_SHEET_PATH) {
 }
 
 /**
+ * The GA4 measurement id, read from the CMS snapshot the prerender reads.
+ *
+ * Not a literal in this file, and not an environment variable: the id is
+ * published by the CMS (`seoGlobal.gaMeasurementId`), and this site's rule is
+ * that the CMS is its only source. Both failures here are loud, because a
+ * homepage that silently ships no beacon is exactly the defect this change
+ * fixed - G4 item 33 read it as "declared, not rendered" on one page out of
+ * 442.
+ */
+export function readMeasurementId(path = "scripts/cms-snapshots/settings.json") {
+  const candidates = [path, new URL(`../${path}`, import.meta.url).pathname];
+  for (const candidate of candidates) {
+    if (!existsSync(candidate)) continue;
+    const parsed = JSON.parse(readFileSync(candidate, "utf8"));
+    const rows = Array.isArray(parsed) ? parsed : parsed.data || [];
+    for (const row of rows) {
+      const id = row && row.seoGlobal && row.seoGlobal.gaMeasurementId;
+      if (typeof id === "string" && /^G-[A-Z0-9]+$/i.test(id.trim())) return id.trim();
+    }
+    throw new Error(
+      `${path} carries no seoGlobal.gaMeasurementId - the homepage would ship no beacon`,
+    );
+  }
+  throw new Error(`the CMS snapshot ${path} does not exist - the beacon has no measurement id`);
+}
+
+/**
  * Rewrite the head of the prerendered document.
  *
  * Everything that belongs to the SPA is removed: the entry bundle, the
@@ -251,7 +516,7 @@ export function readFontSheet(path = FONT_SHEET_PATH) {
  * boot cover on. Everything that belongs to the page is kept: the TDK, the
  * canonical, the JSON-LD, the icons, the preconnect and the hero preload.
  */
-export function transformHead(head, { criticalCss, staticCss = STATIC_CSS, keepAppCss = false, fontSheet = "", fontPreloads = FONT_PRELOADS }) {
+export function transformHead(head, { criticalCss, staticCss = STATIC_CSS, keepAppCss = false, fontSheet = "", fontPreloads = FONT_PRELOADS, measurementId = "" }) {
   let out = head;
 
   // The SPA's entry bundle and its chunk preloads. The homepage is a
@@ -303,7 +568,16 @@ export function transformHead(head, { criticalCss, staticCss = STATIC_CSS, keepA
     .map((f) => `    <link rel="preload" as="font" type="${f.type}" href="${f.href}" crossorigin />\n`)
     .join("");
 
-  out = out.replace(/<\/head>/, `${styles}${preloadTags}  </head>`);
+  // The homepage's own analytics beacon. The tag on every other route rides
+  // in on the SPA bundle; the homepage has no bundle, so G4 item 33 read it
+  // as "the beacon was declared, not rendered". Deferred, same-origin, and
+  // it sends nothing until the reader agrees - see public/scripts/
+  // analytics-boot.js for the ordering that matters.
+  const beacon = measurementId
+    ? `    <script src="/scripts/analytics-boot.js" defer data-ga="${measurementId}"></script>\n`
+    : "";
+
+  out = out.replace(/<\/head>/, `${styles}${preloadTags}${beacon}  </head>`);
   return out;
 }
 
@@ -451,6 +725,36 @@ export function checkDocument(html) {
     /#primary_tab_viewport\s*>\s*\*\s*\{[^}]*animation:\s*none/.test(html),
   );
 
+  // --- no section is smaller than its own content ----------------------
+  //
+  // A `content-visibility: auto` section reports its `contain-intrinsic-size`
+  // placeholder as its box while its children are still laid out. The page
+  // height is then wrong, and the content spills over whatever follows. On
+  // this page that put the last two FAQ panels on top of the footer's first
+  // links; axe counted those links as "partially obscured (17px by 28px)" and
+  // Lighthouse accessibility fell to 0.96.
+  //
+  // The rule is gone - see STATIC_CSS for the paired measurement, which also
+  // shows it cost ~104 ms of TBT rather than saving any. This assertion keeps
+  // it gone. `contain-intrinsic-size` is refused too: it exists only to serve
+  // a skipped subtree, so carrying it without content-visibility is a leftover
+  // that would silence the next reader.
+  //
+  // The feature-test conditions are stripped first. Tailwind ships
+  // `@supports (not ((-webkit-appearance:-apple-pay-button))) or
+  // (contain-intrinsic-size:1px)` as a placeholder reset, and matching THAT
+  // would have made this guard red on a legitimate stylesheet - a guard that
+  // cries wolf on the builder's own output is a guard someone turns off.
+  const declarationScope = html.replace(/@supports[^{]*/gi, "@supports ");
+  mustNot(
+    "the document skips section subtrees (content-visibility) - a skipped section reports a placeholder height and its content overlaps what follows",
+    /content-visibility\s*:/.test(declarationScope),
+  );
+  mustNot(
+    "the document declares a contain-intrinsic-size - that only exists to reserve a skipped subtree's height",
+    /contain-intrinsic-size\s*:/.test(declarationScope),
+  );
+
   // --- the SPA is not there ---------------------------------------------
   mustNot(
     "a Suspense fallback survived into the document",
@@ -535,6 +839,65 @@ export function checkDocument(html) {
       /opacity:\s*0\.62/.test(hero),
     );
   }
+
+  // --- the images are what the crawler reads ----------------------------
+  //
+  // Three G4 items read the delivered <img> tags: 20 (alt + dimensions), 27
+  // (AVIF/WebP plus a srcset with two candidates) and, through the brand
+  // mark, 14 (no parameterized URL in the link graph). The first static
+  // build shipped 27 photographs with no dimensions and a vector mark inside
+  // a raster element; all of it went red on this page alone, because the
+  // SPA's HTML had no <img> for the rules to read.
+  const imgs = html.match(/<img\b[^>]*>/gi) || [];
+  notes.push(`images: ${imgs.length}`);
+  must("the document carries no <img> at all", imgs.length > 0);
+  const unsized = imgs.filter(
+    (tag) => !/\bwidth="\d+"/.test(tag) || !/\bheight="\d+"/.test(tag),
+  );
+  must(
+    `${unsized.length} image(s) carry no intrinsic width/height ` +
+      `(first: ${(/\bsrc="([^"]+)"/.exec(unsized[0] || "") || [])[1] || "?"})`,
+    unsized.length === 0,
+  );
+  const heroImg =
+    imgs.find((tag) => heroSmallOf((/\bsrc="([^"]+)"/.exec(tag) || [])[1] || "")) || "";
+  must("the hero <img> is not in the document", heroImg !== "");
+  must(
+    "the hero <img> has no second srcset candidate",
+    /\bsrcset="[^"]*480w[^"]*768w/.test(heroImg) && /\bsizes="100vw"/.test(heroImg),
+  );
+  mustNot(
+    "the brand mark is still shipped as a raster <img>",
+    /<img\b[^>]*src="\/favicon\.svg"/.test(html),
+  );
+  must(
+    "the hero preload does not name the candidates the <img> will ask for",
+    /imagesrcset="[^"]*480w[^"]*768w"/.test(html) && /imagesizes="100vw"/.test(html),
+  );
+
+  // --- the homepage is measured -----------------------------------------
+  //
+  // Every other route gets analytics from the SPA bundle. The homepage has
+  // no bundle, so for one build it had no analytics at all and G4 item 33
+  // said so: "1 of 442 page(s) carry no <script src>". The beacon is a
+  // deferred same-origin file; the tag itself only exists after the reader
+  // agrees, which is why gtag.js must NOT appear in the document.
+  must(
+    "the analytics beacon is not in the document - the homepage would send nothing",
+    /<script\b[^>]*src="\/scripts\/analytics-boot\.js"[^>]*\bdefer\b/.test(html),
+  );
+  must(
+    "the analytics beacon carries no measurement id",
+    /src="\/scripts\/analytics-boot\.js"[^>]*\bdata-ga="G-[A-Z0-9]+"/i.test(html),
+  );
+  mustNot(
+    "gtag.js is in the document instead of being loaded after consent",
+    /googletagmanager\.com\/gtag\/js/.test(html),
+  );
+  must(
+    "the consent banner announces no decision - the beacon would never learn about it",
+    /bbt:consent/.test(html),
+  );
 
   // --- every preload is spent on a file the page actually requests -------
   //
@@ -642,12 +1005,24 @@ function main() {
     }
   }
 
-  const html = assembleStaticHome({
-    shellHtml: readFileSync(shellPath, "utf8"),
-    ssrMarkup: readFileSync(ssrPath, "utf8").trim(),
-    criticalCss: readFileSync(criticalPath, "utf8").trim(),
-    fontSheet: readFontSheet(),
+  // The images are settled against the built tree: the sizes are read from the
+  // files that will actually be served, and the brand mark is read from the
+  // icon the browser tab uses. A file that is not there throws.
+  const imageRoot = dirname(resolve(outPath || "dist/index.html"));
+  const ssrMarkup = enhanceDocumentImages(readFileSync(ssrPath, "utf8").trim(), {
+    root: imageRoot,
+    svgPath: resolve("public/favicon.svg"),
   });
+
+  const html = withHeroPreloadSrcSet(
+    assembleStaticHome({
+      shellHtml: readFileSync(shellPath, "utf8"),
+      ssrMarkup,
+      criticalCss: readFileSync(criticalPath, "utf8").trim(),
+      fontSheet: readFontSheet(),
+      measurementId: readMeasurementId(),
+    }),
+  );
 
   const { failures, notes } = checkDocument(html);
   for (const note of notes) console.log(`  ${note}`);
@@ -689,7 +1064,7 @@ function selfTest() {
     "    <title>Best Kids Bikes | BalanceBikeToddler</title>",
     '    <meta name="description" content="d" />',
     '    <link rel="canonical" href="https://balancebiketoddler.com/" />',
-    '    <link rel="preload" as="image" href="/images/home/hero-960.webp" fetchpriority="high" />',
+    '    <link rel="preload" as="image" href="/images/home/hero-stroller-768.webp" imagesrcset="/images/home/hero-stroller-480.webp 480w, /images/home/hero-stroller-768.webp 768w" imagesizes="100vw" fetchpriority="high" />',
     '    <link rel="preload" as="style" href="/fonts/fonts.css" onload="this.rel=\'stylesheet\'" />',
     '    <link rel="preload" as="style" crossorigin href="/assets/index-abc.css" onload="this.rel=\'stylesheet\'" />',
     '    <script type="module" crossorigin src="/assets/index-abc.js"></script>',
@@ -718,9 +1093,13 @@ function selfTest() {
 
   const ssrMarkup =
     '<header id="core_header"></header>' +
-    '<section id="home_banner_anchor"><div style="opacity: 0.62;background-image:url(/images/home/hero-960.webp)"></div></section>' +
+    '<section id="home_banner_anchor"><div style="opacity: 0.62;background-image:url(/images/home/hero-stroller-768.webp)"></div>' +
+    '<img src="/images/home/hero-stroller-768.webp" alt="" aria-hidden="true" width="768" height="512" ' +
+    'srcset="/images/home/hero-stroller-480.webp 480w, /images/home/hero-stroller-768.webp 768w" sizes="100vw" class="absolute inset-0 h-full w-full object-cover" /></section>' +
     '<section id="faq_section_anchor"><details class="bbt-faq"><summary class="bbt-faq-summary">q</summary></details></section>' +
     '<a href="/products/kids-bikes/">product</a>' +
+    '<img src="/images/derived/deadbeef-800.webp" alt="part" width="800" height="600" ' +
+    'srcset="/images/derived/deadbeef-400.webp 400w, /images/derived/deadbeef-800.webp 800w" />' +
     '<footer id="main_footer"></footer>';
 
   // The sheet is read from the build, so the self-test asserts against the
@@ -732,6 +1111,7 @@ function selfTest() {
     ssrMarkup,
     criticalCss: ".flex{display:flex}",
     fontSheet,
+    measurementId: "G-TEST12345",
   });
 
   const goodResult = checkDocument(good);
@@ -795,12 +1175,22 @@ function selfTest() {
       (h) => h.replace("<details class=\"bbt-faq\">", "<div class=\"bbt-faq\">").replace("</details>", "</div>"),
       "FAQ has no native <details>",
     ],
+    [
+      "a section skips its subtree again",
+      (h) => h.replace("</head>", "<style>#home_layout > section ~ section { content-visibility: auto; }</style></head>"),
+      "skips section subtrees",
+    ],
+    [
+      "a contain-intrinsic-size survived on its own",
+      (h) => h.replace("</head>", "<style>section { contain-intrinsic-size: auto 800px; }</style></head>"),
+      "declares a contain-intrinsic-size",
+    ],
     ["the hero's first slide is hidden", (h) => h.replace("opacity: 0.62", "opacity: 0"), "first slide is not the visible one"],
     [
       "a preload for a file the document never requests",
       (h) =>
         h.replace(
-          '<link rel="preload" as="image" href="/images/home/hero-960.webp"',
+          '<link rel="preload" as="image" href="/images/home/hero-stroller-768.webp"',
           '<link rel="preload" as="image" href="https://store.example.com/remote/product.jpg"',
         ),
       "preload points at 1 file(s) the document never requests",
@@ -818,7 +1208,7 @@ function selfTest() {
       "a third-party preload",
       (h) =>
         h.replace(
-          '<link rel="preload" as="image" href="/images/home/hero-960.webp"',
+          '<link rel="preload" as="image" href="/images/home/hero-stroller-768.webp"',
           '<link rel="preload" as="image" href="https://plus.unsplash.com/hero.jpg"',
         ),
       "the document preloads a third-party image",
@@ -850,6 +1240,76 @@ function selfTest() {
       "the entrance animation was left on",
       (h) => h.replace("#primary_tab_viewport > * { animation: none !important; }", ""),
       "the entrance animation is not turned off",
+    ],
+    [
+      "an image has no dimensions",
+      (h) => h.replace(' width="800" height="600"', ""),
+      "carry no intrinsic width/height",
+    ],
+    [
+      "the hero has a single candidate",
+      (h) =>
+        h.replace(
+          ' srcset="/images/home/hero-stroller-480.webp 480w, /images/home/hero-stroller-768.webp 768w"',
+          "",
+        ),
+      "no second srcset candidate",
+    ],
+    [
+      "the brand mark's preload was left behind",
+      (h) =>
+        h.replace(
+          '<footer id="main_footer">',
+          '<link rel="preload" as="image" href="/favicon.svg" /><footer id="main_footer">',
+        ),
+      "preload points at 1 file(s) the document never requests",
+    ],
+    [
+      "the brand mark is still a raster image",
+      (h) =>
+        h.replace(
+          '<footer id="main_footer">',
+          '<img src="/favicon.svg" alt="" width="32" height="32" /><footer id="main_footer">',
+        ),
+      "brand mark is still shipped as a raster",
+    ],
+    [
+      "the hero preload lost its candidates",
+      (h) => h.replace(/ imagesrcset="[^"]*" imagesizes="100vw"/, ""),
+      "hero preload does not name the candidates",
+    ],
+    [
+      "the homepage ships no analytics beacon",
+      (h) =>
+        h.replace(
+          '<script src="/scripts/analytics-boot.js" defer data-ga="G-TEST12345"></script>',
+          "",
+        ),
+      "analytics beacon is not in the document",
+    ],
+    [
+      "the beacon is not deferred",
+      (h) => h.replace('src="/scripts/analytics-boot.js" defer', 'src="/scripts/analytics-boot.js"'),
+      "analytics beacon is not in the document",
+    ],
+    [
+      "the beacon has no measurement id",
+      (h) => h.replace(' data-ga="G-TEST12345"', ""),
+      "analytics beacon carries no measurement id",
+    ],
+    [
+      "gtag.js is inlined",
+      (h) =>
+        h.replace(
+          "</head>",
+          '<script src="https://www.googletagmanager.com/gtag/js?id=G-TEST12345"></script></head>',
+        ),
+      "gtag.js is in the document",
+    ],
+    [
+      "the consent banner stops announcing decisions",
+      (h) => h.replace("bbt:consent", "bbt-consent"),
+      "consent banner announces no decision",
     ],
   ];
 
@@ -884,10 +1344,56 @@ function selfTest() {
       "the font file was not preloaded",
       good.includes('<link rel="preload" as="font" type="font/woff2" href="/fonts/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2" crossorigin />'),
     ],
+    [
+      "the hero has no small candidate",
+      /srcset="\/images\/home\/hero-stroller-480\.webp 480w/.test(good),
+    ],
+    [
+      "the hero image has no intrinsic size",
+      /hero-stroller-768\.webp[^>]*width="768"[^>]*height="512"/.test(good),
+    ],
+    [
+      "the hero preload does not carry the same candidates",
+      /imagesrcset="\/images\/home\/hero-stroller-480\.webp 480w/.test(good),
+    ],
   ];
 
   for (const [name, ok] of facts) {
     if (!ok) failures.push(name);
+  }
+
+  // The image helpers, exercised on bytes rather than on prose. A reader that
+  // cannot tell a WebP from a PNG would put a nonsense size on the page, and
+  // a "not a WebP" error is the only thing standing between the build and a
+  // document full of wrong dimensions.
+  const heroFile = resolve("public/images/home/hero-stroller-768.webp");
+  if (existsSync(heroFile)) {
+    const size = webpSize(readFileSync(heroFile));
+    if (size.width !== 768 || size.height !== 512) {
+      failures.push(`webpSize misread the hero: ${size.width}x${size.height}, expected 768x512`);
+    }
+    const smallFile = resolve("public/images/home/hero-stroller-480.webp");
+    if (!existsSync(smallFile)) {
+      failures.push("the hero's 480 px candidate is missing from public/images/home/");
+    } else if (webpSize(readFileSync(smallFile)).width !== 480) {
+      failures.push("the hero's 480 px candidate is not 480 px wide");
+    }
+  } else {
+    failures.push("public/images/home/hero-stroller-768.webp is missing");
+  }
+  const notWebp = (() => {
+    try {
+      webpSize(readFileSync(resolve("public/favicon.svg")));
+      return false;
+    } catch {
+      return true;
+    }
+  })();
+  if (!notWebp) failures.push("webpSize accepted an SVG as a WebP - the size would be nonsense");
+
+  if (insertAttrs('<link rel="preload" as="image" href="/x.webp" />', 'width="1"') !==
+      '<link rel="preload" as="image" href="/x.webp" width="1">') {
+    failures.push("insertAttrs left the self-closing slash in place");
   }
 
   // The reverse assertion for the body tag: the prerender's inline style
@@ -920,7 +1426,7 @@ function selfTest() {
   const duplicated = assembleStaticHome({
     shellHtml: shell,
     ssrMarkup:
-      '<link rel="preload" as="image" href="/images/home/hero-960.webp" />' +
+      '<link rel="preload" as="image" href="/images/home/hero-stroller-768.webp" />' +
       '<header id="core_header"></header>' +
       '<section id="home_banner_anchor"><div style="opacity: 0.62;background-image:url(/images/home/hero-960.webp)"></div></section>' +
       '<section id="faq_section_anchor"><details class="bbt-faq"><summary class="bbt-faq-summary">q</summary></details></section>' +
@@ -930,11 +1436,31 @@ function selfTest() {
     fontSheet,
   });
   const heroPreloadCount = (
-    duplicated.match(/rel="preload" as="image" href="\/images\/home\/hero-960\.webp"/g) || []
+    duplicated.match(/rel="preload" as="image" href="\/images\/home\/hero-stroller-768\.webp"/g) || []
   ).length;
   if (heroPreloadCount !== 1) {
     failures.push(
       `the hero is preloaded ${heroPreloadCount} times - the head's preload wins and the body's copy goes`,
+    );
+  }
+
+  // The other direction of the content-visibility rule: a stylesheet that only
+  // MENTIONS contain-intrinsic-size inside a feature test must not trip it.
+  // Tailwind ships exactly that as a placeholder reset, so the first version
+  // of this guard was red on the builder's own output. A guard that cries wolf
+  // on the legitimate case is a guard that gets deleted.
+  const tailwindReset = assembleStaticHome({
+    shellHtml: shell,
+    ssrMarkup,
+    criticalCss:
+      "@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}}",
+    fontSheet,
+  });
+  const resetResult = checkDocument(tailwindReset);
+  const falsePositive = resetResult.failures.filter((f) => /contain-intrinsic-size|content-visibility/.test(f));
+  if (falsePositive.length) {
+    failures.push(
+      `a Tailwind @supports feature test was taken for a declaration: ${falsePositive.join(", ")}`,
     );
   }
 

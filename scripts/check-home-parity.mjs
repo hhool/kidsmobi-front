@@ -472,21 +472,25 @@ async function capture(browser, url, viewport, outDir, name) {
   // hero from the first byte.
   await page.waitForSelector("#home_banner_anchor", { state: "attached", timeout: 45000 });
   await page.evaluate(() => (document.fonts ? document.fonts.ready : Promise.resolve()));
-  // The static homepage keeps the sections below the hero out of layout until
-  // the reader scrolls to them (`content-visibility: auto`), because laying
-  // out the whole document before the first paint is what the Total Blocking
-  // Time budget was spent on.
+  // The static homepage used to keep the sections below the hero out of
+  // layout (`content-visibility: auto` + `contain-intrinsic-size: auto
+  // 800px`), on the belief that laying out the whole document before the
+  // first paint was what the Total Blocking Time budget was spent on. That
+  // belief was measured and was wrong twice over: paired interleaved runs put
+  // LCP at 1742 ms with the rule against 1740 ms without (neutral) and TBT at
+  // 174 ms against 70 ms (the rule COST ~104 ms), and a skipped section
+  // reports its 800 px placeholder as its box while its children are still
+  // laid out - so the FAQ's 1392 px of content spilled over the footer and
+  // took accessibility to 0.96.
   //
-  // A screenshot has to see them, though: a page whose lower half is still
-  // "skipped" is not the page the reader gets, and comparing two of those
-  // would be a weaker claim than "the reader cannot tell them apart". So every
-  // element whose computed content-visibility is not `visible` is forced
-  // visible here, BEFORE the layout is measured - the placeholder heights
-  // would otherwise be what the comparison settled on.
+  // The rule is gone. This harness used to force every skipped subtree
+  // visible before the screenshot, which is exactly why no gate ever saw the
+  // broken page: the comparison was made in a state no reader gets. So the
+  // accommodation is now an assertion - if the delivered document skips a
+  // subtree, the comparison is not of the delivered page and the run fails.
   //
-  // The SPA half has no such rule, so this changes nothing there; it is
-  // applied to both halves so that neither is measured in a state the other
-  // is not.
+  // The SPA half has no such rule, so nothing is forced there either; forcing
+  // it on one half only would compare two different layouts.
   const forcedVisible = await page.evaluate(() => {
     let count = 0;
     for (const element of document.querySelectorAll("*")) {
@@ -499,6 +503,13 @@ async function capture(browser, url, viewport, outDir, name) {
     return count;
   });
   if (forcedVisible > 0) {
+    if (name.startsWith("static")) {
+      throw new Error(
+        `${name}: the delivered document skips ${forcedVisible} subtree(s) (content-visibility), ` +
+          "so its own height is a placeholder and its content overlaps what follows. " +
+          "A screenshot of that is not the page the reader gets.",
+      );
+    }
     console.log(`    ${name}: forced ${forcedVisible} skipped subtree(s) into layout before the screenshot`);
   }
   const height = await waitForStableLayout(page);

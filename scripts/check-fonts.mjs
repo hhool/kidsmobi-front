@@ -189,6 +189,34 @@ export function classifyFontPage({ html, distRelPath, publicHashes }) {
     return { verdict: 'local', problems, thirdParty };
   }
 
+  // The second normal case: a page that INLINES the mirror's own rules.
+  //
+  // The static homepage does this, and it is not a loophole. It links no
+  // external sheet because a late-parsed stylesheet invalidates the layout of
+  // the whole document (measured: a 227 ms full re-layout), so the faces the
+  // first screen needs are declared in the document itself. The files are the
+  // mirror's - /fonts/*.woff2, hashed by the manifest - and the family is the
+  // mirror's. The rule this guard protects ("the page renders with the mirror,
+  // not with somebody else's font and not silently in the system font") is the
+  // same; only the delivery changed, from "one more request" to "no request".
+  //
+  // A page that inlines a font from anywhere else is still invalid, and so is
+  // one that inlines a block declaring a family that is not the mirror's.
+  const inlineSheet = /<style\b[^>]*id="bbt-font-sheet"[^>]*>([\s\S]*?)<\/style>/i.exec(html);
+  if (inlineSheet && /@font-face/.test(inlineSheet[1])) {
+    const inlined = [...inlineSheet[1].matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)].map(
+      (match) => match[1],
+    );
+    const foreign = inlined.filter((ref) => !ref.startsWith('/fonts/'));
+    if (foreign.length) {
+      problems.push(`${distRelPath} inlines a font that is not from the mirror: ${foreign[0]}`);
+    }
+    if (!/font-family:\s*['"]?Outfit/.test(inlineSheet[1])) {
+      problems.push(`${distRelPath} inlines a font block that declares no mirror family`);
+    }
+    return { verdict: problems.length ? 'invalid' : 'inline', problems, thirdParty };
+  }
+
   if (publicHashes.get(distRelPath) !== sha256(html)) {
     problems.push(
       `${distRelPath} does not load /fonts/fonts.css and is not a verbatim copy of a file in public/`,
@@ -297,6 +325,7 @@ function run() {
   const publicHashes = publicHtmlHashes();
   const thirdPartyPages = new Set();
   let pagesWithLocal = 0;
+  const inlinePages = [];
   const exceptionPages = [];
   const allUncovered = new Set();
   const allMissing = new Set();
@@ -307,6 +336,7 @@ function run() {
     for (const problem of verdict.problems) fail(problem);
     if (verdict.thirdParty.length) thirdPartyPages.add(distRelPath);
     if (verdict.verdict === 'local') pagesWithLocal += 1;
+    if (verdict.verdict === 'inline') inlinePages.push(distRelPath);
     if (verdict.verdict === 'exception') exceptionPages.push(distRelPath);
     const { uncovered, missingFiles } = checkCharset(html, faces, fileExists);
     for (const character of uncovered) allUncovered.add(character);
@@ -314,6 +344,12 @@ function run() {
   }
   if (thirdPartyPages.size) {
     fail(`${thirdPartyPages.size} built page(s) still load a third-party font`);
+  }
+  if (inlinePages.length) {
+    ok(
+      `${inlinePages.length} built page(s) inline the mirror's own @font-face rules instead of linking the ` +
+        `stylesheet (${inlinePages.join(', ')}) - no request, same mirror`,
+    );
   }
   if (exceptionPages.length) {
     ok(
@@ -434,6 +470,39 @@ function selfTest() {
     preRendered.verdict === 'invalid',
     'the exception cannot be used to excuse a prerendered page',
   );
+
+  // The inline path: the static homepage declares the mirror's faces in the
+  // document instead of linking the stylesheet. Three cases, because the
+  // verdict has to be able to say no for the two ways it can go wrong.
+  const inlineMirror = classifyFontPage({
+    html:
+      '<html><head><style id="bbt-font-sheet">' +
+      "@font-face { font-family: 'Outfit'; src: url(/fonts/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2) format('woff2'); }" +
+      '</style></head><body>home</body></html>',
+    distRelPath: 'index.html',
+    publicHashes: new Map(),
+  });
+  say(inlineMirror.verdict === 'inline', 'a page that inlines the mirror is the inline case');
+
+  const inlineForeign = classifyFontPage({
+    html:
+      '<html><head><style id="bbt-font-sheet">' +
+      "@font-face { font-family: 'Outfit'; src: url(https://fonts.gstatic.com/x.woff2) format('woff2'); }" +
+      '</style></head><body>home</body></html>',
+    distRelPath: 'index.html',
+    publicHashes: new Map(),
+  });
+  say(inlineForeign.verdict === 'invalid', 'inlining a font that is not from the mirror is invalid');
+
+  const inlineWrongFamily = classifyFontPage({
+    html:
+      '<html><head><style id="bbt-font-sheet">' +
+      "@font-face { font-family: 'Comic Sans'; src: url(/fonts/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2) format('woff2'); }" +
+      '</style></head><body>home</body></html>',
+    distRelPath: 'index.html',
+    publicHashes: new Map(),
+  });
+  say(inlineWrongFamily.verdict === 'invalid', 'inlining a block with no mirror family is invalid');
 
   console.log(okAll ? 'check-fonts self-test PASS' : 'check-fonts self-test FAIL');
   if (!okAll) process.exit(1);

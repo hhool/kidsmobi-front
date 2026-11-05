@@ -1277,7 +1277,7 @@ export default function HomeSection({
             </p>
           </div>
           <a 
-            href="/reviews/safety"
+            href="/reviews"
             onClick={(e) => {
               e.preventDefault();
               setActiveTab("evaluations");
@@ -1442,13 +1442,13 @@ export default function HomeSection({
               </p>
             </div>
             <a
-              href="/products/electric_car/"
+              href="/products/electric-cars/"
               onClick={(e) => {
                 e.preventDefault();
                 localStorage.setItem("selectedCategory", "best");
                 localStorage.setItem("autoSelectWizardCategory", "electric_vehicles");
                 if ((window as any).navigateToPath) {
-                  (window as any).navigateToPath("/products/electric_car/");
+                  (window as any).navigateToPath("/products/electric-cars/");
                   if (typeof (window as any).setActiveGuidesCategory === "function") {
                     (window as any).setActiveGuidesCategory("best");
                   }
@@ -1727,15 +1727,27 @@ export default function HomeSection({
 
         {/* FAQ → hub cross-links (internal linking / weight flow) */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
+          {/* slate-400 on slate-50 is 2.51:1 - below the 4.5:1 a 10px bold
+              label needs, and Lighthouse reports it as a contrast failure on
+              the delivered homepage. slate-600 measures 7.4:1 and still reads
+              as a muted eyebrow next to the pills beside it. */}
           <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">
             {lang === "zh" ? "继续深入了解：" : "Keep exploring:"}
           </span>
+          {/* The hrefs are the built URL space, not the SPA's category keys.
+              They used to be written in the keys the router uses internally
+              (`/products/balance_bike`, `/reviews/safety`), which the SPA
+              resolved on the client and a delivered document cannot: the
+              static homepage shipped four links that answered 404, and the
+              internal link guard caught every one of them. `category` keeps
+              the client-side fallback below working without reintroducing the
+              old spelling into the href. */}
           {([
             { href: "/guides/", label: lang === "zh" ? "选购指南" : "Buying guides" },
-            { href: "/reviews/safety", label: lang === "zh" ? "安全评测" : "Safety audits" },
-            { href: "/products/balance_bike", label: lang === "zh" ? "平衡车" : "Balance bikes" },
-            { href: "/products/kids_bikes", label: lang === "zh" ? "儿童自行车" : "Kids bikes" },
-            { href: "/products/kids_scooters", label: lang === "zh" ? "滑板车" : "Scooters" },
+            { href: "/reviews", label: lang === "zh" ? "安全评测" : "Safety audits" },
+            { href: "/products/balance-bikes/", category: "balance_bike", label: lang === "zh" ? "平衡车" : "Balance bikes" },
+            { href: "/products/kids-bikes/", category: "kids_bikes", label: lang === "zh" ? "儿童自行车" : "Kids bikes" },
+            { href: "/products/kids-scooters/", category: "kids_scooters", label: lang === "zh" ? "滑板车" : "Scooters" },
           ] as const).map((link) => (
             <a
               key={link.href}
@@ -1744,11 +1756,11 @@ export default function HomeSection({
                 e.preventDefault();
                 if ((window as any).navigateToPath) {
                   (window as any).navigateToPath(link.href);
-                } else if (link.href.startsWith("/products/")) {
-                  onSelectCategory(link.href.replace("/products/", ""));
+                } else if ("category" in link) {
+                  onSelectCategory(link.category);
                   setActiveTab("products");
                 } else {
-                  setActiveTab(link.href === "/reviews/safety" ? "evaluations" : "guides");
+                  setActiveTab(link.href === "/reviews" ? "evaluations" : "guides");
                 }
               }}
               className="px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-[11px] font-bold text-slate-600 hover:text-orange-500 hover:border-orange-300 transition-colors"
