@@ -6,6 +6,7 @@ import { newsArticles } from "../src/data/newsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
 import { applyResponsiveImagesToHtml } from "../src/lib/responsiveImages";
+import { applyFirstPaintToHtml } from "../src/lib/firstPaint";
 import {
   amazonAffiliateUrl,
   resolveAmazonTag,
@@ -8541,8 +8542,13 @@ async function main() {
     // Criterion 27: rewrite published <img> to the local WebP derivatives.
     // One call here covers every template, so the SPA and the delivered HTML
     // read the same generated map and cannot drift apart.
-    const html = applyResponsiveImagesToHtml(
-      sanitizeUnsupportedClaims(renderDocument(page, appAssets)),
+    // Variant B: keep the prerendered first screen visible until the SPA has
+    // its real content. One hook here covers every template, so no page can
+    // ship without the cover and none can get it twice.
+    const html = applyFirstPaintToHtml(
+      applyResponsiveImagesToHtml(
+        sanitizeUnsupportedClaims(renderDocument(page, appAssets)),
+      ),
     );
     const routeName = page.route.replace(/^\//, "");
     if (routeName) {

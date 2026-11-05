@@ -219,6 +219,18 @@ jobs:
       - name: Critical CSS inlined, no blocking stylesheet
         run: npm run check:criticalcss
 
+      # The prerendered article is painted first and the SPA takes over from
+      # under it, so the reader never sees the page being rebuilt. That cover
+      # is an inline script with four ways to fail: it can reveal an empty
+      # #root (white screen), reveal a Suspense skeleton (a page that never
+      # finishes), put the cover back into the document flow (the 0.290401
+      # layout shift all over again), or wait on a character count that the
+      # shortest published page can never reach. The guard executes the
+      # shipped script against a small DOM and asserts what the reader would
+      # have seen, because none of that is visible in the source.
+      - name: Static first screen holds until the SPA has its content
+        run: npm run check:firstpaint
+
       # Google Search showed its default grey globe for every result: the only
       # declared favicon was an SVG (absent from the formats Google lists for
       # search favicons) and /favicon.ico was a 404. This pins the raster set,
