@@ -23,12 +23,18 @@
 //
 // Usage:
 //   node scripts/seo/render-blocking-probe.mjs --report <lighthouse.json> [...]
-//   node scripts/seo/render-blocking-probe.mjs --run [--runs 3] [--port 4181] [--chrome-port 9345]
+//   node scripts/seo/render-blocking-probe.mjs --run [--runs 3] [--port 4181] [--chrome-port 9345] [--host localtest.me]
 //   node scripts/seo/render-blocking-probe.mjs --self-test
 //
 // --chrome-port makes Lighthouse attach to a browser that is already running
 // instead of launching one. That is the only way to get a Lighthouse run on a
 // host where launching a browser is broken - see scripts/seo/browser-health.mjs.
+//
+// --host is the hostname the preview is reached under. The default,
+// localtest.me, resolves to 127.0.0.1 but is NOT "localhost", which is the
+// point: the SPA decides between its local aggregator and the production data
+// path from the hostname, so measuring under "localhost" measures a different
+// object than the one the live site serves. See judgeFidelity().
 //
 // Env:
 //   LIGHTHOUSE_BIN  path to lighthouse's cli/index.js (or the npm bin)
@@ -37,14 +43,16 @@
 //
 // Exit codes:
 //   0  no render-blocking resource (or a clean SKIP: nothing to run against)
-//   1  a render-blocking resource was reported
+//   1  a render-blocking resource was reported, or the run did not measure
+//      the production object
 //
 // A SKIP is exit 0 because the weekly audit must not fail because a browser
 // or Lighthouse happens to be missing - but the SKIP line is printed loudly
 // and the run is recorded as "skipped", never as "passed".
 
 import { spawn } from 'node:child_process';
-import { existsSync, readFileSync, readdirSync, mkdirSync } from 'node:fs';
+import dns from 'node:dns/promises';
+import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 const SELF_TEST = process.argv.includes('--self-test');
@@ -128,6 +136,130 @@ function summarizeMetrics(report) {
 }
 
 // ---------------------------------------------------------------------------
+// Measurement fidelity.
+//
+// A local Lighthouse report is only evidence about the live site if the thing
+// it measured IS the live site. Two things used to differ, and both pushed
+// the local numbers in the wrong direction:
+//
+//   - The preview server served the raw bytes while the edge compresses
+//     them. The entry JavaScript transferred 1,217,247 bytes locally against
+//     319,270 in production.
+//   - The SPA chose its data path from the hostname. Under "localhost" it
+//     asked the local aggregator for /api/content/bundle, got a 404 from the
+//     store, and fell back to a worker host this machine cannot reach. The
+//     live site uses same-origin /api/v2/*. A report taken under the wrong
+//     hostname therefore measured a page whose data never arrived.
+//
+// So the report itself is checked: the production data path has to be there,
+// the unreachable fallback must not be, no request may have failed, and the
+// text assets must have arrived compressed. A report that fails this is not
+// evidence about the live site, and saying so is worth more than the number
+// it carries.
+// ---------------------------------------------------------------------------
+export function networkItems(report) {
+  const audit = ((report || {}).audits || {})['network-requests'];
+  const items = audit && audit.details && Array.isArray(audit.details.items) ? audit.details.items : [];
+  return items;
+}
+
+export function judgeFidelity(report) {
+  const items = networkItems(report);
+  if (!items.length) {
+    return {
+      status: 'unknown',
+      problems: ['the report carries no network-requests audit'],
+      notes: [],
+    };
+  }
+  const problems = [];
+  const notes = [];
+
+  const productionPath = items.filter((item) => /\/api\/v2\//.test(String(item.url || '')));
+  if (!productionPath.length) {
+    problems.push('the SPA never called /api/v2/ - it did not take the production data path');
+  }
+  const unreachable = items.filter((item) => /workers\.dev/.test(String(item.url || '')));
+  if (unreachable.length) {
+    problems.push(`${unreachable.length} request(s) went to the unreachable workers.dev fallback`);
+  }
+
+  // A request that failed on the page's own origin means the page did not
+  // receive what it was served - that is a different object. A third-party
+  // failure is environment noise (this machine cannot reach some CDNs); it is
+  // reported, but it does not make the page a different object.
+  const finalUrl = report.finalUrl || report.requestedUrl || '';
+  let origin = '';
+  try {
+    origin = new URL(finalUrl).origin;
+  } catch {
+    origin = '';
+  }
+  const originOf = (url) => {
+    try {
+      return new URL(String(url || '')).origin;
+    } catch {
+      return '';
+    }
+  };
+  const failed = items.filter((item) => Number(item.statusCode) < 0);
+  const failedOwn = failed.filter((item) => origin && originOf(item.url) === origin);
+  const failedOther = failed.filter((item) => !(origin && originOf(item.url) === origin));
+  if (failedOwn.length) {
+    problems.push(
+      `${failedOwn.length} request(s) failed on the page's own origin (${failedOwn[0].url})`,
+    );
+  }
+  if (failedOther.length) {
+    notes.push(
+      `${failedOther.length} third-party request(s) failed in this environment (${failedOther[0].url.split('?')[0]})`,
+    );
+  }
+
+  const uncompressed = items.filter((item) => {
+    const url = String(item.url || '');
+    if (!/\.(js|css|html|json)(\?|$)/.test(url)) return false;
+    const resource = Number(item.resourceSize || 0);
+    const transfer = Number(item.transferSize || 0);
+    if (resource <= 50000) return false;
+    return transfer / resource > 0.6;
+  });
+  for (const item of uncompressed) {
+    problems.push(
+      `${item.url} transferred ${item.transferSize} of ${item.resourceSize} bytes - compression is not on`,
+    );
+  }
+
+  return {
+    status: problems.length ? 'fail' : 'pass',
+    problems,
+    notes,
+    productionCalls: productionPath.length,
+    requests: items.length,
+  };
+}
+
+/**
+ * The preview is reached under a hostname that resolves to the loopback
+ * interface. Anything else would measure a different machine.
+ */
+export async function assertLoopbackHost(host) {
+  if (host === 'localhost' || host === '127.0.0.1' || host === '::1') return { host, addresses: ['loopback'] };
+  let addresses;
+  try {
+    addresses = await dns.lookup(host, { all: true });
+  } catch (error) {
+    throw new Error(`--host ${host} does not resolve (${error.message})`);
+  }
+  if (!addresses.length) throw new Error(`--host ${host} does not resolve`);
+  const offHost = addresses.filter((entry) => entry.address !== '127.0.0.1' && entry.address !== '::1');
+  if (offHost.length) {
+    throw new Error(`--host ${host} resolves off the loopback interface (${offHost[0].address})`);
+  }
+  return { host, addresses: addresses.map((entry) => entry.address) };
+}
+
+// ---------------------------------------------------------------------------
 // Locating Lighthouse.
 // ---------------------------------------------------------------------------
 function lighthouseEntry() {
@@ -185,9 +317,10 @@ function readArg(flag, fallback) {
   return i !== -1 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
 }
 
-async function runLighthouse({ entry, runs, port, chromePort }) {
+async function runLighthouse({ entry, runs, port, chromePort, host }) {
   const outDir = path.resolve('.runs/lh');
   mkdirSync(outDir, { recursive: true });
+  const base = `http://${host}:${port}`;
 
   const preview = spawn(process.execPath, [path.resolve('scripts/preview-dist.mjs'), String(port)], {
     stdio: 'ignore',
@@ -197,6 +330,7 @@ async function runLighthouse({ entry, runs, port, chromePort }) {
     if (!(await waitForServer(port))) {
       throw new Error(`preview server did not come up on ${port}`);
     }
+    await warmPreview(base);
     const reports = [];
     for (let i = 1; i <= runs; i += 1) {
       const out = path.join(outDir, `render-blocking-${i}.json`);
@@ -210,7 +344,7 @@ async function runLighthouse({ entry, runs, port, chromePort }) {
           process.execPath,
           [
             entry,
-            `http://127.0.0.1:${port}/`,
+            `${base}/`,
             '--output=json',
             `--output-path=${out}`,
             '--quiet',
@@ -239,6 +373,36 @@ async function runLighthouse({ entry, runs, port, chromePort }) {
   } finally {
     preview.kill('SIGTERM');
   }
+}
+
+/**
+ * Warm the preview before the measured runs.
+ *
+ * The preview compresses on the fly and caches the result. Without this the
+ * first Lighthouse run pays for compressing the entry bundle inside a
+ * measured request, and the number it records belongs to the preview server
+ * rather than to the page. The warm-up asks for the same brotli encoding the
+ * browser will ask for, so the cache holds the bytes the run will send.
+ */
+async function warmPreview(base) {
+  const headers = { 'accept-encoding': 'br' };
+  const response = await fetch(`${base}/`, { headers });
+  if (!response.ok) throw new Error(`warm-up of ${base}/ answered ${response.status}`);
+  const html = await response.text();
+  const urls = new Set();
+  for (const match of html.matchAll(/(?:src|href)="(\/[^"]+)"/g)) urls.add(match[1]);
+  // The lazy route chunks are not in the HTML, so warm the whole asset
+  // directory as well - it is ninety files.
+  const assetDir = path.resolve('dist/assets');
+  if (existsSync(assetDir)) {
+    for (const file of readdirSync(assetDir)) {
+      if (/\.(js|css)$/.test(file)) urls.add(`/assets/${file}`);
+    }
+  }
+  await Promise.all(
+    [...urls].map((url) => fetch(`${base}${url}`, { headers }).catch(() => null)),
+  );
+  console.log(`  warm-up: ${urls.size} asset(s) cached at ${base}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -302,6 +466,57 @@ function selfTest() {
   const bytesOk = items.length === 1 && items[0].totalBytes === 186707 && items[0].wastedMs === 2240;
   if (!bytesOk) ok = false;
   console.log(`  ${bytesOk ? 'ok  ' : 'FAIL'} savings and byte counts are read off the items`);
+
+  // Fidelity: the report has to describe the live site, not a local
+  // approximation of it.
+  const net = (list, finalUrl) => ({
+    finalUrl: finalUrl || 'http://localtest.me:4181/',
+    audits: { 'network-requests': { details: { type: 'table', items: list } } },
+  });
+  const faithful = net([
+    { url: 'http://localtest.me:4181/', transferSize: 7635, resourceSize: 28479, statusCode: 200 },
+    { url: 'http://localtest.me:4181/assets/index-OASAr2mz.js', transferSize: 326735, resourceSize: 1217070, statusCode: 200 },
+    { url: 'http://localtest.me:4181/api/v2/categories?withStats=false', transferSize: 462, resourceSize: 462, statusCode: 200 },
+    { url: 'http://localtest.me:4181/api/v2/products?categoryId=stroller&page=1&pageSize=12', transferSize: 18161, resourceSize: 18161, statusCode: 200 },
+  ]);
+  const localOnly = net(
+    [
+      { url: 'http://127.0.0.1:4181/', transferSize: 28479, resourceSize: 28479, statusCode: 200 },
+      { url: 'http://127.0.0.1:4181/api/content/bundle', transferSize: 92, resourceSize: 92, statusCode: 404 },
+      { url: 'https://kidsmobi-api-v1.seaman-player.workers.dev/api/v2/categories', transferSize: 0, resourceSize: 0, statusCode: -1 },
+    ],
+    'http://127.0.0.1:4181/',
+  );
+  const uncompressed = net([
+    { url: 'http://localtest.me:4181/api/v2/categories?withStats=false', transferSize: 462, resourceSize: 462, statusCode: 200 },
+    { url: 'http://localtest.me:4181/assets/index-OASAr2mz.js', transferSize: 1217070, resourceSize: 1217070, statusCode: 200 },
+  ]);
+  const thirdPartyFailed = net([
+    { url: 'http://localtest.me:4181/api/v2/categories?withStats=false', transferSize: 462, resourceSize: 462, statusCode: 200 },
+    { url: 'http://localtest.me:4181/assets/index-OASAr2mz.js', transferSize: 326735, resourceSize: 1217070, statusCode: 200 },
+    { url: 'https://apis.google.com/js/api.js?onload=x', transferSize: 0, resourceSize: 0, statusCode: -1 },
+  ]);
+  const ownOriginFailed = net([
+    { url: 'http://localtest.me:4181/api/v2/categories?withStats=false', transferSize: 462, resourceSize: 462, statusCode: 200 },
+    { url: 'http://localtest.me:4181/assets/index-OASAr2mz.js', transferSize: 0, resourceSize: 1217070, statusCode: -1 },
+  ]);
+  const fidelityCases = [
+    ['a production-shaped run is faithful', judgeFidelity(faithful), 'pass'],
+    ['a run stuck on the local aggregator is not', judgeFidelity(localOnly), 'fail'],
+    ['a run without compression is not', judgeFidelity(uncompressed), 'fail'],
+    ['a third-party failure is a note, not a different object', judgeFidelity(thirdPartyFailed), 'pass'],
+    ['a failure on the page own origin is a different object', judgeFidelity(ownOriginFailed), 'fail'],
+    ['a report without network requests cannot be cleared', judgeFidelity(empty), 'unknown'],
+  ];
+  for (const [name, got, want] of fidelityCases) {
+    const good = got.status === want;
+    if (!good) ok = false;
+    console.log(`  ${good ? 'ok  ' : 'FAIL'} ${name} (got ${got.status}, want ${want})`);
+  }
+  const unreachableCaught = judgeFidelity(localOnly).problems.some((p) => /workers\.dev/.test(p));
+  if (!unreachableCaught) ok = false;
+  console.log(`  ${unreachableCaught ? 'ok  ' : 'FAIL'} the unreachable worker fallback is named`);
+
   console.log(ok ? 'render-blocking-probe self-test PASS' : 'render-blocking-probe self-test FAIL');
   process.exit(ok ? 0 : 1);
 }
@@ -324,12 +539,22 @@ async function main() {
     const runs = Number(readArg('--runs', '3'));
     const port = Number(readArg('--port', '4181'));
     const chromePort = readArg('--chrome-port', process.env.LIGHTHOUSE_PORT || '');
-    console.log(
-      `render-blocking-probe — ${runs} Lighthouse run(s) against the local preview on :${port}` +
-        (chromePort ? ` (attaching to the browser on :${chromePort})` : ''),
-    );
+    const host = readArg('--host', 'localtest.me');
     try {
-      reports.push(...(await runLighthouse({ entry, runs, port, chromePort })));
+      const resolved = await assertLoopbackHost(host);
+      console.log(`render-blocking-probe — ${runs} Lighthouse run(s) against ${host}:${port}` +
+        ` (${resolved.addresses.join(', ')})` +
+        (chromePort ? ` (attaching to the browser on :${chromePort})` : ''));
+    } catch (error) {
+      console.log(`render-blocking-probe FAIL — ${error.message}`);
+      console.log('  The preview has to be reachable under a hostname that resolves to the');
+      console.log('  loopback interface, because the SPA picks its data path from the');
+      console.log('  hostname. A run under "localhost" measures the local aggregator, not');
+      console.log('  the live site.');
+      process.exit(1);
+    }
+    try {
+      reports.push(...(await runLighthouse({ entry, runs, port, chromePort, host })));
     } catch (e) {
       console.log(`render-blocking-probe SKIP — Lighthouse could not run: ${String(e.message || e)}`);
       process.exit(0);
@@ -358,10 +583,24 @@ async function main() {
 
   let failed = false;
   let unknown = false;
+  let unfaithful = false;
+  const summaryRuns = [];
   reports.forEach((report, i) => {
     const verdict = judge(report);
+    const fidelity = judgeFidelity(report);
     const metrics = summarizeMetrics(report);
     const label = report.finalUrl || report.requestedUrl || `report ${i + 1}`;
+    summaryRuns.push({
+      file: path.relative(process.cwd(), path.join('.runs/lh', `render-blocking-${i + 1}.json`)),
+      fcp_ms: metrics.fcp,
+      lcp_ms: metrics.lcp,
+      tbt_ms: metrics.tbt,
+      cls: metrics.cls,
+      render_blocking: verdict.status,
+      fidelity: fidelity.status,
+      fidelity_problems: fidelity.problems || [],
+      fidelity_notes: fidelity.notes || [],
+    });
     const m = [];
     if (metrics.fcp != null) m.push(`FCP ${Math.round(metrics.fcp)}ms`);
     if (metrics.lcp != null) m.push(`LCP ${Math.round(metrics.lcp)}ms`);
@@ -381,9 +620,58 @@ async function main() {
       unknown = true;
       console.log(`  render-blocking: UNKNOWN — ${verdict.reason}`);
     }
+    if (fidelity.status === 'pass') {
+      console.log(`  fidelity: PASS — measured the production object (${fidelity.requests} requests, ${fidelity.productionCalls} production API calls)`);
+      for (const note of fidelity.notes || []) console.log(`    note: ${note}`);
+    } else if (fidelity.status === 'fail') {
+      unfaithful = true;
+      console.log('  fidelity: FAIL — this report does not describe the live site:');
+      for (const problem of fidelity.problems) console.log(`    ${problem}`);
+    } else {
+      unfaithful = true;
+      console.log(`  fidelity: FAIL — ${fidelity.problems.join('; ')}`);
+    }
   });
 
+  // Write down what was measured. The baseline picks one report out of these
+  // by the median LCP, and that choice has to be auditable instead of
+  // remembered.
+  const medianOf = (key) => {
+    const values = summaryRuns.map((r) => r[key]).filter((v) => typeof v === 'number').sort((a, b) => a - b);
+    if (!values.length) return null;
+    const mid = Math.floor(values.length / 2);
+    return values.length % 2 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
+  };
+  const medianLcp = medianOf('lcp_ms');
+  const selected = summaryRuns.find((r) => r.lcp_ms === medianLcp) || summaryRuns[0] || null;
+  const summary = {
+    generated_at: new Date().toISOString(),
+    note:
+      'Local Lighthouse against the preview. The fidelity column says whether the run ' +
+      'measured the production object (same-origin /api/v2 data path, compressed assets).',
+    runs: summaryRuns,
+    median: {
+      fcp_ms: medianOf('fcp_ms'),
+      lcp_ms: medianLcp,
+      tbt_ms: medianOf('tbt_ms'),
+      cls: medianOf('cls'),
+    },
+    selected_report: selected ? selected.file : null,
+    selected_by: 'median LCP',
+  };
+  try {
+    mkdirSync(path.resolve('.runs/lh'), { recursive: true });
+    writeFileSync(path.resolve('.runs/lh/summary.json'), `${JSON.stringify(summary, null, 2)}\n`);
+    console.log(`  summary: .runs/lh/summary.json (selected ${summary.selected_report} by ${summary.selected_by})`);
+  } catch (error) {
+    console.log(`  summary could not be written: ${error.message}`);
+  }
+
   if (failed) process.exit(1);
+  if (unfaithful) {
+    console.log('render-blocking-probe FAIL — the run did not measure the production object.');
+    process.exit(1);
+  }
   if (unknown) {
     console.log('render-blocking-probe SKIP — a report could not be read.');
     process.exit(0);
