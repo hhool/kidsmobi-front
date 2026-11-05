@@ -104,6 +104,8 @@
     "check:criticalcss": "node scripts/check-critical-css.mjs",
     "check:firstpaint": "node scripts/check-first-paint.mjs",
     "check:heropreload": "node scripts/check-hero-preload.mjs",
+    "build:fonts": "node scripts/build-fonts.mjs",
+    "check:fonts": "node scripts/check-fonts.mjs",
     "check:workerparity": "node scripts/check-worker-sitemap-parity.mjs",
     "sync:sitemappaths": "node scripts/sync_sitemap_paths_to_worker.mjs",
     "check:pairdrift": "node scripts/check-topic-pair-drift.mjs",

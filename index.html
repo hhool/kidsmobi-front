@@ -6,20 +6,24 @@
     <!-- Fonts. This stylesheet used to be @import-ed from src/index.css, which
          put a third-party hop in front of every paint (bundle -> Google Fonts
          CSS -> font files). It is preloaded here and swapped in when it
-         arrives, so it never blocks the first paint. There is deliberately no
-         noscript fallback: a stylesheet link inside a noscript block is still
-         a stylesheet to the HTML parser, and the teardown audit counts it as a
-         render blocker.
-         scripts/prerender-pages.ts copies these three tags out of this file
-         into every prerendered page's head, so dev and production always load
-         the same fonts. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+         arrives, so it never blocks the first paint.
+         The stylesheet itself is now served from this origin instead of
+         fonts.googleapis.com. Measured on the throttled homepage: the third
+         party cost 465,802 bytes across seven requests and moved the Largest
+         Contentful Paint from 12,999 ms to 16,283 ms - not because of the
+         byte count, but because a second origin means a second connection
+         and bytes that cannot share the one the page is already using.
+         scripts/build-fonts.mjs mirrors the stylesheet and all 115 font files
+         into public/fonts/, changing the origin and nothing else: every rule
+         keeps its unicode-range and every file is byte-for-byte the file
+         Google served, so no glyph can render differently. The output is
+         committed, so the build never needs the network.
+         scripts/prerender-pages.ts copies this tag into every prerendered
+         page's head, so dev and production always load the same fonts. -->
     <link
       rel="preload"
       as="style"
-      crossorigin
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans+SC:wght@400;500;600;700;800;900&family=Outfit:wght@100..900&display=swap"
+      href="/fonts/fonts.css"
       onload="this.rel='stylesheet'"
     />
     <title>Best Kids Bikes, Scooters, Jogging Strollers & Cars | BalanceBikeToddler</title>

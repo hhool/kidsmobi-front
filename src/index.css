@@ -1,12 +1,20 @@
-/* The Google Fonts stylesheet is deliberately NOT @import-ed from here.
-   An @import inside the bundle opens a third-party chain - bundle ->
-   fonts.googleapis.com -> fonts.gstatic.com - and the first hop of that
-   chain is render-blocking: Lighthouse measured 1,743 ms wasted on it
-   (186 KB of @font-face rules for a page that needs a handful of subsets).
-   The document head now preconnects to Google Fonts and loads the very
-   same stylesheet non-blockingly (rel="preload" as="style" plus an onload
-   swap). index.html carries those tags; scripts/prerender-pages.ts copies
-   them into every prerendered page, so the two never drift. */
+/* The webfont stylesheet is deliberately NOT @import-ed from here.
+   An @import inside the bundle opens a chain - bundle -> stylesheet ->
+   font files - and the first hop of that chain is render-blocking:
+   Lighthouse measured 1,743 ms wasted on it.
+
+   The stylesheet is now served from this origin as well. It used to come
+   from fonts.googleapis.com, and the third party was not free: 465,802
+   bytes across seven requests, and a Largest Contentful Paint of 16,283
+   ms against 12,664 ms for the same bytes served locally. scripts/
+   build-fonts.mjs mirrors the stylesheet and all 115 font files into
+   public/fonts/, keeping every rule and every unicode-range exactly as
+   Google served them, so no glyph can render differently - only the
+   origin changes.
+
+   index.html preloads it non-blockingly (rel="preload" as="style" plus an
+   onload swap); scripts/prerender-pages.ts copies that tag into every
+   prerendered page, so the two never drift. */
 @import "tailwindcss";
 
 @layer utilities {

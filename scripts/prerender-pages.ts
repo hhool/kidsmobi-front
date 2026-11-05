@@ -1118,8 +1118,18 @@ function extractAppAssets(indexHtml: string, sourceIndexHtml: string): AppAssets
   }
 
   const preconnects = sourceLinks.filter((tag) => relOf(tag) === "preconnect");
+  // The font stylesheet preload, found by what it IS rather than by the host
+  // it happens to sit on. It used to be matched on "fonts.googleapis.com",
+  // which stopped being true when the stylesheet was mirrored onto this
+  // origin - and a filter that names a host is a filter that goes stale the
+  // day the fonts move again. In the source document this is the only
+  // stylesheet preload: the application's own stylesheet is added by Vite at
+  // build time and comes from `builtLinks`.
   const fontPreloads = sourceLinks.filter(
-    (tag) => relOf(tag) === "preload" && hrefOf(tag).includes("fonts.googleapis.com"),
+    (tag) =>
+      relOf(tag) === "preload" &&
+      (tag.match(/as="([^"]*)"/) || ["", ""])[1].toLowerCase() === "style" &&
+      hrefOf(tag).toLowerCase().endsWith(".css"),
   );
   const modulePreloads = builtLinks.filter((tag) => relOf(tag) === "modulepreload");
   const stylesheet = builtLinks.find((tag) => relOf(tag) === "stylesheet");
