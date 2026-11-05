@@ -76,10 +76,37 @@ for (const article of articles) {
     continue;
   }
 
-  // 2. a visible <img> with the same src
-  const heroRe = new RegExp(`<img[^>]+src="${cover.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`, "i");
-  if (!heroRe.test(html)) {
+  // 2. a visible <img> that shows that cover.
+  //
+  // The src is the cover itself, or a content-hashed derivative of it. The
+  // derived pipeline re-encodes covers to /images/derived/<hash>-N.webp and
+  // keeps the original in data-fallback; demanding the literal URL in src
+  // failed every page that gained a derivative even though the reader sees the
+  // same artwork. A derivative counts only when it names THIS cover as its
+  // fallback, and the file it points at has to be in the build.
+  const imgs = html.match(/<img\b[^>]*>/gi) || [];
+  const shows = imgs
+    .map((tag) => ({
+      src: (tag.match(/\bsrc="([^"]*)"/i) || [])[1] || "",
+      fallback: (tag.match(/\bdata-fallback="([^"]*)"/i) || [])[1] || "",
+    }))
+    .filter((img) => img.src === cover || img.fallback === cover);
+  if (shows.length === 0) {
     fail(article.route, `page body has no <img> for its og:image (${cover})`);
+  } else {
+    for (const img of shows) {
+      if (!img.src.startsWith("/")) continue;
+      const rel = decodeURIComponent(img.src.split(/[?#]/)[0]).replace(/^\/+/, "");
+      const abs = join(DIST, rel);
+      if (!existsSync(abs)) {
+        fail(article.route, `the cover image on the page was never shipped: ${img.src}`);
+      } else if (statSync(abs).size < MIN_BYTES) {
+        fail(
+          article.route,
+          `the cover image on the page is suspiciously small (${statSync(abs).size} bytes): ${img.src}`,
+        );
+      }
+    }
   }
 
   // 3. same-origin covers must resolve to a real file in this build

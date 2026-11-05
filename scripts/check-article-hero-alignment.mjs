@@ -102,10 +102,18 @@ for (const rel of ARTICLE_DIRS) {
         );
       }
       // The <img> inside the viewport: contain, and not a retired composite.
+      //
+      // "Inside" means "before the frame closes" — the viewport is a
+      // fixed-height frame whose only child is the cover. This used to read a
+      // fixed 600-character window, which was fine until the cover gained a
+      // derived srcset: the <img> tag alone is now ~610 characters, so the
+      // window cut the tag in half and every page looked coverless.
       const start = html.indexOf(tag);
-      const after = html.slice(start + tag.length, start + tag.length + 600);
-      const img = after.match(/<img[^>]*>/);
-      if (!img) {
+      const rest = html.slice(start + tag.length);
+      const img = rest.match(/<img\b[^>]*>/i);
+      const frameEnds = rest.indexOf("</div>");
+      const insideFrame = img && (frameEnds === -1 || img.index < frameEnds);
+      if (!insideFrame) {
         fail(relPath, "the article hero viewport carries no <img>");
         continue;
       }
