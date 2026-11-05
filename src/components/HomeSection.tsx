@@ -25,6 +25,18 @@ import Breadcrumbs from "./Breadcrumbs";
 import MatchingWizard from "./MatchingWizard";
 import { getPageCopy } from "../config/pageCopy";
 
+/** How long each hero slide stays on screen. Unchanged from the original. */
+const HERO_ROTATION_INTERVAL_MS = 5000;
+
+/**
+ * The longest the hero may wait for its own first paint before the carousel
+ * starts anyway. The ceiling exists so that a photograph that never arrives
+ * - a blocked host, a failed download - cannot freeze the hero on one slide
+ * for good. It is deliberately far beyond the moment the paint normally
+ * happens, because reaching it means the paint signal never arrived.
+ */
+const HERO_ROTATION_CEILING_MS = 10000;
+
 const KIDS_BIKE_CATEGORY_DEFAULT_IMAGE =
   "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg";
 const JOGGER_STROLLER_DEFAULT_IMAGE =
@@ -199,10 +211,82 @@ export default function HomeSection({
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentBgIndex((prev) => (prev + 1) % bgImages.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    // The rotation must not start before the hero has PAINTED, and that is a
+    // measured requirement rather than a taste call:
+    //
+    //   - the document preloads the FIRST slide's photograph, because that is
+    //     the one visible at first paint;
+    //   - the rotation used to run on a blind 5,000 ms timer counted from
+    //     mount. In the throttled Lighthouse run the photograph landed at
+    //     ~4,575 ms and the rotation fired at 5,000 ms, so the browser
+    //     painted the SECOND slide at ~6,602 ms - a file that was never
+    //     preloaded, discovered 956 ms late and 5,190 ms into its download.
+    //     Lighthouse's own lcp-discovery insight reported that resource as
+    //     "not discoverable in the initial document" and "no fetchpriority
+    //     hint", while the preload had been paid for a photograph that was
+    //     already on its way out;
+    //   - so the Largest Contentful Paint landed on a third-party file the
+    //     page never hinted, and the measurement moved with it: across six
+    //     runs the LCP element was the second slide twice out of three, and
+    //     removing the 465 KB of third-party font traffic - which was what
+    //     pushed the paint past the 5,000 ms mark - made it the first slide
+    //     six times out of six.
+    //
+    // The rotation now starts when the hero has been painted. The paint is
+    // reported by a largest-contentful-paint entry for an element inside the
+    // hero section - the same signal the metric itself uses, so the two can
+    // never disagree about which slide is on screen. A ceiling keeps the
+    // carousel alive if that entry never arrives (a failed image, or a
+    // browser that does not implement the observer).
+    //
+    // What this does NOT do, measured: it does not decide WHEN the Largest
+    // Contentful Paint happens. Paired round-by-round against a control with
+    // the hero served from this origin (batch h1-h4), the rotation that waits
+    // for the paint is +12 ms on the median LCP - noise. The rotation decides
+    // WHICH image the paint lands on, and that is where its value is: with
+    // the blind timer the preload was paid for a photograph that was already
+    // on its way out, and Lighthouse's lcp-discovery insight reported the
+    // image it actually painted as "not discoverable in the initial
+    // document" in four runs out of six; with the rotation waiting, five out
+    // of seven, and three out of three when the rotation never fires at all.
+    let timer: ReturnType<typeof setInterval> | undefined;
+    let observer: PerformanceObserver | undefined;
+
+    const start = () => {
+      if (timer !== undefined) return;
+      timer = setInterval(() => {
+        setCurrentBgIndex((prev) => (prev + 1) % bgImages.length);
+      }, HERO_ROTATION_INTERVAL_MS);
+    };
+
+    try {
+      observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          const element = (entry as LargestContentfulPaint).element;
+          if (element && element.closest("#home_banner_anchor")) {
+            start();
+            return;
+          }
+        }
+      });
+      // buffered: true replays the entries recorded before this observer
+      // existed, so a hero that painted before React's effect ran is not
+      // missed.
+      observer.observe({
+        type: "largest-contentful-paint",
+        buffered: true,
+      } as unknown as PerformanceObserverInit);
+    } catch {
+      observer = undefined;
+    }
+
+    const ceiling = setTimeout(start, HERO_ROTATION_CEILING_MS);
+
+    return () => {
+      clearTimeout(ceiling);
+      observer?.disconnect();
+      if (timer !== undefined) clearInterval(timer);
+    };
   }, [bgImages]);
 
   const openWizard = () => {
