@@ -132,6 +132,28 @@ export function amazonAffiliateUrl(
 }
 
 /**
+ * Insert a script when the browser has nothing better to do.
+ *
+ * `requestIdleCallback` is the honest signal: it fires when the main thread
+ * is idle, which is exactly the moment a third-party analytics file should
+ * not be competing with the page's own work. The timeout is a ceiling, not a
+ * delay - a page that never goes idle still gets its tag, and a tag missing
+ * for a reader who agreed would cost the measurement, which is a worse
+ * outcome than a late one.
+ */
+function loadWhenIdle(script: HTMLScriptElement): void {
+  const insert = () => {
+    if (script.parentNode) return;
+    document.head.appendChild(script);
+  };
+  if (typeof requestIdleCallback === "function") {
+    requestIdleCallback(insert, { timeout: 3000 });
+    return;
+  }
+  setTimeout(insert, 1);
+}
+
+/**
  * Load gtag.js for a measurement id.
  *
  * The function does not decide whether the reader may be tracked - the
@@ -157,6 +179,7 @@ export function amazonAffiliateUrl(
  * `async` on the loader: a slow or blocked Google endpoint must not hold up
  * the page, and the site's own content is what matters first.
  */
+
 export function loadGoogleAnalyticsScript(
   measurementId: string,
   initial?: ConsentSignals,
@@ -180,11 +203,26 @@ export function loadGoogleAnalyticsScript(
   if (initial) pushGoogleConsent("update", initial);
 
   // 3. The tag.
+  //
+  // The tag is 181,055 bytes of JavaScript from a third party, and it was
+  // still downloading inside the window where the homepage's photograph and
+  // the product data were competing for the same connection - a measured
+  // request at 2,094 ms, finishing at 2,288 ms, while the hero's own file
+  // was still in flight until 4,575 ms. It also cost 114 ms of main-thread
+  // time, more than our own entry bundle. So it is loaded when the browser
+  // says it is idle rather than while the page is still working.
+  //
+  // What does NOT move is the consent. Both commands above are queued
+  // BEFORE the tag is asked for, and the dataLayer holds them until gtag.js
+  // arrives and reads the queue on load. A reader who already agreed
+  // therefore still gets a full measurement - and because `config` is
+  // queued with this moment's timestamp, the pageview is still attributed
+  // to the moment the page was ready, not to the moment the tag woke up.
   const script = document.createElement("script");
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
   script.dataset.googleAnalytics = id;
-  document.head.appendChild(script);
+  loadWhenIdle(script);
 
   // 4. The two standard commands. They go through the same stub, so they
   //    reach the queue in the shape Google reads.
