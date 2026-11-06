@@ -472,6 +472,38 @@ async function capture(browser, url, viewport, outDir, name) {
   // hero from the first byte.
   await page.waitForSelector("#home_banner_anchor", { state: "attached", timeout: 45000 });
   await page.evaluate(() => (document.fonts ? document.fonts.ready : Promise.resolve()));
+  // Loaded is not painted. The card images carry loading="lazy" and
+  // decoding="async", so networkidle says the bytes arrived while the bitmap
+  // can still be undecoded - and a full-page capture of a 7,654 px document is
+  // taken from that state. Measured 2026-11-06: the delivered document's 26
+  // card images came out blank against the SPA's painted ones, which read as
+  // 1.649% of pixels differing (desktop) and 0.454% (mobile) on two pages with
+  // identical heights (7654/7654, 19378/19378), identical text positions and
+  // the same image count. That is the capture timing, not the design, and it
+  // sets a noise floor high enough to hide a real layout drift underneath it.
+  //
+  // Walk the page so every lazy image actually starts, come back to the top,
+  // then decode. A lazy image below the viewport has not begun, and decode()
+  // on one of those never settles - the first version of this waited four
+  // minutes before it was killed. The per-image cap keeps a broken resource
+  // from hanging the gate instead of failing it.
+  await page.evaluate(async () => {
+    const step = window.innerHeight;
+    for (let y = 0; y < document.body.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 120));
+    }
+    window.scrollTo(0, 0);
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    await Promise.all(
+      Array.from(document.images).map((img) =>
+        Promise.race([
+          img.decode ? img.decode().catch(() => {}) : Promise.resolve(),
+          new Promise((resolve) => setTimeout(resolve, 5000)),
+        ]),
+      ),
+    );
+  });
   // The static homepage used to keep the sections below the hero out of
   // layout (`content-visibility: auto` + `contain-intrinsic-size: auto
   // 800px`), on the belief that laying out the whole document before the
