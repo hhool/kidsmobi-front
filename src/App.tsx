@@ -787,6 +787,21 @@ const shouldNoIndexCurrentPath = (path: string, search: string, hostname?: strin
   return nonIndexParams.some((key) => params.has(key));
 };
 
+// True when the document the crawler received is a fully prerendered product
+// detail page (the prerender emits a Product JSON-LD block; the SPA shell does
+// not). Captured once at module load, before any effect can remove JSON-LD.
+// A genuine soft 404 (an unknown URL served through the catch-all) must still
+// get noindex; only a delivered, indexable product page gets fail-open while
+// its catalogue is loading.
+const DELIVERED_PRODUCT_DETAIL = (() => {
+  try {
+    return [...document.querySelectorAll('script[type="application/ld+json"]')]
+      .some((node) => /"@type"\s*:\s*"Product"/.test(node.textContent || ""));
+  } catch {
+    return false;
+  }
+})();
+
 const safeStorageGet = (key: string): string | null => {
   try {
     return window.localStorage.getItem(key);
@@ -2850,6 +2865,16 @@ export default function App() {
           "article",
         );
       } else {
+        // The delivered HTML already ships a complete, indexable product page.
+        // During hydration productsData is still empty while the CMS catalogue
+        // is in flight; treating that as "unknown product" wrote noindex,nofollow
+        // into the rendered DOM for 10+ seconds, and GSC's live test snapshotted
+        // exactly that state (measured 2026-11-07: title "Product Not Found",
+        // robots noindex,nofollow from 2.2s to 12.8s after navigation).
+        // Only a settled, non-empty catalogue can prove an id is genuinely absent.
+        // Until then leave the delivered head untouched: a failed/slow fetch must
+        // never downgrade an indexable page to a soft 404.
+        if (productsData.length === 0 && DELIVERED_PRODUCT_DETAIL) return;
         // Unknown product id under /products/<id>: self-canonical + noindex
         // so the empty detail view is not indexed as thin/duplicate content.
         const missingCanonicalOrigin =
