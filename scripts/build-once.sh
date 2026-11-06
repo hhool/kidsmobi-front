@@ -27,6 +27,13 @@ cd "$ROOT"
 export NAPI_RS_FORCE_WASI=true
 export CODEBUDDY_SAFE_DELETE_ENABLED=0
 
+# `npm run build` starts here. The subset file is committed and the script is
+# idempotent (verified 2026-11-06: re-running leaves public/fonts/fonts-latin.css
+# byte-identical), so this step changes nothing today -- but a build script that
+# skips a step of the real build is only equal to it by accident.
+echo "=== build $LABEL: font subset ==="
+node scripts/build-font-subset.mjs
+
 echo "=== build $LABEL: vite ==="
 node node_modules/vite/bin/vite.js build
 
