@@ -1,4 +1,14 @@
+import { normalizeEntityGraph } from "./entityGraph";
+
 const JSON_LD_ATTR = "data-seo-jsonld-key";
+
+/**
+ * The prerendered document already carries the canonical Organization at the
+ * top of the head, and `dropPrerenderedDuplicates` keeps the SPA from adding a
+ * second one. That covers prerendered routes only: a route the prerender does
+ * not know still has to describe the entity itself, and it must describe it with
+ * the same `@id` or the site gets filed under two entities.
+ */
 
 type CollectionPageInput = {
   name: string;
@@ -131,7 +141,7 @@ export function setJsonLd(key: string, schemas: Record<string, unknown> | Array<
     const script = document.createElement("script");
     script.type = "application/ld+json";
     script.setAttribute(JSON_LD_ATTR, key);
-    script.text = JSON.stringify(schema);
+    script.text = JSON.stringify(normalizeEntityGraph(schema));
     document.head.appendChild(script);
   }
 }

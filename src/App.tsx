@@ -183,6 +183,7 @@ import {
   type CookieConsentChoice,
 } from "./lib/consentState";
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
+import { normalizeEntityGraph } from "./lib/entityGraph";
 import { setReferenceClusterConfig, CLUSTER_HEADINGS } from "./lib/referenceCluster";
 import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
@@ -2598,7 +2599,9 @@ export default function App() {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.setAttribute("data-seo-jsonld", "true");
-      script.text = JSON.stringify(schema);
+      // Same canonical entity as the prerendered document: a route the
+      // prerender does not know must not file the site under a second name.
+      script.text = JSON.stringify(normalizeEntityGraph(schema));
       document.head.appendChild(script);
     }
   };

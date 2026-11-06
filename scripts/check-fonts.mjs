@@ -140,6 +140,20 @@ function htmlFiles(dir) {
   return out;
 }
 
+/**
+ * A JSON-LD block is data for crawlers: it is never rendered, never fetched,
+ * and cannot change which font paints a glyph. Dropping it before comparing a
+ * built page with its public source keeps the "dependency-free page" exception
+ * about FONTS, which is what this guard protects, instead of about the build
+ * having touched the file at all.
+ *
+ * Only this one shape is dropped. Any other difference — a style, a class, a
+ * character — still fails the comparison.
+ */
+function stripJsonLd(html) {
+  return html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '');
+}
+
 /** The sha256 of every HTML file in public/, keyed by its path below public/. */
 function publicHtmlHashes() {
   const base = path.join(ROOT, 'public');
@@ -150,7 +164,7 @@ function publicHtmlHashes() {
       if (entry.isDirectory()) walk(full);
       else if (entry.name.endsWith('.html')) {
         const key = path.relative(base, full).split(path.sep).join('/');
-        map.set(key, sha256(readFileSync(full, 'utf8')));
+        map.set(key, sha256(stripJsonLd(readFileSync(full, 'utf8'))));
       }
     }
   };
@@ -165,14 +179,23 @@ function publicHtmlHashes() {
  * character it uses is covered by a rule whose file was mirrored.
  *
  * The ONE exception is a page that is a VERBATIM copy of a file in public/ -
- * the same bytes, the same sha256. That is public/404.html, which Cloudflare
- * Pages serves for any unmatched route and which is written to be
- * dependency-free: it renders without executing the JavaScript bundle and
- * without asking for a stylesheet, and it uses the system font.
+ * the same bytes, the same sha256, ignoring JSON-LD blocks. That is
+ * public/404.html, which Cloudflare Pages serves for any unmatched route and
+ * which is written to be dependency-free: it renders without executing the
+ * JavaScript bundle and without asking for a stylesheet, and it uses the system
+ * font.
+ *
+ * "Ignoring JSON-LD" is not a hole in that rule. The prerender now stamps the
+ * entity graph into every document, the 404 included, and a
+ * `<script type="application/ld+json">` block is data for crawlers: nothing in
+ * it is painted, fetched, or measured. Comparing the two files with those
+ * blocks removed keeps the question this guard asks ("does this page depend on
+ * a font it does not ship?") about fonts. Every other difference still fails,
+ * which the self-test asserts in both directions.
  *
  * A prerendered page can never qualify this way, because its bytes differ
- * from the source in public/ - so the exception cannot be used to excuse a
- * page the generator produced.
+ * from the source in public/ by far more than a data block - so the exception
+ * cannot be used to excuse a page the generator produced.
  *
  * A qualifying page must ALSO declare a system font stack and must not
  * reference a font resource at all - neither the local stylesheet nor a
@@ -217,7 +240,7 @@ export function classifyFontPage({ html, distRelPath, publicHashes }) {
     return { verdict: problems.length ? 'invalid' : 'inline', problems, thirdParty };
   }
 
-  if (publicHashes.get(distRelPath) !== sha256(html)) {
+  if (publicHashes.get(distRelPath) !== sha256(stripJsonLd(html))) {
     problems.push(
       `${distRelPath} does not load /fonts/fonts.css and is not a verbatim copy of a file in public/`,
     );
@@ -469,6 +492,36 @@ function selfTest() {
   say(
     preRendered.verdict === 'invalid',
     'the exception cannot be used to excuse a prerendered page',
+  );
+
+  const stamped = classifyFontPage({
+    html: systemFontPage.replace(
+      '</head>',
+      '<script type="application/ld+json">{"@type":"Organization"}</script></head>',
+    ),
+    distRelPath: '404.html',
+    publicHashes,
+  });
+  say(
+    stamped.verdict === 'exception' && stamped.problems.length === 0,
+    'a data block the build added does not turn a dependency-free page into a font problem',
+  );
+
+  // The other direction, so the exemption is still narrow: the same page with
+  // one character changed is not the same page.
+  const stampedAndEdited = classifyFontPage({
+    html: systemFontPage
+      .replace(
+        '</head>',
+        '<script type="application/ld+json">{"@type":"Organization"}</script></head>',
+      )
+      .replace('404', '405'),
+    distRelPath: '404.html',
+    publicHashes,
+  });
+  say(
+    stampedAndEdited.verdict === 'invalid',
+    'a page that also changed its content cannot hide behind an added data block',
   );
 
   // The inline path: the static homepage declares the mirror's faces in the

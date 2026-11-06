@@ -210,12 +210,104 @@ for (const file of walk(DIST)) {
   }
 }
 
+// --- Entity graph (R-928) ---------------------------------------------------
+//
+// Every page must file the site under ONE entity, and that entity has to be the
+// first Organization on the page: the audit reads the first Organization and
+// its first @id, so a citation that happens to precede ours would become the
+// entity the site is filed under. src/lib/entityGraph.ts is what produces this;
+// these are the literals it produces, repeated here on purpose — if the module
+// ever renames the id, this guard fails instead of quietly agreeing with it.
+const CANONICAL_ORG_ID = "https://balancebiketoddler.com/#organization";
+const DESK_ORG_ID = "https://balancebiketoddler.com/#editorial-desk";
+const ORGANIZATION_NAME = "BalanceBikeToddler";
+
+/** Every Organization node on the page, in document order, nested ones included. */
+function collectOrganizations(node, out = []) {
+  if (!node || typeof node !== "object") return out;
+  if (Array.isArray(node)) {
+    for (const item of node) collectOrganizations(item, out);
+    return out;
+  }
+  const types = Array.isArray(node["@type"]) ? node["@type"] : [node["@type"]];
+  if (types.includes("Organization")) out.push(node);
+  for (const value of Object.values(node)) {
+    if (value && typeof value === "object") collectOrganizations(value, out);
+  }
+  return out;
+}
+
+let entityPages = 0;
+let entityTotal = 0;
+for (const file of walk(DIST)) {
+  const where = rel(file);
+  const html = readFileSync(file, "utf8");
+  entityTotal += 1;
+  const firstBlock = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  if (!firstBlock) {
+    fail(where, "no JSON-LD at all — the entity graph reaches every page");
+    continue;
+  }
+
+  let first;
+  try {
+    const parsed = JSON.parse(firstBlock[1]);
+    first = Array.isArray(parsed) ? parsed[0] : parsed;
+  } catch {
+    fail(where, "the first JSON-LD block is not valid JSON");
+    continue;
+  }
+  if (!first || first["@type"] !== "Organization" || first["@id"] !== CANONICAL_ORG_ID) {
+    fail(
+      where,
+      `the first JSON-LD node is ${JSON.stringify(first?.["@type"])} / ${JSON.stringify(first?.["@id"])} — ` +
+        "the site Organization has to lead the page",
+    );
+  } else {
+    entityPages += 1;
+  }
+
+  const organizations = collectOrganizations(jsonLdObjects(html));
+  const described = organizations.filter((node) => node["@id"] === CANONICAL_ORG_ID);
+  if (described.length !== 1) {
+    fail(where, `${described.length} descriptions of ${CANONICAL_ORG_ID} — the entity is described once and referenced elsewhere`);
+  }
+  // A node that names the site but carries a different identity is the exact
+  // drift R-928 is about: two graphs for one operator.
+  for (const node of organizations) {
+    if (node.name !== ORGANIZATION_NAME || node["@id"] === CANONICAL_ORG_ID) continue;
+    fail(where, `an Organization names "${ORGANIZATION_NAME}" but carries @id ${JSON.stringify(node["@id"])}`);
+  }
+  for (const node of organizations) {
+    if (node["@id"] !== DESK_ORG_ID) continue;
+    if (typeof node.url !== "string" || !node.parentOrganization) {
+      fail(where, "the editorial desk is a bare name — give it a url and a parentOrganization");
+    }
+  }
+  // The desk is a team. Dressing it as a Person would be the one claim this
+  // site's transparency page promises never to make.
+  for (const node of jsonLdObjects(html)) {
+    const walkPersons = (value) => {
+      if (!value || typeof value !== "object") return;
+      if (Array.isArray(value)) return value.forEach(walkPersons);
+      if (value["@type"] === "Person" && /editorial team/i.test(String(value.name || ""))) {
+        fail(where, "the editorial team is marked up as a Person — name a real person or keep it an Organization");
+      }
+      Object.values(value).forEach(walkPersons);
+    };
+    walkPersons(node);
+  }
+}
+
 const ok = problems.length === 0;
 console.log(
   JSON.stringify(
     {
       ok,
       pagesChecked,
+      entityPages,
+      entityTotal,
+      entityId: CANONICAL_ORG_ID,
       families: FAMILIES.map((f) => f.url),
       sameAs: [...sameAsSeen].sort(),
       officialX,

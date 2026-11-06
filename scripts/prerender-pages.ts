@@ -1,5 +1,5 @@
 import { readFile, writeFile, mkdir, rm } from "fs/promises";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import path from "path";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
@@ -7,6 +7,7 @@ import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
 import { applyResponsiveImagesToHtml } from "../src/lib/responsiveImages";
 import { applyFirstPaintToHtml } from "../src/lib/firstPaint";
+import { applyEntityGraphToHtml, SITE_SAME_AS } from "../src/lib/entityGraph";
 import { HERO_BG_IMAGES } from "../src/lib/heroImages";
 import {
   amazonAffiliateUrl,
@@ -354,18 +355,20 @@ function escapeHtml(value: string): string {
 const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
 
 /**
- * Real profiles the site claims in Organization.sameAs. Kept in ONE place: the
- * same array used to be copy-pasted into six renderers, so a handle correction
- * had to be repeated six times and the X handle drifted (bbtreviews in the SPA
- * vs BalanceBikeToddler in the prerender). Confirmed by the owner 2026-11-03:
- * the X account is https://x.com/bbtreviews. Only add URLs that resolve to a
- * profile — a platform root is worse than no sameAs at all.
+ * Real profiles the site claims in Organization.sameAs. Kept in ONE place:
+ * the same array used to be copy-pasted into six renderers, so a handle
+ * correction had to be repeated six times and the X handle drifted (bbtreviews
+ * in the SPA vs BalanceBikeToddler in the prerender). Confirmed by the owner
+ * 2026-11-03: the X account is https://x.com/bbtreviews. Only add URLs that
+ * resolve to a profile — a platform root is worse than no sameAs at all.
  * Guard: npm run check:jsonld.
+ *
+ * The array itself now lives in src/lib/entityGraph.ts so the SPA and this
+ * renderer cannot hold different sets, and `applyEntityGraphToHtml` rewrites
+ * every Organization node to that one set on the way out. Anything added here
+ * still flows into the templates; the pass is what makes it uniform.
  */
-const ENTITY_SAME_AS: string[] = [
-  "https://www.youtube.com/@kidsmobi",
-  "https://x.com/bbtreviews",
-];
+const ENTITY_SAME_AS: string[] = SITE_SAME_AS;
 
 /**
  * Characters that are illegal in a URL path but reach us verbatim in a few CMS
@@ -8633,9 +8636,11 @@ async function main() {
     // Variant B: keep the prerendered first screen visible until the SPA has
     // its real content. One hook here covers every template, so no page can
     // ship without the cover and none can get it twice.
-    const html = applyFirstPaintToHtml(
-      applyResponsiveImagesToHtml(
-        sanitizeUnsupportedClaims(renderDocument(page, appAssets)),
+    const html = applyEntityGraphToHtml(
+      applyFirstPaintToHtml(
+        applyResponsiveImagesToHtml(
+          sanitizeUnsupportedClaims(renderDocument(page, appAssets)),
+        ),
       ),
     );
     const routeName = page.route.replace(/^\//, "");
@@ -8652,6 +8657,17 @@ async function main() {
         : path.join(distDir, `${routeName}.html`);
     await mkdir(path.dirname(outFile), { recursive: true });
     await writeFile(outFile, html, "utf8");
+  }
+
+  // public/ is copied verbatim by vite, so the one document that never passes
+  // through the loop above is 404.html. It is still a page a crawler can land
+  // on — and the one page served at arbitrary URLs while a reader is lost — so
+  // it answers "who is this" with the same entity as everything else.
+  const notFoundPath = path.join(distDir, "404.html");
+  if (existsSync(notFoundPath)) {
+    const before = await readFile(notFoundPath, "utf8");
+    const after = applyEntityGraphToHtml(before);
+    if (after !== before) await writeFile(notFoundPath, after, "utf8");
   }
 
   // Full sitemap.xml (R42): public/sitemap.xml was a 6-URL stub. Generate the

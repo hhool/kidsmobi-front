@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "npm run build:fonts:subset && vite build && mkdir -p .runs/home-ssr .runs/server && cp dist/index.html .runs/home-ssr/spa-shell.html && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=.runs/server/server.cjs && npx tsx scripts/prerender-pages.ts && npm run build:home",
+    "build": "npm run build:fonts:subset && vite build && mkdir -p .runs/home-ssr .runs/server && cp dist/index.html .runs/home-ssr/spa-shell.html && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=.runs/server/server.cjs && npx tsx scripts/prerender-pages.ts && npm run build:home && node scripts/stamp-llms.mjs",
     "build:home": "bash scripts/build-home.sh",
     "favicons:generate": "node scripts/generate-favicons.mjs",
     "check:favicons": "node scripts/check-favicons.mjs",
@@ -119,7 +119,10 @@
     "data:strollers": "node scripts/fetch_stroller_data.mjs",
     "check:guidetext": "npx tsx scripts/check-guide-sanitize-links.ts",
     "check:tdk": "python3 scripts/audit-tdk.py --sitemap https://balancebiketoddler.com/sitemap.xml --no-robots --workers 8 --fail-on-problem",
-    "build:fonts:subset": "node scripts/build-font-subset.mjs"
+    "build:fonts:subset": "node scripts/build-font-subset.mjs",
+    "stamp:llms": "node scripts/stamp-llms.mjs",
+    "check:llms": "node scripts/stamp-llms.mjs --check && node scripts/stamp-llms.mjs --self-test",
+    "check:entitygraph": "npx tsx scripts/check-entity-graph.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1073.0",
