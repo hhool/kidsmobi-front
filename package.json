@@ -55,6 +55,8 @@
     "m3:preflight:official": "node scripts/m3_official_token_gate_check.mjs",
     "m3:snapshot": "node scripts/m3_generate_decision_snapshot.mjs",
     "seo:check": "node scripts/check-seo-assets.mjs",
+    "seo:category-links": "node scripts/seo/gen-category-links.mjs",
+    "seo:category-links:check": "node scripts/seo/gen-category-links.mjs --selftest",
     "check:reviewcounts": "node scripts/check-review-counts.mjs",
     "check:content": "node scripts/check-prerender-content.mjs",
     "check:links": "node scripts/check-internal-links.mjs",
