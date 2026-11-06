@@ -86,7 +86,7 @@ function idFromSettings(payload) {
  */
 async function openPage(context) {
   const page = await context.newPage();
-  const state = { gaRequests: [], collectRequests: [], configuredId: '', settingsReady: null };
+  const state = { gaRequests: [], collectRequests: [], configuredId: '', settingsReady: null, page };
   let markSettingsReady = () => {};
   state.settingsReady = new Promise((resolve) => {
     markSettingsReady = resolve;
@@ -121,6 +121,21 @@ async function waitForSettings(state, ms = 15000) {
     state.settingsReady,
     new Promise((resolve) => setTimeout(resolve, ms)),
   ]);
+  if (state.configuredId || !state.page) return;
+  // The homepage ships as a document and never mounts the SPA, so it makes no
+  // /api/cms/settings request at all. The id is still there - baked into the
+  // beacon element by the builder, which is where analytics-boot.js reads it -
+  // and without this fallback the probe reports "no measurement id is
+  // configured" on a page that carries one.
+  try {
+    const id = await state.page.evaluate(
+      () => document.querySelector('script[src*="analytics-boot.js"]')?.getAttribute('data-ga') || '',
+    );
+    if (id) state.configuredId = id;
+  } catch {
+    // The page closed or is navigating; the id stays unknown, which the caller
+    // already reports as a note.
+  }
 }
 
 /** What the DOM says about the analytics script. */
@@ -365,7 +380,15 @@ let tagRuns = false;
       JSON.stringify({ essential: true, analytics: true, functional: true, consentChoice: 'all' }),
     );
   });
-  await page.reload({ waitUntil: 'load', timeout: 45000 });
+  // domcontentloaded, not load -- same as the goto above, and for the same
+  // reason: what this scenario grades is the consent command handed to the tag,
+  // a dataLayer fact. `load` also waits for subresources, and a granted state
+  // makes the tag fire its GA4 collect as an image request. On a network where
+  // google-analytics.com does not answer, that request never completes, `load`
+  // never fires, and the probe dies on a timeout after printing nothing --
+  // reading a blocked beacon as a consent defect. The settle budget below is
+  // what actually gives the page time to configure itself.
+  await page.reload({ waitUntil: 'domcontentloaded', timeout: 45000 });
   await waitForSettings(state);
   await page.waitForTimeout(3500);
   const log = await page.evaluate(CONSENT_LOG);
