@@ -275,6 +275,12 @@ export function AssetPage({
         {children}
 
         <footer className="space-y-3 border-t border-slate-200 pt-8">
+          <p className="byline text-sm text-slate-500">
+            Content by{" "}
+            <a href="/transparency/editorial-team/" className="text-orange-600 hover:underline">
+              BalanceBikeToddler Editorial Team
+            </a>
+          </p>
           <h2 className="text-sm font-black uppercase tracking-[0.16em] text-slate-500">
             {provenance.title}
           </h2>

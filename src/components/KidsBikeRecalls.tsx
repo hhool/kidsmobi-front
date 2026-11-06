@@ -323,6 +323,12 @@ export default function KidsBikeRecalls({ lang = "en" }: Props) {
           heading={t.clusterTitle}
         />
         <footer className="border-t border-slate-200 pt-6 text-[11px] text-slate-400 leading-6">
+          <p className="byline text-[11px] text-slate-400">
+            {lang === "zh" ? "内容由" : "Content by"}{" "}
+            <a href="/transparency/editorial-team/" className="text-orange-600 hover:underline">
+              {lang === "zh" ? "BalanceBikeToddler 编辑团队" : "BalanceBikeToddler Editorial Team"}
+            </a>
+          </p>
           {t.sourceLabel}: {kidsRecallCoverage.name} ·{" "}
           <a href={kidsRecallCoverage.publisher} className="hover:underline">
             {kidsRecallCoverage.publisher}

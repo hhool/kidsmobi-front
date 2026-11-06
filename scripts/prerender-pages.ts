@@ -724,6 +724,7 @@ function renderSiteFooter(route: string): string {
         <p style="margin:0 0 4px;">${articleLinks.map(link).join("")}</p>
         <p style="margin:0;">${trustLinks.map(link).join("")}</p>
         <p style="margin:10px 0 0;color:#64748b;">${copyright}</p>
+        <p class="byline" style="margin:6px 0 0;color:#64748b;">${zh ? "内容由" : "Content by"} <a href="/transparency/editorial-team/" style="color:#c2410c;text-decoration:none;">${zh ? "BalanceBikeToddler 编辑团队" : "BalanceBikeToddler Editorial Team"}</a></p>
       </footer>
   `;
 }

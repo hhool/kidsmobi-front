@@ -164,6 +164,12 @@ export function BalanceBikeSizing({ lang = "en" }: BalanceBikeSizingProps) {
 
         <ReferenceClusterNav currentPath={SIZING_PATH} lang={lang} />
         <footer className="border-t border-slate-200 pt-6 text-xs text-slate-400 leading-6">
+          <p className="byline text-xs text-slate-400">
+            {lang === "zh" ? "内容由" : "Content by"}{" "}
+            <a href="/transparency/editorial-team/" className="text-orange-600 hover:underline">
+              {lang === "zh" ? "BalanceBikeToddler 编辑团队" : "BalanceBikeToddler Editorial Team"}
+            </a>
+          </p>
           {lang === "zh" ? "数据来源" : "Source"}: {d.source.name} ({d.source.exportFile}) ·{" "}
           {t.retrievedLabel.toLowerCase()}: {d.source.retrievedAt}
         </footer>
