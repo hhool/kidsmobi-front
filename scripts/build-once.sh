@@ -30,8 +30,19 @@ export CODEBUDDY_SAFE_DELETE_ENABLED=0
 echo "=== build $LABEL: vite ==="
 node node_modules/vite/bin/vite.js build
 
+# `npm run build` keeps the vite shell before the prerender overwrites it, and
+# finishes by replacing index.html with the static homepage. Both steps were
+# missing here until 2026-11-06, which made this script produce a dist whose
+# index.html was the prerender's SPA shell (30 KB) instead of the shipped
+# document (201 KB) - reproducible, but reproducible of the wrong artifact.
+mkdir -p .runs/home-ssr
+cp dist/index.html .runs/home-ssr/spa-shell.html
+
 echo "=== build $LABEL: prerender ==="
 node node_modules/tsx/dist/cli.mjs scripts/prerender-pages.ts
+
+echo "=== build $LABEL: static home ==="
+bash scripts/build-home.sh
 
 echo "=== build $LABEL: manifest ==="
 mkdir -p .runs
