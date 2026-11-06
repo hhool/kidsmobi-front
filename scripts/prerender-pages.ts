@@ -1426,7 +1426,7 @@ const ZH_ARTICLE_LABELS = {
  */
 function renderZhHub(
   kind: "guides" | "news",
-  items: Array<{ title: string; summary: string; meta: string; path: string; image: string }>,
+  items: Array<{ title: string; summary: string; meta: string; path: string; image: string; mod?: string }>,
 ): RoutePage {
   const isGuides = kind === "guides";
   const enRoute = isGuides ? "/guides" : "/news";
@@ -1451,6 +1451,29 @@ function renderZhHub(
         </section>`,
     )
     .join("");
+
+  // The hub date follows the cards it lists: datePublished from the oldest
+  // publication the cards print, dateModified from the newest last write they
+  // carry (`item.mod`). Taking items[0] and items[last] made both depend on
+  // card order instead: on 2026-11-06 /zh/guides said 2026-10-24 while one of
+  // its own cards had been rewritten on 2026-10-27.
+  const hubCardDates = items
+    .flatMap((item) => String(item.meta || "").match(/\d{4}-\d{2}-\d{2}/g) || [])
+    .sort();
+  const hubModDates = items
+    .map(
+      (item) =>
+        (String(item.mod || "").match(/\d{4}-\d{2}-\d{2}/) || [])[0] ||
+        (String(item.meta || "").match(/\d{4}-\d{2}-\d{2}/g) || []).slice(-1)[0],
+    )
+    .filter((stamp): stamp is string => Boolean(stamp))
+    .sort();
+  const hubDates = hubCardDates.length
+    ? {
+        published: hubCardDates[0],
+        modified: hubModDates.length ? hubModDates[hubModDates.length - 1] : hubCardDates[hubCardDates.length - 1],
+      }
+    : { published: FALLBACK_PAGE_DATE, modified: FALLBACK_PAGE_DATE };
 
   return {
     route,
@@ -1482,8 +1505,8 @@ function renderZhHub(
         description: intro.slice(0, 155),
         inLanguage: "zh-CN",
         author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
-        datePublished: items.length ? items[items.length - 1].meta.slice(-10) : undefined,
-        dateModified: items.length ? items[0].meta.slice(-10) : undefined,
+        datePublished: hubDates.published,
+        dateModified: hubDates.modified,
         mainEntity: {
           "@type": "ItemList",
           numberOfItems: items.length,
@@ -2074,6 +2097,12 @@ function renderGuideDetailPage(
   const channelId = zh ? null : guideChannelPageId(topic);
   const channelHref = channelId ? `/guides/${channelId}` : null;
   const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
+  // dateModified is the CMS last write, not the publication date. `published`
+  // above prefers publishedAt, so using it for dateModified understated every
+  // page the CMS had edited after publication: 114 of them on 2026-11-06
+  // (audit item 19, median 4 days, max 12). The Review builder below has
+  // always read updatedAt first; this is the same rule, not a new one.
+  const modified = pickText(guide.updatedAt, guide.publishedAt).slice(0, 10) || published;
   const url = `${PUBLIC_SITE_BASE}${route}`;
   const rawImage = pickText(guide.imageUrl);
   const image = toPublicImageUrl(rawImage);
@@ -2107,7 +2136,7 @@ function renderGuideDetailPage(
       mainEntityOfPage: url,
       inLanguage: zh ? "zh-CN" : "en",
       datePublished: published,
-      dateModified: published,
+      dateModified: modified,
       articleSection: topicLabel,
       ...(image ? { image: [image] } : {}),
       author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
@@ -2204,6 +2233,8 @@ function renderNewsDetailPage(
   const channelHref =
     !zh && NEWS_CHANNEL_PAGE_SLUGS.includes(channel) ? `/news/${channel}` : null;
   const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
+  // Same rule as the guide Article above: dateModified is the CMS last write.
+  const modified = pickText(item.updatedAt, item.publishedAt).slice(0, 10) || published;
   const url = `${PUBLIC_SITE_BASE}${route}`;
   const rawImage = pickText(item.imageUrl);
   const image = toPublicImageUrl(rawImage);
@@ -2237,7 +2268,7 @@ function renderNewsDetailPage(
       mainEntityOfPage: url,
       inLanguage: zh ? "zh-CN" : "en",
       datePublished: published,
-      dateModified: published,
+      dateModified: modified,
       articleSection: channelLabel,
       ...(image ? { image: [image] } : {}),
       author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
@@ -3204,7 +3235,11 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
  * families must stay in lockstep with guideTopicCategory(), newsRoutePath()
  * and evaluationRoutePath() above, and with the Worker's deriveContentPath().
  */
-type FilterCard = { title: string; summary: string; meta: string; path: string; image?: string; fit?: "cover" | "contain" };
+// `mod` carries the member's last write so a listing can date itself by the
+// newest thing it shows (deriveListingDates does this for the hubs). `meta` is
+// display text and ends in the publication date, which is the wrong field for
+// a page-level dateModified.
+type FilterCard = { title: string; summary: string; meta: string; path: string; mod?: string; image?: string; fit?: "cover" | "contain" };
 
 type FilterPageConfig = {
   route: string;
@@ -3312,11 +3347,26 @@ function filterListSchemas(
 ): Array<Record<string, unknown>> {
   // Channel pages carry each item's date inside its card meta ("topic · 2026-10-24"),
   // so the page dates follow the content instead of a hardcoded constant.
+  // `card.mod` is the member's last write and drives dateModified; the date
+  // printed in `meta` is the publication date, which is the wrong field for a
+  // page-level "when did this change". Cards without `mod` fall back to what
+  // they print, so a new card builder cannot silently lose the distinction.
   const cardDates = cards
     .flatMap((card) => String(card.meta || "").match(/\d{4}-\d{2}-\d{2}/g) || [])
     .sort();
+  const modDates = cards
+    .map(
+      (card) =>
+        (String(card.mod || "").match(/\d{4}-\d{2}-\d{2}/) || [])[0] ||
+        (String(card.meta || "").match(/\d{4}-\d{2}-\d{2}/g) || []).slice(-1)[0],
+    )
+    .filter((stamp): stamp is string => Boolean(stamp))
+    .sort();
   const pageDates = cardDates.length
-    ? { published: cardDates[0], modified: cardDates[cardDates.length - 1] }
+    ? {
+        published: cardDates[0],
+        modified: modDates.length ? modDates[modDates.length - 1] : cardDates[cardDates.length - 1],
+      }
     : { published: FALLBACK_PAGE_DATE, modified: FALLBACK_PAGE_DATE };
   return [
     {
@@ -3432,6 +3482,7 @@ function renderFilterPages(
           title: pickText(guide.en?.title, guide.zh?.title, guide.id),
           summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
           meta: `${topic.replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
+          mod: isoDay(guide.updatedAt) || isoDay(guide.publishedAt) || FALLBACK_PAGE_DATE,
           path: route,
           image: toPublicImageUrl(pickText(guide.imageUrl)),
           fit: "contain" as const,
@@ -3447,6 +3498,7 @@ function renderFilterPages(
           title: pickText(item.en?.title, item.zh?.title, item.id),
           summary: pickText(item.en?.verdict, item.zh?.verdict, "Independent review with source-based scores.").slice(0, 140),
           meta: `${reviewType} review · ${pickText(item.updatedAt, item.publishedAt).slice(0, 10) || "2026"}`,
+          mod: pickText(item.updatedAt, item.publishedAt).slice(0, 10) || undefined,
           path: route,
           image: toPublicImageUrl(pickText(item.imageUrl)),
           fit: "contain" as const,
@@ -3462,6 +3514,7 @@ function renderFilterPages(
           title: pickText(item.en?.title, item.zh?.title, item.id),
           summary: pickText(item.en?.summary, item.seo?.en?.description, "Latest kids mobility news."),
           meta: `${newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
+          mod: isoDay(item.updatedAt) || isoDay(item.publishedAt) || FALLBACK_PAGE_DATE,
           path: route,
           image: toPublicImageUrl(pickText(item.imageUrl)),
           fit: "cover" as const,
@@ -8470,6 +8523,7 @@ async function main() {
         title: pickText(guide.zh?.title, guide.id),
         summary: pickText(guide.zh?.summary, guide.seo?.zh?.description, ""),
         meta: `${ZH_ARTICLE_LABELS.topicLabels[guideTopicCategory(guide)] || guideTopicCategory(guide).replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
+        mod: isoDay(guide.updatedAt) || isoDay(guide.publishedAt) || FALLBACK_PAGE_DATE,
         path: zhRoutePath(enRoute),
         image: toPublicImageUrl(pickText(guide.imageUrl)),
       }];
@@ -8484,6 +8538,7 @@ async function main() {
         title: pickText(item.zh?.title, item.id),
         summary: pickText(item.zh?.summary, item.seo?.zh?.description, ""),
         meta: `${ZH_ARTICLE_LABELS.channelLabels[String(item.category || "")] || newsCategoryLabel(item)} · ${isoDay(item.publishedAt) || isoDay(item.updatedAt) || FALLBACK_PAGE_DATE}`,
+        mod: isoDay(item.updatedAt) || isoDay(item.publishedAt) || FALLBACK_PAGE_DATE,
         path: zhRoutePath(enRoute),
         image: toPublicImageUrl(pickText(item.imageUrl)),
       }];
