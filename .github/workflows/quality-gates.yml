@@ -297,6 +297,13 @@ jobs:
       - name: Favicon set for search results
         run: npm run check:favicons
 
+      # The deploy step uploads the whole directory, so anything the build
+      # writes for its OWN use gets published too. `/server.cjs` answered 200
+      # with 2.59 MB and `/server.cjs.map` with 3.47 MB until 2026-11-06; the
+      # bundle now goes to `.runs/server/`. This fails if tooling comes back.
+      - name: Published tree carries no tooling
+        run: npm run check:publish
+
       # Pages silently drops every line past ~120, and the SPA fallback is last.
       - name: Redirect budget (dist/_redirects)
         run: npm run check:redirects

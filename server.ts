@@ -894,8 +894,12 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    // In production, serve from the dist folder relative to this file
-    // Since this file is bundled into dist/server.cjs, dist is the current directory
+    // In production, serve from `dist` — resolved from the working directory,
+    // never from this file's own location. The bundle used to be written INTO
+    // dist (`dist/server.cjs`), which made the working directory coincide with
+    // the served directory by accident; it now lives in `.runs/server/` so the
+    // publishable tree holds only what a browser is meant to fetch. Anything
+    // that derives the static root from `__dirname` would break here.
     const distPath = path.join(process.cwd(), "dist");
     
     // Check if dist/index.html exists to avoid crashing
