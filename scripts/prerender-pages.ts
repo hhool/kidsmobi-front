@@ -485,9 +485,15 @@ function renderBulletedCards(items: Array<{ title: string; text: string; meta?: 
  * use: every section on /about, /news and /reviews opens with the question
  * it answers.
  */
-function renderFaqSection(faq: PageFaq): string {
+function renderFaqSection(faq: PageFaq, centered = false): string {
+  // `centered` exists because one appended answer sits under a block whose
+  // heading, standfirst and certification row are all centred (the evidence
+  // standards section on /reviews). The reader-facing renderer takes the same
+  // flag (src/components/SectionFaq.tsx) so the crawler HTML and the hydrated
+  // page are not telling different stories about the same block.
+  const align = centered ? " text-align: center;" : "";
   return `
-    <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+    <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;${align}">
       <h2 style="margin: 0 0 12px; font-size: 1.5rem;">${escapeHtml(faq.q)}</h2>
       <p style="margin: 0 0 14px;"><strong>Short answer:</strong> ${escapeHtml(faq.a)}</p>
     </section>
@@ -3221,7 +3227,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
           <li><a href="https://www.iso.org/standard/71811.html">ISO 8098</a> — bicycle safety baseline</li>
         </ul>
       </section>
-      ${renderFaqSection(REVIEWS_FAQS[2])}
+      ${renderFaqSection(REVIEWS_FAQS[2], true)}
     `,
     jsonLd: reviewsSchemas,
   };

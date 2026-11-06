@@ -16,11 +16,21 @@ export default function SectionFaq({
   route,
   lang,
   faqs,
+  align = "left",
 }: {
   route: string;
   lang: "en" | "zh";
   /** Explicit list; defaults to the whole set for the route. */
   faqs?: PageFaq[];
+  /**
+   * Horizontal alignment of the card's text.
+   *
+   * A single appended answer sits under a section whose heading, standfirst and
+   * certification row are all centred, so a left-aligned block reads as a
+   * different kind of thing than the section it continues. `center` matches the
+   * block it is attached to; the default stays left for the full-set lists.
+   */
+  align?: "left" | "center";
 }) {
   const list = faqs ?? sectionFaqsFor(route, lang);
   if (!list || !list.length) return null;
@@ -29,7 +39,9 @@ export default function SectionFaq({
       {list.map((faq) => (
         <div
           key={faq.q}
-          className="rounded-[32px] border border-slate-100 bg-white p-7 sm:p-8 shadow-sm space-y-2"
+          className={`rounded-[32px] border border-slate-100 bg-white p-7 sm:p-8 shadow-sm space-y-2${
+            align === "center" ? " text-center" : ""
+          }`}
         >
           <h3 className="km-section-title text-slate-900">{faq.q}</h3>
           <p className="km-body-copy text-sm text-slate-500 font-medium leading-relaxed">{faq.a}</p>

@@ -2626,7 +2626,12 @@ export default function EvaluationsSection({
       {/* The visible Q&A the page's FAQPage schema points at. The hub already
           answers the first two questions in its own sections; this is the
           third one, which used to exist only inside the JSON-LD. */}
-      <SectionFaq route="/reviews" lang={lang} faqs={[lang === "zh" ? REVIEWS_FAQS_ZH[2] : REVIEWS_FAQS[2]]} />
+      <SectionFaq
+        route="/reviews"
+        lang={lang}
+        align="center"
+        faqs={[lang === "zh" ? REVIEWS_FAQS_ZH[2] : REVIEWS_FAQS[2]]}
+      />
 
     </div>
   );
