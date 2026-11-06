@@ -219,6 +219,21 @@ jobs:
       - name: Critical CSS inlined, no blocking stylesheet
         run: npm run check:criticalcss
 
+      # The homepage is assembled by scripts/build-static-home.mjs, which
+      # refuses a document that carries the things which broke it before: an
+      # inline stylesheet that blocks paint, a skipped subtree
+      # (content-visibility) that both costs main-thread time and makes the
+      # sections report a placeholder as their height, a dropped TDK.
+      #
+      # The assembler runs those rules on every build, so a document that
+      # breaks one never reaches dist. What nothing checked is whether the
+      # rules still WORK: delete or invert one and the build stays green
+      # because nothing contradicts it. This step runs the assembler's own
+      # reverse assertions - each re-introduces a defect and fails unless the
+      # rule catches it - so the rule set cannot lose its teeth between builds.
+      - name: Static-home rules can still fail
+        run: npm run check:statichome
+
       # The prerendered article is painted first and the SPA takes over from
       # under it, so the reader never sees the page being rebuilt. That cover
       # is an inline script with four ways to fail: it can reveal an empty
