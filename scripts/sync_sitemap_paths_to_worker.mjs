@@ -25,47 +25,23 @@
  *   cd front && npm run build && node scripts/sync_sitemap_paths_to_worker.mjs
  * then `npm run check:workerparity` and redeploy the Worker.
  */
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { resolve } from 'path';
+
+import { deriveSitemapPaths } from './lib/sitemap-paths.mjs';
 
 const root = process.cwd();
 const distDir = resolve(root, 'dist');
-const sitemapPath = resolve(distDir, 'sitemap.xml');
 const outFile = resolve(root, '..', 'backend', 'api', 'worker', 'src', 'workerSitemapPaths.generated.ts');
 
-const sitemap = readFileSync(sitemapPath, 'utf8');
-const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
-if (entries.length === 0) {
+const { assetPaths, staticNoCmsPaths, source, urlCount } = deriveSitemapPaths(distDir);
+const sitemapPath = resolve(distDir, 'sitemap.xml');
+
+if (urlCount === 0) {
   console.error(`${sitemapPath} has no <url> entries — refusing to wipe the Worker's sitemap lists`);
   process.exit(1);
 }
 
-const locOf = (entry) => (entry.match(/<loc>([^<]+)<\/loc>/) || [])[1];
-const pathOf = (loc) => {
-  const u = new URL(loc);
-  return u.pathname;
-};
-
-// Priority 0.9: the tier the prerender reserves for the pages this domain
-// stands behind. Read from the emitted XML rather than re-deriving the
-// prerender's rules, so a change to sitemapPriority() shows up here for free.
-const assetPaths = entries
-  .filter((e) => e.includes('<priority>0.9</priority>'))
-  .map((e) => pathOf(locOf(e)));
-
-// Routes with no CMS record: the prerender writes them explicitly (the
-// "no <lastmod>" proxy broke once the static pages got honest lastmods from
-// their source files). Fall back to the old proxy when the manifest is
-// missing (older builds).
-const staticManifestPath = resolve(distDir, 'sitemap-static-paths.json');
-let staticNoCmsPaths = [];
-if (existsSync(staticManifestPath)) {
-  staticNoCmsPaths = JSON.parse(readFileSync(staticManifestPath, 'utf8'));
-} else {
-  staticNoCmsPaths = entries
-    .filter((e) => !e.includes('<lastmod>'))
-    .map((e) => pathOf(locOf(e)));
-}
 
 for (const [name, list] of [['SITEMAP_ASSET_PATHS', assetPaths], ['STATIC_NO_CMS_PATHS', staticNoCmsPaths]]) {
   if (list.length === 0) {
@@ -95,9 +71,10 @@ ${assetPaths.map((p) => `  ${JSON.stringify(p)},`).join('\n')}
 ];
 
 /**
- * Sitemap URLs with no <lastmod>: pages the front prerenders that have no CMS
- * record, so the D1 scan never sees them and there is no honest edit date to
- * expose.
+ * Sitemap URLs with no CMS record: pages the front prerenders that no CMS row
+ * describes, so the D1 scan never sees them and there is no honest edit date to
+ * expose. Derived from dist/sitemap-static-paths.json (the prerender's own
+ * statement of this), falling back to "no <lastmod>" only for older builds.
  */
 export const STATIC_NO_CMS_PATHS: ReadonlyArray<string> = [
 ${staticNoCmsPaths.map((p) => `  ${JSON.stringify(p)},`).join('\n')}
@@ -107,5 +84,5 @@ ${staticNoCmsPaths.map((p) => `  ${JSON.stringify(p)},`).join('\n')}
 );
 
 console.log(
-  `wrote ${outFile} (${assetPaths.length} asset at 0.9, ${staticNoCmsPaths.length} without lastmod, from ${entries.length} sitemap URL(s))`,
+  `wrote ${outFile} (${assetPaths.length} asset at 0.9, ${staticNoCmsPaths.length} no-CMS via ${source}, from ${urlCount} sitemap URL(s))`,
 );

@@ -27,6 +27,8 @@
 import { existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 
+import { deriveSitemapPaths } from './lib/sitemap-paths.mjs';
+
 const root = process.cwd();
 const backendWorker = resolve(root, '..', 'backend', 'api', 'worker');
 const sitemapPath = resolve(root, 'dist', 'sitemap.xml');
@@ -57,12 +59,13 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-const sitemap = readFileSync(sitemapPath, 'utf8');
-const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
-const pathOf = (entry) => new URL((entry.match(/<loc>([^<]+)<\/loc>/) || [])[1]).pathname;
-
-const distAssetPaths = entries.filter((e) => e.includes('<priority>0.9</priority>')).map(pathOf);
-const distNoCmsPaths = entries.filter((e) => !e.includes('<lastmod>')).map(pathOf);
+// The two path lists are derived by the same module the generator writes with.
+// They used to be re-implemented here, and the copy that lived here only knew
+// the older "no <lastmod>" proxy — so on 2026-11-06 this guard reported 54
+// stale Worker paths on a tree that had just been regenerated correctly. One
+// definition, imported twice, is the only version of this that cannot drift.
+const { assetPaths: distAssetPaths, staticNoCmsPaths: distNoCmsPaths,
+        source: nocmsSource, urlCount } = deriveSitemapPaths(resolve(root, 'dist'));
 
 // --- parse the generated backend lists ---------------------------------------
 const generated = readFileSync(generatedPath, 'utf8');
@@ -96,7 +99,7 @@ const checks = [
   {
     name: 'worker-sitemap-nocms-parity',
     ok: sameSet(distNoCmsPaths, workerNoCmsPaths),
-    detail: `dist URLs without <lastmod> [${(distNoCmsPaths || []).join(' ')}] must equal the Worker's STATIC_NO_CMS_PATHS [${(workerNoCmsPaths || []).join(' ')}] — re-run scripts/sync_sitemap_paths_to_worker.mjs`,
+    detail: `dist no-CMS routes (via ${nocmsSource}) [${(distNoCmsPaths || []).join(' ')}] must equal the Worker's STATIC_NO_CMS_PATHS [${(workerNoCmsPaths || []).join(' ')}] — re-run scripts/sync_sitemap_paths_to_worker.mjs`,
   },
   {
     // Named separately even though the parity checks above imply it: this is
@@ -141,7 +144,7 @@ console.log(
       ok: true,
       checked: checks.map((c) => c.name),
       counts: {
-        sitemapUrls: entries.length,
+        sitemapUrls: urlCount,
         assetPaths: distAssetPaths.length,
         noCmsPaths: distNoCmsPaths.length,
         retiredExactRules: retiredSources.length,
