@@ -486,9 +486,8 @@ function renderBulletedCards(items: Array<{ title: string; text: string; meta?: 
  * it answers.
  */
 function renderFaqSection(faq: PageFaq, centered = false): string {
-  // `centered` exists because one appended answer sits under a block whose
-  // heading, standfirst and certification row are all centred (the evidence
-  // standards section on /reviews). The reader-facing renderer takes the same
+  // `centered` is used by the appended Q&A on /reviews (its evidence standards
+  // block is centred) and on /news. The reader-facing renderer takes the same
   // flag (src/components/SectionFaq.tsx) so the crawler HTML and the hydrated
   // page are not telling different stories about the same block.
   const align = centered ? " text-align: center;" : "";
@@ -2861,7 +2860,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
           <li>The page carries collection and FAQ schema in the server HTML.</li>
         </ul>
       </section>
-      ${renderFaqSection(NEWS_FAQS[2])}
+      ${renderFaqSection(NEWS_FAQS[2], true)}
     `,
     // injected as server-visible JSON-LD for crawler access
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

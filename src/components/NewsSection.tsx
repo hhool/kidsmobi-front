@@ -997,7 +997,16 @@ export default function NewsSection({
           {/* The visible Q&A the page's FAQPage schema points at. The hub
               already answers the first two questions in its own sections; this
               is the third one, which used to exist only inside the JSON-LD. */}
-          <SectionFaq route="/news" lang={lang} faqs={[lang === "zh" ? NEWS_FAQS_ZH[2] : NEWS_FAQS[2]]} />
+          {/* Centred to match the appended Q&A on /reviews: a single answer
+              continuing a centred block should not read as a different kind
+              of thing than the section above it. The prerender passes the
+              same flag so crawler HTML and the hydrated page agree. */}
+          <SectionFaq
+            route="/news"
+            lang={lang}
+            align="center"
+            faqs={[lang === "zh" ? NEWS_FAQS_ZH[2] : NEWS_FAQS[2]]}
+          />
         </div>
       )}
     </div>

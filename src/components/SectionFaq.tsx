@@ -25,10 +25,10 @@ export default function SectionFaq({
   /**
    * Horizontal alignment of the card's text.
    *
-   * A single appended answer sits under a section whose heading, standfirst and
-   * certification row are all centred, so a left-aligned block reads as a
-   * different kind of thing than the section it continues. `center` matches the
-   * block it is attached to; the default stays left for the full-set lists.
+   * A single appended answer continuing a centred block reads as a different
+   * kind of thing if it stays left-aligned, so /news and /reviews pass
+   * `center` for their appended Q&A. The default stays left for the full-set
+   * lists (e.g. /about). The prerender passes the same flag for each page.
    */
   align?: "left" | "center";
 }) {
