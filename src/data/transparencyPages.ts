@@ -120,10 +120,10 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       sections: [
         {
           eyebrow: "01 / Funding",
-          title: "Affiliate revenue is fuel, not a steering wheel",
+          title: "Independent, with no affiliate revenue",
           body: [
-            "Some pages may contain commerce links. If a parent buys through one of those links, BalanceBikeToddler may receive a small commission. That money does not buy a better score, a softer headline, or a hidden editorial pass.",
-            "Our rule is blunt: the evidence moves first, the link follows later. If a product fails our safety logic, affiliate potential does not rescue it. The commission funds the research work: reading specification sheets, checking recall databases, and analysing owner feedback."
+            "BalanceBikeToddler is fully independent. We do not participate in any affiliate or commission program, and we earn nothing from purchases made through this site. Our funding comes from our own work, not from product links.",
+            "Our rule is blunt: the evidence moves first. If a product fails our safety logic, nothing rescues it. Every rating is built from specification sheets, recall databases, and owner feedback — sources we name on the page."
           ],
         },
         {
@@ -427,7 +427,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "02 / Editorial independence",
           title: "We are not a marketing channel, and we do not sell rankings",
           body: [
-            "BalanceBikeToddler may earn a small commission from qualifying purchases when a parent clicks a product link and buys. That does not change the underlying editorial standard, which remains based on safety evidence, testing logic, and product behavior.",
+            "BalanceBikeToddler does not participate in any affiliate or commission program. No outbound link on this site pays us, and we earn nothing from purchases. The editorial standard remains based on safety evidence, testing logic, and product behavior.",
             "We do not guarantee that any product is risk-free, universally suitable, or compliant in every jurisdiction. We do not accept payment to alter a verdict or suppress a safety concern."
           ],
         },

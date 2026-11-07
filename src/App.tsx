@@ -6022,8 +6022,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <div className="mt-6 max-w-5xl mx-auto text-center">
             <p className="text-[10px] text-slate-400 leading-relaxed">
               {lang === "en"
-                ? "BalanceBikeToddler is reader-supported. When you buy through links on our site, we may earn an affiliate commission at no extra cost to you. Learn more on our Transparency page."
-                : "BalanceBikeToddler 为读者支持型站点：通过本站链接购买商品时，我们可能获得联盟佣金（不增加您的购买成本）。详见透明度说明页。"}
+                ? "BalanceBikeToddler is fully independent. We are not part of any affiliate or commission program, and we never accept payment to influence a rating. Learn more on our Transparency page."
+                : "BalanceBikeToddler 完全独立。我们不参与任何联盟或佣金计划，也绝不接受付费影响评分。详见透明度说明页。"}
             </p>
           </div>
 
