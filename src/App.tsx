@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, FormEvent, useMemo, lazy, Suspense, type M
 import { lazySection } from "./lib/lazySection";
 import { isStaticDocument, STATIC_LANG_HREF } from "./lib/staticDocument";
 import BrandMark from "./components/BrandMark";
-import CategoriesNavMenu from "./components/CategoriesNavMenu";
 import StaticHeaderNav from "./components/StaticHeaderNav";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -4634,7 +4633,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   <span>{t.navHome}</span>
                 </button>
 
-                <CategoriesNavMenu lang={lang} onNavigate={navigateToPath} />
 
                 <div
                   className="relative group"

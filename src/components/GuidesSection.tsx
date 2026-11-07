@@ -33,6 +33,7 @@ import { rankRelatedReviews, type RelatedReviewEntry } from "../lib/relatedRevie
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
+import { renderGuideCategoryIndexHtml } from "../lib/guideCategoryIndexHtml";
 import { containsCjk, sanitizeGuideTextForZh, sanitizeGuideTitleForZh } from "../lib/guideTextSanitize";
 import { buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
 import { buildArticleMetaDescription } from "../lib/articleDescription";
@@ -1859,6 +1860,21 @@ export default function GuidesSection({
           </div>
         )}
 
+        </section>
+      )}
+
+      {/* Buying-guides-by-category index. The homepage block was removed and
+          its destinations regrouped here. This uses the SAME html string as
+          scripts/prerender-pages.ts -> renderGuidesPage(), so the crawler
+          document and the hydrated view cannot drift. English /guides only:
+          /zh/guides has no Chinese-language category hubs and check:zh-english
+          forbids English UI strings there. */}
+      {lang === "en" && !selectedGuideState && !topicPage && (
+        <section
+          className="rounded-[32px] border border-slate-100 bg-white p-6 sm:p-8 shadow-sm"
+          aria-label="Buying guides by category"
+        >
+          <div dangerouslySetInnerHTML={{ __html: renderGuideCategoryIndexHtml() }} />
         </section>
       )}
 

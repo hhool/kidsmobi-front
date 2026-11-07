@@ -25,8 +25,6 @@ import SeoKeywordPanel from "./common/SeoKeywordPanel";
 import Breadcrumbs from "./Breadcrumbs";
 import MatchingWizard from "./MatchingWizard";
 import { getPageCopy } from "../config/pageCopy";
-import { CATEGORY_GUIDE_LIST } from "../data/categoryGuides";
-
 /**
  * Homepage topic board — the five keywords the site is built around, in the
  * order the reader should meet them (balance bike first). Every "guide"
@@ -37,49 +35,6 @@ import { CATEGORY_GUIDE_LIST } from "../data/categoryGuides";
  * Both targets are ordinary anchors: the static homepage document renders
  * them without a script, and the SPA renders exactly the same markup.
  */
-const HOME_TOPIC_BOARD = [
-  {
-    keyword: "Balance Bike",
-    keywordZh: "平衡车",
-    guideHref: "/guides/beginner/balance-bike-by-age",
-    guideTitle: "How to Choose a Balance Bike by Age",
-    guideTitleZh: "怎么按年龄选平衡车：1 岁、2 岁、3 岁",
-    picksHref: "/products/balance-bikes/",
-  },
-  {
-    keyword: "Kids Scooter",
-    keywordZh: "儿童滑板车",
-    guideHref: "/guides/best/kids-scooter-foldable-travel",
-    guideTitle: "Best Foldable Scooter for Travel",
-    guideTitleZh: "旅行最佳轻便折叠滑板车",
-    picksHref: "/products/kids-scooters/",
-  },
-  {
-    keyword: "Kids Bike",
-    keywordZh: "儿童自行车",
-    guideHref: "/guides/budget/kids-bike-under-100",
-    guideTitle: "Best Kids Bike Under $100",
-    guideTitleZh: "100 美元以内耐用的儿童自行车",
-    picksHref: "/products/kids-bikes/",
-  },
-  {
-    keyword: "Jogging Stroller",
-    keywordZh: "慢跑推车",
-    guideHref: "/guides/scenario/stroller-jogging-guide",
-    guideTitle: "Jogging Stroller Buying Guide",
-    guideTitleZh: "慢跑推车选购指南",
-    picksHref: "/products/strollers/",
-  },
-  {
-    keyword: "Kids Electric Car",
-    keywordZh: "儿童电动车",
-    guideHref: "/guides/scenario/kids-ride-on-best-3-year",
-    guideTitle: "Best Ride On Car for 3 Year Old",
-    guideTitleZh: "3 岁最佳儿童电动车",
-    picksHref: "/products/electric-cars/",
-  },
-] as const;
-
 /** How long each hero slide stays on screen. Unchanged from the original. */
 const HERO_ROTATION_INTERVAL_MS = 5000;
 
@@ -1317,76 +1272,6 @@ export default function HomeSection({
               </QuickJumpTag>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* 4b. Topic board — five keyword entry points, balance bike first.
-           Drawn in the homepage's own panel language (rounded-4xl, hairline
-           border, generous padding, divider columns) rather than a row of
-           bordered chips; the balance-bike column uses the same orange left
-           rule as the subsection headings further down the page. The 20
-           category hubs stay crawlable inside <details>, each with that
-           article's real H1 as its anchor text. */}
-      <section id="topic_guides_anchor" className="max-w-7xl mx-auto px-6">
-        <div className="rounded-4xl border border-slate-100 bg-white p-5 sm:p-8 space-y-5 sm:space-y-6">
-          <div className="space-y-2">
-            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
-              {lang === "zh" ? "选购指南" : "Buying Guides"}
-            </span>
-            <h2 className="km-section-title text-slate-900">
-              {lang === "zh" ? "按品类挑导购" : "Pick a topic"}
-            </h2>
-            <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
-              {lang === "zh"
-                ? "从平衡车开始，再看滑板车、儿童自行车、慢跑推车和儿童电动车。"
-                : "Start with balance bikes — then scooters, pedal bikes, strollers and ride-on cars."}
-            </p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-5">
-            {HOME_TOPIC_BOARD.map((topic, i) => (
-              <div
-                key={topic.keyword}
-                className={`flex flex-col gap-2 ${
-                  i === 0
-                    ? "col-span-2 sm:col-span-1 border-l-2 border-orange-500 pl-3 lg:border-l-4 lg:pl-4"
-                    : "lg:border-l lg:border-slate-100 lg:pl-6"
-                }`}
-              >
-                <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${i === 0 ? "text-orange-500" : "text-slate-400"}`}>
-                  {lang === "zh" ? topic.keywordZh : topic.keyword}
-                </span>
-                <h3 className="text-[13px] sm:text-sm font-bold leading-snug text-slate-900">
-                  <a href={topic.guideHref} className="text-slate-900 hover:text-orange-600 transition-colors">
-                    {lang === "zh" ? topic.guideTitleZh : topic.guideTitle}
-                  </a>
-                </h3>
-                <a
-                  href={topic.picksHref}
-                  className="mt-auto hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:text-orange-500 transition-colors"
-                >
-                  {homeCopy.safetyAudits.morePicks} <ArrowRight className="w-3 h-3" />
-                </a>
-              </div>
-            ))}
-          </div>
-          <details className="group border-t border-slate-100 pt-5">
-            <summary className="flex items-center justify-between gap-3 cursor-pointer text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500 transition-colors">
-              <span>{lang === "zh" ? "全部 20 篇分类导购" : "All 20 category buying guides"}</span>
-              <ArrowRight className="w-4 h-4 shrink-0 group-open:rotate-90 transition-transform" />
-            </summary>
-            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6">
-              {CATEGORY_GUIDE_LIST.map((g) => (
-                <li key={g.route}>
-                  <a
-                    href={g.route}
-                    className="block py-1.5 text-xs font-semibold text-slate-600 hover:text-orange-600 transition-colors"
-                  >
-                    {g.h1}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </details>
         </div>
       </section>
 

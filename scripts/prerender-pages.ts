@@ -9,6 +9,7 @@ import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/revi
 import { applyResponsiveImagesToHtml } from "../src/lib/responsiveImages";
 import { applyFirstPaintToHtml } from "../src/lib/firstPaint";
 import { applyEntityGraphToHtml, SITE_SAME_AS } from "../src/lib/entityGraph";
+import { renderGuideCategoryIndexHtml } from "../src/lib/guideCategoryIndexHtml";
 import { HERO_BG_IMAGES } from "../src/lib/heroImages";
 import {
   amazonAffiliateUrl,
@@ -2708,6 +2709,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
     // one way is ignored: Google wants the two editions to name each other.
     alternates: languageAlternates("/guides"),
     body: `
+      ${renderGuideCategoryIndexHtml()}
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which questions do parents ask first?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> the guide library starts with the practical questions: which size is safest, which frame is easiest to control, and which product fits the family routine.</p>
