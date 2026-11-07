@@ -13,6 +13,8 @@
  * the prerendered HTML (the same rule the SPA footer follows).
  */
 import { CATEGORY_GUIDE_LIST, type CategoryGuide } from "../src/data/categoryGuides";
+import { renderHubRichMediaBlocksHtml } from "./richMediaHtml";
+import type { HubRichMediaBlock } from "../src/lib/cmsD1Service";
 
 const ORIGIN = "https://balancebiketoddler.com";
 
@@ -45,7 +47,7 @@ export interface CategoryGuideRoutePage {
   jsonLd: Array<Record<string, unknown>>;
 }
 
-function bodyFor(g: CategoryGuide): string {
+function bodyFor(g: CategoryGuide, mediaHtml = ""): string {
   const crumbShort = hubCrumbShort(g.title);
   const breadcrumb = `
   <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#475569;margin-bottom:18px;">
@@ -86,6 +88,7 @@ function bodyFor(g: CategoryGuide): string {
     <p style="font-size:16px;line-height:1.8;color:#475569;font-weight:500;margin:0;max-width:48rem;">${esc(g.lead)}</p>
   </header>
   <p style="font-size:15px;line-height:1.8;color:#334155;margin:28px 0 0;max-width:48rem;">${esc(g.intro)}</p>
+  ${mediaHtml}
   ${sections}
   <nav aria-label="Related guides" style="margin-top:36px;padding:20px;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
     <h2 style="font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#64748b;margin:0 0 12px;">Related guides</h2>
@@ -103,7 +106,7 @@ function bodyFor(g: CategoryGuide): string {
   </footer>`;
 }
 
-export function renderCategoryGuidePages(): CategoryGuideRoutePage[] {
+export function renderCategoryGuidePages(mediaMap: Record<string, HubRichMediaBlock[]> = {}): CategoryGuideRoutePage[] {
   return CATEGORY_GUIDE_LIST.map((g) => ({
     route: g.route,
     title: g.title,
@@ -111,7 +114,7 @@ export function renderCategoryGuidePages(): CategoryGuideRoutePage[] {
     keywords: g.keywords,
     h1En: g.h1,
     skipTitleH1: true,
-    body: bodyFor(g),
+    body: bodyFor(g, renderHubRichMediaBlocksHtml(mediaMap[g.route])),
     jsonLd: [
       {
         "@context": "https://schema.org",

@@ -412,3 +412,38 @@ export async function saveD1CMSHubStatus(hubPath: string, status: "published" | 
   });
   return Boolean(response?.data?.saved);
 }
+
+/**
+ * Backend-editable rich-media blocks for the 20 category hubs. The shape mirrors
+ * the Worker's HubMediaBlock (validated): hub_media is a JSON array of typed
+ * blocks. Rendered both in the SPA (runtime fetch) and the prerender (baked at
+ * build time from /api/cms/hub_media).
+ */
+export type HubRichMediaBlock =
+  | { type: "heroImage"; url: string; alt?: string }
+  | { type: "heroVideo"; url: string; poster?: string; alt?: string; caption?: string }
+  | { type: "image"; url: string; alt?: string; caption?: string }
+  | { type: "video"; url: string; poster?: string; alt?: string; caption?: string }
+  | { type: "gallery"; items: Array<{ url: string; alt?: string; caption?: string }> }
+  | { type: "heading"; text: string }
+  | { type: "paragraph"; text: string }
+  | { type: "cta"; label: string; href: string };
+
+export async function getD1CMSHubMediaMap(): Promise<Record<string, HubRichMediaBlock[]>> {
+  const response = await requestJson<{ data?: Record<string, HubRichMediaBlock[]> }>("/api/cms/hub_media");
+  return response?.data || {};
+}
+
+export async function getD1CMSHubMedia(hubPath: string): Promise<HubRichMediaBlock[]> {
+  const path = `/api/cms/hub_media${hubPath}`;
+  const response = await requestJson<{ data?: { hubPath: string; blocks: HubRichMediaBlock[] } }>(path);
+  return response?.data?.blocks || [];
+}
+
+export async function saveD1CMSHubMedia(hubPath: string, blocks: HubRichMediaBlock[]): Promise<boolean> {
+  const response = await requestJson<{ data?: { saved?: boolean } }>("/api/cms/hub_media/save", {
+    method: "POST",
+    body: JSON.stringify({ hubPath, blocks }),
+  });
+  return Boolean(response?.data?.saved);
+}

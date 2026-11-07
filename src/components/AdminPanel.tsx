@@ -23,10 +23,11 @@ import SettingsManager from "./admin/SettingsManager";
 import ImportReviewManager from "./admin/ImportReviewManager";
 import OperationsCenter from "./admin/OperationsCenter";
 import CategoryHubManager from "./admin/CategoryHubManager";
+import HubRichMediaEditor from "./admin/HubRichMediaEditor";
 import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
 
-type AdminMenu = "dashboard" | "categories" | "scenarios" | "products" | "reviews" | "guides" | "news" | "settings" | "assets" | "imports" | "hubstatus";
+type AdminMenu = "dashboard" | "categories" | "scenarios" | "products" | "reviews" | "guides" | "news" | "settings" | "assets" | "imports" | "hubstatus" | "hubmedia";
 
 const normalizeAdminMenu = (value: string): AdminMenu => {
   const normalized = String(value || "").trim().toLowerCase();
@@ -50,6 +51,7 @@ const ADMIN_MENU_PATHS: Record<AdminMenu | "evaluations", string> = {
   assets: "/assets",
   imports: "/imports",
   hubstatus: "/category-hubs",
+  hubmedia: "/category-hub-media",
 };
 
 const ADMIN_PATH_TO_MENU: Record<string, AdminMenu> = {
@@ -66,6 +68,7 @@ const ADMIN_PATH_TO_MENU: Record<string, AdminMenu> = {
   "/assets": "assets",
   "/imports": "imports",
   "/category-hubs": "hubstatus",
+  "/category-hub-media": "hubmedia",
 };
 
 const ADMIN_MENU_SET = new Set<AdminMenu>([
@@ -80,6 +83,7 @@ const ADMIN_MENU_SET = new Set<AdminMenu>([
   "assets",
   "imports",
   "hubstatus",
+  "hubmedia",
 ]);
 
 const parseAdminRouteHash = (hashValue: string, pathnameValue: string): { menu: AdminMenu; productId: string; guideId: string } | null => {
@@ -339,6 +343,7 @@ export default function AdminPanel({
            {activeMenu === "news" && <NewsManager lang={lang} />}
            {activeMenu === "imports" && <ImportReviewManager lang={lang} />}
            {activeMenu === "hubstatus" && <CategoryHubManager lang={lang} />}
+           {activeMenu === "hubmedia" && <HubRichMediaEditor lang={lang} />}
            {activeMenu === "settings" && <SettingsManager lang={lang} />}
            {activeMenu === "assets" && (
              <div className="p-6">

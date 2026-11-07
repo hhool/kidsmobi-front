@@ -9,7 +9,8 @@ import {
   Globe, 
   FolderKanban,
   ToggleRight,
-  Settings as SettingsIcon, 
+  Settings as SettingsIcon,
+  Image as ImageIcon,
   X 
 } from "lucide-react";
 import { auth } from "../../lib/firebase";
@@ -107,6 +108,12 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
           onClick={() => setActiveMenu("hubstatus")} 
           icon={<ToggleRight className="w-5 h-5" />} 
           label={lang === "zh" ? "Hub 发布开关" : "Hub Gate"} 
+        />
+        <MenuItem 
+          active={activeMenu === "hubmedia"} 
+          onClick={() => setActiveMenu("hubmedia")} 
+          icon={<ImageIcon className="w-5 h-5" />} 
+          label={lang === "zh" ? "Hub 富媒体" : "Hub Media"} 
         />
       </nav>
 

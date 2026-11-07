@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir, rm } from "fs/promises";
 import { readFileSync, existsSync } from "fs";
 import path from "path";
+import type { HubRichMediaBlock } from "../src/lib/cmsD1Service";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
@@ -1713,6 +1714,32 @@ async function writeCmsSnapshot(collection: string, records: unknown[]): Promise
   } catch (error) {
     console.warn(`[prerender] failed to write ${collection} snapshot: ${(error as Error).message}`);
   }
+}
+
+async function fetchHubMediaMap(): Promise<Record<string, HubRichMediaBlock[]>> {
+  const url = `${CMS_BASE_URL}/api/cms/hub_media`;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 20000);
+      const response = await fetch(url, { headers: { Accept: "application/json" }, signal: controller.signal });
+      clearTimeout(timer);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = (await response.json()) as { data?: Record<string, unknown[]> };
+      const map = payload?.data || {};
+      console.log(`[prerender] hub rich-media map: ${Object.keys(map).length} hub(s) with media (attempt ${attempt})`);
+      return map as Record<string, HubRichMediaBlock[]>;
+    } catch (error) {
+      if (attempt < 4) {
+        console.warn(`[prerender] hub_media fetch attempt ${attempt} failed (${(error as Error).message}); retrying...`);
+        await new Promise((resolve) => setTimeout(resolve, Math.min(2000 * attempt, 8000)));
+        continue;
+      }
+      console.warn(`[prerender] hub_media fetch failed; building without baked rich media.`);
+      return {};
+    }
+  }
+  return {};
 }
 
 async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
@@ -8672,6 +8699,11 @@ async function main() {
     console.log(`[prerender] ${retitledReviews} CMS review page(s) retitled to stop sharing a <title> with a product page.`);
   }
 
+  // Hub rich-media (backend-editable). Baked into each category-hub page's static
+  // HTML so crawlers see it. Fails open to an empty map (no media) if the fetch
+  // is unavailable, so the build never breaks on a transient CMS hiccup.
+  const hubMediaMap = await fetchHubMediaMap();
+
   // Order matters: an index route (`/guides`, `/news`) is written before its detail
   // pages so the index's cleanup step can remove the whole route folder first.
   const pages: RoutePage[] = [
@@ -8700,7 +8732,7 @@ async function main() {
     ...renderKidsRideOnPages(),
     ...renderKidsTricyclePages(),
     ...renderKidsStrollerPages(),
-    ...renderCategoryGuidePageBodies().map((p) => ({
+    ...renderCategoryGuidePageBodies(hubMediaMap).map((p) => ({
       route: p.route,
       title: p.title,
       description: p.description,

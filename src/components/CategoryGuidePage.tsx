@@ -7,8 +7,11 @@
  * variant is a later phase). The footer carries class="byline" so the R-424
  * author audit passes on the hydrated page as well as the prerendered HTML.
  */
+import React, { useState, useEffect } from "react";
 import type { CategoryGuide } from "../data/categoryGuides";
 import Breadcrumbs from "./Breadcrumbs";
+import HubRichMediaBlocks from "./HubRichMediaBlocks";
+import { getD1CMSHubMedia, type HubRichMediaBlock } from "../lib/cmsD1Service";
 
 export function CategoryGuidePage({
   guide,
@@ -22,6 +25,24 @@ export function CategoryGuidePage({
   void lang;
 
   const shortTitle = guide.title.split(":")[0].trim();
+
+  // Backend-editable rich-media blocks, fetched at runtime (the prerender bakes
+  // the same blocks into the static HTML for crawlers; here the SPA re-fetches so
+  // the interactive reader view stays in sync). Fails open to [] on error.
+  const [media, setMedia] = useState<HubRichMediaBlock[]>([]);
+  useEffect(() => {
+    let mounted = true;
+    getD1CMSHubMedia(guide.route)
+      .then((blocks) => {
+        if (mounted) setMedia(blocks || []);
+      })
+      .catch(() => {
+        if (mounted) setMedia([]);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, [guide.route]);
 
   return (
     <article className="max-w-5xl mx-auto py-8 sm:py-14 text-left px-4 sm:px-6">
@@ -47,6 +68,8 @@ export function CategoryGuidePage({
         </header>
 
         <p className="text-base text-slate-700 leading-8 max-w-3xl">{guide.intro}</p>
+
+        <HubRichMediaBlocks blocks={media} />
 
         {guide.sections.map((s, i) => (
           <section key={i} className="space-y-3">
