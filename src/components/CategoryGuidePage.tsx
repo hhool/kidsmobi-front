@@ -24,6 +24,9 @@ export function CategoryGuidePage({
     <article className="max-w-5xl mx-auto py-8 sm:py-14 text-left px-4 sm:px-6">
       <div className="space-y-10">
         <header className="space-y-5 border-b border-slate-200 pb-8">
+          <a href="/" className="block text-[11px] font-bold tracking-[0.04em] text-orange-600 no-underline mb-2.5">
+            Toddler first-wheels family
+          </a>
           <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-sky-600">
             {guide.eyebrow}
           </div>
