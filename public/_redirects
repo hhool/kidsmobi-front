@@ -17,15 +17,13 @@
 #     the no-slash rule left the slash form 404ing).
 #   - Pages rejects the "200!" suffix as an invalid status code.
 #   - Rules match top-down, the file is capped (~120 lines), and the overflow
-#     is dropped without failing the build.
+#     is dropped without failing the build. Guard MAX_LINES=100 fails the build.
 # Retired-URL 301s do NOT live here: that family is owned by the Worker
 # (backend/api/worker/src/legacyRedirects.generated.ts, mirrored from
 # dist/data/legacy-redirects.json by front/scripts/sync_redirects_to_worker.mjs).
 # A fallback for unknown sub-paths is not expressible here at all — a wildcard
 # cannot be made to lose to a static file. Guard: npm run check:redirects.
-
 /api/* https://store.balancebiketoddler.com/api/:splat 307
-
 # Bare app roots: SPA-only routes with no prerendered sibling, so the shell
 # needs an explicit exact rewrite. Do NOT widen these to wildcards — that is
 # the shape that shadowed 255 prerendered pages (see the precedence note above).
@@ -73,8 +71,29 @@
 /zh/products/* /products/:splat 301
 /zh/about /about 301
 /zh/about/ /about/ 301
-/zh/about/* /about/:splat 301
 /zh/compare /compare 301
 /zh/compare/ /compare/ 301
 /zh/search /search 301
 /zh/search/ /search/ 301
+
+# 20 category hubs have no ZH edition: redirect /zh/<slug>/ to the EN hub (trailing-slash only; CF won't auto-append slash for the non-existent ZH dir, and no link emits the bare form). Scoped per slug so the wildcard never shadows /zh/guides and /zh/news.
+/zh/baby-stroller/ /baby-stroller/ 301
+/zh/baby-stroller-by-age/ /baby-stroller-by-age/ 301
+/zh/baby-stroller-price/ /baby-stroller-price/ 301
+/zh/balance-bike/ /balance-bike/ 301
+/zh/foldable-electric-scooter/ /foldable-electric-scooter/ 301
+/zh/foldable-electric-scooter-price/ /foldable-electric-scooter-price/ 301
+/zh/kids-bike/ /kids-bike/ 301
+/zh/kids-dirt-bike/ /kids-dirt-bike/ 301
+/zh/kids-dirt-bike-by-age/ /kids-dirt-bike-by-age/ 301
+/zh/kids-dirt-bike-price/ /kids-dirt-bike-price/ 301
+/zh/kids-dirt-bike-what-buyers-say/ /kids-dirt-bike-what-buyers-say/ 301
+/zh/kids-electric-scooter/ /kids-electric-scooter/ 301
+/zh/kids-electric-scooter-price/ /kids-electric-scooter-price/ 301
+/zh/kids-electric-scooter-what-buyers-say/ /kids-electric-scooter-what-buyers-say/ 301
+/zh/kids-scooter/ /kids-scooter/ 301
+/zh/kids-stroller/ /kids-stroller/ 301
+/zh/kids-tricycle/ /kids-tricycle/ 301
+/zh/twin-stroller/ /twin-stroller/ 301
+/zh/twin-stroller-by-age/ /twin-stroller-by-age/ 301
+/zh/twin-stroller-price/ /twin-stroller-price/ 301
