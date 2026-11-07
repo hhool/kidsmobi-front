@@ -391,3 +391,24 @@ export async function downloadCMSOpsExport(): Promise<void> {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+/**
+ * Phase 1: per-hub publish/preview gate.
+ *
+ * Returns the map of hub_path -> status ("published" | "preview") from D1.
+ * Hubs without a row are implicitly published (fail-open): the front prerender
+ * ships every hub as crawlable HTML by default, and the Phase 2 Pages Functions
+ * gateway is what demotes a "preview" hub to noindex.
+ */
+export async function getD1CMSHubStatus(): Promise<Record<string, string>> {
+  const response = await requestJson<{ data?: Record<string, string> }>("/api/cms/hub_status");
+  return response?.data || {};
+}
+
+export async function saveD1CMSHubStatus(hubPath: string, status: "published" | "preview"): Promise<boolean> {
+  const response = await requestJson<{ data?: { saved?: boolean } }>("/api/cms/hub_status/save", {
+    method: "POST",
+    body: JSON.stringify({ hubPath, status }),
+  });
+  return Boolean(response?.data?.saved);
+}

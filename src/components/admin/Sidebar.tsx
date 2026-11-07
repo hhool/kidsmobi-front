@@ -8,6 +8,7 @@ import {
   BookOpen, 
   Globe, 
   FolderKanban,
+  ToggleRight,
   Settings as SettingsIcon, 
   X 
 } from "lucide-react";
@@ -100,6 +101,12 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
           onClick={() => setActiveMenu("imports")} 
           icon={<FolderKanban className="w-5 h-5" />} 
           label={lang === "zh" ? "导入审核" : "Import Review"} 
+        />
+        <MenuItem 
+          active={activeMenu === "hubstatus"} 
+          onClick={() => setActiveMenu("hubstatus")} 
+          icon={<ToggleRight className="w-5 h-5" />} 
+          label={lang === "zh" ? "Hub 发布开关" : "Hub Gate"} 
         />
       </nav>
 
