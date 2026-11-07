@@ -52,3 +52,29 @@
 /contact/ /about 301
 /privacy /transparency 301
 /privacy/ /transparency 301
+
+# Chinese edition is PARTIAL: only /zh/guides and /zh/news (hubs + articles that
+# have a zh body) are real prerendered pages. Every other /zh/<path> has no
+# Chinese edition and would 404 if requested. Redirect those to their English
+# counterpart so the language switch / manual entry never strands a visitor.
+# IMPORTANT: do NOT widen these to a single "/zh/* /:splat 301" — that wildcard
+# would shadow the real /zh/guides and /zh/news prerendered pages (see the
+# precedence note at the top of this file). Scope each non-edition section.
+/zh / 301
+/zh/ / 301
+/zh/transparency /transparency 301
+/zh/transparency/ /transparency/ 301
+/zh/transparency/* /transparency/:splat 301
+/zh/reviews /reviews 301
+/zh/reviews/ /reviews/ 301
+/zh/reviews/* /reviews/:splat 301
+/zh/products /products 301
+/zh/products/ /products/ 301
+/zh/products/* /products/:splat 301
+/zh/about /about 301
+/zh/about/ /about/ 301
+/zh/about/* /about/:splat 301
+/zh/compare /compare 301
+/zh/compare/ /compare/ 301
+/zh/search /search 301
+/zh/search/ /search/ 301
