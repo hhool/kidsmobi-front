@@ -3362,13 +3362,26 @@ function articleOpeningTeaser(
     .replace(/[*_`>#]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  // A wire-story lede IS the SEO description (1 of 9 news items, 0 of 68
+  // A wire-story lede IS the SEO description (2 of 9 news items, 1 of 68
   // guides). Printing it on the channel would reproduce the hub's card
   // verbatim, so skip that paragraph and use the next real one instead.
+  // Some CMS descriptions are the SAME lede truncated mid-word (a 144-char
+  // description cut out of a 263-char opening paragraph). Exact equality
+  // misses those, so treat one being a prefix of the other as the same lede;
+  // 60+ shared leading chars keeps unrelated paragraphs out of the rule.
   const seoDescription = String(item.seo?.en?.description || "").replace(/\s+/g, " ").trim();
+  const isSameLede = (paragraph: string): boolean => {
+    if (!paragraph || !seoDescription) return false;
+    if (paragraph === seoDescription) return true;
+    const shared = Math.min(paragraph.length, seoDescription.length);
+    return shared >= 60 && (
+      paragraph.startsWith(seoDescription.slice(0, shared)) ||
+      seoDescription.startsWith(paragraph.slice(0, shared))
+    );
+  };
   const opening = String(raw).split(/\n\s*\n/)
     .map(cleanParagraph)
-    .find((paragraph) => paragraph && paragraph !== seoDescription) || "";
+    .find((paragraph) => paragraph && !isSameLede(paragraph)) || "";
   return opening
     ? clipTeaser(opening, 140)
     : pickText(item.seo?.en?.description, item.seo?.zh?.description, fallback);
@@ -8763,7 +8776,7 @@ async function main() {
       route: "/auth",
       title: "Sign In / 登录",
       description: "BalanceBikeToddler 会员登录与注册入口。",
-      body: `<main class="max-w-3xl mx-auto px-4 py-16 text-center"><h1 class="text-2xl font-black text-slate-900">Sign In · 登录</h1><p class="mt-4 text-slate-600">BalanceBikeToddler 会员登录与注册入口。若页面未自动加载，请返回首页。</p></main>`,
+      body: `<main class="max-w-3xl mx-auto px-4 py-16 text-center"><h2 class="text-2xl font-black text-slate-900">Sign In · 登录</h2><p class="mt-4 text-slate-600">BalanceBikeToddler 会员登录与注册入口。若页面未自动加载，请返回首页。</p></main>`,
       noindex: true,
       ogType: "website" as const,
     },
