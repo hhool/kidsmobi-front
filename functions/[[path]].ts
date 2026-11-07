@@ -13,9 +13,15 @@
  * serves. Pages Functions transform that HTML before it leaves the edge, so the
  * signal is always present for bots.
  *
- * FAIL-OPEN: if HUB_STATUS_KV is unbound or the read throws, the hub is served
- * as published (crawlable). Setting a hub to preview only HIDES it; it can
- * never accidentally block a published page.
+ * STATUS SOURCE: the hub status lives in Cloudflare D1, served by the site's
+ * API Worker at https://store.balancebiketoddler.com/api/cms/hub_status (public
+ * GET, no token). This Function fetches that list and caches it for 60s. We read
+ * the D1-backed HTTP endpoint rather than a KV binding so the gate works with
+ * zero extra Cloudflare binding configuration.
+ *
+ * FAIL-OPEN: if the status fetch throws or the cache is empty, every hub is
+ * served as published (crawlable). Flipping a hub to preview only HIDES it; it
+ * can never accidentally block a published page.
  */
 
 const CATEGORY_HUB_PATHS = new Set<string>([
@@ -41,9 +47,47 @@ const CATEGORY_HUB_PATHS = new Set<string>([
   "/twin-stroller-price/",
 ]);
 
+const HUB_STATUS_ENDPOINT = "https://store.balancebiketoddler.com/api/cms/hub_status";
+const STATUS_CACHE_TTL_MS = 60_000;
+
 interface HubEnv {
   ASSETS: { fetch(request: Request): Promise<Response> };
-  HUB_STATUS_KV?: { get(key: string): Promise<string | null> };
+}
+
+// Module-scoped cache: the Function instance is reused across requests on the
+// same edge node, so a 60s TTL keeps status fresh without hammering the API.
+let statusCache: { map: Record<string, string>; expires: number } | null = null;
+
+async function getPreviewSet(): Promise<Set<string>> {
+  const now = Date.now();
+  if (statusCache && statusCache.expires > now) {
+    const preview = new Set<string>();
+    for (const [path, status] of Object.entries(statusCache.map)) {
+      if (status === "preview") preview.add(path);
+    }
+    return preview;
+  }
+  try {
+    const res = await fetch(HUB_STATUS_ENDPOINT, {
+      headers: { accept: "application/json" },
+      // Do not let a slow upstream block the page; fail-open to published.
+      signal: AbortSignal.timeout(1500),
+    });
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const json = (await res.json()) as { data?: Record<string, string> };
+    const map = json.data || {};
+    statusCache = { map, expires: now + STATUS_CACHE_TTL_MS };
+    const preview = new Set<string>();
+    for (const [path, status] of Object.entries(map)) {
+      if (status === "preview") preview.add(path);
+    }
+    return preview;
+  } catch {
+    // Fail-open: treat everything as published (crawlable). An empty cache is
+    // also used for the remainder of this request so we don't retry per-hub.
+    statusCache = { map: {}, expires: now + STATUS_CACHE_TTL_MS };
+    return new Set<string>();
+  }
 }
 
 export async function onRequest(context: { request: Request; env: HubEnv }): Promise<Response> {
@@ -66,11 +110,8 @@ export async function onRequest(context: { request: Request; env: HubEnv }): Pro
 
   let isPreview = false;
   try {
-    const kv = env.HUB_STATUS_KV;
-    if (kv) {
-      const status = await kv.get(path);
-      isPreview = status === "preview";
-    }
+    const previewSet = await getPreviewSet();
+    isPreview = previewSet.has(path);
   } catch {
     isPreview = false;
   }
