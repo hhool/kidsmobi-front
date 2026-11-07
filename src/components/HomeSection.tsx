@@ -25,6 +25,7 @@ import SeoKeywordPanel from "./common/SeoKeywordPanel";
 import Breadcrumbs from "./Breadcrumbs";
 import MatchingWizard from "./MatchingWizard";
 import { getPageCopy } from "../config/pageCopy";
+import { CATEGORY_GUIDE_LIST } from "../data/categoryGuides";
 
 /** How long each hero slide stays on screen. Unchanged from the original. */
 const HERO_ROTATION_INTERVAL_MS = 5000;
@@ -1263,6 +1264,31 @@ export default function HomeSection({
               </QuickJumpTag>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 4b. Topic guides strip — bridges the homepage hero to the 20 category hubs.
+           Plain <a> anchors render in both the SPA and the static homepage document,
+           so crawlers and readers both get a direct link into each /<slug>/ hub. */}
+      <section id="topic_guides_anchor" className="max-w-7xl mx-auto px-6 py-10">
+        <div className="space-y-2 mb-6">
+          <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">Buying Guides</span>
+          <h2 className="km-section-title text-slate-900">Every guide, one place</h2>
+          <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
+            From the first balance bike to the last stroller — pick your topic.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          {CATEGORY_GUIDE_LIST.map((g) => (
+            <a
+              key={g.route}
+              href={g.route}
+              title={g.h1}
+              className="inline-flex items-center px-4 py-2 rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:border-orange-400 hover:text-orange-600 transition-colors"
+            >
+              {g.title.split(":")[0].trim() || g.title}
+            </a>
+          ))}
         </div>
       </section>
 
