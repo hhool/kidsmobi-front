@@ -548,6 +548,22 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
             "Bookmarks, the saved child fit profile, view history and comparison drafts stay in your own browser's local storage. They are not written to our cloud database, and clearing browser storage deletes them."
           ],
         },
+        {
+          eyebrow: "05 / California privacy rights",
+          title: "California residents can say no to data sharing",
+          body: [
+            "If you are a California resident, you have rights under the California Consumer Privacy Act as amended by the CPRA: to know what personal information we collect, to delete it, to correct inaccuracies, and to opt out of any \"sale\" or \"sharing\" of personal information. BalanceBikeToddler does not sell personal information, and we do not use cross-context behavioral advertising that would count as \"sharing\" under the law.",
+            "To exercise any of these rights, email privacy@balancebiketoddler.com. We verify the request through the email address on file and respond within the timeframe the law requires. You will not be denied service or given a degraded experience for exercising these rights."
+          ],
+        },
+        {
+          eyebrow: "06 / Children's privacy",
+          title: "This site is not directed at children under 13",
+          body: [
+            "BalanceBikeToddler is written for parents and caregivers making purchase decisions. We do not knowingly collect personal information from children under 13. The Smart Wizard asks for a child's height, age and fit clues to return sizing help, but those values are computed locally in the browser and are not transmitted to us as identifying information about a minor.",
+            "If a parent believes we have inadvertently received personal information from a child under 13, contact privacy@balancebiketoddler.com and we will delete it promptly."
+          ],
+        },
       ],
       primaryLink: {
         href: "/reviews",
@@ -604,6 +620,22 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
             "账号体系跑在 Firebase Authentication（Google 的认证服务）上。用邮箱加密码注册时，邮箱地址和密码的哈希值由 Firebase 保存；密码本身不会到我们手里。你也可以用 Google 账号登录，这条路径上 Google 就是第三方身份提供方——你确认授权后，Google 会把姓名、邮箱地址和头像分享给我们。",
             "创建邮箱账号之前，本站会向你填写的地址发一条六位数字码，由 Resend 投递——那是替我们发信的第三方服务。这个码五分钟过期，保存下来的是它的哈希值，码本身不留。",
             "收藏、已保存的孩子尺寸档案、浏览记录和对比草稿都留在你自己浏览器的本地存储里，不会写入我们的云端数据库；清理浏览器存储就会消失。"
+          ],
+        },
+        {
+          eyebrow: "05 / 加州隐私权",
+          title: "加州居民可以拒绝数据流动",
+          body: [
+            "如果你是加州居民，依据《加州消费者隐私法》（CCPA）及其修订案《加州隐私权法》（CPRA），你有权知道我们收集了哪些个人信息、要求删除、更正不准确之处，并选择退出任何个人信息的「出售」或「共享」。BalanceBikeToddler 不出售个人信息，也不使用会被法律认定为「共享」的跨场景行为广告。",
+            "要行使上述任何权利，请发送邮件至 privacy@balancebiketoddler.com。我们会通过该邮箱地址核验请求，并在法律要求的时限内回应。你不会因为行使这些权利而被拒绝服务或获得缩水的体验。"
+          ],
+        },
+        {
+          eyebrow: "06 / 儿童隐私",
+          title: "本站不面向 13 岁以下儿童",
+          body: [
+            "BalanceBikeToddler 是写给为购买做决定的家长和照护者的。我们不会故意收集 13 岁以下儿童的个人信息。Smart Wizard 会询问孩子的身高、年龄和适配线索以返回尺寸建议，但这些数值在浏览器本地计算，不会作为可识别未成年人身份的信息传给我们。",
+            "如果家长认为我们不慎收到了 13 岁以下儿童的个人信息，请联系 privacy@balancebiketoddler.com，我们会尽快删除。"
           ],
         },
       ],
