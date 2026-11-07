@@ -4,6 +4,8 @@ import { CATEGORY_GUIDE_LIST } from "../../data/categoryGuides";
 import {
   getD1CMSHubMediaMap,
   saveD1CMSHubMedia,
+  setCMSAdminToken,
+  hasCMSAdminToken,
   type HubRichMediaBlock,
 } from "../../lib/cmsD1Service";
 import HubRichMediaBlocks from "../HubRichMediaBlocks";
@@ -51,8 +53,14 @@ export default function HubRichMediaEditor({ lang }: { lang: "zh" | "en" }) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
+  const [tokenInput, setTokenInput] = useState("");
+  const [tokenSet, setTokenSet] = useState(false);
 
   const liveHost = typeof window !== "undefined" ? window.location.origin : "https://balancebiketoddler.com";
+
+  useEffect(() => {
+    setTokenSet(hasCMSAdminToken());
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -102,6 +110,14 @@ export default function HubRichMediaEditor({ lang }: { lang: "zh" | "en" }) {
   };
 
   const save = async () => {
+    if (!hasCMSAdminToken()) {
+      setError(
+        lang === "zh"
+          ? "尚未设置 Admin token：请在上方粘贴并点「设置」，否则写入网关会返回 403。"
+          : "Admin token not set — paste it above and click Set, otherwise the write gate returns 403.",
+      );
+      return;
+    }
     setSaving(true);
     setError(null);
     try {
@@ -111,7 +127,11 @@ export default function HubRichMediaEditor({ lang }: { lang: "zh" | "en" }) {
       setTimeout(() => setSavedFlash(false), 2500);
     } catch (e: any) {
       let nice = e?.message || String(e);
-      if (nice.includes("Missing or insufficient permissions")) {
+      if (nice.includes("AdminTokenRequired")) {
+        nice = lang === "zh"
+          ? "Admin token 无效或已过期，请重新粘贴后重试。"
+          : "Admin token is invalid or expired — paste it again above.";
+      } else if (nice.includes("Missing or insufficient permissions")) {
         nice = lang === "zh"
           ? "权限不足：当前会话未通过可写权限验证。请使用真实管理员 Google 账号登录后重试。"
           : "Permission Denied: please sign in with a real admin Google account and retry.";
@@ -151,6 +171,64 @@ export default function HubRichMediaEditor({ lang }: { lang: "zh" | "en" }) {
           <div className="font-bold">{error}</div>
         </div>
       )}
+
+      {/* #48 write gate: runtime-only token, never baked into a public bundle. */}
+      <div className={`rounded-[24px] border p-5 ${tokenSet ? "bg-emerald-50/60 border-emerald-200" : "bg-amber-50 border-amber-200"}`}>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-xs font-black uppercase tracking-widest text-slate-700">
+              {lang === "zh" ? "Admin token（仅本次标签页）" : "Admin token (this tab only)"}
+            </div>
+            <p className="text-xs text-slate-500 mt-1 leading-relaxed max-w-2xl">
+              {lang === "zh"
+                ? "CMS 写入网关要求管理员令牌。粘贴一次即存于 sessionStorage，对后台所有写操作生效；关闭标签页即失效，绝不写进前端构建产物。"
+                : "CMS writes require the admin token. Paste once; it stays in sessionStorage for this tab, applies to every Admin write, and is never baked into the bundle."}
+            </p>
+          </div>
+          <span className={`text-[10px] font-black px-3 py-1.5 rounded-full shrink-0 ${tokenSet ? "bg-emerald-600 text-white" : "bg-amber-500 text-white"}`}>
+            {tokenSet ? (lang === "zh" ? "已设置" : "SET") : (lang === "zh" ? "未设置" : "NOT SET")}
+          </span>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-4">
+          <input
+            type="password"
+            value={tokenInput}
+            onChange={(e) => setTokenInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setCMSAdminToken(tokenInput);
+                setTokenSet(hasCMSAdminToken());
+                setTokenInput("");
+                setError(null);
+              }
+            }}
+            autoComplete="off"
+            placeholder={lang === "zh" ? "粘贴 CMS_ADMIN_ALL_TOKEN" : "Paste CMS_ADMIN_ALL_TOKEN"}
+            className="flex-1 min-w-[220px] rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-mono focus:outline-none focus:border-orange-400"
+          />
+          <button
+            onClick={() => {
+              setCMSAdminToken(tokenInput);
+              setTokenSet(hasCMSAdminToken());
+              setTokenInput("");
+              setError(null);
+            }}
+            className="rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-black text-white hover:bg-slate-700 transition-all"
+          >
+            {lang === "zh" ? "设置" : "Set"}
+          </button>
+          <button
+            onClick={() => {
+              setCMSAdminToken("");
+              setTokenSet(false);
+              setTokenInput("");
+            }}
+            className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all"
+          >
+            {lang === "zh" ? "清除" : "Clear"}
+          </button>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
         {/* Hub list */}

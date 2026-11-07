@@ -66,6 +66,41 @@ export function cmsCacheBustedUrl(path: string): string {
   return `${path}${separator}_cb=${bucket}`;
 }
 
+/**
+ * #48 admin token — RUNTIME ONLY.
+ *
+ * Do NOT supply this through VITE_CMS_ADMIN_ALL_TOKEN in a production build:
+ * Vite inlines VITE_* vars into the public JS bundle, which is exactly how this
+ * secret ended up shipped in a deployed asset on 2026-11-06. Instead the
+ * operator pastes it once in the Admin panel; it is kept in sessionStorage for
+ * the current tab only, never persisted to disk and never logged.
+ * Prefer proper session auth on the Worker when that lands; until then this
+ * keeps the credential out of every publicly served file.
+ */
+const CMS_ADMIN_TOKEN_SESSION_KEY = "bbt-cms-admin-token";
+
+export function getCMSAdminToken(): string {
+  try {
+    return String(window.sessionStorage.getItem(CMS_ADMIN_TOKEN_SESSION_KEY) || "").trim();
+  } catch {
+    return "";
+  }
+}
+
+export function setCMSAdminToken(token: string): void {
+  const value = String(token || "").trim();
+  try {
+    if (value) window.sessionStorage.setItem(CMS_ADMIN_TOKEN_SESSION_KEY, value);
+    else window.sessionStorage.removeItem(CMS_ADMIN_TOKEN_SESSION_KEY);
+  } catch {
+    // Storage blocked (private mode / policy): writes will 403 with a clear hint.
+  }
+}
+
+export function hasCMSAdminToken(): boolean {
+  return getCMSAdminToken().length > 0;
+}
+
 export async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   const hasBody = init?.body !== undefined && init?.body !== null;
   // Reads rotate their browser cache key (see cmsCacheBustedUrl); writes must
@@ -73,11 +108,13 @@ export async function requestJson<T>(path: string, init?: RequestInit): Promise<
   const requestUrl = resolveCMSApiPath(hasBody ? path : cmsCacheBustedUrl(path));
   let lastError: Error | null = null;
 
-  // #48: attach the admin token so the (now gated) CMS writes pass. The token
-  // comes from VITE_CMS_ADMIN_ALL_TOKEN (a public build var) — obscurity-level
-  // protection only; the proper fix is session auth (see #48 notes). Harmless on
-  // public GET reads.
-  const adminToken = String((import.meta as any)?.env?.VITE_CMS_ADMIN_ALL_TOKEN || "").trim();
+  // #48: attach the admin token so gated CMS writes pass. Prefer the operator's
+  // runtime token (sessionStorage, set once in the Admin panel). The legacy
+  // VITE_* build var is a LOCAL-DEV fallback only — leaving it set in a
+  // production build would inline the secret into publicly served JS.
+  // Harmless on public GET reads.
+  const adminToken =
+    getCMSAdminToken() || String((import.meta as any)?.env?.VITE_CMS_ADMIN_ALL_TOKEN || "").trim();
 
   // Only send Content-Type when a body is actually present (hasBody above): a
   // GET marked "Content-Type: application/json" stops being a CORS-simple
@@ -88,13 +125,16 @@ export async function requestJson<T>(path: string, init?: RequestInit): Promise<
 
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     const response = await fetch(requestUrl, {
+      ...init,
+      // Headers must come LAST: spreading init after them replaced the whole
+      // object, silently dropping the admin token and Content-Type for any
+      // caller that supplied its own headers.
       headers: {
         ...(hasBody ? { "Content-Type": "application/json" } : {}),
         Accept: "application/json",
         ...(adminToken ? { "x-cms-admin-token": adminToken } : {}),
         ...(init?.headers || {}),
       },
-      ...init,
     });
 
     if (!response.ok) {
