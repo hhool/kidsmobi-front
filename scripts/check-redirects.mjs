@@ -99,8 +99,19 @@ for (const rule of rules) {
 const isExternal = (target) => /^https?:\/\//i.test(target);
 for (const rule of rules) {
   if (!rule.source.includes("*")) continue;
-  const target = rule.raw.split(/\s+/)[1];
-  if (!isExternal(target)) {
+  const parts = rule.raw.split(/\s+/);
+  const target = parts[1];
+  const status = parts[2] || "";
+  // Only a wildcard *rewrite* (an implicit or explicit 200) to a static path
+  // shadows prerendered pages: Pages applies the rewrite before the static
+  // asset tree, so `/products/* / 200` served the homepage shell for 181
+  // product pages. A wildcard *redirect* (301/302/307/308) does NOT shadow —
+  // it returns a Location and sends the client to another path, which is
+  // exactly what a partial-bilingual site needs to point /zh/<section>/* at its
+  // English edition. Redirect status codes are therefore exempt; only rewrites
+  // are dangerous.
+  const isRedirect = /^30[1278]$/.test(status);
+  if (!isExternal(target) && !isRedirect) {
     failures.push({
       name: "redirects-no-wildcard-static-target",
       detail: `line ${rule.line} (${rule.source}) targets "${target}" — a wildcard rewrite shadows every prerendered page under that prefix (Pages applies the rule before the static asset tree). Use exact rules for the few paths that have no prerendered sibling, or move the rule into the Worker.`,
