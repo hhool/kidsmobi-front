@@ -116,7 +116,11 @@ for (const rule of rules) {
 // when the roots carried only the no-slash form). The target must be "/", not
 // "/index.html" — see redirects-no-index-html-target above; this assertion
 // used to accept either, which is how the broken shape shipped.
-const BARE_APP_ROOTS = ["/compare", "/auth", "/search", "/transparency"];
+// /auth graduated to a real prerendered page (scripts/prerender-pages.ts) on
+// 2026-11-07, so it is no longer a bare root and must NOT carry a rewrite —
+// a rewrite shadows the prerendered auth.html (verified live: /auth served the
+// homepage shell until the rule was removed).
+const BARE_APP_ROOTS = ["/compare", "/search", "/transparency"];
 const ruleBySource = new Map(rules.map((rule) => [rule.source, rule]));
 for (const root of BARE_APP_ROOTS) {
   for (const form of [root, `${root}/`]) {

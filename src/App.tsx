@@ -285,6 +285,11 @@ import {
   buildBuyerFeedbackDatasetSchema,
 } from "./data/balanceBikeBuyerFeedback";
 import CookieConsentModal from "./components/CookieConsentModal";
+import {
+  CATEGORY_GUIDE_PATHS_SET,
+  getCategoryGuideByTab,
+} from "./data/categoryGuides";
+import { CategoryGuidePage } from "./components/CategoryGuidePage";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
 
@@ -1370,6 +1375,22 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "auth") {
     return {
       activeTab: "auth",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // 20 new category guide pages (pillar / cluster / comparison). Each uses its
+  // own path root as the tab name, recovered verbatim in the SEO effect and the
+  // JSX render — same convention as the family asset clusters. Registered before
+  // the unknown-root fallback so the page hydrates with its own canonical.
+  if (CATEGORY_GUIDE_PATHS_SET.has(root)) {
+    return {
+      activeTab: root,
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -3481,6 +3502,45 @@ export default function App() {
       }
     }
 
+    // 20 new category guide pages. Each guide has its own SEO block in
+    // data/categoryGuides.ts, keyed by path; the tab name is the path root, so
+    // the path is recovered verbatim (do NOT strip a prefix here).
+    if (CATEGORY_GUIDE_PATHS_SET.has(activeTab)) {
+      const guidePath = `/${activeTab}/`;
+      const guide = getCategoryGuideByTab(activeTab);
+      if (guide) {
+        const canonicalOrigin =
+          cmsSettings?.seoGlobal?.siteOrigin ||
+          (cmsSettings as any)?.siteOrigin ||
+          (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+          window.location.origin;
+        const canonicalUrl = `${canonicalOrigin}${guidePath}`;
+        const noIndex = shouldNoIndexCurrentPath(guidePath, window.location.search, window.location.hostname);
+        const docTitle = buildDocumentTitle(guide.title);
+        const metaDesc = buildMetaDescription(guide.description, sanitizeUnsupportedClaims);
+
+        document.title = docTitle;
+        updateMetaTag("description", metaDesc);
+        updateMetaTag("keywords", guide.keywords.join(", "));
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+        updateCanonicalLink(canonicalUrl);
+        updateMetaProperty("og:url", canonicalUrl);
+        updateSocialMeta(docTitle, metaDesc, DEFAULT_OG_IMAGE_PATH, "website");
+
+        injectJsonLd([
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: docTitle,
+            url: canonicalUrl,
+            description: guide.description,
+            inLanguage: lang,
+          },
+        ]);
+        return;
+      }
+    }
+
     if (activeTab === "weight-build") {
       const weightSeoData = weightSeo[lang] || weightSeo.en;
       const canonicalOrigin =
@@ -4503,14 +4563,26 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             {/* Mobile Actions */}
             <div className="flex md:hidden items-center gap-2 shrink-0">
               {STATIC_DOCUMENT ? (
-                <a
-                  href={STATIC_LANG_HREF}
-                  className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
-                  title={lang === "zh" ? "Switch to English" : "切换至中文"}
-                  aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
-                >
-                  <Globe className="w-4 h-4" aria-hidden="true" />
-                </a>
+                <>
+                  <a
+                    href={STATIC_LANG_HREF}
+                    className="flex items-center gap-1 px-2.5 py-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all text-xs"
+                    title={lang === "zh" ? "Switch to English" : "切换至中文"}
+                    aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
+                  >
+                    <Globe className="w-4 h-4" aria-hidden="true" />
+                    <span>{lang === "zh" ? "EN" : "中文"}</span>
+                  </a>
+                  <a
+                    href="/auth"
+                    className="flex items-center gap-1 px-2.5 py-2 rounded-xl text-slate-500 border border-slate-200 hover:text-slate-900 bg-white font-bold transition-all text-xs"
+                    title={lang === "zh" ? "登录" : "Sign In"}
+                    aria-label={lang === "zh" ? "登录" : "Sign In"}
+                  >
+                    <Award className="w-4 h-4" aria-hidden="true" />
+                    <span>{lang === "zh" ? "登录" : "Sign In"}</span>
+                  </a>
+                </>
               ) : (
                 <>
 
@@ -4719,14 +4791,26 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             {/* Header Search & Auth & Lang (Desktop) */}
             <div className="hidden md:flex items-center gap-3 shrink-0">
               {STATIC_DOCUMENT ? (
-                <a
-                  href={STATIC_LANG_HREF}
-                  className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
-                  title={lang === "zh" ? "Switch to English" : "切换至中文"}
-                  aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
-                >
-                  <Globe className="w-4 h-4" aria-hidden="true" />
-                </a>
+                <>
+                  <a
+                    href={STATIC_LANG_HREF}
+                    className="flex items-center gap-1 px-3 py-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all text-xs"
+                    title={lang === "zh" ? "Switch to English" : "切换至中文"}
+                    aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
+                  >
+                    <Globe className="w-4 h-4" aria-hidden="true" />
+                    <span>{lang === "zh" ? "EN" : "中文"}</span>
+                  </a>
+                  <a
+                    href="/auth"
+                    className="flex items-center gap-1 px-3 py-2 rounded-xl text-slate-500 border border-slate-200 hover:text-slate-900 bg-white font-bold transition-all text-xs"
+                    title={lang === "zh" ? "登录" : "Sign In"}
+                    aria-label={lang === "zh" ? "登录" : "Sign In"}
+                  >
+                    <Award className="w-4 h-4" aria-hidden="true" />
+                    <span>{lang === "zh" ? "登录" : "Sign In"}</span>
+                  </a>
+                </>
               ) : (
                 <>
 
@@ -5314,6 +5398,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
         )}
         {activeTab === "kids-stroller-recalls" && (
           <KidsStrollerRecalls lang={lang} />
+        )}
+
+        {CATEGORY_GUIDE_PATHS_SET.has(activeTab) && !isRouteNotFound && (
+          <CategoryGuidePage guide={getCategoryGuideByTab(activeTab)!} lang={lang} />
         )}
 
         {activeTab === "weight-build" && (

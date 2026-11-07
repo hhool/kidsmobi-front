@@ -34,8 +34,7 @@
 # "/index.html" (see the 308 note above). Guard: npm run check:redirects.
 /compare / 200
 /compare/ / 200
-/auth / 200
-/auth/ / 200
+# /auth is a real prerendered page now (scripts/prerender-pages.ts) — no rewrite.
 /search / 200
 /search/ / 200
 /transparency / 200

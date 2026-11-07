@@ -193,6 +193,7 @@ import {
   KIDS_STROLLER_SEO_BY_PATH,
 } from "../src/data/kidsStrollerSeo";
 import { renderKidsStrollerPages as renderKidsStrollerPageBodies } from "./kidsStrollerPages";
+import { renderCategoryGuidePages as renderCategoryGuidePageBodies } from "./categoryGuidePages";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
@@ -362,6 +363,11 @@ type RoutePage = {
    *  origin on all 442 pages would spend a handshake on pages that never ask
    *  for the image. */
   preconnectOrigins?: string[];
+  /** Emit <meta name="robots" content="noindex,nofollow"> and keep the page
+   *  out of the sitemap. Used by the /auth route: a login/register entry point
+   *  is a working SPA-booting page (so a hard link from the static homepage
+   *  opens the auth tab) but must never be indexed. */
+  noindex?: boolean;
 };
 
 type AppAssets = {
@@ -960,7 +966,7 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
     <title>${escapeHtml(titleTag)}</title>
     <meta name="description" content="${escapeHtml(descTag)}" />
     <meta name="keywords" content="${escapeHtml(keywordTag)}" />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="robots" content="${page.noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"}" />
     <meta property="og:site_name" content="BalanceBikeToddler" />
     <meta property="og:type" content="${ogType}" />
     <meta property="og:url" content="${escapeHtml(canonical)}" />
@@ -8694,6 +8700,17 @@ async function main() {
     ...renderKidsRideOnPages(),
     ...renderKidsTricyclePages(),
     ...renderKidsStrollerPages(),
+    ...renderCategoryGuidePageBodies().map((p) => ({
+      route: p.route,
+      title: p.title,
+      description: p.description,
+      skipTitleH1: p.skipTitleH1,
+      h1En: p.h1En,
+      keywords: p.keywords,
+      body: p.body,
+      ogType: "website" as const,
+      jsonLd: p.jsonLd,
+    })),
     ...renderWeightPage(),
     ...renderStabilityPage(),
     ...renderAgePage(),
@@ -8706,6 +8723,18 @@ async function main() {
     ...zhGuideDetailPages,
     ...zhNewsDetailPages,
     ...evaluationDetailPages,
+    // /auth — SPA-booting login/register entry point. Reachable as a hard link
+    // from the static homepage header. noindex + excluded from sitemap (it is a
+    // functional route, not a content page). The SPA renders the auth tab from
+    // this route; the static body below is only the no-JS fallback.
+    {
+      route: "/auth",
+      title: "Sign In / 登录",
+      description: "BalanceBikeToddler 会员登录与注册入口。",
+      body: `<main class="max-w-3xl mx-auto px-4 py-16 text-center"><h1 class="text-2xl font-black text-slate-900">Sign In · 登录</h1><p class="mt-4 text-slate-600">BalanceBikeToddler 会员登录与注册入口。若页面未自动加载，请返回首页。</p></main>`,
+      noindex: true,
+      ogType: "website" as const,
+    },
   ];
 
   if (guideDetailPages.length || newsDetailPages.length || evaluationDetailPages.length) {
@@ -8939,7 +8968,7 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   ]) {
     staticModByRoute.set(route, TRANSPARENCY_LASTMOD);
   }
-  const sitemapUrls = pages
+  const sitemapUrls = pages.filter((page) => !page.noindex)
     .map((page) => {
       // A /zh page is the same document in the other language, so it inherits
       // the English route's lastmod and priority tier.
@@ -8989,6 +9018,7 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     ...productDetailPages.map((page) => page.route),
   ]);
   const staticNoCmsPaths = pages
+    .filter((page) => !page.noindex)
     .map((page) => page.route)
     .filter((route) => !workerPublishedRoutes.has(route));
   await writeFile(
