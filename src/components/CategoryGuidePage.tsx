@@ -30,8 +30,8 @@ export function CategoryGuidePage({
           lang="en"
           onHomeClick={() => (window.location.href = "/")}
           items={[
-            { label: "Toddler first-wheels family", onClick: () => (window.location.href = "/") },
-            { label: shortTitle, active: true },
+            { label: shortTitle, onClick: () => (window.location.href = guide.route) },
+            { label: "Toddler first-wheels family", active: true },
           ]}
         />
         <header className="space-y-5 border-b border-slate-200 pb-8">

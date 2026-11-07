@@ -51,9 +51,9 @@ function bodyFor(g: CategoryGuide): string {
   <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#475569;margin-bottom:18px;">
     <a href="/" style="display:inline-flex;align-items:center;gap:6px;color:#475569;text-decoration:none;">${ICON_HOME}<span>Home</span></a>
     <span style="color:#cbd5e1;display:inline-flex;">${ICON_CHEVRON}</span>
-    <a href="/" style="color:#475569;text-decoration:none;">Toddler first-wheels family</a>
+    <a href="${esc(g.route)}" style="color:#475569;text-decoration:none;">${esc(crumbShort)}</a>
     <span style="color:#cbd5e1;display:inline-flex;">${ICON_CHEVRON}</span>
-    <span style="color:#ea580c;">${esc(crumbShort)}</span>
+    <span style="color:#ea580c;">Toddler first-wheels family</span>
   </nav>`;
 
   const sections = g.sections
@@ -126,8 +126,8 @@ export function renderCategoryGuidePages(): CategoryGuideRoutePage[] {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: `${ORIGIN}/` },
-          { "@type": "ListItem", position: 2, name: "Toddler first-wheels family", item: `${ORIGIN}/` },
-          { "@type": "ListItem", position: 3, name: hubCrumbShort(g.title), item: `${ORIGIN}${g.route}` },
+          { "@type": "ListItem", position: 2, name: hubCrumbShort(g.title), item: `${ORIGIN}${g.route}` },
+          { "@type": "ListItem", position: 3, name: "Toddler first-wheels family", item: `${ORIGIN}${g.route}` },
         ],
       },
     ],

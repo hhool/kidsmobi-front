@@ -42,6 +42,7 @@ export default function StaticHeaderNav({ lang }: StaticHeaderNavProps) {
   const items: Array<{ href: string; label: string; active?: boolean }> = [
     { href: "/", label: t.navHome, active: true },
     { href: "/products", label: t.navProducts },
+    { href: "/guides", label: lang === "zh" ? "导购分类" : "Categories" },
     { href: "/reviews", label: t.navEvaluations },
     { href: "/guides", label: t.navGuides },
     { href: "/news", label: t.navNews },
