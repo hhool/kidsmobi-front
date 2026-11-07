@@ -1321,67 +1321,73 @@ export default function HomeSection({
       </section>
 
       {/* 4b. Topic board — five keyword entry points, balance bike first.
-           The 20 category hubs stay crawlable inside <details>: the reader
-           gets five choices instead of a 20-pill tag cloud, while crawlers
-           still see every hub link with that article's real H1 as its text. */}
-      <section id="topic_guides_anchor" className="max-w-7xl mx-auto px-6 py-8">
-        <div className="space-y-1 mb-4">
-          <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
-            {lang === "zh" ? "选购指南" : "Buying Guides"}
-          </span>
-          <h2 className="km-section-title text-slate-900">
-            {lang === "zh" ? "按品类挑导购" : "Pick a topic"}
-          </h2>
-          <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
-            {lang === "zh"
-              ? "从平衡车开始，再看滑板车、儿童自行车、慢跑推车和儿童电动车。"
-              : "Start with balance bikes — then scooters, pedal bikes, strollers and ride-on cars."}
-          </p>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
-          {HOME_TOPIC_BOARD.map((topic, i) => (
-            <article
-              key={topic.keyword}
-              className={`flex flex-col gap-1.5 rounded-2xl border p-3 ${
-                i === 0
-                  ? "col-span-2 sm:col-span-1 border-orange-300 bg-orange-50/70 ring-1 ring-orange-200"
-                  : "border-slate-200 bg-white"
-              }`}
-            >
-              <span className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">
-                {String(i + 1).padStart(2, "0")} · {lang === "zh" ? topic.keywordZh : topic.keyword}
-              </span>
-              <h3 className="text-[13px] font-extrabold leading-snug text-slate-900">
-                <a href={topic.guideHref} className="hover:text-orange-600 transition-colors">
-                  {lang === "zh" ? topic.guideTitleZh : topic.guideTitle}
-                </a>
-              </h3>
-              <a
-                href={topic.picksHref}
-                className="mt-auto hidden sm:inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-widest text-orange-500 hover:text-orange-600"
+           Drawn in the homepage's own panel language (rounded-4xl, hairline
+           border, generous padding, divider columns) rather than a row of
+           bordered chips; the balance-bike column uses the same orange left
+           rule as the subsection headings further down the page. The 20
+           category hubs stay crawlable inside <details>, each with that
+           article's real H1 as its anchor text. */}
+      <section id="topic_guides_anchor" className="max-w-7xl mx-auto px-6">
+        <div className="rounded-4xl border border-slate-100 bg-white p-5 sm:p-8 space-y-5 sm:space-y-6">
+          <div className="space-y-2">
+            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
+              {lang === "zh" ? "选购指南" : "Buying Guides"}
+            </span>
+            <h2 className="km-section-title text-slate-900">
+              {lang === "zh" ? "按品类挑导购" : "Pick a topic"}
+            </h2>
+            <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
+              {lang === "zh"
+                ? "从平衡车开始，再看滑板车、儿童自行车、慢跑推车和儿童电动车。"
+                : "Start with balance bikes — then scooters, pedal bikes, strollers and ride-on cars."}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-5">
+            {HOME_TOPIC_BOARD.map((topic, i) => (
+              <div
+                key={topic.keyword}
+                className={`flex flex-col gap-2 ${
+                  i === 0
+                    ? "col-span-2 sm:col-span-1 border-l-2 border-orange-500 pl-3 lg:border-l-4 lg:pl-4"
+                    : "lg:border-l lg:border-slate-100 lg:pl-6"
+                }`}
               >
-                {homeCopy.safetyAudits.morePicks} <ArrowRight className="w-3 h-3" />
-              </a>
-            </article>
-          ))}
-        </div>
-        <details className="mt-4">
-          <summary className="cursor-pointer text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-orange-600 transition-colors">
-            {lang === "zh" ? "全部 20 篇分类导购" : "All 20 category buying guides"}
-          </summary>
-          <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-            {CATEGORY_GUIDE_LIST.map((g) => (
-              <li key={g.route}>
+                <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${i === 0 ? "text-orange-500" : "text-slate-400"}`}>
+                  {lang === "zh" ? topic.keywordZh : topic.keyword}
+                </span>
+                <h3 className="text-[13px] sm:text-sm font-bold leading-snug text-slate-900">
+                  <a href={topic.guideHref} className="text-slate-900 hover:text-orange-600 transition-colors">
+                    {lang === "zh" ? topic.guideTitleZh : topic.guideTitle}
+                  </a>
+                </h3>
                 <a
-                  href={g.route}
-                  className="block rounded-xl border border-slate-100 bg-white px-3 py-2 text-xs font-semibold text-slate-600 hover:border-orange-300 hover:text-orange-600 transition-colors"
+                  href={topic.picksHref}
+                  className="mt-auto hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:text-orange-500 transition-colors"
                 >
-                  {g.h1}
+                  {homeCopy.safetyAudits.morePicks} <ArrowRight className="w-3 h-3" />
                 </a>
-              </li>
+              </div>
             ))}
-          </ul>
-        </details>
+          </div>
+          <details className="group border-t border-slate-100 pt-5">
+            <summary className="flex items-center justify-between gap-3 cursor-pointer text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500 transition-colors">
+              <span>{lang === "zh" ? "全部 20 篇分类导购" : "All 20 category buying guides"}</span>
+              <ArrowRight className="w-4 h-4 shrink-0 group-open:rotate-90 transition-transform" />
+            </summary>
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6">
+              {CATEGORY_GUIDE_LIST.map((g) => (
+                <li key={g.route}>
+                  <a
+                    href={g.route}
+                    className="block py-1.5 text-xs font-semibold text-slate-600 hover:text-orange-600 transition-colors"
+                  >
+                    {g.h1}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </div>
       </section>
 
       {/* 4. Safety Audits (双横排网格 SEO 增强版) */}
