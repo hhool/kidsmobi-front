@@ -22,7 +22,9 @@ const AI_CRAWLERS = [
 ];
 
 // These must be allowed for answer engines to read the site (GEO depends on it).
-const GEO_REQUIRED = ['GPTBot', 'ClaudeBot', 'PerplexityBot'];
+// OAI-SearchBot is ChatGPT's search crawler — an answer engine that reads a page
+// to answer a question, so it is in the same class as the three below.
+const GEO_REQUIRED = ['GPTBot', 'ClaudeBot', 'PerplexityBot', 'OAI-SearchBot'];
 
 async function getText(url) {
   const res = await fetch(url, { redirect: 'follow' });
@@ -50,7 +52,12 @@ async function main() {
     const disallowed = [];
     for (const b of blocks) {
       const agent = b.split('\n')[0].trim();
-      if (AI_CRAWLERS.some((c) => agent.toLowerCase().includes(c.toLowerCase())) && /Disallow:\s*\//i.test(b)) {
+      // A group is "fully disallowed" only when it blocks the whole site
+      // (`Disallow: /` with nothing after the slash). Per-parameter rules such as
+      // `Disallow: /*?*sort=` block only query-string URLs and still let the
+      // answer engine read every real content page, so they must not count as a
+      // block here.
+      if (AI_CRAWLERS.some((c) => agent.toLowerCase().includes(c.toLowerCase())) && /Disallow:\s*\/\s*$/im.test(b)) {
         disallowed.push(agent);
       }
     }

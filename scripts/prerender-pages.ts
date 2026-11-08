@@ -8391,17 +8391,26 @@ function renderProductDetailPage(
           },
         }
       : {}),
-    ...(price
+    // No `offers` block. This is an editorial affiliate publisher with no cart,
+    // checkout, or first-party inventory, so emitting a price + InStock Offer is
+    // a fabricated structured-data claim (Google Product snippet policy). The
+    // reference price and the "Check price on Amazon" affiliate link stay in the
+    // visible body, so shoppers still see pricing — only the false in-stock
+    // offer is removed. Mirrors src/App.tsx (SPA hydration) so both renderers
+    // agree on what the Product node carries.
+    ...(editorialScore > 0 && verdict
       ? {
-          offers: {
-            "@type": "Offer",
-            price,
-            priceCurrency: "USD",
-            // Same value the hydrated SPA has always emitted (src/App.tsx). The
-            // static HTML lacked it, so Google read two different Offers for one
-            // URL — and availability is required for the Offer rich result.
-            availability: "https://schema.org/InStock",
+          review: {
+            "@type": "Review",
+            author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
             url: `${PUBLIC_SITE_BASE}${route}`,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: Math.round(editorialScore * 10) / 10,
+              bestRating: 10,
+              worstRating: 1,
+            },
+            reviewBody: verdict,
           },
         }
       : {}),
@@ -8992,10 +9001,36 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     { prefix: "/kids-tricycle-", lastmod: "2026-10-24T00:00:00.000Z" },
     { prefix: "/kids-stroller-", lastmod: "2026-10-24T00:00:00.000Z" },
   ];
+  // Family landing + topic pages: /balance-bike/, /kids-scooter-by-age/, etc.
+  // Real last content change: the 2026-11-08 regroup into five product families.
+  // Bump only when hub content really changes — never fake it forward.
+  const FAMILY_HUB_LASTMOD = "2026-11-07T20:01:05.000Z";
+  const FAMILY_HUB_PREFIXES = [
+    "balance-bike",
+    "kids-bike",
+    "kids-scooter",
+    "kids-stroller",
+    "kids-tricycle",
+    "kids-ride-on",
+    "baby-stroller",
+    "twin-stroller",
+    "foldable-electric-scooter",
+    "kids-dirt-bike",
+    "kids-electric-scooter",
+  ];
   for (const page of pages) {
     if (staticModByRoute.has(page.route) || modByRoute.has(page.route)) continue;
     const family = ASSET_FAMILY_LASTMOD.find((entry) => page.route.startsWith(entry.prefix));
-    if (family) staticModByRoute.set(page.route, family.lastmod);
+    if (family) {
+      staticModByRoute.set(page.route, family.lastmod);
+    } else if (FAMILY_HUB_PREFIXES.some((f) => page.route === `/${f}/` || page.route.startsWith(`/${f}`))) {
+      // Family landing + topic pages (/balance-bike/, /kids-scooter-by-age/, …):
+      // these are the 20 category hubs the audit found missing lastmod. Their
+      // real last content change is the 2026-11-08 regroup into five product
+      // families (front commit), so that date is the honest lastmod — bump it
+      // only when the hub content really changes, never fake it forward.
+      staticModByRoute.set(page.route, FAMILY_HUB_LASTMOD);
+    }
   }
   // The public recall record is generated from src/data/safetyRecallRecord.ts
   // (last changed 2026-10-24).
