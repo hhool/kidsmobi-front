@@ -51,6 +51,9 @@ node node_modules/tsx/dist/cli.mjs scripts/prerender-pages.ts
 echo "=== build $LABEL: static home ==="
 bash scripts/build-home.sh
 
+echo "=== build $LABEL: llms generate ==="
+node scripts/gen-llms.mjs
+
 # Last step of `npm run build`. It stamps dist/llms.txt with the newest
 # <lastmod> the sitemap just declared, so the AI-facing index and the sitemap
 # cannot disagree about when the content moved (R-927). Deterministic: no clock.

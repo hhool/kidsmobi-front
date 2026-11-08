@@ -9,32 +9,77 @@ Disallow: /*?*category=
 
 # AI crawlers.
 #
-# Google-Extended feeds AI Overviews and Gemini, and CCBot feeds Common
-# Crawl - the corpus most third-party AI tools read from. Blocking both means
-# the content never reaches an AI answer, so both are allowed.
+# Google-Extended opts content into/out of Google's generative-AI training
+# (Gemini, Vertex AI and similar). It does NOT govern Google Search or AI
+# Overviews — those use Googlebot. CCBot is Common Crawl's crawler; its open
+# corpus is what many third-party AI tools read from. Both are allowed so the
+# content stays available to those pools.
 #
-# GPTBot, ClaudeBot and PerplexityBot are the three answer engines that read
-# a page to answer a question rather than to build an index. They are the
-# crawlers this site's own GEO check (scripts/seo/geo-ops.mjs) requires by
-# name, so they are stated here too: a rule that lives only in a script is a
-# rule the crawler never sees.
+# GPTBot (OpenAI) and ClaudeBot (Anthropic) are training crawlers that build
+# model corpora; they are not live answer engines. PerplexityBot and
+# OAI-SearchBot are the answer-engine crawlers that fetch a page to answer a
+# question. This site's own GEO check (scripts/seo/geo-ops.mjs) requires
+# GPTBot, ClaudeBot, PerplexityBot and OAI-SearchBot by name, so each is
+# stated here too: a rule that lives only in a script is a rule the crawler
+# never sees. (OAI-SearchBot would still inherit the `User-agent: *` Allow
+# without a named group, but naming it keeps the policy self-documenting and
+# avoids ambiguity if the `*` group ever tightens.)
 #
 # Bytespider, Applebot-Extended and meta-externalagent are bulk training
 # scrapers rather than search engines, and they stay out.
 User-agent: Google-Extended
 Allow: /
+Disallow: /*?*sort=
+Disallow: /*?*price=
+Disallow: /*?*age=
+Disallow: /*?*filter=
+Disallow: /*?*wizard=
+Disallow: /*?*category=
 
 User-agent: CCBot
 Allow: /
+Disallow: /*?*sort=
+Disallow: /*?*price=
+Disallow: /*?*age=
+Disallow: /*?*filter=
+Disallow: /*?*wizard=
+Disallow: /*?*category=
 
 User-agent: GPTBot
 Allow: /
+Disallow: /*?*sort=
+Disallow: /*?*price=
+Disallow: /*?*age=
+Disallow: /*?*filter=
+Disallow: /*?*wizard=
+Disallow: /*?*category=
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /*?*sort=
+Disallow: /*?*price=
+Disallow: /*?*age=
+Disallow: /*?*filter=
+Disallow: /*?*wizard=
+Disallow: /*?*category=
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /*?*sort=
+Disallow: /*?*price=
+Disallow: /*?*age=
+Disallow: /*?*filter=
+Disallow: /*?*wizard=
+Disallow: /*?*category=
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /*?*sort=
+Disallow: /*?*price=
+Disallow: /*?*age=
+Disallow: /*?*filter=
+Disallow: /*?*wizard=
+Disallow: /*?*category=
 
 User-agent: Bytespider
 Disallow: /
