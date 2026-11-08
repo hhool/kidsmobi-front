@@ -128,7 +128,9 @@
     "seo:guide-index": "node scripts/seo/gen-guide-category-index.mjs",
     "check:guideindex": "npx tsx scripts/check-guide-category-index.mjs",
     "check:guideindex:selftest": "npx tsx scripts/check-guide-category-index.mjs --selftest",
-    "check:titles:selftest": "node scripts/check-prerender-titles.mjs --self-test"
+    "check:titles:selftest": "node scripts/check-prerender-titles.mjs --self-test",
+    "check:footer": "node scripts/check-footer-ui.mjs",
+    "check:footer:selftest": "node scripts/check-footer-ui.mjs --selftest"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1073.0",

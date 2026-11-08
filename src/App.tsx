@@ -185,7 +185,7 @@ import {
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
 import { normalizeEntityGraph } from "./lib/entityGraph";
 import { setReferenceClusterConfig, CLUSTER_HEADINGS } from "./lib/referenceCluster";
-import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
+import { buildSocialShareUrl, SOCIAL_BRAND_PATHS } from "./lib/socialShare";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
@@ -5634,7 +5634,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       {activeTab !== "admin" && (
       <footer id="main_footer" className="bg-slate-900 border-t border-slate-800 pt-20 pb-10 text-xs">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
             {/* Column 1: Brand */}
             <div className="md:col-span-1 space-y-6">
               <div className="flex items-center gap-2">
@@ -5906,31 +5906,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </ul>
             </div>
 
-            {/* Column 4: Latest guides & news — the 2026-10-19 article batch.
-                Shared link list with the prerendered footer (footerArticles.ts). */}
-            <div className="space-y-6">
-              <p className="text-white font-bold uppercase tracking-widest text-[10px]">
-                {lang === "en" ? "Guides & News" : "指南与动态"}
-              </p>
-              <ul className="font-medium">
-                {FOOTER_ARTICLE_LINKS.map((article) => (
-                  <li key={article.path}>
-                    <a
-                      href={resolveSeoLink(lang === "zh" ? withZhPrefix(article.path) : article.path)}
-                      className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        navigateToPath(lang === "zh" ? withZhPrefix(article.path) : article.path);
-                      }}
-                    >
-                      {lang === "en" ? article.en : article.zh}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* The Guides & News column was removed on 2026-11-08 (owner
+                request). The articles and their URLs are untouched; they are
+                reachable from /guides, which groups all 68 of them by product
+                family. */}
 
-            {/* Column 5: Connectivity */}
+            {/* Connectivity: official X link + Facebook share + safety certs */}
             <div className="space-y-6">
               <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Global Network" : "社交分享"}
@@ -5944,6 +5925,26 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   title={lang === "en" ? "Follow us on X" : "X 官方账号"}
                 >
                   <Twitter className="w-4 h-4" />
+                </a>
+                {/* No official Facebook page exists for this site yet, so this
+                    icon opens Facebook's share dialog for the current URL
+                    instead of pointing at an invented profile. Same glyph as
+                    the article-card share buttons (SOCIAL_BRAND_PATHS). */}
+                <a
+                  href={buildSocialShareUrl(
+                    "facebook",
+                    typeof window === "undefined" ? "https://balancebiketoddler.com/" : window.location.href,
+                    "",
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
+                  title={lang === "en" ? "Share on Facebook" : "分享到 Facebook"}
+                  aria-label={lang === "en" ? "Share on Facebook" : "分享到 Facebook"}
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden="true">
+                    <path d={SOCIAL_BRAND_PATHS.facebook} />
+                  </svg>
                 </a>
               </div>
               <div className="pt-2">

@@ -207,7 +207,6 @@ import {
   GUIDES_WIZARD_H1,
   type GuidesTopicPageId,
 } from "../src/lib/guidesTopicPages";
-import { FOOTER_ARTICLE_LINKS } from "../src/lib/footerArticles";
 import {
   DEFAULT_REFERENCE_CLUSTER,
   resolveReferenceCluster,
@@ -718,18 +717,16 @@ function renderSiteFooter(route: string): string {
   const trustLinks = zh
     ? FOOTER_TRUST_LINKS.map((item) => ({ ...item, label: ZH_FOOTER_LABELS[item.href] || item.label }))
     : FOOTER_TRUST_LINKS;
-  // Every footer article has a Chinese edition (the 2026-10-19 editorial
-  // batch), so the /zh footer links the /zh routes with the Chinese titles.
-  const articleLinks = zh
-    ? FOOTER_ARTICLE_LINKS.map((article) => ({ href: zhRoutePath(article.path), label: article.zh }))
-    : FOOTER_ARTICLE_LINKS.map((article) => ({ href: article.path, label: article.en }));
+  // The 2026-10-19 article batch used to occupy a second footer row here.
+  // Removed together with the SPA's "Guides & News" column on 2026-11-08 so
+  // crawler HTML and the hydrated footer agree. The article pages and their
+  // sitemap entries are untouched; /guides groups all 68 by product family.
   const copyright = zh
     ? "© 2026 BalanceBikeToddler · 儿童骑行与安全选购研究站 · 版权所有"
     : "© BalanceBikeToddler — evidence-based analysis of kids ride-on and safety gear.";
   return `
       <footer style="margin-top:34px;padding:20px 0 8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;font-size:0.88rem;line-height:2;">
         <p style="margin:0 0 4px;">${sectionLinks.map(link).join("")}</p>
-        <p style="margin:0 0 4px;">${articleLinks.map(link).join("")}</p>
         <p style="margin:0;">${trustLinks.map(link).join("")}</p>
         <p style="margin:10px 0 0;color:#64748b;">${copyright}</p>
         <p class="byline" style="margin:6px 0 0;color:#64748b;">${zh ? "内容由" : "Content by"} <a href="/transparency/editorial-team/" style="color:#c2410c;text-decoration:none;">${zh ? "BalanceBikeToddler 编辑团队" : "BalanceBikeToddler Editorial Team"}</a></p>
@@ -8778,7 +8775,7 @@ async function main() {
       route: "/auth",
       title: "Sign In / 登录",
       description: "BalanceBikeToddler 会员登录与注册入口。登录后可保存对比清单、收藏选购指南与浏览记录；不登录也能完整阅读全站评测、选购指南与安全提示。",
-      body: `<main class="max-w-3xl mx-auto px-4 py-16 text-center"><h2 class="text-2xl font-black text-slate-900">Sign In · 登录</h2><p class="mt-4 text-slate-600">BalanceBikeToddler 会员登录与注册入口。登录后可保存对比清单、收藏选购指南与浏览记录；不登录也能完整阅读全站评测、选购指南与安全提示。若页面未自动加载，请返回首页。</p></main>`,
+      body: `<main class="max-w-3xl mx-auto px-4 py-16 text-center"><h2 class="text-2xl font-black text-slate-900">Sign In · 登录</h2><p class="mt-4 text-slate-600">BalanceBikeToddler 会员登录与注册入口。登录后可保存对比清单、收藏选购指南与浏览记录；不登录也能完整阅读全站评测、选购指南与安全提示。若页面未自动加载，请返回首页。</p><h3 class="text-lg font-bold text-slate-900 mt-8">为什么需要登录</h3><p class="mt-3 text-slate-600">全站评测、选购指南、召回记录与安全提示都不要求登录即可完整阅读。账户只用来把对比清单、收藏的指南和阅读进度同步到你的设备上，方便换手机或电脑后接着看。登录采用邮箱验证码，不需要设置密码，我们也不会把阅读记录用于广告投放。</p><p class="mt-3 text-slate-600">验证码邮件若未送达，请先检查垃圾邮件文件夹，再返回首页重新发起；页面长时间没有加载时可直接刷新。关于我们保存哪些数据、保存多久以及如何删除，请阅读隐私政策与使用条款。</p></main>`,
       noindex: true,
       ogType: "website" as const,
     },

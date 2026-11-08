@@ -25,6 +25,11 @@
  * waiting to happen.
  */
 export default function BrandMark({ className = "w-8 h-8" }: { className?: string }) {
+  // The footer puts this mark in `flex items-center gap-2` next to a 173 px
+  // wordmark. Without shrink-0 the flex algorithm squeezes the SVG to width 0
+  // (measured 0 x 32 on both local and live, 2026-11-08), so the brand icon
+  // silently disappeared while the wordmark stayed put. The certification
+  // badges already carry shrink-0 for the same reason.
   return (
     <svg
       viewBox="0 0 256 256"
@@ -32,7 +37,7 @@ export default function BrandMark({ className = "w-8 h-8" }: { className?: strin
       height={32}
       aria-hidden="true"
       focusable="false"
-      className={className}
+      className={`shrink-0 ${className}`}
     >
       <defs>
         <linearGradient id="bbt-mark-bg" x1="0" y1="0" x2="1" y2="1">
