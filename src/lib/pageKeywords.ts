@@ -61,6 +61,7 @@ import { KIDS_SCOOTER_SEO_BY_PATH } from "../data/kidsScooterSeo";
 import { KIDS_RIDE_ON_SEO_BY_PATH } from "../data/kidsRideOnSeo";
 import { KIDS_TRICYCLE_SEO_BY_PATH } from "../data/kidsTricycleSeo";
 import { KIDS_STROLLER_SEO_BY_PATH } from "../data/kidsStrollerSeo";
+import { CATEGORY_GUIDE_LIST } from "../data/categoryGuides";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
 import {
   GUIDES_TOPIC_PAGES,
@@ -326,6 +327,25 @@ export function guidesArticleKeywords(topicSegment: string, lang: KeywordLang): 
  */
 const assetKey = (path: string): string => `/${String(path || "").replace(/^\/+|\/+$/g, "")}`;
 
+/** /auth is a noindex functional route (login/register), not a content page.
+ *  It still needs a non-empty keywords meta, but publishing the home fallback
+ *  block there dilutes the homepage terms and trips the unknown-route check. */
+const AUTH_KEYWORDS: readonly string[] = [
+  "sign in",
+  "member login",
+  "account registration",
+  "parent account",
+  "login help",
+];
+
+/** The 20 editorial category hubs take their keywords verbatim from
+ *  CategoryGuide.keywords. The prerender passes those through page.keywords, so
+ *  this resolver must return the same set — otherwise every hub falls through
+ *  to the home block and check:spakeywords reports all 20 as mismatched. */
+const CATEGORY_GUIDE_KEYWORDS_BY_PATH: Record<string, readonly string[]> = Object.fromEntries(
+  CATEGORY_GUIDE_LIST.map((guide) => [assetKey(guide.route), guide.keywords]),
+);
+
 const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; zh: { keywords: readonly string[] } }> = {
   [assetKey(SIZING_PATH)]: sizingSeo,
   [assetKey(KIDS_SIZING_PATH)]: kidsBikeSizingSeo,
@@ -383,9 +403,20 @@ export function resolveRouteKeywords(
   // page type. Without this the /zh routes fell through to the home block.
   const clean = raw.startsWith("/zh/") ? raw.slice(3) : raw;
 
+  // /auth: a noindex functional route, not content. It still needs a non-empty
+  // keywords meta, but must never publish the home fallback block.
+  if (assetKey(clean) === "/auth") return [...AUTH_KEYWORDS];
+
   // Asset pages.
   const asset = ASSET_SEO_BY_PATH[assetKey(routePath)];
   if (asset) return [...asset[lang].keywords];
+
+  // The 20 category guide hubs (pillar / cluster / comparison). Their static
+  // HTML uses CategoryGuide.keywords verbatim (page.keywords wins in the
+  // prerender); mirror that here so the SPA-side expectation and the delivered
+  // meta tag cannot diverge.
+  const guideHub = CATEGORY_GUIDE_KEYWORDS_BY_PATH[assetKey(clean)];
+  if (guideHub) return [...guideHub];
 
   // Transparency pages.
   const transparencyPage = getTransparencyPageByPath(clean);

@@ -8777,8 +8777,8 @@ async function main() {
     {
       route: "/auth",
       title: "Sign In / 登录",
-      description: "BalanceBikeToddler 会员登录与注册入口。",
-      body: `<main class="max-w-3xl mx-auto px-4 py-16 text-center"><h2 class="text-2xl font-black text-slate-900">Sign In · 登录</h2><p class="mt-4 text-slate-600">BalanceBikeToddler 会员登录与注册入口。若页面未自动加载，请返回首页。</p></main>`,
+      description: "BalanceBikeToddler 会员登录与注册入口。登录后可保存对比清单、收藏选购指南与浏览记录；不登录也能完整阅读全站评测、选购指南与安全提示。",
+      body: `<main class="max-w-3xl mx-auto px-4 py-16 text-center"><h2 class="text-2xl font-black text-slate-900">Sign In · 登录</h2><p class="mt-4 text-slate-600">BalanceBikeToddler 会员登录与注册入口。登录后可保存对比清单、收藏选购指南与浏览记录；不登录也能完整阅读全站评测、选购指南与安全提示。若页面未自动加载，请返回首页。</p></main>`,
       noindex: true,
       ogType: "website" as const,
     },

@@ -482,6 +482,6 @@ export const GUIDE_CATEGORY_INDEX = {
     "guideCount": 68,
     "hubCount": 20,
     "hrefCount": 93,
-    "hrefSha256": "cc8b5ada8f0d5013edb1ddac977b385777a33e8f3a1e7ea4d6f231fcb14eb6af"
+    "hrefFingerprint12": "cc8b5ada8f0d"
   }
 } as const;

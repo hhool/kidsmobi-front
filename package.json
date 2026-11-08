@@ -127,7 +127,8 @@
     "check:entitygraph": "npx tsx scripts/check-entity-graph.ts",
     "seo:guide-index": "node scripts/seo/gen-guide-category-index.mjs",
     "check:guideindex": "npx tsx scripts/check-guide-category-index.mjs",
-    "check:guideindex:selftest": "npx tsx scripts/check-guide-category-index.mjs --selftest"
+    "check:guideindex:selftest": "npx tsx scripts/check-guide-category-index.mjs --selftest",
+    "check:titles:selftest": "node scripts/check-prerender-titles.mjs --self-test"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1073.0",

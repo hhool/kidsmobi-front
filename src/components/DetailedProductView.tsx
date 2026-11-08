@@ -1485,7 +1485,7 @@ export default function DetailedProductView({
             <a
               href={amazonUrl}
               target="_blank"
-              rel="nofollow noopener noreferrer"
+              rel="sponsored nofollow noopener noreferrer"
               className="px-4 py-3 rounded-2xl bg-orange-500 text-[10px] font-black uppercase tracking-widest text-white hover:bg-orange-600 transition-colors text-center"
             >
               {lang === "en" ? "Check price on Amazon" : "在 Amazon 查看价格"}

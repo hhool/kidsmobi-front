@@ -34,6 +34,79 @@ const DANGLING = new Set([
   "those", "it", "its", "is", "are", "was", "we", "our", "you", "your", "who",
   "how", "what", "when", "where", "why", "vs", "vs.",
 ]);
+
+// A dangling tail is only evidence of a CUT, not of a defect by itself:
+// "Baby Stroller: What to Look For" is complete English, and capSeoTitle()
+// (src/lib/documentTitle.ts) refuses to cut on a dangling word anyway. The
+// historical defect this rule guards is a naive character cap that sliced at
+// exactly TITLE_MAX_CHARS (60), e.g. "Review Count Integrity: The Numbers We".
+// Only a title inside that length window can be such a product. Checking every
+// dangling tail regardless of length reported two perfectly authored headlines
+// as truncated (52 and 54 chars, both ending in "For").
+const TRUNCATION_WINDOW = 4;
+const TRUNCATION_MIN_LEN = MAX_TITLE - TRUNCATION_WINDOW;
+
+function danglingTail(title) {
+  const words = title.split(" ");
+  const raw = title.endsWith(BRAND_SUFFIX)
+    ? words.slice(0, -2).join(" ").split(" ").pop()
+    : words[words.length - 1];
+  return (raw || "").toLowerCase().replace(/[^a-z0-9.]/g, "");
+}
+
+/** Current rule: a dangling tail is a defect only when a cut could have made it. */
+function isTruncatedDangling(title) {
+  const tail = danglingTail(title);
+  return !!tail && DANGLING.has(tail) && title.length >= TRUNCATION_MIN_LEN;
+}
+
+/** The pre-fix heuristic. Kept ONLY so the self-test can prove it was wrong. */
+function legacyDanglingAlways(title) {
+  const tail = danglingTail(title);
+  return !!tail && DANGLING.has(tail);
+}
+
+function selfTest() {
+  const cases = [
+    { name: "authored headline ending in For", title: "Baby Stroller: What to Look For | BalanceBikeToddler", expect: false },
+    { name: "second authored headline ending in For", title: "Stroller Prices: What You Pay For | BalanceBikeToddler", expect: false },
+    { name: "ordinary headline", title: "Kids Bike Size Chart | BalanceBikeToddler", expect: false },
+    { name: "naive 60-char cut from the historical defect", title: "Review Count Integrity: The Numbers We | BalanceBikeToddler", expect: true },
+  ];
+  const problems = [];
+  for (const c of cases) {
+    const got = isTruncatedDangling(c.title);
+    if (got !== c.expect) problems.push(`${c.name}: expected ${c.expect}, got ${got}`);
+  }
+  // REVERSE: reverting to the old heuristic must turn these green pages red.
+  // If the current rule ever degenerates into the old one, this fails.
+  for (const c of cases.slice(0, 2)) {
+    if (!legacyDanglingAlways(c.title)) problems.push(`REVERSE: legacy heuristic no longer misflags "${c.title}"`);
+    if (isTruncatedDangling(c.title)) problems.push(`REVERSE: current rule degenerated into the legacy heuristic`);
+  }
+  // REVERSE: a real cut must still be caught by BOTH rules — the narrowing
+  // must not have removed the defect class the guard exists for.
+  const cut = cases[3];
+  if (!legacyDanglingAlways(cut.title) || !isTruncatedDangling(cut.title)) {
+    problems.push("REVERSE: a genuine truncated title is no longer detected");
+  }
+  if (cut.title.length > MAX_TITLE || cut.title.length < TRUNCATION_MIN_LEN) {
+    problems.push(`fixture: genuine cut sample must be inside the ${TRUNCATION_MIN_LEN}-${MAX_TITLE} char truncation window (got ${cut.title.length})`);
+  }
+  if (problems.length) {
+    for (const p of problems) console.error(`FAIL  ${p}`);
+    console.error(`\n[titles] self-test FAILED — ${problems.length} problem(s)`);
+    process.exit(1);
+  }
+  for (const c of cases) console.log(`PASS  ${c.name} -> ${c.expect ? "flagged" : "allowed"} (${c.title.length} chars)`);
+  console.log("PASS  REVERSE: legacy heuristic misflags both authored headlines");
+  console.log("PASS  REVERSE: genuine 60-char cut still detected");
+  console.log(`\n[titles] self-test ${cases.length + 2}/${cases.length + 2} pass`);
+  process.exit(0);
+}
+
+if (process.argv.includes("--self-test")) selfTest();
+
 // The words the CAP refuses to end a cut on (src/lib/documentTitle.ts,
 // TITLE_TAIL_FRAGMENTS) are deliberately NOT here. They describe a cut, not a
 // title: "Balance Bike Budget: Guides & Tiers" is an authored headline that
@@ -100,12 +173,12 @@ for (const file of files) {
   if (title.endsWith(BRAND_SUFFIX)) {
     const before = words.slice(0, -2).join(" ");
     const lastMeaningful = before.split(" ").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "");
-    if (lastMeaningful && DANGLING.has(lastMeaningful)) {
-      findings.push({ file: rel, rule: "dangling-title", detail: `"${title}" ends on "${lastMeaningful}" after truncation` });
+    if (isTruncatedDangling(title)) {
+      findings.push({ file: rel, rule: "dangling-title", detail: `"${title}" ends on "${danglingTail(title)}" after truncation` });
     }
   } else if (!rel.startsWith("products/") && rel !== "index.html") {
     findings.push({ file: rel, rule: "missing-brand-suffix", detail: `"${title}"` });
-  } else if (tail && DANGLING.has(tail) && !rel.startsWith("products/")) {
+  } else if (tail && isTruncatedDangling(title) && !rel.startsWith("products/")) {
     findings.push({ file: rel, rule: "dangling-title", detail: `"${title}"` });
   }
   if (/&\s*\|/.test(title) || /\|\s*\|/.test(title) || /\.\s*\|/.test(title)) {
