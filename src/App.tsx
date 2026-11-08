@@ -2796,16 +2796,12 @@ export default function App() {
           url: canonicalUrl,
           description: desc,
         };
-        if (Number(selectedProduct.price) > 0) {
-          productSchema.offers = {
-            "@type": "Offer",
-            url: canonicalUrl,
-            price: Number(selectedProduct.price).toFixed(2),
-            priceCurrency: "USD",
-            itemCondition: "https://schema.org/NewCondition",
-            availability: "https://schema.org/InStock",
-          };
-        }
+        // No `offers` block: this is an editorial affiliate publisher with no
+        // cart, checkout, or first-party inventory, so a price + InStock Offer
+        // would be a fabricated structured-data claim. The reference price and
+        // the "Check price on Amazon" affiliate link stay in the visible body.
+        // Mirrors scripts/prerender-pages.ts (delivered HTML) so both renderers
+        // agree.
         // Only emit aggregateRating when the count survives the plausibility
         // gate: a fabricated-looking ratingCount is a structured-data
         // violation and is worse than having no rich result at all.
@@ -2819,9 +2815,11 @@ export default function App() {
             worstRating: 1,
           };
         }
-        // Editorial review tied to the on-page Overall Score.
-        if (Number(selectedProduct.overallScore) > 0) {
-          const editorVerdict = String(selectedProduct.editorVerdict || "").trim();
+        // Editorial review tied to the on-page Overall Score. Emit only when the
+        // verdict is present, so the Review always carries a reviewBody — a
+        // Rating with no body is a fabricated-looking structured-data claim.
+        const editorVerdict = String(selectedProduct.editorVerdict || "").trim();
+        if (Number(selectedProduct.overallScore) > 0 && editorVerdict) {
           productSchema.review = {
             "@type": "Review",
             author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
@@ -2832,7 +2830,7 @@ export default function App() {
               bestRating: 10,
               worstRating: 1,
             },
-            ...(editorVerdict ? { reviewBody: editorVerdict } : {}),
+            reviewBody: editorVerdict,
           };
         }
 
