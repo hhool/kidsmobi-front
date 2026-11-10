@@ -1401,8 +1401,8 @@ export default function GuidesSection({
                 </h1>
                 <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
                   {lang === "en"
-                    ? "Input your child's precise measurements below to instantly audit parameters for Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries."
-                    : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
+                    ? "Input your child's precise measurements below to instantly audit parameters for Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries, then points you to our balance bike size chart and inseam calculator for an exact fit."
+                    : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径，并附平衡车尺寸对照表与内缝计算器。"}
                 </p>
               </>
             )}
