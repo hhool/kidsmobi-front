@@ -9047,7 +9047,14 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   ]) {
     staticModByRoute.set(route, TRANSPARENCY_LASTMOD);
   }
-  const sitemapUrls = pages.filter((page) => !page.noindex)
+  const sitemapUrls = pages
+    .filter((page) => !page.noindex)
+    // Product detail pages are excluded from the sitemap (operator decision
+    // 2026-11-10): keep only the category hubs (/products/<slug>/) plus the
+    // article/asset pages. Detail URLs stay internally linkable but out of the
+    // index file, mirroring the Worker's D1 sitemap build, which skips the
+    // products collection's per-row detail emission.
+    .filter((page) => !/^\/products\/[^/]+\/[^/]+$/.test(page.route))
     .map((page) => {
       // A /zh page is the same document in the other language, so it inherits
       // the English route's lastmod and priority tier.
