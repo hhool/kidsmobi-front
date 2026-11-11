@@ -2706,6 +2706,12 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
     // one way is ignored: Google wants the two editions to name each other.
     alternates: languageAlternates("/guides"),
     body: `
+      <section style="padding: 22px 0; border-bottom: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What these guides help you decide</h2>
+        <p style="margin: 0 0 14px;">Our guides turn confusing gear choices into clear steps. Learn how to choose a baby stroller by matching seat recline, fold size, and suspension to your routine, then read our balance bike for 1 year old starter guide before a first ride.</p>
+        <p style="margin: 0 0 14px;">The balance bike size chart and inseam calculator help you pick the right frame for a child's height, and our balance bike for 1 year old guide explains why a lightweight model matters at this age. If you are unsure how to choose a baby stroller for travel, the travel guide breaks down cabin fit and all-day comfort.</p>
+        <p style="margin: 0 0 14px;">Keep the balance bike size chart handy when you compare models, and return to how to choose a baby stroller whenever your child outgrows a stage.</p>
+      </section>
       ${renderGuideCategoryIndexHtml()}
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which questions do parents ask first?</h2>
@@ -2864,6 +2870,12 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
     // one way is ignored: Google wants the two editions to name each other.
     alternates: languageAlternates("/news"),
     body: `
+      <section style="padding: 22px 0; border-bottom: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What the news desk tracks</h2>
+        <p style="margin: 0 0 14px;">Our news desk tracks kids mobility standards, recalls, and new releases. We cover the kids electric bike market as brands add speed limits and parent controls, and we report on the electric dirt bike for kids when safety standards or recalls change.</p>
+        <p style="margin: 0 0 14px;">The foldable electric scooter category gets the same treatment: new models, fold mechanisms, and brake updates. When a kids electric bike recall hits, we explain what parents should check and which models are affected.</p>
+        <p style="margin: 0 0 14px;">The electric dirt bike for kids space moves fast, so we summarize spec changes in plain language. If you ride a foldable electric scooter to school, our updates flag the models worth waiting for and the ones to skip.</p>
+      </section>
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which updates matter to families?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> the news page tracks launches, standards, and industry changes that can alter what parents should buy or avoid.</p>
@@ -3064,6 +3076,12 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
     title: summary.heroTitle,
     description: summary.heroSubtitle,
     body: `
+      <section style="padding: 22px 0; border-bottom: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What this product hub covers</h2>
+        <p style="margin: 0 0 14px;">We built this hub around the gear parents ask about most: the toddler bike, the balance bike toddler starter, the twin stroller, and the kids electric scooter. Every toddler bike we list is scored on frame weight, braking, and real-use stability, with age-fit notes on each detail page.</p>
+        <p style="margin: 0 0 14px;">A balance bike toddler model is a smart first ride because it teaches balance before pedals, and our side-by-side comparisons pick the best options. If you need a twin stroller for daily school runs, the comparisons cover fold size, seat recline, and maneuverability.</p>
+        <p style="margin: 0 0 14px;">The kids electric scooter entries state speed, brake type, and certification context so you can choose safely. Start with the category that matches your child's age and routine, then open any toddler bike, twin stroller, or kids electric scooter page for the full verdict.</p>
+      </section>
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Browse every evidence-based category</h2>
         <p style="margin: 0 0 14px;">Each category hub lists every product we cover in that group, with scores, published specs, and age-fit notes on each detail page.</p>
@@ -3211,6 +3229,12 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
     title: "How do reviews stay defensible?",
     description: "Independent review snapshots with scores, verdicts, and source-backed context.",
     body: `
+      <section style="padding: 22px 0; border-bottom: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What the review library covers</h2>
+        <p style="margin: 0 0 14px;">Our review library is built for parents who want evidence, not ads. Each travel stroller, jogging stroller, and kids dirt bike is tested with the same scoring method, and every stroller reviews report publishes scores, specs, and a clear verdict.</p>
+        <p style="margin: 0 0 14px;">A travel stroller is judged on cabin fit, fold size, and all-day comfort, while a jogging stroller is scored on suspension, tracking, and brake feel. The kids dirt bike tests cover speed control, frame strength, and age-fit sizing.</p>
+        <p style="margin: 0 0 14px;">If you are comparing options, our stroller reviews index groups every model so you can jump from a quick pick to the full write-up. Open any travel stroller or jogging stroller report to see how it performed in real use, and read the kids dirt bike review before you buy.</p>
+      </section>
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">How do reviews stay defensible?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> each verdict is tied to a visible score, a named source, and a clear use case so readers can trace the judgment back to evidence.</p>
@@ -4023,6 +4047,11 @@ function renderHomePage(
         <p style="margin:0 0 10px;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#c2410c;font-weight:900;">BalanceBikeToddler</p>
         <h1 style="margin:0 0 12px;font-size:clamp(2rem,4vw,3.15rem);line-height:1.12;">Evidence-based kids ride-on &amp; safety gear</h1>
         <p style="margin:0;font-size:1.08rem;color:#334155;max-width:52rem;">Compare balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with lab scores, certification context, and source-backed reviews.</p>
+      </section>
+      <section style="padding:22px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 12px;font-size:1.4rem;">Gear we cover</h2>
+        <p style="margin:0 0 14px;">BalanceBikeToddler helps parents choose safe ride-on gear: the balance bike for first riders, the kids scooter for school runs, the kids bike for confident pedalers, the jogging stroller for active families, and the kids electric car for backyard adventures.</p>
+        <p style="margin:0 0 14px;">Every balance bike, kids scooter, and kids bike is scored on stability, braking, and age fit. The jogging stroller picks focus on suspension and maneuverability, while the kids electric car reviews cover speed limits and parent controls. Start with your child's age and routine, then open any guide or review for the full evidence.</p>
       </section>
       <section style="padding:0 0 22px;">
         <h2 style="margin:0 0 14px;font-size:1.4rem;">Browse by category</h2>

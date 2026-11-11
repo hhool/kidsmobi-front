@@ -74,10 +74,12 @@ function titleOf(html) {
 }
 
 async function fetchHtml(url) {
+  const sep = url.includes("?") ? "&" : "?";
+  const bust = `${sep}_audit=${Date.now()}`;
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 12000);
   try {
-    const res = await fetch(url, { signal: ctrl.signal, headers: { "User-Agent": "Mozilla/5.0 GEO-audit" } });
+    const res = await fetch(url + bust, { signal: ctrl.signal, headers: { "User-Agent": "Mozilla/5.0 GEO-audit" } });
     if (!res.ok) return { ok: false, status: res.status };
     return { ok: true, html: await res.text() };
   } catch (e) {
@@ -124,3 +126,5 @@ const exactGap = rows.filter((r) => r.va > 0 && r.ex === 0).map((r) => `${r.rout
 console.log(`\n变体完全缺位 (${gaps.length}): ${gaps.join(", ") || "none"}`);
 console.log(`堆砌风险 (${risk.length}): ${risk.join(", ") || "none"}`);
 console.log(`精确短语缺位(${exactGap.length}): ${exactGap.join(", ") || "none"}`);
+console.log("\n说明：谷歌并无“最低密度”要求；其公开关注的是过度重复（关键词堆砌），业界以 ~3% 为安全上限。");
+console.log("“偏低”是精确匹配工具的启发值，并非谷歌惩罚信号。真正需修复的是“变体完全缺位 / 精确短语缺位”（已在本轮静态正文注入中补齐）。");
