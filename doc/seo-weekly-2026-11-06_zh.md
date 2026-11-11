@@ -1,0 +1,59 @@
+# 每周 SEO 健康检查 — 2026-11-06
+
+**站点：** balancebiketoddler.com
+**运行类型：** 内容缺口 + 卫生扫描（非排名追踪器）
+**生成时间：** 2026-11-06 11:57 GMT+8
+
+> 本扫描请配合 Google Search Console 使用，以获取真实的需求/供给信号。
+> 本报告只发现*缺口与卫生回归*，不反映排名。
+
+## 1. 健康评分 — 100 / 100（PASS，0 项 WARN，0 项 FAIL）
+
+| 指标 | 结果 |
+|---|---|
+| 检查项 | 共 17 项 |
+| 通过 | 17 |
+| 警告 | 0 |
+| 失败 | 0 |
+| 评分 | **100 / 100** |
+
+### 逐项明细
+- **robots.txt** — 通过（200，已声明 sitemap，含通配 UA）
+- **sitemap.xml** — 通过，**441 个 URL**（基线 441，增量 **0**）。周环比稳定，无内容漂移。
+- **关键页 meta** — 通过，所有抽样页面要素齐全：
+  `/`、`/products`、`/reviews`、`/guides`、`/news`、`/about`、
+  `/balance-bike-stability/`、`/balance-bike-budget/`、`/balance-bike-what-buyers-say/`、
+  `/transparency/testing-methodology/`、`/transparency/certification-lab-notes/`
+  （标题 / 描述 / 关键词 / canonical / JSON-LD）
+- **prerender-meta-ownership** — 通过，10 个嵌套路由各自输出独立 title + canonical
+- **bare-app-roots-reachable** — 通过，4 个根路由 × 2 种形式均返回 200（精确的 `_redirects` 重写至 `/`）
+- **llms.txt** — 通过，**3356 字节**（较上次基线的 1137 B 增长——GEO 面已扩展；内容增多但格式仍合规）
+- **internal-links** — 通过，抽样 15 条，0 条失效
+
+### 失败项
+无。本周无需具体修复。全部 17 项检查均干净通过。
+
+## 2. 关键词机会
+
+- **扫描页面数：** 441
+- **未覆盖的查询簇（内容缺口）：** **0** — 全部 10 个高价值查询簇均已覆盖。
+- **薄弱页面（缺失关键词 meta 或标题过短）：** **0**
+
+### 近期三大关注项（未发现缺口——属维护/警戒）
+1. **按年龄意图深度** — by-age 是主导搜索意图且已全覆盖，但它是最高流量入口。在拓展边缘簇之前，应持续补充年龄细分内容（18 月 / 2 岁 / 3 岁 / 4 岁）。
+2. **排除 "electric" 簇** — 本周再次正确排除；电动*汽车* ≠ 电动*平衡车*，任何电动主题查询都是陷阱，不应进入构建清单。
+3. **守护 prerender 关键词输出** — 本周全部 441 页的关键词 `<meta>` 均完好，无回归。若未来扫描出现缺失 `keywords` meta 的薄弱页面，说明 prerender 输出回归 → 运行 `npm run check:spakeywords`。
+
+> 品牌长尾（Strider/woom/kidvelo）已覆盖，但有意**不**作为独立页面优先项——维持现状。
+
+## 3. 内容 / 索引态势
+
+- **抓取 / 重新抓取 / 索引：** 未发现问题。robots.txt 格式正确，sitemap 新鲜且稳定（441 个 URL，与基线零漂移），内链干净。
+- **prerender 关键词 meta：** 全部扫描页面 100% 完好 → 本周无需触发 `npm run check:spakeywords`。
+- **llms.txt：** 存在（3356 B）— GEO 面健康，且较上次窗口有所扩展。
+
+## 基线维护
+- `scripts/seo/config.mjs` 中的 `SITEMAP_BASELINE_COUNT` 当前已是 **441** —— 本周增量 0，无需调整。
+
+## 结论
+整体全绿。无失败、无内容缺口、无薄弱页面、无索引回归，且 sitemap 零漂移。本周无需任何处理。下周复跑；若计划新增内容簇，请先在 Google Search Console 中核实需求。
