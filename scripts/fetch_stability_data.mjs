@@ -19,7 +19,18 @@ import { publishedProducts } from "./lib/publishedProducts.mjs";
 import { dirname, resolve } from "node:path";
 
 const repoRoot = resolve(process.cwd());
-const exportPath = resolve(repoRoot, process.argv[2] || "doc/cms-export-1784286890682.json");
+// SOURCE OF RECORD: the CMS snapshot, not a hand-carried export file.
+//
+// This generator used to default to doc/cms-export-1784286890682.json — a
+// one-off export taken 2026-08-15 with 175 products. The live catalogue is 197
+// and the page's whole argument is a coverage COUNT ("1 of 13 publishes a wheel
+// spacing"), so a stale source silently understates every sentence on the page
+// and omits products that launched afterwards. scripts/cms-snapshots/ is the
+// same file the build itself renders from, which makes the page's numbers
+// impossible to desynchronise from the site it describes.
+//
+// Pass an explicit path to override (the old export still works).
+const exportPath = resolve(repoRoot, process.argv[2] || "scripts/cms-snapshots/products.json");
 const OUT_FILE = resolve(repoRoot, process.argv[3] || "src/data/stabilityData.generated.ts");
 
 const CATEGORY_SLUG = {
@@ -33,8 +44,33 @@ const CATEGORY_SLUG = {
   car_seat: "safety-seats",
 };
 
+/**
+ * The category id for a record, normalised to the pre-2026-11 spelling.
+ *
+ * The CMS snapshot stores the short form ("balance", "bicycle", "scooter");
+ * the older export stored the long form ("balance_bike", "kids_bikes"). Both
+ * must resolve to the same bucket, otherwise filtering on the long form alone
+ * returns 0 rows from a perfectly good snapshot — which is exactly the failure
+ * that made the whole dataset look empty on the first refresh attempt.
+ */
+const CATEGORY_ALIASES = {
+  balance: "balance_bike",
+  bicycle: "kids_bikes",
+  scooter: "scooters",
+  electric_car: "electric_vehicles",
+  tricycle: "kids_tricycles",
+  safety_seat: "car_seat",
+};
+
 const EMPTY = new Set(["", "n/a", "na", "none", "null", "-", "0", "unknown", "unspecified"]);
 const isEmpty = (v) => !v || EMPTY.has(String(v).trim().toLowerCase());
+
+/** Resolve a record's category to the canonical long-form id, or "". */
+function categoryOf(product) {
+  const raw = String(product?.category || "").trim();
+  if (!raw) return "";
+  return CATEGORY_ALIASES[raw] || raw;
+}
 
 const round1 = (n) => Math.round(n * 10) / 10;
 /** Geometry figures keep their stated precision — 1.45 in must not become 1.5. */
@@ -72,6 +108,17 @@ function parsePrice(text) {
 }
 
 /** Individual copy fragments, before joining — the unit a real sentence lives in. */
+/**
+ * Every clause of retailer copy for a record, as separate strings.
+ *
+ * FIELD MOVE, 2026-11: the CMS snapshot keeps this prose in the top-level
+ * `features` array. The old export kept it in
+ * `Product_Specifications.Additional_Details["Top Features" | "Decision Signals"]`
+ * — a location 196 of 197 current records no longer populate. Reading only the
+ * old location is what made a refresh report "0 publish a wheel spacing" on a
+ * catalogue that plainly still contains that sentence. Both locations are read,
+ * old first, so neither source can lose copy the other still has.
+ */
 function listingSegments(p) {
   const spec = p?.Product_Specifications || {};
   const parts = [p?.name];
@@ -82,6 +129,10 @@ function listingSegments(p) {
     // splitting keeps every clause its own unit for citation.
     else if (v) parts.push(...String(v).split("|"));
   }
+  // Current snapshot location: the curated feature list is the richest source
+  // of listing copy, and it is the field the site itself renders.
+  if (Array.isArray(p?.features)) parts.push(...p.features.map(String));
+  if (Array.isArray(p?.en?.features)) parts.push(...p.en.features.map(String));
   const feats = spec.Category_Attributes?.features;
   if (Array.isArray(feats)) parts.push(...feats.map(String));
   return parts.filter(Boolean);
@@ -93,9 +144,17 @@ function listingText(p) {
 
 // The measurement parents are actually searching for. Matched against listing
 // copy only — no field in the CMS snapshot carries a track width.
-const TRACK_SPACING_RE = /(\d+(?:\.\d+)?)\s*(?:inch|in\b|")\s*(?:front\s+)?wheel\s+spacing/i;
-const TIRE_WIDTH_RE = /(\d+(?:\.\d+)?)\s*(?:inch|in\b|")\s*wheel\s+width/i;
-const STEERING_LIMIT_RE = /(\d+(?:\.\d+)?)\s*°\s*(?:limited|limit)\s*steering/i;
+//
+// SEPARATOR CLASS: `[\s\-]*` instead of `\s*` between the number and the unit.
+// Real listings hyphenate the compound adjective ("a 5.1-inch front wheel
+// spacing"), and the space-only pattern missed exactly that one record — the
+// single bike in the catalogue that publishes a wheel spacing at all. The page's
+// headline claim ("one of fifteen states a wheel spacing") was correct about the
+// copy and wrong about the count, and only because of this character class.
+const TRACK_SPACING_RE =
+  /(\d+(?:\.\d+)?)[\s\-]*(?:inch|in\b|")[\s\-]*(?:front[\s\-]+)?wheel[\s\-]+spacing/i;
+const TIRE_WIDTH_RE = /(\d+(?:\.\d+)?)[\s\-]*(?:inch|in\b|")[\s\-]*wheel[\s\-]+width/i;
+const STEERING_LIMIT_RE = /(\d+(?:\.\d+)?)\s*°\s*(?:limited|limit)[\s\-]*steering/i;
 const MAX_LOAD_RE = /supports?\s+up\s+to\s+(\d+(?:\.\d+)?)\s*lbs/i;
 
 // Four wheels is the single biggest stability decision a first-bike maker takes,
@@ -158,7 +217,12 @@ function evidenceSentence(p, re) {
 async function main() {
   const raw = JSON.parse(readFileSync(exportPath, "utf8"));
   // Same Stage-1 prune filter as fetch_age_data.mjs — see scripts/lib/publishedProducts.mjs.
-  const { products } = publishedProducts(raw?.data?.collections?.products || []);
+  // Both input shapes are accepted: the snapshot is a bare array, the older
+  // export nests it under data.collections.products.
+  const sourceRecords = Array.isArray(raw)
+    ? raw
+    : raw?.data?.collections?.products || raw?.products || [];
+  const { products } = publishedProducts(sourceRecords);
   const retrievedAt = new Date().toISOString().slice(0, 10);
 
   // Catalog-wide context: across every product we track, how many publish a
@@ -169,7 +233,7 @@ async function main() {
   }
 
   const balanceBikes = [];
-  for (const p of products.filter((x) => x.category === "balance_bike")) {
+  for (const p of products.filter((x) => categoryOf(x) === "balance_bike")) {
     const copy = listingText(p);
     const trackSpacingIn = firstNumber(copy, TRACK_SPACING_RE, true);
     const tireWidthIn = firstNumber(copy, TIRE_WIDTH_RE, true);
@@ -204,8 +268,22 @@ async function main() {
       steeringLimitDeg,
       maxLoadLb,
       hasNumericGeometry: trackSpacingIn != null || tireWidthIn != null || steeringLimitDeg != null,
-      tireClass: tireClass(C(p)["Tire"]),
-      frameMaterial: frameClass(F(p)["Frame Material"]),
+      // The field was renamed. The old export used Materials_Care["Tire"]; the
+      // current CMS splits it into "Tire Material" (57 records) and "Wheel
+      // Material" (47), with "Tire Type" describing construction rather than
+      // material. Reading only the old key reported 0 of 14 publishing a tire
+      // material, which is not what the catalogue says.
+      tireClass: tireClass(
+        C(p)["Tire Material"] ?? C(p)["Wheel Material"] ?? C(p)["Tire"],
+      ),
+      // Materials_Care, not Features_Specs. The old export duplicated the frame
+      // field under Features_Specs; the current CMS stores it only under
+      // Materials_Care (with Category_Attributes as a second copy). Reading the
+      // old path alone made every frame read as "Not specified" and dropped the
+      // coverage count from 13/13 to 0/14 — the exact inverse of the truth.
+      frameMaterial: frameClass(
+        C(p)["Frame Material"] ?? F(p)["Frame Material"] ?? p?.Category_Attributes?.["Frame Material"],
+      ),
       weightLb: parsePounds(M(p)["Item Weight"]),
       priceUsd: parsePrice(M(p)["Price"] ?? p.price),
       stabilitySignals,
@@ -255,7 +333,7 @@ async function main() {
   const dataset = {
     source: {
       name: "BalanceBikeToddler CMS product specification snapshot",
-      exportFile: "cms-export-1784286890682.json",
+      exportFile: exportPath.split(/[\\/]/).pop(),
       retrievedAt,
       note:
         "Wheel counts, stability claims and every geometry figure are read out of listing copy in the site's CMS, synced from retailer and manufacturer pages. Nothing here is measured by us. Verify against the manufacturer before purchase.",
@@ -269,9 +347,9 @@ async function main() {
         frame: "Product_Specifications.Features_Specs['Frame Material']",
       },
       textMinedFields: [
-        "trackSpacingIn — \\d+(?:\\.\\d+)?\\s*(?:inch|in)\\s*(?:front\\s+)?wheel\\s+spacing",
-        "tireWidthIn — \\d+(?:\\.\\d+)?\\s*(?:inch|in)\\s*wheel\\s+width",
-        "steeringLimitDeg — \\d+(?:\\.\\d+)?\\s*°\\s*(?:limited|limit)\\s*steering",
+        "trackSpacingIn — \\d+(?:\\.\\d+)?[\\s\\-]*(?:inch|in)[\\s\\-]*(?:front[\\s\\-]+)?wheel[\\s\\-]+spacing",
+        "tireWidthIn — \\d+(?:\\.\\d+)?[\\s\\-]*(?:inch|in)[\\s\\-]*wheel[\\s\\-]+width",
+        "steeringLimitDeg — \\d+(?:\\.\\d+)?\\s*°\\s*(?:limited|limit)[\\s\\-]*steering",
         "maxLoadLb — supports? up to \\d+ lbs",
         "wheelCount — \\b4[\\s-]?wheels?\\b|four[\\s-]?wheels?\\b (then the two-wheel equivalent)",
       ],

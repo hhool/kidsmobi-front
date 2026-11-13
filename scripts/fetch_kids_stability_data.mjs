@@ -17,8 +17,22 @@ import { publishedProducts } from "./lib/publishedProducts.mjs";
 import { dirname, resolve } from "node:path";
 
 const repoRoot = resolve(process.cwd());
-const exportPath = resolve(repoRoot, process.argv[2] || "doc/cms-export-1784286890682.json");
+// SOURCE OF RECORD: the CMS snapshot (see fetch_stability_data.mjs — same
+// reasoning, same three defects). The old default was a one-off 2026-08-15
+// export; every coverage sentence on /kids-bike-stability/ is a count, so a
+// stale source quietly misstates the page.
+const exportPath = resolve(repoRoot, process.argv[2] || "scripts/cms-snapshots/products.json");
 const OUT_FILE = resolve(repoRoot, process.argv[3] || "src/data/kidsStabilityData.generated.ts");
+
+// Short-form CMS category -> canonical long-form id (see fetch_stability_data.mjs).
+const CATEGORY_ALIASES = {
+  balance: "balance_bike",
+  bicycle: "kids_bikes",
+  scooter: "scooters",
+  electric_car: "electric_vehicles",
+  tricycle: "kids_tricycles",
+  safety_seat: "car_seat",
+};
 
 const CATEGORY_SLUG = {
   balance_bike: "balance-bikes",
@@ -33,6 +47,13 @@ const CATEGORY_SLUG = {
 
 const EMPTY = new Set(["", "n/a", "na", "none", "null", "-", "0", "unknown", "unspecified"]);
 const isEmpty = (v) => !v || EMPTY.has(String(v).trim().toLowerCase());
+
+/** Resolve a record's category to the canonical long-form id, or "". */
+function categoryOf(product) {
+  const raw = String(product?.category || "").trim();
+  if (!raw) return "";
+  return CATEGORY_ALIASES[raw] || raw;
+}
 
 const round1 = (n) => Math.round(n * 10) / 10;
 /** Geometry figures keep their stated precision — 1.45 in must not become 1.5. */
@@ -80,6 +101,10 @@ function listingSegments(p) {
     // splitting keeps every clause its own unit for citation.
     else if (v) parts.push(...String(v).split("|"));
   }
+  // Current snapshot location — see the note in fetch_stability_data.mjs. The
+  // curated `features` array is where this prose lives now.
+  if (Array.isArray(p?.features)) parts.push(...p.features.map(String));
+  if (Array.isArray(p?.en?.features)) parts.push(...p.en.features.map(String));
   const feats = spec.Category_Attributes?.features;
   if (Array.isArray(feats)) parts.push(...feats.map(String));
   return parts.filter(Boolean);
@@ -91,9 +116,12 @@ function listingText(p) {
 
 // The measurement parents are actually searching for. Matched against listing
 // copy only — no field in the CMS snapshot carries a track width.
-const TRACK_SPACING_RE = /(\d+(?:\.\d+)?)\s*(?:inch|in\b|")\s*(?:front\s+)?wheel\s+spacing/i;
-const TIRE_WIDTH_RE = /(\d+(?:\.\d+)?)\s*(?:inch|in\b|")\s*wheel\s+width/i;
-const STEERING_LIMIT_RE = /(\d+(?:\.\d+)?)\s*°\s*(?:limited|limit)\s*steering/i;
+// Separator class accepts the hyphen in "5.1-inch front wheel spacing" — see
+// the matching comment in fetch_stability_data.mjs.
+const TRACK_SPACING_RE =
+  /(\d+(?:\.\d+)?)[\s\-]*(?:inch|in\b|")[\s\-]*(?:front[\s\-]+)?wheel[\s\-]+spacing/i;
+const TIRE_WIDTH_RE = /(\d+(?:\.\d+)?)[\s\-]*(?:inch|in\b|")[\s\-]*wheel[\s\-]+width/i;
+const STEERING_LIMIT_RE = /(\d+(?:\.\d+)?)\s*°\s*(?:limited|limit)[\s\-]*steering/i;
 const MAX_LOAD_RE = /supports?\s+up\s+to\s+(\d+(?:\.\d+)?)\s*lbs/i;
 
 // Four wheels is the single biggest stability decision a first-bike maker takes,
@@ -167,7 +195,11 @@ function evidenceSentence(p, re) {
 async function main() {
   const raw = JSON.parse(readFileSync(exportPath, "utf8"));
   // Same Stage-1 prune filter as fetch_age_data.mjs — see scripts/lib/publishedProducts.mjs.
-  const { products } = publishedProducts(raw?.data?.collections?.products || []);
+  // Accept both shapes: the snapshot is a bare array, the old export nests it.
+  const sourceRecords = Array.isArray(raw)
+    ? raw
+    : raw?.data?.collections?.products || raw?.products || [];
+  const { products } = publishedProducts(sourceRecords);
   const retrievedAt = new Date().toISOString().slice(0, 10);
 
   // Catalog-wide context: across every product we track, how many publish a
@@ -178,7 +210,7 @@ async function main() {
   }
 
   const kidsBikes = [];
-  for (const p of products.filter((x) => x.category === "kids_bikes")) {
+  for (const p of products.filter((x) => categoryOf(x) === "kids_bikes")) {
     const copy = listingText(p);
     const trackSpacingIn = firstNumber(copy, TRACK_SPACING_RE, true);
     const tireWidthIn = firstNumber(copy, TIRE_WIDTH_RE, true);
@@ -223,8 +255,14 @@ async function main() {
       steeringLimitDeg,
       maxLoadLb,
       hasNumericGeometry: trackSpacingIn != null || tireWidthIn != null || steeringLimitDeg != null,
-      tireClass: tireClass(C(p)["Tire"]),
-      frameMaterial: frameClass(F(p)["Frame Material"]),
+      // Field renames — see fetch_stability_data.mjs. Tire split into
+      // "Tire Material"/"Wheel Material"; frame material moved to Materials_Care.
+      tireClass: tireClass(
+        C(p)["Tire Material"] ?? C(p)["Wheel Material"] ?? C(p)["Tire"],
+      ),
+      frameMaterial: frameClass(
+        C(p)["Frame Material"] ?? F(p)["Frame Material"] ?? p?.Category_Attributes?.["Frame Material"],
+      ),
       weightLb: parsePounds(M(p)["Item Weight"]),
       priceUsd: parsePrice(M(p)["Price"] ?? p.price),
       stabilitySignals,
@@ -308,7 +346,7 @@ async function main() {
   const dataset = {
     source: {
       name: "BalanceBikeToddler CMS product specification snapshot",
-      exportFile: "cms-export-1784286890682.json",
+      exportFile: exportPath.split(/[\\/]/).pop(),
       retrievedAt,
       note:
         "Wheel counts, stability claims and every geometry figure are read out of listing copy in the site's CMS, synced from retailer and manufacturer pages. Nothing here is measured by us. Verify against the manufacturer before purchase.",
@@ -318,8 +356,8 @@ async function main() {
       fields: {
         wheelSize: "Product_Specifications.Measurements['Wheel Size']",
         itemWeight: "Product_Specifications.Measurements['Item Weight']",
-        tire: "Product_Specifications.Materials_Care['Tire']",
-        frame: "Product_Specifications.Features_Specs['Frame Material']",
+        tire: "Product_Specifications.Materials_Care['Tire Material' | 'Wheel Material']",
+        frame: "Product_Specifications.Materials_Care['Frame Material']",
       },
       textMinedFields: [
         "trackSpacingIn — \\d+(?:\\.\\d+)?\\s*(?:inch|in)\\s*(?:front\\s+)?wheel\\s+spacing",

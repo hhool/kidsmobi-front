@@ -4,13 +4,15 @@
 // inside the top 20 for are all asking about a "stable track" balance bike (see
 // doc/gsc-2026-10-13-analysis_zh.md). The dataset behind it tries to answer that
 // with measurements, and the honest result is that almost no listing publishes
-// any: one of fifteen states a wheel spacing at all. The page leads with that
-// gap rather than papering over it.
+// any: one in the whole balance-bike roster states a wheel spacing at all. The
+// page leads with that gap rather than papering over it.
 //
 // Every figure comes from src/data/stabilityData.generated.ts, produced by
 // `npm run data:stability`. Nothing is typed in by hand, including the numbers
-// in the SEO description below. What the source does not say, this page reports
-// as not stated.
+// in the SEO description below — every count in the copy is a {placeholder}
+// resolved from that dataset at render time, so the page cannot describe a
+// catalogue it is not looking at. What the source does not say, this page
+// reports as not stated.
 
 import { STABILITY_DATASET } from "./stabilityData.generated";
 
