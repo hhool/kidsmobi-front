@@ -217,7 +217,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="space-y-3">
             <h3 className="text-sm font-black uppercase tracking-widest text-slate-500">Cited sources</h3>
             <ul className="space-y-2 text-sm text-slate-600">
-              <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" className="font-semibold underline decoration-orange-300 underline-offset-4">FTC Endorsement Guides</a> — disclosure baseline for recommendation pages</li>
+              <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" className="font-semibold underline decoration-orange-300 underline-offset-4">FTC Endorsement Guides</a> — disclosure baseline for recommendation pages</li>
               <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products" className="font-semibold underline decoration-orange-300 underline-offset-4">CPSC Children's Products Guidance</a> — children’s safety reference</li>
               <li><a href="https://www.astm.org/f0963-23.html" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">ASTM F963-23</a> — Standard Consumer Safety Specification for Toy Safety</li>
               <li><a href="https://www.ecfr.gov/current/title-16/chapter-II/subchapter-C/part-1512" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">CPSC 16 CFR Part 1512</a> — federal bicycle braking, steering & reflector requirements</li>

@@ -623,7 +623,7 @@ export default function NewsSection({
             {/* Article Summary Quote */}
             <figure className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium relative overflow-hidden m-0">
               <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
-              <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" className="m-0 italic">
+              <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" className="m-0 italic">
                 <p className="m-0"><strong>{newsCopy.detailSummary}</strong> {article.summary}</p>
               </blockquote>
               <figcaption className="mt-2 text-xs font-semibold text-slate-500 not-italic">— FTC Endorsement Guides</figcaption>

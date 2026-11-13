@@ -2723,7 +2723,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${guidesPageDates.published}">Published ${guidesPageDates.published}</time> · <time datetime="${guidesPageDates.modified}">Updated ${guidesPageDates.modified}</time></p>
         ${renderSources([
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "baseline children's product safety context" },
-          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides", note: "disclosure context for recommendations" },
+          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking", note: "disclosure context for recommendations" },
         ])}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
@@ -2757,7 +2757,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Sources and citations</h2>
         <ul style="margin: 0; padding-left: 1.2rem;">
           <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products">CPSC Children&apos;s Products Guidance</a> — baseline children&apos;s product safety context</li>
-          <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides">FTC Endorsement Guides</a> — disclosure context for recommendations</li>
+          <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking">FTC Endorsement Guides</a> — disclosure context for recommendations</li>
           <li><a href="https://www.iso.org/standard/78085.html">ISO 8098</a> — children&apos;s bicycle safety standard reference</li>
         </ul>
       </section>
@@ -2910,7 +2910,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> they answer whether the product is new, whether the safety profile changed, and whether a trend is likely to matter for a family purchase in the next few months.</p>
         <p style="margin: 0 0 14px;">That makes the page easier to quote because each card stays tied to a date, a category, and a concise summary.</p>
         <figure style="margin: 0; padding: 14px 16px; border-left: 4px solid #f97316; background: #fff7ed;">
-          <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" style="margin: 0;">
+          <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" style="margin: 0;">
             <p style="margin: 0;">“News is most useful when the claim, the trend, and the evidence are all visible in one place.”</p>
           </blockquote>
           <figcaption style="margin-top: 8px; font-size: 0.85rem; color: #475569; font-weight: 600;">— FTC Endorsement Guides</figcaption>
@@ -2919,7 +2919,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Sources and citations</h2>
         ${renderSources([
-          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides", note: "disclosure context for branded coverage" },
+          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking", note: "disclosure context for branded coverage" },
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "children's product safety baseline" },
           { label: "EU Toy Safety", href: "https://single-market-economy.ec.europa.eu/sectors/toys/toy-safety_en", note: "regulatory context for toy-adjacent products" },
         ])}
@@ -3274,13 +3274,13 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which standards guide each verdict?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> the page uses FTC disclosure guidance, CPSC children's product context, and bicycle safety references to anchor the review language.</p>
         <figure style="margin: 0 0 16px; padding: 14px 16px; border-left: 4px solid #f97316; background: #fff7ed;">
-          <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" style="margin: 0;">
+          <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" style="margin: 0;">
             <p style="margin: 0;">“Endorsements must reflect the honest opinions, findings, beliefs, or experience of the endorser.”</p>
           </blockquote>
           <figcaption style="margin-top: 8px; font-size: 0.85rem; color: #475569; font-weight: 600;">— FTC Endorsement Guides</figcaption>
         </figure>
         ${renderSources([
-          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides", note: "clear disclosure expectations" },
+          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking", note: "clear disclosure expectations" },
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "children's product compliance context" },
           { label: "ISO 8098", href: "https://www.iso.org/standard/78085.html", note: "bicycle safety baseline" },
         ])}
@@ -3305,7 +3305,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Sources and citations</h2>
         <ul style="margin: 0; padding-left: 1.2rem;">
-          <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides">FTC Endorsement Guides</a> — disclosure context for review pages</li>
+          <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking">FTC Endorsement Guides</a> — disclosure context for review pages</li>
           <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products">CPSC Children's Products Guidance</a> — children's product compliance context</li>
           <li><a href="https://www.iso.org/standard/78085.html">ISO 8098</a> — bicycle safety baseline</li>
         </ul>
@@ -3442,7 +3442,7 @@ const FILTER_PAGE_SOURCES = [
   },
   {
     label: "FTC Endorsement Guides",
-    href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides",
+    href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
     note: "disclosure expectations for recommendations",
   },
   { label: "ISO 8098", href: "https://www.iso.org/standard/78085.html", note: "bicycle safety standard reference" },
@@ -4124,7 +4124,7 @@ function renderAboutPage(): RoutePage {
         <div style="margin-top: 18px;">
           <h3 style="margin: 0 0 10px; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: #64748b; font-weight: 900;">Cited sources</h3>
           <ul style="margin: 0; padding-left: 1.2rem;">
-            <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides">FTC Endorsement Guides</a> — disclosure baseline for recommendation pages</li>
+            <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking">FTC Endorsement Guides</a> — disclosure baseline for recommendation pages</li>
             <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products">CPSC Children&apos;s Products Guidance</a> — children&apos;s safety reference</li>
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API">MDN Web Storage API</a> — browser storage reference for local drafts</li>
           </ul>
@@ -4142,7 +4142,7 @@ function renderAboutPage(): RoutePage {
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> this page explains who is speaking, what standard is used, and what a reader should verify before buying.</p>
         <p style="margin: 0 0 14px;">The about page is here to make the editorial process visible. It tells crawlers and readers who the site serves, what the trust rules are, and why the recommendations are not meant to be generic affiliate filler.</p>
         <figure style="margin: 0; padding: 14px 16px; border-left: 4px solid #f97316; background: #fff7ed;">
-          <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" style="margin: 0;">
+          <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" style="margin: 0;">
             <p style="margin: 0;">“Disclose material connections and keep the evidence easy to inspect.”</p>
           </blockquote>
           <figcaption style="margin-top: 8px; font-size: 0.85rem; color: #475569; font-weight: 600;">— FTC Endorsement Guides</figcaption>
@@ -4204,7 +4204,7 @@ function renderAboutPage(): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Where do the citations come from?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> we cite the public rulebook first, then add short quotations that name the source directly.</p>
         ${renderSources([
-          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides", note: "disclosure rules for endorsements and affiliate links" },
+          { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking", note: "disclosure rules for endorsements and affiliate links" },
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "children's product compliance baseline" },
           { label: "MDN Web Storage API", href: "https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API", note: "browser storage reference for local drafts" },
         ])}
