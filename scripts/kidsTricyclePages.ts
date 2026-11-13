@@ -13,6 +13,7 @@
  * The English strings are used here because the static HTML is the English build;
  * the hydrated SPA swaps in `zh` client-side, same as every other asset page.
  */
+import { relatedProductsBlockHtml, type AssetPageProduct } from "./assetRelatedProducts";
 import {
   kidsTricycleSizeStrings,
   kidsTricycleSizeVars,
@@ -593,12 +594,25 @@ function recallsPage(origin: string, seo: { title: string; description: string; 
 /**
  * All eight pages, in the order they should appear in the sitemap cluster.
  * `origin` is used only to build absolute JSON-LD URLs.
+ *
+ * `products` is optional and additive: when supplied, each page gains a
+ * "Products covered on this page" section linking into the tricycle detail
+ * layer. See scripts/assetRelatedProducts.ts for why these pages need it.
  */
 export function renderKidsTricyclePages(
   origin: string,
-  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>
+  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>,
+  products: AssetPageProduct[] = [],
 ): TricycleRoutePage[] {
   const seo = (p: string) => seoByPath[p].en;
+  const withRelated = (page: TricycleRoutePage): TricycleRoutePage => ({
+    ...page,
+    body: `${page.body}${relatedProductsBlockHtml({
+      detailSlug: "kids-tricycles",
+      products,
+      limit: 12,
+    })}`,
+  });
   return [
     sizePage(origin, seo(KIDS_TRICYCLE_SIZE_PATH)),
     agePage(origin, seo(KIDS_TRICYCLE_AGE_PATH)),
@@ -608,5 +622,5 @@ export function renderKidsTricyclePages(
     safetyPage(origin, seo(KIDS_TRICYCLE_SAFETY_PATH)),
     feedbackPage(origin, seo(KIDS_TRICYCLE_FEEDBACK_PATH)),
     recallsPage(origin, seo(KIDS_TRICYCLE_RECALLS_PATH)),
-  ];
+  ].map(withRelated);
 }

@@ -990,6 +990,14 @@ export default function DetailedProductView({
     displayTitle,
     (product as Product & { Product_Display_Fields?: Record<string, { value?: unknown }> }).Product_Display_Fields,
     Number(product.price) > 0 ? Number(product.price) : null,
+    (product as Product & {
+      Product_Specifications?: {
+        Measurements?: Record<string, unknown>;
+        Features_Specs?: Record<string, unknown>;
+        Item_Details?: Record<string, unknown>;
+        User_Guide?: Record<string, unknown>;
+      };
+    }).Product_Specifications,
   );
   const structuredDescriptionText = resolveStructuredProductDescription(displayProduct, lang);
   const structuredDescriptionParagraphs = paragraphizeDescription(structuredDescriptionText);

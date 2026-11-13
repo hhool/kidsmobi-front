@@ -143,9 +143,21 @@ function main() {
     .map((m) => m[1].trim())
     .map((url) => url.startsWith(ORIGIN) ? url.slice(ORIGIN.length) : url);
 
-  // Non-sitemap edge cases: alias consolidation + pagination keep working.
+  // Non-sitemap edge cases: pagination keeps working.
+  //
+  // /products/other was removed from this list on 2026-11-13. It used to assert
+  // `expect: /products/kids-tricycles/`, which encoded a mapping that no longer
+  // exists: the bucket was abolished, every /products/other URL is now a 301
+  // (to /products/ for the bare form, to the kebab-case family for the id form),
+  // and nothing under /products/other is generated or linked anywhere. Keeping
+  // the assertion would have documented the obsolete /products/kids-tricycles/
+  // re-homing as the intended target, which contradicts the live redirect in
+  // scripts/prerender-pages.ts (["/products/other", "/products/"]).
+  //
+  // The assertion also tested a different concern than this file's: canonical
+  // resolution is about what the SPA writes for a route it renders, while
+  // /products/other is a pure redirect and never reaches the SPA at all.
   const extraChecks: Array<{ route: string; expect: string }> = [
-    { route: "/products/other", expect: `${ORIGIN}/products/kids-tricycles/` },
     { route: "/news/page/2", expect: `${ORIGIN}/news/page/2` },
     { route: "/reviews/page/2", expect: `${ORIGIN}/reviews/page/2` },
   ];

@@ -17,6 +17,7 @@
  * build; the hydrated SPA swaps in `zh` client-side, same as every other asset
  * page in this repo.
  */
+import { relatedProductsBlockHtml, type AssetPageProduct } from "./assetRelatedProducts";
 import {
   kidsScooterWheelsStrings,
   kidsScooterWheelsVars,
@@ -538,12 +539,25 @@ function recallsPage(origin: string, seo: { title: string; description: string; 
 /**
  * All eight pages, in the order they should appear in the sitemap cluster.
  * `origin` is used only to build absolute JSON-LD URLs.
+ *
+ * `products` is optional and additive: when supplied, each page gains a
+ * "Products covered on this page" section linking into the scooter detail
+ * layer. See scripts/assetRelatedProducts.ts for why these pages need it.
  */
 export function renderKidsScooterPages(
   origin: string,
-  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>
+  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>,
+  products: AssetPageProduct[] = [],
 ): ScooterRoutePage[] {
   const seo = (p: string) => seoByPath[p].en;
+  const withRelated = (page: ScooterRoutePage): ScooterRoutePage => ({
+    ...page,
+    body: `${page.body}${relatedProductsBlockHtml({
+      detailSlug: "kids-scooters",
+      products,
+      limit: 12,
+    })}`,
+  });
   return [
     wheelsPage(origin, seo(KIDS_SCOOTER_WHEELS_PATH)),
     sizePage(origin, seo(KIDS_SCOOTER_SIZE_PATH)),
@@ -553,5 +567,5 @@ export function renderKidsScooterPages(
     safetyPage(origin, seo(KIDS_SCOOTER_SAFETY_PATH)),
     feedbackPage(origin, seo(KIDS_SCOOTER_FEEDBACK_PATH)),
     recallsPage(origin, seo(KIDS_SCOOTER_RECALLS_PATH)),
-  ];
+  ].map(withRelated);
 }

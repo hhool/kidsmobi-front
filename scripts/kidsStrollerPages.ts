@@ -19,6 +19,7 @@
  * build; the hydrated SPA swaps in `zh` client-side, same as every other asset
  * page in this repo.
  */
+import { relatedProductsBlockHtml, type AssetPageProduct } from "./assetRelatedProducts";
 import {
   kidsStrollerSizeStrings,
   kidsStrollerSizeVars,
@@ -567,12 +568,36 @@ function recallsPage(origin: string, seo: { title: string; description: string; 
 /**
  * All eight pages, in the order they should appear in the sitemap cluster.
  * `origin` is used only to build absolute JSON-LD URLs.
+ *
+ * `products` is optional and additive: when supplied, each page gains a
+ * "Products covered on this page" section linking into the stroller detail
+ * layer. These eight pages describe strollers in aggregate but previously
+ * linked to none of them, which made them dead ends now that product detail
+ * URLs are excluded from the sitemap. Omit the argument to render the original
+ * body unchanged (used by the self-test in check-topic-pair-drift).
  */
 export function renderKidsStrollerPages(
   origin: string,
-  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>
+  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>,
+  products: AssetPageProduct[] = [],
 ): StrollerRoutePage[] {
   const seo = (p: string) => seoByPath[p].en;
+  const withRelated = (page: StrollerRoutePage): StrollerRoutePage => ({
+    ...page,
+    body: `${page.body}${relatedProductsBlockHtml({
+      detailSlug: "strollers",
+      products,
+      limit: 12,
+      metaFor: (product) => {
+        const weight = String(
+          (product as { Product_Specifications?: Record<string, Record<string, unknown>> })
+            .Product_Specifications?.Measurements?.["Item Weight"] || "",
+        ).trim();
+        return weight;
+      },
+    })}`,
+  });
+
   return [
     sizePage(origin, seo(KIDS_STROLLER_SIZE_PATH)),
     agePage(origin, seo(KIDS_STROLLER_AGE_PATH)),
@@ -582,5 +607,5 @@ export function renderKidsStrollerPages(
     safetyPage(origin, seo(KIDS_STROLLER_SAFETY_PATH)),
     feedbackPage(origin, seo(KIDS_STROLLER_FEEDBACK_PATH)),
     recallsPage(origin, seo(KIDS_STROLLER_RECALLS_PATH)),
-  ];
+  ].map(withRelated);
 }

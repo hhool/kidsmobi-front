@@ -18,6 +18,7 @@
  * build; the hydrated SPA swaps in `zh` client-side, same as every other asset
  * page in this repo.
  */
+import { relatedProductsBlockHtml, type AssetPageProduct } from "./assetRelatedProducts";
 import {
   kidsRideOnVoltageStrings,
   kidsRideOnVoltageVars,
@@ -637,12 +638,25 @@ function recallsPage(origin: string, seo: { title: string; description: string; 
 /**
  * All eight pages, in the order they should appear in the sitemap cluster.
  * `origin` is used only to build absolute JSON-LD URLs.
+ *
+ * `products` is optional and additive: when supplied, each page gains a
+ * "Products covered on this page" section linking into the ride-on detail
+ * layer. See scripts/assetRelatedProducts.ts for why these pages need it.
  */
 export function renderKidsRideOnPages(
   origin: string,
-  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>
+  seoByPath: Record<string, { en: { title: string; description: string; keywords: string[] } }>,
+  products: AssetPageProduct[] = [],
 ): RideOnRoutePage[] {
   const seo = (p: string) => seoByPath[p].en;
+  const withRelated = (page: RideOnRoutePage): RideOnRoutePage => ({
+    ...page,
+    body: `${page.body}${relatedProductsBlockHtml({
+      detailSlug: "electric-cars",
+      products,
+      limit: 12,
+    })}`,
+  });
   return [
     voltagePage(origin, seo(KIDS_RIDE_ON_VOLTAGE_PATH)),
     weightPage(origin, seo(KIDS_RIDE_ON_WEIGHT_PATH)),
@@ -652,5 +666,5 @@ export function renderKidsRideOnPages(
     safetyPage(origin, seo(KIDS_RIDE_ON_SAFETY_PATH)),
     feedbackPage(origin, seo(KIDS_RIDE_ON_FEEDBACK_PATH)),
     recallsPage(origin, seo(KIDS_RIDE_ON_RECALLS_PATH)),
-  ];
+  ].map(withRelated);
 }

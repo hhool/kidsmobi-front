@@ -2840,6 +2840,14 @@ export default function App() {
           dedupedDisplayTitle,
           (selectedProduct as Product & { Product_Display_Fields?: Record<string, { value?: unknown }> }).Product_Display_Fields,
           Number(selectedProduct.price) > 0 ? Number(selectedProduct.price) : null,
+          (selectedProduct as Product & {
+            Product_Specifications?: {
+              Measurements?: Record<string, unknown>;
+              Features_Specs?: Record<string, unknown>;
+              Item_Details?: Record<string, unknown>;
+              User_Guide?: Record<string, unknown>;
+            };
+          }).Product_Specifications,
         );
 
         // The prerendered detail page already carries its own trail

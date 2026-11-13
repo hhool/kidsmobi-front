@@ -196,6 +196,7 @@ import {
 } from "../src/data/kidsStrollerSeo";
 import { renderKidsStrollerPages as renderKidsStrollerPageBodies } from "./kidsStrollerPages";
 import { renderCategoryGuidePages as renderCategoryGuidePageBodies } from "./categoryGuidePages";
+import { relatedProductsBlockHtml } from "./assetRelatedProducts";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
@@ -6110,9 +6111,9 @@ function renderKidsBikeRecallsPage(): RoutePage[] {
  * Each page gets one WebPage node plus a BreadcrumbList, matching the shape the
  * other asset pages emit (the guard asserts exactly one node per @type).
  */
-function renderKidsScooterPages(): RoutePage[] {
+function renderKidsScooterPages(cmsProducts: CmsProductFull[] = []): RoutePage[] {
   const origin = "https://balancebiketoddler.com";
-  return renderKidsScooterPageBodies(origin, KIDS_SCOOTER_SEO_BY_PATH).map((p) => ({
+  return renderKidsScooterPageBodies(origin, KIDS_SCOOTER_SEO_BY_PATH, cmsProducts).map((p) => ({
     route: p.route,
     title: p.title,
     description: p.description,
@@ -6143,9 +6144,9 @@ function renderKidsScooterPages(): RoutePage[] {
  * page's own string module, so scripts/check-topic-pair-drift.mjs sees eight
  * genuinely different pages.
  */
-function renderKidsRideOnPages(): RoutePage[] {
+function renderKidsRideOnPages(cmsProducts: CmsProductFull[] = []): RoutePage[] {
   const origin = "https://balancebiketoddler.com";
-  return renderKidsRideOnPageBodies(origin, KIDS_RIDE_ON_SEO_BY_PATH).map((p) => ({
+  return renderKidsRideOnPageBodies(origin, KIDS_RIDE_ON_SEO_BY_PATH, cmsProducts).map((p) => ({
     route: p.route,
     title: p.title,
     description: p.description,
@@ -6173,9 +6174,9 @@ function renderKidsRideOnPages(): RoutePage[] {
  * Bodies come from scripts/kidsTricyclePages.ts; each page's strings come from
  * its own module so check-topic-pair-drift sees eight distinct pages.
  */
-function renderKidsTricyclePages(): RoutePage[] {
+function renderKidsTricyclePages(cmsProducts: CmsProductFull[] = []): RoutePage[] {
   const origin = "https://balancebiketoddler.com";
-  return renderKidsTricyclePageBodies(origin, KIDS_TRICYCLE_SEO_BY_PATH).map((p) => ({
+  return renderKidsTricyclePageBodies(origin, KIDS_TRICYCLE_SEO_BY_PATH, cmsProducts).map((p) => ({
     route: p.route,
     title: p.title,
     description: p.description,
@@ -6203,9 +6204,9 @@ function renderKidsTricyclePages(): RoutePage[] {
  * Bodies come from scripts/kidsStrollerPages.ts; each page's strings come from
  * its own module so check-topic-pair-drift sees eight distinct pages.
  */
-function renderKidsStrollerPages(): RoutePage[] {
+function renderKidsStrollerPages(cmsProducts: CmsProductFull[] = []): RoutePage[] {
   const origin = "https://balancebiketoddler.com";
-  return renderKidsStrollerPageBodies(origin, KIDS_STROLLER_SEO_BY_PATH).map((p) => ({
+  return renderKidsStrollerPageBodies(origin, KIDS_STROLLER_SEO_BY_PATH, cmsProducts).map((p) => ({
     route: p.route,
     title: p.title,
     description: p.description,
@@ -7689,6 +7690,16 @@ type CmsProductFull = CmsProductLite & {
   /** Seller-declared attributes; `Color` is the field that separates two
    *  listings of one model ("White" vs "Mint Green"). */
   Category_Attributes?: Record<string, string | undefined>;
+  /** Raw spec block. FAQ generation reads it as a fallback: `weightLimit` is a
+   *  seat count on 38 stroller/wagon listings, and `recommendedAge` is absent
+   *  for 90 listings, 71 of which are recoverable from these sub-tables. */
+  Product_Specifications?: {
+    Measurements?: Record<string, unknown>;
+    Features_Specs?: Record<string, unknown>;
+    Item_Details?: Record<string, unknown>;
+    User_Guide?: Record<string, unknown>;
+    [group: string]: Record<string, unknown> | undefined;
+  };
 };
 
 /** Mirrors PRODUCT_ROUTE_ALIASES in App.tsx. */
@@ -8305,7 +8316,22 @@ function renderProductDetailPage(
 
   // FAQ (P1 SEO): data-driven questions mirroring the hydrated DetailedProductView
   // FAQ section, so the static HTML and rendered DOM never disagree.
-  const productFaqs = buildProductFaqsFromDisplayFields(displayName, product.Product_Display_Fields, price);
+  // Product_Specifications is passed so the age and weight fallbacks engage —
+  // without it, 38 listings would print their seat count as a weight rating and
+  // 71 more would silently lose their age question.
+  const productFaqs = buildProductFaqsFromDisplayFields(
+    displayName,
+    product.Product_Display_Fields,
+    price,
+    product.Product_Specifications as
+      | {
+          Measurements?: Record<string, unknown>;
+          Features_Specs?: Record<string, unknown>;
+          Item_Details?: Record<string, unknown>;
+          User_Guide?: Record<string, unknown>;
+        }
+      | undefined,
+  );
   const faqHtml = productFaqs.length >= FAQ_MIN_QUESTIONS
     ? `<section style="margin: 0 0 22px;">
         <h2 style="margin: 0 0 10px; font-size: 1.2rem;">Frequently asked questions</h2>
@@ -8477,6 +8503,46 @@ function renderProductDetailPage(
 function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: CmsProductFull[]): RoutePage {
   const route = `/products/${meta.slug}/`;
 
+  // Hub card spec chips (S7 keyword alignment).
+  //
+  // The card summary is a generated sentence that names the frame material and
+  // brake setup but never the wheel size — the single spec a buyer filters on
+  // for a pedal bike. Published data carries it on 30/30 kids-bike listings
+  // ("12 Inches" ×9, "14 Inches" ×8, "20 Inches" ×7, 16/18/24 ×6), yet the hub
+  // text rendered "14 inch" zero times because nothing downstream of
+  // cardSummary printed it. Reading the spec straight off the record puts the
+  // exact long-tail phrase ("12 inch kids bike", "14 inch kids bike") on the
+  // page where buyers search for it, and does so from data rather than copy.
+  //
+  // Chips are emitted per hub, not per category: only ride-on categories carry
+  // a wheel-size attribute, so a category without it renders no chips at all
+  // instead of an empty row.
+  const hubSpecChipKeys: Record<string, { key: string; label: string }[]> = {
+    "kids-bikes": [
+      { key: "wheelSize", label: "Wheels" },
+      { key: "brakeSystem", label: "Brakes" },
+    ],
+    "kids-scooters": [{ key: "wheelSize", label: "Wheels" }],
+    "electric-cars": [{ key: "wheelSize", label: "Wheels" }],
+    "kids-tricycles": [{ key: "wheelSize", label: "Wheels" }],
+  };
+  const chipKeys = hubSpecChipKeys[meta.slug] || [];
+  const hubCardChips = (product: CmsProductFull): string => {
+    if (!chipKeys.length) return "";
+    const chips = chipKeys
+      .map(({ key, label }) => {
+        const value = resolveSpecValue(product, key);
+        if (!value) return "";
+        // Wheel sizes are stored as "14 Inches"; print them as a compact
+        // dimension ("14\"") so the chip reads like a spec, not a sentence.
+        const rendered = key === "wheelSize" ? `${value.replace(/\s*(inches|inch|in)\b.*$/i, "")}&quot;` : value;
+        return `<span style="display:inline-block;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:2px 9px;font-size:0.72rem;color:#475569;margin:0 4px 4px 0;">${escapeHtml(label)}: ${rendered}</span>`;
+      })
+      .filter(Boolean)
+      .join("");
+    return chips ? `<div style="margin: 6px 0 0;">${chips}</div>` : "";
+  };
+
   // Full product list (P0-2 crawlability fix): NO slice cap. A capped hub
   // left 57/87 stroller detail pages with zero inbound internal links
   // (sitemap-only orphans, mirroring the article-layer Discovered-not-indexed
@@ -8493,6 +8559,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
             }
             <h3 style="margin: 0 0 6px; font-size: 0.98rem; color: #0f172a;">${escapeHtml(productDisplayTitle(product))}</h3>
             <p style="margin: 0; font-size: 0.86rem; color: #64748b;">${escapeHtml(String(product.en?.cardSummary || "").slice(0, 140))}</p>
+            ${hubCardChips(product)}
           </a>`,
     )
     .join("");
@@ -8518,11 +8585,46 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
           .join("")}
       </div>`
     : "";
+  // Hub size distribution (S7 keyword alignment).
+  //
+  // The hub intro names wheel sizes in prose ("12-inch wheels sit at the low
+  // end … 20- and 24-inch at the school-age end") but never in the exact form
+  // a buyer types. Published data carries wheelSize on 30/30 kids-bike listings,
+  // so the real per-size counts can be stated verbatim: "9 of the 30 bikes here
+  // publish 12 inch wheels". That turns a spec table into a scannable, unique
+  // sentence per size — the "12 inch kids bike" / "14 inch kids bike" long-tail
+  // lives here, and it is derived from data so it can never drift from stock.
+  //
+  // Emitted only for categories where wheel size is the primary sizing axis.
+  const hubSizeDistributionHtml = (() => {
+    if (meta.slug !== "kids-bikes") return "";
+    const counts = new Map<string, number>();
+    for (const product of categoryProducts) {
+      const raw = resolveSpecValue(product, "wheelSize");
+      const size = raw.replace(/\s*(inches|inch|in)\b.*$/i, "").trim();
+      if (!size || !/^\d+(\.\d+)?$/.test(size)) continue;
+      counts.set(size, (counts.get(size) || 0) + 1);
+    }
+    if (!counts.size) return "";
+    const total = categoryProducts.length;
+    const ordered = [...counts.entries()].sort((a, b) => Number(a[0]) - Number(b[0]));
+    const sentence = ordered
+      .map(([size, n]) => `${n} of the ${total} bikes here publish ${size} inch wheels`)
+      .join("; ");
+    const sizeList = ordered.map(([size]) => `${size} inch`).join(", ");
+    return `
+        <div style="margin: 20px 0 0; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 16px; padding: 16px 18px;">
+          <h3 style="margin: 0 0 8px; font-size: 0.95rem; color: #0f172a;">Wheel sizes in this group</h3>
+          <p style="margin: 0; font-size: 0.88rem; color: #475569; line-height: 1.7;">${escapeHtml(`${sentence}. Sizes stocked here run ${escapeHtml(sizeList)} — match the wheel to your child's inseam rather than their age.`)}</p>
+        </div>`;
+  })();
+
   const hubEditorialHtml = `
         <section style="max-width: 720px; margin: 36px auto 0; padding: 0 16px;">
           <p style="margin: 0; text-align: center; color: #ea580c; font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase;">Buying Guide</p>
           <h2 style="margin: 8px 0 0; text-align: center; font-size: 1.45rem; color: #0f172a;">${escapeHtml(meta.label)} buying guide &amp; FAQ</h2>
           <div style="margin-top: 16px;">${hubIntroHtml}</div>
+          ${hubSizeDistributionHtml}
           ${hubFaqHtml}
         </section>`;
 
@@ -8773,15 +8875,36 @@ async function main() {
     ...renderSizingPage(),
     ...renderKidsBikeSizingPage(),
     ...renderSafetyPage(),
-    ...renderKidsBikeSafetyPage(),
-    ...renderKidsBikeWeightPage(),
-    ...renderKidsBikeStabilityPage(),
-    ...renderKidsBuyerFeedbackPage(),
-    ...renderKidsBikeRecallsPage(),
-    ...renderKidsScooterPages(),
-    ...renderKidsRideOnPages(),
-    ...renderKidsTricyclePages(),
-    ...renderKidsStrollerPages(),
+    // Three kids-bike asset pages (weight, safety-standards, recalls) are built
+    // from aggregate statistics only, so their tables carry no product-name
+    // cell and they exported zero links to the detail layer. The other four
+    // pages in this cluster already link out (by-age 19, size-chart 23,
+    // price 23, stability 23), so the gap was in these three specifically
+    // rather than in the cluster as a whole. Appending the shared block here
+    // keeps the change out of the page builders and gives all three an
+    // identical, data-derived route into the catalogue.
+    ...[
+      ...renderKidsBikeSafetyPage(),
+      ...renderKidsBikeWeightPage(),
+      ...renderKidsBikeStabilityPage(),
+      ...renderKidsBuyerFeedbackPage(),
+      ...renderKidsBikeRecallsPage(),
+    ].map((page) =>
+      [KIDS_SAFETY_PATH, KIDS_WEIGHT_PATH, KIDS_RECALLS_PATH].includes(page.route)
+        ? {
+            ...page,
+            body: `${page.body}${relatedProductsBlockHtml({
+              detailSlug: "kids-bikes",
+              products: cmsProductsFull,
+              limit: 12,
+            })}`,
+          }
+        : page,
+    ),
+    ...renderKidsScooterPages(cmsProductsFull),
+    ...renderKidsRideOnPages(cmsProductsFull),
+    ...renderKidsTricyclePages(cmsProductsFull),
+    ...renderKidsStrollerPages(cmsProductsFull),
     ...renderCategoryGuidePageBodies(hubMediaMap).map((p) => ({
       route: p.route,
       title: p.title,
