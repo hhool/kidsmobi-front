@@ -48,7 +48,7 @@ const adminHeaders = { "x-cms-admin-token": TOKEN };
 
 async function main() {
   if (!TOKEN) {
-    console.error("CMS_ADMIN_ALL_TOKEN is required");
+    console.error("CMS_ADMIN_ALL_TOKEN is required (or use --from-snapshot to preview against the checked-in snapshot)");
     process.exit(1);
   }
 
