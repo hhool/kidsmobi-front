@@ -2758,7 +2758,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
         <ul style="margin: 0; padding-left: 1.2rem;">
           <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products">CPSC Children&apos;s Products Guidance</a> — baseline children&apos;s product safety context</li>
           <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides">FTC Endorsement Guides</a> — disclosure context for recommendations</li>
-          <li><a href="https://www.iso.org/standard/71811.html">ISO 8098</a> — children&apos;s bicycle safety standard reference</li>
+          <li><a href="https://www.iso.org/standard/78085.html">ISO 8098</a> — children&apos;s bicycle safety standard reference</li>
         </ul>
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
@@ -3102,7 +3102,7 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
         <p style="margin: 0 0 14px;">Byline: <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${productsPageDates.published}">Published ${productsPageDates.published}</time> · <time datetime="${productsPageDates.modified}">Updated ${productsPageDates.modified}</time></p>
         ${renderSources([
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "baseline children's product safety reference" },
-          { label: "ISO 8098", href: "https://www.iso.org/standard/71811.html", note: "children's bicycle safety standard reference" },
+          { label: "ISO 8098", href: "https://www.iso.org/standard/78085.html", note: "children's bicycle safety standard reference" },
           { label: "ASTM F963", href: "https://www.astm.org/f0963-23.html", note: "toy safety standard reference" },
         ])}
       </section>
@@ -3145,7 +3145,7 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
         </figure>
         <ul style="margin: 0; padding-left: 1.2rem;">
           <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products">CPSC Children's Products Guidance</a> — baseline children's product safety reference</li>
-          <li><a href="https://www.iso.org/standard/71811.html">ISO 8098</a> — children's bicycle safety standard reference</li>
+          <li><a href="https://www.iso.org/standard/78085.html">ISO 8098</a> — children's bicycle safety standard reference</li>
           <li><a href="https://www.astm.org/f0963-23.html">ASTM F963</a> — toy safety standard reference</li>
         </ul>
       </section>
@@ -3282,7 +3282,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         ${renderSources([
           { label: "FTC Endorsement Guides", href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides", note: "clear disclosure expectations" },
           { label: "CPSC Children's Products Guidance", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products", note: "children's product compliance context" },
-          { label: "ISO 8098", href: "https://www.iso.org/standard/71811.html", note: "bicycle safety baseline" },
+          { label: "ISO 8098", href: "https://www.iso.org/standard/78085.html", note: "bicycle safety baseline" },
         ])}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
@@ -3307,7 +3307,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         <ul style="margin: 0; padding-left: 1.2rem;">
           <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides">FTC Endorsement Guides</a> — disclosure context for review pages</li>
           <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products">CPSC Children's Products Guidance</a> — children's product compliance context</li>
-          <li><a href="https://www.iso.org/standard/71811.html">ISO 8098</a> — bicycle safety baseline</li>
+          <li><a href="https://www.iso.org/standard/78085.html">ISO 8098</a> — bicycle safety baseline</li>
         </ul>
       </section>
       ${renderFaqSection(REVIEWS_FAQS[2], true)}
@@ -3445,7 +3445,7 @@ const FILTER_PAGE_SOURCES = [
     href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides",
     note: "disclosure expectations for recommendations",
   },
-  { label: "ISO 8098", href: "https://www.iso.org/standard/71811.html", note: "bicycle safety standard reference" },
+  { label: "ISO 8098", href: "https://www.iso.org/standard/78085.html", note: "bicycle safety standard reference" },
 ];
 
 function filterCardGrid(cards: FilterCard[], emptyNote: string): string {
