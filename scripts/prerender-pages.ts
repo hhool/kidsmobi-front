@@ -242,6 +242,8 @@ import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, ty
 import { ABOUT_FAQS, NEWS_FAQS, REVIEWS_FAQS, type PageFaq } from "../src/lib/pageFaq";
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "../src/lib/productHubContent";
 import { renderRichContentHtml } from "../src/lib/richContentHtml";
+import { normalizeListingBullets, isSubstantiveBullet } from "../src/lib/visibleText";
+import { containsCjk } from "../src/lib/guideTextSanitize";
 
 const distDir = path.resolve("dist");
 
@@ -8254,7 +8256,17 @@ function renderProductDetailPage(
         .join("")}</section>`
     : "";
 
-  const featureList = Array.isArray(product.en?.features) ? product.en!.features! : [];
+  // ENGLISH FEATURES, CJK-FILTERED. A handful of records were written with
+  // Chinese feature labels in the English record ("可折叠设计", "五点式安全带") —
+  // a data-entry artefact, not a translation. This renderer is the English page,
+  // so a CJK-only entry is dropped here rather than printed as English content;
+  // the zh record is untouched and still carries them.
+  const featureList = (Array.isArray(product.en?.features) ? product.en!.features! : []).filter(
+    (feature) => {
+      const text = String(feature ?? "").trim();
+      return text.length > 0 && !containsCjk(text);
+    },
+  );
   const featuresHtml = featureList.length
     ? `<section style="margin: 0 0 22px;">
         <h2 style="margin: 0 0 10px; font-size: 1.2rem;">Key features</h2>
@@ -8265,8 +8277,29 @@ function renderProductDetailPage(
       </section>`
     : "";
 
-  const pros = Array.isArray(product.en?.pros) ? product.en!.pros! : [];
-  const cons = Array.isArray(product.en?.cons) ? product.en!.cons! : [];
+  // Pros/cons go through the listing-lead normaliser (see src/lib/visibleText.ts):
+  // 306 of 591 bullets arrive with a retailer marketing tag ("FITS 4 KIDS:",
+  // "【COLORFUL LIGHTING DESIGN】") and 95 more are spec fragments ("Carbon
+  // Fiber"), neither of which reads as an editorial assessment.
+  //
+  // `en.cons` is empty on every record in the current snapshot, so the Cons
+  // column renders only when a record actually carries one.
+  //
+  // RENDER, DON'T DELETE: when normalisation leaves nothing, the raw list is
+  // shown instead. One record's entire pros array is ["Polyester", "Imported",
+  // "Added body support cushion"] — fragments, but they are the only positive
+  // statements the source makes. Printing weak copy beats printing no copy, and
+  // silently emptying a section is the kind of quiet data loss this repo has
+  // been burned by before. The check is `some`, not `every`: a list with one
+  // usable claim should still be filtered.
+  const normalizedPros = normalizeListingBullets(product.en?.pros, 6);
+  const pros = normalizedPros.length
+    ? normalizedPros
+    : (Array.isArray(product.en?.pros) ? product.en!.pros! : []).filter((item) => {
+        const text = String(item ?? "").trim();
+        return text.length > 0 && !containsCjk(text);
+      });
+  const cons = normalizeListingBullets(product.en?.cons, 6);
   const prosConsHtml =
     pros.length || cons.length
       ? `<section style="margin: 0 0 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">

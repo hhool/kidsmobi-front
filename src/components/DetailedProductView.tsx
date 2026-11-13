@@ -22,6 +22,7 @@ import { amazonAffiliateUrl, resolveAmazonTag } from "../lib/trackingConfig";
 import { resolveProductImages, normalizeMediaUrl } from "../lib/productImages";
 import { getProductDisplayTitle, getProductSkuTitle } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
+import { containsCjk } from "../lib/guideTextSanitize";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
 import { buildProductFaqsFromDisplayFields } from "../lib/productFaq";
 import { cmsCacheBustedUrl } from "../lib/cmsD1Service";
@@ -403,7 +404,15 @@ function resolveFeatureList(product: Product, lang: "zh" | "en"): string[] {
 
   for (const candidate of candidates) {
     if (!Array.isArray(candidate)) continue;
-    const values = candidate.map((item) => cleanVisibleFieldText(item)).filter(Boolean);
+    // English records must not carry Chinese labels. Three records were keyed
+    // in with Chinese feature text in the English record ("可折叠设计",
+    // "五点式安全带"), and the English page would print them verbatim. The
+    // prerendered detail page drops these too — this is the hydrated half of the
+    // same rule, so the DOM does not change when the bundle takes over.
+    const values = candidate
+      .map((item) => cleanVisibleFieldText(item))
+      .filter(Boolean)
+      .filter((value) => lang === "zh" || !containsCjk(value));
     if (values.length > 0) {
       return values;
     }
