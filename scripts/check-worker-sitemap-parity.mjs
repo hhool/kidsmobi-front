@@ -82,6 +82,34 @@ const redirects = JSON.parse(readFileSync(redirectsPath, 'utf8'));
 const exactPairs = Array.isArray(redirects.exact) ? redirects.exact : Object.entries(redirects.exact || {});
 const retiredSources = exactPairs.map(([from]) => from);
 
+// --- parse the Worker's retired-GUIDE module ---------------------------------
+// S4: CMS guides retired into a non-guide page are excluded from the Worker's
+// D1 sitemap build by their own generated module, not by the two static path
+// lists above — a guide comes from a D1 row, so no static list can cover it.
+// This asserts the module exists and carries every retired route from the
+// front's registry, so the Worker cannot silently start advertising a URL the
+// front already 301s.
+const retiredGuidesPath = resolve(backendWorker, 'src', 'retiredGuides.generated.ts');
+const frontRetiredGuidesPath = resolve(root, 'src/data/balanceBikeStability.ts');
+let retiredGuideCheck = { name: 'worker-sitemap-no-retired-guide', ok: true, detail: 'no retired CMS guides declared' };
+if (existsSync(retiredGuidesPath) && existsSync(frontRetiredGuidesPath)) {
+  const workerRetired = readFileSync(retiredGuidesPath, 'utf8');
+  const workerRetiredSources = [...workerRetired.matchAll(/^\s*"(\/[^"]+)":\s*"/gm)].map((m) => m[1]);
+  const frontSrc = readFileSync(frontRetiredGuidesPath, 'utf8');
+  const frontBlock = /RETIRED_STABILITY_GUIDE_PATHS[^=]*=\s*\[([\s\S]*?)\n\];/.exec(frontSrc);
+  const frontRetired = frontBlock
+    ? [...frontBlock[1].matchAll(/\[\s*"(\/[^"]+)"\s*,/g)].map((m) => m[1].replace(/\/+$/, ''))
+    : [];
+  retiredGuideCheck = {
+    name: 'worker-sitemap-no-retired-guide',
+    ok: frontRetired.every((from) => workerRetiredSources.includes(from)),
+    detail:
+      `the Worker's retiredGuides.generated.ts [${workerRetiredSources.join(' ')}] must carry every ` +
+      `retired guide route declared in the front [${frontRetired.join(' ')}]` +
+      `${existsSync(retiredGuidesPath) ? '' : ' — missing file; run scripts/sync_retired_guides_to_worker.mjs'}`,
+  };
+}
+
 // --- parse the Worker route patterns -----------------------------------------
 const wrangler = readFileSync(wranglerPath, 'utf8');
 const patterns = new Set([...wrangler.matchAll(/^pattern = "([^"]+)"/gm)].map((m) => m[1]));
@@ -91,6 +119,7 @@ const sameSet = (a, b) =>
   Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((x) => b.includes(x));
 
 const checks = [
+  retiredGuideCheck,
   {
     name: 'worker-sitemap-asset-parity',
     ok: sameSet(distAssetPaths, workerAssetPaths),
