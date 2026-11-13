@@ -63,6 +63,29 @@ for (const file of allFiles) {
 // Public files that are not HTML pages: referenced, served, never linked as pages.
 const passthrough = /^\/(assets|_headers|_redirects|api)\//;
 
+/**
+ * Retired URLs are 301'd by the WORKER, not by public/_redirects — Cloudflare
+ * caps that file at ~100 lines and the catalogue-sized rule set outgrew it, so
+ * the table lives in dist/data/legacy-redirects.json and is mirrored into the
+ * Worker. A href pointing at a retired URL is therefore NOT a 404: it answers
+ * with a 301 to its successor.
+ *
+ * Without this, the guard reports every CMS prose link to a retired page as
+ * broken, which trains whoever reads it to ignore the check. The reachable set
+ * is the honest fix: the URL is reachable, just not by a file of its own.
+ */
+const redirectSources = new Set();
+const redirectsFile = join(ROOT, "data", "legacy-redirects.json");
+if (existsSync(redirectsFile)) {
+  const parsed = JSON.parse(readFileSync(redirectsFile, "utf8"));
+  const exact = Array.isArray(parsed?.exact) ? parsed.exact : Object.entries(parsed?.exact || {});
+  for (const [from] of exact) {
+    if (typeof from !== "string") continue;
+    redirectSources.add(from.replace(/\/+$/, "") || "/");
+  }
+}
+for (const source of redirectSources) addReachable(source);
+
 const broken = new Map();
 let checked = 0;
 
@@ -102,6 +125,7 @@ for (const [href, sources] of rows) {
 }
 console.log(
   "\nCloudflare Pages has no client-side router, so each of these is a live 404 unless it is\n" +
-    "covered by public/_redirects. Either fix the href or add a redirect.",
+    "covered by public/_redirects or by the Worker's retired-URL table\n" +
+    "(dist/data/legacy-redirects.json). Either fix the href or add a redirect.",
 );
 process.exit(1);
