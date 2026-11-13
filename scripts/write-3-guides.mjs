@@ -130,7 +130,7 @@ Every age figure here is quoted from the manufacturer's own listing copy — the
 
 - [Balance bike by age reference](/balance-bike-by-age/) — every listing, by age band.
 - [Size chart guide](/guides/beginner/balance-bike-size-chart) — inseam to seat height.
-- [Stability guide](/guides/scenario/balance-bike-stability) — what the youngest cluster gives up for standing up on its own.`,
+- [Stability reference](/balance-bike-stability/) — what the youngest cluster gives up for standing up on its own.`,
     },
     zh: {
       title: "平衡车按年龄选：1 岁、2 岁、3 岁怎么挑",
@@ -194,7 +194,7 @@ Every age figure here is quoted from the manufacturer's own listing copy — the
 
 - [按年龄参考页](/balance-bike-by-age/)——按年龄段列出每一辆。
 - [尺寸指南](/guides/beginner/balance-bike-size-chart)——从腿内长到座高。
-- [稳定性指南](/guides/scenario/balance-bike-stability)——低龄簇为能自己立住付出了什么。`,
+- [稳定性参考页](/balance-bike-stability/)——低龄簇为能自己立住付出了什么。`,
     },
   },
   {

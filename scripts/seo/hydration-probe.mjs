@@ -114,7 +114,11 @@ const ROUTES = [
   // to 8/8 CMS-backed cards.
   '/guides/beginner/balance-bike-by-age',
   '/guides/beginner/balance-bike-what-buyers-say',
-  '/guides/scenario/balance-bike-stability',
+  // 2026-11-13 (S4): /guides/scenario/balance-bike-stability was REMOVED from
+  // this list. The page was retired into /balance-bike-stability/ (two
+  // self-canonical URLs answering "stable track balance bike"), and the probe
+  // must not keep fetching a URL that now 301s. The asset page it redirects to
+  // is probed separately, in ASSET_PAGES above.
   // 2026-10-22 A2 batch — the industry article backing the /news hub keyword
   // "electric dirt bike for kids".
   '/news/industry/electric-dirt-bikes-for-kids',

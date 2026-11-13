@@ -35,6 +35,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const FRONT = join(HERE, "../..");
 const SNAPSHOT = join(FRONT, "scripts/cms-snapshots/guides.json");
 const CATEGORY_GUIDES = join(FRONT, "src/data/categoryGuides.ts");
+const BALANCE_BIKE_STABILITY = join(FRONT, "src/data/balanceBikeStability.ts");
 const OUT = join(FRONT, "src/data/guideCategoryIndex.generated.ts");
 const SITEMAP = join(FRONT, "dist/sitemap.xml");
 
@@ -122,6 +123,30 @@ function retiredHubRoutes() {
   return out;
 }
 
+/**
+ * Retired CMS guide routes (S4) — same rule, different registry.
+ *
+ * These are CMS records retired into a non-guide page, so they are declared in
+ * the page module they feed rather than in RETIRED_CATEGORY_GUIDE_REDIRECTS.
+ * The stability guide went to /balance-bike-stability/. The index must not list
+ * it: the URL 301s, and this page exists to organise live destinations.
+ *
+ * The target is usually a bare identifier (`STABILITY_PATH`) rather than a
+ * quoted string, so only the first element of each pair is parsed — matching on
+ * a quoted second element would silently return an empty set and let the dead
+ * link back in.
+ */
+function retiredGuideRoutes() {
+  const src = readFileSync(BALANCE_BIKE_STABILITY, "utf8");
+  const block = /RETIRED_STABILITY_GUIDE_PATHS[^=]*=\s*\[([\s\S]*?)\n\];/.exec(src);
+  if (!block) return new Set();
+  const out = new Set();
+  for (const m of block[1].matchAll(/\[\s*["']([^"']+)["']\s*,/g)) {
+    out.add(m[1].replace(/\/+$/, ""));
+  }
+  return out;
+}
+
 function build(retiredOverride) {
   const rawGuides = JSON.parse(readFileSync(SNAPSHOT, "utf8"));
   const hubs = hubTitleMap();
@@ -129,6 +154,9 @@ function build(retiredOverride) {
   // index emits no category-hub list at all. The override exists so the
   // self-test can prove the filter is what suppresses them.
   const retired = retiredOverride || retiredHubRoutes();
+  // S4: CMS guides retired into a non-guide page. Kept separate from `retired`
+  // because the two registries are declared in different modules.
+  const retiredGuides = retiredGuideRoutes();
   const errors = [];
 
   const ids = new Set(GROUPS.map((g) => g.id));
@@ -144,6 +172,10 @@ function build(retiredOverride) {
     const href = guideHref(g);
     if (!group) { errors.push(`guide ${g.id}: unknown productCategory ${cat}`); continue; }
     if (!href) { errors.push(`guide ${g.id}: no slug`); continue; }
+    // Retired guide: skip silently, the same way a non-published record is
+    // skipped. It is not an error — the record still exists in the CMS, and
+    // its replacement page is the destination.
+    if (retiredGuides.has(href.replace(/\/+$/, ""))) continue;
     if (seenArticles.has(href)) { errors.push(`duplicate article href ${href}`); continue; }
     seenArticles.add(href);
     group.articles.push({
@@ -236,8 +268,19 @@ function selfTest() {
       assert(g.articles.length > 0, `${g.id} has no articles`);
     }
   });
-  check("every CMS guide is grouped exactly once (68)", () => {
-    assert(data.meta.guideCount === 68, `got ${data.meta.guideCount}`);
+  // S4: one published record (guide-2026-stability) is retired into a
+  // non-guide page, so the index groups 67 of the 68 published guides. The
+  // assertion is written against the published count minus the retired set
+  // rather than a bare number, so adding a second retirement does not fail the
+  // self-test for the wrong reason.
+  check("every live CMS guide is grouped exactly once", () => {
+    const raw = JSON.parse(readFileSync(SNAPSHOT, "utf8"));
+    const published = raw.filter((g) => !g.status || g.status === "published").length;
+    const retired = retiredGuideRoutes().size;
+    assert(
+      data.meta.guideCount === published - retired,
+      `got ${data.meta.guideCount}, want ${published - retired} (${published} published - ${retired} retired)`,
+    );
   });
   // S8: the 20 thin pillars are retired into the directory hubs, so the index
   // lists zero category hubs. What matters is that the retirement is applied

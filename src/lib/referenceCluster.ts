@@ -1,4 +1,13 @@
 import { useSyncExternalStore } from "react";
+import { RETIRED_STABILITY_GUIDE_PATHS } from "../data/balanceBikeStability";
+
+/**
+ * Cluster targets that are retired and 301 elsewhere. Declared in the page
+ * module they belong to (balanceBikeStability.ts) rather than here, so the
+ * retirement has one source of truth shared by the prerender, the SPA, the
+ * sitemap and the guards.
+ */
+const RETIRED_CLUSTER_TARGETS: ReadonlyArray<string> = RETIRED_STABILITY_GUIDE_PATHS.map(([from]) => from);
 
 /**
  * The balance-bike reference cluster.
@@ -533,13 +542,29 @@ const sanitize = (input: unknown[]): ReferenceClusterCard[] =>
   });
 
 /**
+ * Hrefs that must never be published as a cluster card, because the URL is
+ * retired and 301s (S4, 2026-11-13).
+ *
+ * `settings.referenceCluster` is CMS configuration: the stability card can be
+ * repointed at the retired guide from the admin and there is no deploy-time
+ * review of it. Filtering here — the one function both renderers resolve the
+ * list through — is what keeps a dead card off the page regardless of what the
+ * configuration says, instead of relying on someone remembering to update it.
+ */
+const RETIRED_CLUSTER_HREFS: ReadonlySet<string> = new Set(
+  RETIRED_CLUSTER_TARGETS.map((href) => href.replace(/\/+$/, "")),
+);
+
+/**
  * Resolves the published list: configured order wins, `visible: false` hides a
  * card without deleting it, and an empty or unusable configuration falls back
  * to the defaults rather than shipping an empty block.
  */
 export function resolveReferenceCluster(configured: unknown): ReferenceClusterCard[] {
   if (!Array.isArray(configured) || configured.length === 0) return DEFAULT_REFERENCE_CLUSTER;
-  const resolved = sanitize(configured).filter((card) => card.visible !== false);
+  const resolved = sanitize(configured).filter(
+    (card) => card.visible !== false && !RETIRED_CLUSTER_HREFS.has(card.href.replace(/\/+$/, "")),
+  );
   return resolved.length ? resolved : DEFAULT_REFERENCE_CLUSTER;
 }
 

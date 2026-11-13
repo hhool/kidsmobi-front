@@ -61,13 +61,22 @@ const TEMPLATE_HEADING_PAGES = 3;
 /** Word-bag overlap at which two headings count as the same section. */
 const HEADING_LINK = 0.6;
 
+// Every entry is an ASSET PAGE vs the CMS GUIDE that covers the same topic —
+// the pairs that can cannibalise each other, because both are self-canonical and
+// both answer the same query. A retired guide is not a drift risk (its URL 301s
+// and no page is generated), so it must NOT be listed here: keeping a dead path
+// in PAIRS makes the guard fail on a missing file instead of on real duplication.
+//
+// S4 (2026-11-13) removed the "stability" pair for that reason —
+// /guides/scenario/balance-bike-stability was retired into
+// /balance-bike-stability/, and its two unique sections were merged across
+// before the redirect went in.
 const PAIRS = [
   ["size-chart", "balance-bike-size-chart/index.html", "guides/beginner/balance-bike-size-chart.html"],
   ["weight", "balance-bike-weight/index.html", "guides/beginner/balance-bike-weight.html"],
   ["by-age", "balance-bike-by-age/index.html", "guides/beginner/balance-bike-by-age.html"],
   ["what-buyers-say", "balance-bike-what-buyers-say/index.html", "guides/beginner/balance-bike-what-buyers-say.html"],
   ["safety-standards", "balance-bike-safety-standards/index.html", "guides/risk/balance-bike-safety-standards.html"],
-  ["stability", "balance-bike-stability/index.html", "guides/scenario/balance-bike-stability.html"],
   ["recalls", "guides/risk/balance-bike-recall-record.html", "guides/risk/balance-bike-recalls.html"],
   ["budget", "balance-bike-budget/index.html", "guides/budget/balance-bike-price-tiers.html"],
 ];

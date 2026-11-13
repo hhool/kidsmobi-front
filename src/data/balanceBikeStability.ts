@@ -20,6 +20,42 @@ export { STABILITY_DATASET };
 
 export const STABILITY_PATH = "/balance-bike-stability/";
 
+/**
+ * RETIRED stability URLs → this page (S4, 2026-11-13).
+ *
+ * WHY THIS URL IS RETIRED
+ * -----------------------
+ * `/guides/scenario/balance-bike-stability` (CMS record `guide-2026-stability`,
+ * "How to Judge Balance Bike Stability") and this page were two self-canonical
+ * URLs answering the same "stable track balance bike" query: ~30% vocabulary
+ * overlap, the same measurement-gap framing, the same single 5.1-inch case
+ * study. That is the cannibalisation pattern Google settles by ranking
+ * neither — GSC credited the homepage and /products/balance-bikes/ instead of
+ * either stability URL.
+ *
+ * The guide's two unique sections were MERGED INTO THIS PAGE before the URL was
+ * retired — "Two wheels or four" and "What the standard now requires" (see
+ * wheelCountTitle / standardTitle below). Nothing was lost with the 301.
+ *
+ * Keyed on the no-trailing-slash form, matching the Worker lookup convention
+ * (resolveLegacyRedirect strips the slash) — a keyed-with-slash entry can
+ * never match and the old URL would 404 instead of 301ing.
+ *
+ * EXACT-ONLY by design, same as REHOMED_PAGE_301S: /guides/scenario/ still
+ * exists as a channel page, so a prefix rule here would swallow it.
+ */
+export const RETIRED_STABILITY_GUIDE_PATHS: ReadonlyArray<readonly [string, string]> = [
+  ["/guides/scenario/balance-bike-stability", STABILITY_PATH],
+];
+
+/** The retired CMS slug, so guide generation can skip it. */
+export const RETIRED_STABILITY_GUIDE_SLUG = "balance-bike-stability";
+
+/** True when a CMS guide slug belongs to a retired guide (do not publish). */
+export function isRetiredGuideSlug(slug: string): boolean {
+  return slug.trim() === RETIRED_STABILITY_GUIDE_SLUG;
+}
+
 const d = STABILITY_DATASET;
 const cov = d.coverage;
 
@@ -72,6 +108,21 @@ export interface StabilityStrings {
   checkTitle: string;
   checkLead: string;
   checkBody: string[];
+  /**
+   * S4 (2026-11-13). The `/guides/scenario/balance-bike-stability` guide was
+   * retired into this page: two canonical URLs were competing for the same
+   * "stable track" queries (30% vocabulary overlap, same Gotrax case study),
+   * which split the internal link weight and left GSC crediting the homepage
+   * and the category hub instead of the dedicated page. Its two unique sections
+   * — the four-wheel question and the EN 71-1:2026 transition — are carried
+   * over here rather than lost with the 301. Figures are re-derived from the
+   * current snapshot, not copied: the guide was written against a 13-bike
+   * snapshot and this page tracks 14.
+   */
+  wheelCountTitle: string;
+  wheelCountBody: string[];
+  standardTitle: string;
+  standardBody: string[];
   methodTitle: string;
   methodBody: string[];
   caveatTitle: string;
@@ -135,6 +186,18 @@ export const stabilityStrings: Record<"en" | "zh", StabilityStrings> = {
       "Foot-flat check: their feet must sit flat on the ground with a bend in the knee. A child balancing on tiptoes cannot catch themselves — this matters more than the track width itself.",
       "Steering sweep: turn the bars from lock to lock. Very free steering lets the front wheel fold sideways at low speed, which is the most common tip-over for a beginner.",
       "Surface match: wide, soft EVA wheels are forgiving on grass and gravel; narrow hard wheels track straighter on pavement. Ask what surface they will actually ride on before optimising for either.",
+    ],
+    wheelCountTitle: "Two wheels or four",
+    wheelCountBody: [
+      "{fourWheel} of the {listed} balance bikes in this snapshot are four-wheel models, and the wheel count is only published on {withWheelCount} of them — the rest either do not state it or list a number that does not describe the layout. A four-wheel bike stands up on its own: the child can sit, walk and stop without anyone holding it, and there is no falling sideways at a standstill.",
+      "What that layout removes is the lean. A four-wheel bike does not have to be balanced, so the balancing practice happens later. That is a sequence, not a defect: a four-wheel model is usually also the lowest and lightest, which for the youngest rider is the right trade. If your child already walks confidently, a two-wheel bike with a low seat is the shorter path.",
+      "Because the wheel count is missing from most listings, this page does not rank the two layouts against each other — only the {fourWheel} it can confirm are four-wheel are listed as such in the table above.",
+    ],
+    standardTitle: "What the standard now requires",
+    standardBody: [
+      "EN 71-1:2026 — the mechanical and physical half of the EU toy standard — gathered ride-on toys into a single clause and added requirements specific to them: clearance dimensions, a minimum front wheel diameter, handlebar dimensions, minimum insertion-depth marks, clamping, and stability and strength tests.",
+      "The market is in a transition window from 2026 into 2027: national adoption was due by 31 July 2026, conflicting national standards are withdrawn by 31 July 2027, and European Commission harmonisation is expected roughly a year after publication. A bike certified to the previous edition is not thereby unsafe, but the certificate predates the ride-on clause, so ask which edition the declaration of conformity names.",
+      "This matters for stability specifically because the standard puts a floor under geometry that sellers otherwise leave blank: a minimum front wheel diameter and handlebar dimensions are the same numbers this page found missing from nearly every listing.",
     ],
     methodTitle: "How these numbers were produced",
     methodBody: [
@@ -204,6 +267,18 @@ export const stabilityStrings: Record<"en" | "zh", StabilityStrings> = {
       "全脚掌着地检查：孩子的脚必须平踩地面、膝盖略有弯曲。踮着脚的孩子无法自救——这一点比轮距宽度本身更重要。",
       "转向扫掠：把车把从一个锁点打到另一个锁点。转向过松会让前轮在低速时横向折死，这是新手侧翻最常见的原因。",
       "路面匹配：宽而软的 EVA 轮在草地和碎石路上宽容度高；窄而硬的轮在铺装路面上走得更直。先确认孩子实际在哪骑，再谈优化。",
+    ],
+    wheelCountTitle: "两轮还是四轮",
+    wheelCountBody: [
+      "本快照的 {listed} 款平衡车中，有 {fourWheel} 款是四轮；但轮数只在 {withWheelCount} 款里公布过——其余要么没写，要么写了一个无法描述布局的数字。四轮车能自己站住：孩子可以坐、走、停，不需要人扶，静止时也不会往侧面倒。",
+      "四轮去掉的是「侧倾」这一环。四轮车不需要被平衡，所以平衡练习发生在更晚的阶段。这是顺序问题，不是缺陷：四轮款通常也是最矮最轻的，对最小的骑手来说这是对的取舍。如果孩子已经能稳稳走路，低座垫的两轮车是更短的路径。",
+      "由于多数商品信息缺失轮数，本页不把两种布局互相对比——只有上表能确认是四轮的这 {fourWheel} 款被标记为四轮。",
+    ],
+    standardTitle: "标准现在要求什么",
+    standardBody: [
+      "EN 71-1:2026 —— 欧盟玩具标准中机械与物理性能的那一半 —— 把骑乘类玩具并入单独条款，并新增了针对这类产品的专门要求：净空尺寸、最小前轮直径、车把尺寸、最小插入深度标记、夹紧力，以及稳定性与强度测试。",
+      "2026 到 2027 年是过渡窗口：各国采纳截止 2026 年 7 月 31 日，冲突的国家标准在 2027 年 7 月 31 日废止，欧盟委员会的协调化预计在发布后约一年。按旧版认证的车并不因此不安全，但其证书早于骑乘类条款，因此值得问一句：符合性声明写的是哪一版。",
+      "这对稳定性尤其重要，因为标准给卖家本可留白的几何参数设了下限：最小前轮直径与车把尺寸，正是本页发现几乎没人公布的那几个数字。",
     ],
     methodTitle: "这些数字是怎么来的",
     methodBody: [

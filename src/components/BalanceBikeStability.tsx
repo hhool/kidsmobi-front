@@ -9,6 +9,7 @@ import {
   BookOpen,
   FileCheck,
   ScanSearch,
+  Bike,
 } from "lucide-react";
 import {
   STABILITY_DATASET,
@@ -93,6 +94,8 @@ export default function BalanceBikeStability({ lang = "en" }: BalanceBikeStabili
     scanned: d.catalog.productsScanned,
     listed: cov.listed,
     withSpacing: cov.withTrackSpacing,
+    fourWheel: cov.fourWheel,
+    withWheelCount: cov.withWheelCount,
     file: d.source.exportFile,
     date: d.source.retrievedAt,
   };
@@ -270,6 +273,31 @@ export default function BalanceBikeStability({ lang = "en" }: BalanceBikeStabili
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* S4: the two sections carried over from the retired
+            /guides/scenario/balance-bike-stability guide, so its unique
+            guidance survives the 301 instead of vanishing with the URL. */}
+        <section className="space-y-4 border-t border-slate-200 pt-8">
+          <SectionHeading icon={Bike} title={t.wheelCountTitle} lead="" />
+          <div className="space-y-3 max-w-3xl">
+            {t.wheelCountBody.map((line, i) => (
+              <p key={i} className="text-sm text-slate-700 leading-7">
+                {fill(line)}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="space-y-4 border-t border-slate-200 pt-8">
+          <SectionHeading icon={FileCheck} title={t.standardTitle} lead="" />
+          <div className="space-y-3 max-w-3xl">
+            {t.standardBody.map((line, i) => (
+              <p key={i} className="text-sm text-slate-700 leading-7">
+                {line}
+              </p>
+            ))}
+          </div>
         </section>
 
         <section className="space-y-4 border-t border-slate-200 pt-8">

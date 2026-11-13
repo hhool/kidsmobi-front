@@ -36,7 +36,13 @@ const OVERRIDES: Record<string, Partial<(typeof DEFAULT_REFERENCE_CLUSTER)[numbe
     blurbZh: "各厂商的年龄区间、覆盖变薄的位置，以及怎么把一个生日变成适配检查。",
   },
   stability: {
-    href: "/guides/scenario/balance-bike-stability",
+    // 2026-11-13 (S4): this card used to point at
+    // /guides/scenario/balance-bike-stability, which duplicated the asset page
+    // and is now 301'd into it. The card already carries its own label and
+    // blurb, so it points straight at the asset — the destination the guide's
+    // own unique sections were merged into ("Two wheels or four", "What the
+    // standard now requires"), and the page that now owns the query.
+    href: "/balance-bike-stability/",
     blurbEn: "Wheel spacing, steering limiters and the four-wheel trade-off — published by one in thirteen.",
     blurbZh: "轮距、转向限位与四轮的取舍——13 款中只有 1 款公布数据。",
   },

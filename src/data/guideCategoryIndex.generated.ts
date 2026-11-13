@@ -71,11 +71,6 @@ export const GUIDE_CATEGORY_INDEX = {
           "titleZh": "怎么读平衡车的买家评价"
         },
         {
-          "href": "/guides/scenario/balance-bike-stability",
-          "title": "How to Judge Balance Bike Stability",
-          "titleZh": "怎么判断一辆平衡车稳不稳"
-        },
-        {
           "href": "/guides/budget/balance-bike-price-tiers",
           "title": "Balance Bike Price Tiers: What Each Buys",
           "titleZh": "平衡车价格档位：各档实际买到什么"
@@ -395,9 +390,9 @@ export const GUIDE_CATEGORY_INDEX = {
     }
   ],
   "meta": {
-    "guideCount": 68,
+    "guideCount": 67,
     "hubCount": 0,
-    "hrefCount": 73,
-    "hrefFingerprint12": "aadaf18c05fd"
+    "hrefCount": 72,
+    "hrefFingerprint12": "2cfb06700fde"
   }
 } as const;

@@ -5809,6 +5809,23 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   </a>
                 </li>
                 <li>
+                  {/* S4: the stability asset is the site's "stable track balance
+                      bike" carrier but had no footer entry — the homepage's only
+                      route to it was the category hub. It sat behind four other
+                      reference links while GSC credited the homepage and the hub
+                      for the query. It is English-only, like its siblings here. */}
+                  <a
+                    href={resolveSeoLink(STABILITY_PATH)}
+                    className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(STABILITY_PATH.replace(/\/+$/, ""));
+                    }}
+                  >
+                    {lang === "en" ? "Stability & Track Width" : "稳定性与轮距"}
+                  </a>
+                </li>
+                <li>
                   <a
                     href={resolveSeoLink("/guides/risk/balance-bike-safety-standards")}
                     className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"

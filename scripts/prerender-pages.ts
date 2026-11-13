@@ -80,6 +80,8 @@ import {
   claimRows,
   coverageRows,
   inchLabel,
+  isRetiredGuideSlug,
+  RETIRED_STABILITY_GUIDE_PATHS,
   stabilitySeo,
   stabilityStrings,
 } from "../src/data/balanceBikeStability";
@@ -243,6 +245,7 @@ import { ABOUT_FAQS, NEWS_FAQS, REVIEWS_FAQS, type PageFaq } from "../src/lib/pa
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "../src/lib/productHubContent";
 import { renderRichContentHtml } from "../src/lib/richContentHtml";
 import { normalizeListingBullets, isSubstantiveBullet } from "../src/lib/visibleText";
+import { ownerReportedCons } from "../src/lib/ownerReportedCons";
 import { containsCjk } from "../src/lib/guideTextSanitize";
 
 const distDir = path.resolve("dist");
@@ -6533,6 +6536,8 @@ function renderStabilityPage(): RoutePage[] {
     scanned: d.catalog.productsScanned,
     listed: cov.listed,
     withSpacing: cov.withTrackSpacing,
+    fourWheel: cov.fourWheel,
+    withWheelCount: cov.withWheelCount,
     file: d.source.exportFile,
     date: d.source.retrievedAt,
   };
@@ -6638,6 +6643,26 @@ function renderStabilityPage(): RoutePage[] {
               )
               .join("")}
           </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.wheelCountTitle)}</h2>
+          ${t.wheelCountBody
+            .map(
+              (line) =>
+                `<p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fill(line))}</p>`,
+            )
+            .join("")}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.standardTitle)}</h2>
+          ${t.standardBody
+            .map(
+              (line) =>
+                `<p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(line)}</p>`,
+            )
+            .join("")}
         </section>
 
         <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
@@ -8282,16 +8307,13 @@ function renderProductDetailPage(
   // "【COLORFUL LIGHTING DESIGN】") and 95 more are spec fragments ("Carbon
   // Fiber"), neither of which reads as an editorial assessment.
   //
-  // `en.cons` is empty on every record in the current snapshot, so the Cons
-  // column renders only when a record actually carries one.
-  //
-  // RENDER, DON'T DELETE: when normalisation leaves nothing, the raw list is
-  // shown instead. One record's entire pros array is ["Polyester", "Imported",
-  // "Added body support cushion"] — fragments, but they are the only positive
-  // statements the source makes. Printing weak copy beats printing no copy, and
-  // silently emptying a section is the kind of quiet data loss this repo has
-  // been burned by before. The check is `some`, not `every`: a list with one
-  // usable claim should still be filtered.
+  // `en.cons` is empty on every record in the current snapshot (0/197), so
+  // without a fallback the page rendered a Pros column beside a blank Cons
+  // column on all 197 detail pages — a one-sided recommendation. The drawback
+  // half is recovered from `customersSay` (owner feedback), which states it on
+  // 100 of 186 records. See src/lib/ownerReportedCons.ts for the frames and the
+  // conservatism rules; a record whose feedback reports no drawback simply gets
+  // no Cons column rather than a padded one.
   const normalizedPros = normalizeListingBullets(product.en?.pros, 6);
   const pros = normalizedPros.length
     ? normalizedPros
@@ -8299,7 +8321,8 @@ function renderProductDetailPage(
         const text = String(item ?? "").trim();
         return text.length > 0 && !containsCjk(text);
       });
-  const cons = normalizeListingBullets(product.en?.cons, 6);
+  const authoredCons = normalizeListingBullets(product.en?.cons, 6);
+  const cons = authoredCons.length ? authoredCons : ownerReportedCons(product, 3);
   const prosConsHtml =
     pros.length || cons.length
       ? `<section style="margin: 0 0 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
@@ -8321,6 +8344,16 @@ function renderProductDetailPage(
                     .slice(0, 6)
                     .map((item) => `<li style="margin-bottom: 6px;">${escapeHtml(String(item))}</li>`)
                     .join("")}</ul>
+                  ${
+                    // Attribute the drawback when it came from owners rather than
+                    // from a record the site wrote itself. The site does no
+                    // hands-on testing, so an unattributed "Cons" list would imply
+                    // a test bench finding — the exact claim the honesty guard
+                    // exists to prevent.
+                    authoredCons.length
+                      ? ""
+                      : `<p style="margin: 10px 0 0; font-size: 0.8rem; color: #b91c1c;">From aggregated owner feedback, not our own testing.</p>`
+                  }
                 </div>`
               : ""
           }
@@ -8746,13 +8779,27 @@ async function main() {
   const sourceIndexHtml = await readFile(path.join(process.cwd(), "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml, sourceIndexHtml);
 
-  const [cmsGuides, cmsNews, cmsEvaluations, cmsProducts, cmsSettings] = await Promise.all([
+  const [cmsGuidesRaw, cmsNews, cmsEvaluations, cmsProducts, cmsSettings] = await Promise.all([
     fetchPublishedGuides(),
     fetchPublishedNews(),
     fetchPublishedEvaluations(),
     fetchPublishedProducts(),
     fetchCmsSettings(),
   ]);
+
+  // RETIRED CMS GUIDES are dropped here, at the single point every guide
+  // consumer reads from — the same altitude as the stage-1 duplicate product
+  // filter below. Filtering this high is what makes the retirement atomic:
+  // the detail page, the /guides index card, the /guides/<topic> listing, the
+  // filter pages, the homepage's recent-guides column and the sitemap all read
+  // this one list, so none of them can publish a URL that 301s.
+  const cmsGuides = cmsGuidesRaw.filter((guide) => !isRetiredGuideSlug(String(guide.slug || "")));
+  if (cmsGuides.length !== cmsGuidesRaw.length) {
+    console.log(
+      `[prerender] retired guide slug(s) filtered from generation: ` +
+        `${cmsGuidesRaw.length - cmsGuides.length} record(s) → 301 to their successor.`,
+    );
+  }
 
   // The affiliate tag. Until one is configured the product pages ship no
   // outbound link at all, so the site never carries a link that earns
@@ -9397,6 +9444,18 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     // prefix rule here would swallow the asset pages that must survive
     // (/kids-bike-by-age/, /kids-bike-price/, /kids-bike-size-chart/, ...).
     ...RETIRED_CATEGORY_GUIDE_REDIRECTS.map(([from, to]) => [from, to] as [string, string]),
+    // 2026-11-13 (S4): the CMS stability guide duplicated /balance-bike-stability/
+    // — two self-canonical URLs, ~30% vocabulary overlap, the same measurement-gap
+    // framing and the same Gotrax 5.1-inch case study. GSC was crediting the
+    // homepage and the category hub for "stable track balance bike" instead of
+    // either stability URL. The guide's two unique sections were merged into the
+    // asset page first, so the 301 hands over a superset rather than losing copy.
+    //
+    // Declared in src/data/balanceBikeStability.ts beside the page it feeds, so
+    // the retirement is stated once and read by the prerender, the SPA and the
+    // guards. Exact-only by design — /guides/scenario/ is still a live channel
+    // page and a prefix rule here would swallow it.
+    ...RETIRED_STABILITY_GUIDE_PATHS.map(([from, to]) => [from, to] as [string, string]),
   ];
   // 2026-10-22: pull-along wagons and playards were historically published
   // under /products/strollers/ (the live build predates the kebab-case re-home
