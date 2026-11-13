@@ -23,9 +23,21 @@ export interface HubFaq {
   a: string;
 }
 
+/** A titled prose block inside a hub's buying guide. */
+export interface HubSection {
+  heading: string;
+  paragraphs: string[];
+}
+
 export interface HubContent {
   intro: string[];
   faqs: HubFaq[];
+  /**
+   * Optional titled prose sections (S8 migration). A retired pillar's buying
+   * guidance is moved here rather than deleted with its URL, so the hub that
+   * inherits the 301 also inherits the content that justified the query.
+   */
+  sections?: HubSection[];
 }
 
 export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
@@ -86,6 +98,32 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
       {
         q: "Hand brakes or coaster brakes for a first pedal bike?",
         a: "Prefer a bike with both. Coaster (back-pedal) brakes work instinctively but cost the rider the ability to reposition pedals, while a properly reached hand brake builds the skill every later bike assumes. US safety rules cap the lever reach for young children — all specs on the card note which braking setup the frame carries.",
+      },
+    ],
+    // S8 migration (2026-11-13): the three buying sections that used to live on
+    // the retired /kids-bike/ pillar. They were the only place on the site that
+    // explained standover, lever reach and the gear/stabiliser decision in one
+    // narrative, so the guidance moves here with the 301 instead of vanishing.
+    // Copy is the original pillar prose, lightly re-based from "below are the
+    // three things" to the hub's own voice.
+    sections: [
+      {
+        heading: "Size by wheel and standover",
+        paragraphs: [
+          "Wheel sizes step up as the child grows (roughly 12, 14, 16, 20 inches and beyond). The real test is standover: the child should straddle the frame with feet flat and clear the top tube. A bike sized by age alone often fits no one well.",
+        ],
+      },
+      {
+        heading: "Brakes a small hand can reach",
+        paragraphs: [
+          "Child-sized levers that a small hand can pull beat a strong adult brake they cannot reach. Coaster brakes are simple but teach the wrong reflex after a balance bike; many parents prefer two hand brakes they can learn on. Check the lever reach, not just the presence of a brake.",
+        ],
+      },
+      {
+        heading: "Weight and when gears arrive",
+        paragraphs: [
+          "A lighter bike is easier to balance, lift, and right after a fall. Gears help on hills but add weight and complexity; most first pedal bikes skip them. Stabilisers are a fallback, not a step — a balance-bike background often makes them unnecessary.",
+        ],
       },
     ],
   },

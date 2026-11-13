@@ -1019,18 +1019,107 @@ export const CATEGORY_GUIDE_LIST: CategoryGuide[] = [
   twinStrollerPrice,
 ];
 
-/** path -> guide, e.g. "/balance-bike/" -> guide. */
+/**
+ * RETIRED category hubs → their live successor (S8, 2026-11-13).
+ *
+ * WHY THESE URLS ARE RETIRED
+ * --------------------------
+ * Each one rendered a self-canonical page of 300-600 words carrying ZERO
+ * product-detail links, while the seven directory hubs (/products/<slug>/) hold
+ * the catalogue: 654-2297 words, every product card, the reference cluster, and
+ * the entry links from the header nav, the homepage and /products. Two
+ * self-canonical URLs competing for one query is the cannibalisation pattern
+ * Google settles by ranking neither, so the thin pillar is retired and its 301
+ * hands the query to the hub that already holds the inventory.
+ *
+ * MEASURED, NOT ASSUMED: these 20 carry no product cards. The four pages that
+ * DO — /kids-bike-by-age/ (1623 words, 19 links), /kids-bike-price/ (1271
+ * words, 23 links), /kids-bike-size-chart/ and /kids-bike-stability/ — are real
+ * asset pages with rankings to protect and are NOT in this list.
+ *
+ * Only the generic /kids-bike/ pillar is retired from the kids-bike family; its
+ * three buying sections were migrated into the kids-bikes hub intro, so the
+ * prose survives the redirect instead of vanishing with the URL.
+ *
+ * Keyed on the no-trailing-slash form, matching the Worker lookup convention
+ * (resolveLegacyRedirect strips the slash). Both slash shapes reach the Worker
+ * through the route patterns sync_redirects_to_worker.mjs emits.
+ *
+ * SCOPE: the kids-bike family is the pilot (user decision 2026-11-13). The
+ * other 18 are registered here in the same pass because they are structurally
+ * identical and each day they stay live is another day of split signals — but
+ * the kids-bike entry is the one to watch in GSC before treating the pattern as
+ * settled for the rest of the site.
+ */
+export const RETIRED_CATEGORY_GUIDE_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
+  // Pilot: the kids-bike pillar folds into the hub that holds 24 listings.
+  ["/kids-bike", "/products/kids-bikes/"],
+  // Balance bike — the main category keeps its directory hub.
+  ["/balance-bike", "/products/balance-bikes/"],
+  // Dirt / mini moto: the catalogue files these as electric ride-ons, and the
+  // electric-cars hub already carries the motorcycle models.
+  ["/kids-dirt-bike", "/products/electric-cars/"],
+  ["/kids-dirt-bike-by-age", "/products/electric-cars/"],
+  ["/kids-dirt-bike-price", "/products/electric-cars/"],
+  ["/kids-dirt-bike-what-buyers-say", "/products/electric-cars/"],
+  // Scooters — kick and powered both resolve to the kids-scooters hub.
+  ["/kids-scooter", "/products/kids-scooters/"],
+  ["/foldable-electric-scooter", "/products/kids-scooters/"],
+  ["/foldable-electric-scooter-price", "/products/kids-scooters/"],
+  ["/kids-electric-scooter", "/products/kids-scooters/"],
+  ["/kids-electric-scooter-price", "/products/kids-scooters/"],
+  ["/kids-electric-scooter-what-buyers-say", "/products/kids-scooters/"],
+  // Strollers — full-size, baby, twin and travel all resolve to one hub.
+  ["/baby-stroller", "/products/strollers/"],
+  ["/baby-stroller-by-age", "/products/strollers/"],
+  ["/baby-stroller-price", "/products/strollers/"],
+  ["/kids-stroller", "/products/strollers/"],
+  ["/twin-stroller", "/products/strollers/"],
+  ["/twin-stroller-by-age", "/products/strollers/"],
+  ["/twin-stroller-price", "/products/strollers/"],
+  // Tricycles — the kids-tricycles hub re-homes the legacy "other" bucket too.
+  ["/kids-tricycle", "/products/kids-tricycles/"],
+];
+
+/**
+ * path -> guide, e.g. "/balance-bike/" -> guide.
+ *
+ * Covers the FULL list, retired entries included: the admin editors and the
+ * keyword resolver legitimately need to read a retired guide's copy while it is
+ * being re-pointed. Anything that PUBLISHES a URL reads ACTIVE_CATEGORY_GUIDE_LIST
+ * instead, which is what keeps a retired hub off the site.
+ */
 export const CATEGORY_GUIDE_BY_PATH: Record<string, CategoryGuide> = Object.fromEntries(
   CATEGORY_GUIDE_LIST.map((g) => [g.route, g]),
 );
 
+/**
+ * The guides that still publish a page. Everything else in CATEGORY_GUIDE_LIST
+ * is retired by RETIRED_CATEGORY_GUIDE_REDIRECTS and must not be prerendered,
+ * hydrated, or asserted by any guard — every consumer that ships a URL reads
+ * THIS list, so the retirement cannot be half-applied.
+ */
+export const ACTIVE_CATEGORY_GUIDE_LIST: CategoryGuide[] = CATEGORY_GUIDE_LIST.filter(
+  (g) => !RETIRED_CATEGORY_GUIDE_REDIRECTS.some(([from]) => from === g.route.replace(/\/+$/, "")),
+);
+
 /** Root set used by App.tsx routing, e.g. "balance-bike". */
 export const CATEGORY_GUIDE_PATHS_SET: Set<string> = new Set(
-  CATEGORY_GUIDE_LIST.map((g) => g.route.replace(/^\/|\/$/g, "")),
+  ACTIVE_CATEGORY_GUIDE_LIST.map((g) => g.route.replace(/^\/|\/$/g, "")),
+);
+
+/** Roots of the retired guides, e.g. "kids-bike" — must NOT hydrate as a page. */
+export const RETIRED_CATEGORY_GUIDE_ROOTS: ReadonlySet<string> = new Set(
+  RETIRED_CATEGORY_GUIDE_REDIRECTS.map(([from]) => from.replace(/^\/|\/$/g, "")),
 );
 
 /** App.tsx recovers the path from the active tab (which equals the root). */
 export function getCategoryGuideByTab(tab: string): CategoryGuide | undefined {
   return CATEGORY_GUIDE_BY_PATH[`/${tab}/`];
+}
+
+/** True when this root belongs to a hub that was retired into a directory hub. */
+export function isRetiredCategoryGuideRoot(tab: string): boolean {
+  return RETIRED_CATEGORY_GUIDE_ROOTS.has(tab);
 }
 

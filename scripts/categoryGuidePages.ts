@@ -1,18 +1,23 @@
 /**
- * Prerender bodies for the 20 new category guide pages (pillar / cluster /
- * comparison). Mirrors the family-page pattern: one module returns the static
- * HTML for every page, and the prose lives in src/data/categoryGuides.ts so the
- * SPA component and this script read from one source.
+ * Prerender bodies for the category guide pages (pillar / cluster / comparison).
+ * Mirrors the family-page pattern: one module returns the static HTML for every
+ * page, and the prose lives in src/data/categoryGuides.ts so the SPA component
+ * and this script read from one source.
+ *
+ * RETIRED HUBS (S8): the 20 thin pillars that carried no product links are
+ * retired into the seven directory hubs and 301 there — see
+ * RETIRED_CATEGORY_GUIDE_REDIRECTS. They are filtered out by
+ * ACTIVE_CATEGORY_GUIDE_LIST, so this module cannot resurrect a URL the Worker
+ * now redirects.
  *
  * The HTML skeleton is shared (eyebrow chip, h1, lead, sections, related-guides
  * nav, byline footer). The prose inside is NOT shared — each guide carries its
- * own topic text, which is what keeps check-topic-pair-drift quiet across the
- * 20 pages and against the existing 442.
+ * own topic text, which is what keeps check-topic-pair-drift quiet.
  *
  * The byline footer carries class="byline" so the R-424 author audit passes on
  * the prerendered HTML (the same rule the SPA footer follows).
  */
-import { CATEGORY_GUIDE_LIST, type CategoryGuide } from "../src/data/categoryGuides";
+import { ACTIVE_CATEGORY_GUIDE_LIST, type CategoryGuide } from "../src/data/categoryGuides";
 import { renderHubRichMediaBlocksHtml } from "./richMediaHtml";
 import type { HubRichMediaBlock } from "../src/lib/cmsD1Service";
 
@@ -107,7 +112,7 @@ function bodyFor(g: CategoryGuide, mediaHtml = ""): string {
 }
 
 export function renderCategoryGuidePages(mediaMap: Record<string, HubRichMediaBlock[]> = {}): CategoryGuideRoutePage[] {
-  return CATEGORY_GUIDE_LIST.map((g) => ({
+  return ACTIVE_CATEGORY_GUIDE_LIST.map((g) => ({
     route: g.route,
     title: g.title,
     description: g.description,

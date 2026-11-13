@@ -86,12 +86,7 @@ export const GUIDE_CATEGORY_INDEX = {
           "titleZh": "平衡车重量：为什么轻很重要"
         }
       ],
-      "hubs": [
-        {
-          "href": "/balance-bike/",
-          "title": "Balance Bike: The First Bike That Skips Training Wheels"
-        }
-      ]
+      "hubs": []
     },
     {
       "id": "scooter",
@@ -151,32 +146,7 @@ export const GUIDE_CATEGORY_INDEX = {
           "titleZh": "儿童 kick 滑板车还是电动滑板车"
         }
       ],
-      "hubs": [
-        {
-          "href": "/kids-scooter/",
-          "title": "Kids Scooter: The First Wheels on a Lean"
-        },
-        {
-          "href": "/foldable-electric-scooter/",
-          "title": "Foldable Electric Scooter: Power You Can Carry"
-        },
-        {
-          "href": "/foldable-electric-scooter-price/",
-          "title": "Foldable Scooter Price: What You Are Paying For"
-        },
-        {
-          "href": "/kids-electric-scooter/",
-          "title": "Kids Electric Scooter: Power With a Cap"
-        },
-        {
-          "href": "/kids-electric-scooter-price/",
-          "title": "Kids Electric Scooter Prices: Pay for the Cap and the Mark"
-        },
-        {
-          "href": "/kids-electric-scooter-what-buyers-say/",
-          "title": "What Buyers Say About Kids Electric Scooters"
-        }
-      ]
+      "hubs": []
     },
     {
       "id": "bicycle",
@@ -236,32 +206,7 @@ export const GUIDE_CATEGORY_INDEX = {
           "titleZh": "儿童第一辆自行车：按年龄和身高选"
         }
       ],
-      "hubs": [
-        {
-          "href": "/kids-bike/",
-          "title": "Kids Bike: The First Pedal Bike Done Right"
-        },
-        {
-          "href": "/kids-dirt-bike/",
-          "title": "Kids Dirt Bike: A Mini Moto That Stays Controllable"
-        },
-        {
-          "href": "/kids-dirt-bike-by-age/",
-          "title": "Kids Dirt Bike by Age: Matching Voltage to the Rider"
-        },
-        {
-          "href": "/kids-dirt-bike-price/",
-          "title": "Kids Dirt Bike Prices: What the Voltage Buys"
-        },
-        {
-          "href": "/kids-dirt-bike-what-buyers-say/",
-          "title": "What Buyers Say About Kids Dirt Bikes"
-        },
-        {
-          "href": "/kids-tricycle/",
-          "title": "Kids Tricycle: The First Set of Pedals"
-        }
-      ]
+      "hubs": []
     },
     {
       "id": "stroller",
@@ -376,36 +321,7 @@ export const GUIDE_CATEGORY_INDEX = {
           "titleZh": "伞车与全尺寸推车怎么选"
         }
       ],
-      "hubs": [
-        {
-          "href": "/baby-stroller/",
-          "title": "Baby Stroller: Choosing One That Lasts the First Years"
-        },
-        {
-          "href": "/baby-stroller-by-age/",
-          "title": "Stroller by Age: What Changes as Your Child Grows"
-        },
-        {
-          "href": "/baby-stroller-price/",
-          "title": "Stroller Prices: What the Money Actually Buys"
-        },
-        {
-          "href": "/kids-stroller/",
-          "title": "Kids Stroller: The Toddler-Era Frame"
-        },
-        {
-          "href": "/twin-stroller/",
-          "title": "Twin Stroller: Moving Two Children at Once"
-        },
-        {
-          "href": "/twin-stroller-by-age/",
-          "title": "Twin Stroller by Age: From Newborn to Toddler"
-        },
-        {
-          "href": "/twin-stroller-price/",
-          "title": "Twin Stroller Prices: Pay for the Double Load"
-        }
-      ]
+      "hubs": []
     },
     {
       "id": "electric_car",
@@ -480,8 +396,8 @@ export const GUIDE_CATEGORY_INDEX = {
   ],
   "meta": {
     "guideCount": 68,
-    "hubCount": 20,
-    "hrefCount": 93,
-    "hrefFingerprint12": "cc8b5ada8f0d"
+    "hubCount": 0,
+    "hrefCount": 73,
+    "hrefFingerprint12": "aadaf18c05fd"
   }
 } as const;

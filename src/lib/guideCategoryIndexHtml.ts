@@ -25,6 +25,18 @@
  * are verbatim CategoryGuide.h1, family labels are the owner-supplied keywords.
  */
 import { GUIDE_CATEGORY_INDEX } from "../data/guideCategoryIndex.generated";
+import type { GuideCategoryIndex } from "./guideCategoryIndexTypes";
+
+/**
+ * Widened view of the generated data.
+ *
+ * The generated module is `as const`, so a family whose `hubs` array is empty
+ * infers `readonly []` and every element access becomes `never` — which is
+ * exactly what happens now that all 20 category pillars are retired (S8) and
+ * the list may be repopulated later. The runtime value is unchanged; this only
+ * gives TypeScript a stable shape to check against.
+ */
+const INDEX = GUIDE_CATEGORY_INDEX as unknown as GuideCategoryIndex;
 
 const esc = (value: string): string =>
   String(value || "")
@@ -42,7 +54,7 @@ const SUB_STYLE = "margin:0 0 8px;color:#475569;";
  * parity guard can compare the delivered HTML against this exact string.
  */
 export function renderGuideCategoryIndexHtml(): string {
-  const groups = GUIDE_CATEGORY_INDEX.groups
+  const groups = INDEX.groups
     .map((group) => {
       const articles = group.articles
         .map(
@@ -75,7 +87,7 @@ export function renderGuideCategoryIndexHtml(): string {
     })
     .join("\n");
 
-  return `<section id="guide_category_index" style="padding:22px 0;border-top:1px solid #e2e8f0;" data-guide-index-schema="${GUIDE_CATEGORY_INDEX.schema}">
+  return `<section id="guide_category_index" style="padding:22px 0;border-top:1px solid #e2e8f0;" data-guide-index-schema="${INDEX.schema}">
   <h2 style="margin:0 0 6px;font-size:1.5rem;">Buying guides by category</h2>
   <p style="margin:0 0 14px;color:#475569;">Every published guide grouped by the product family it covers. Open a family to see its articles and category buying guides.</p>
 ${groups}
@@ -84,7 +96,7 @@ ${groups}
 
 /** Every href this index emits — used by the parity guard and self-test. */
 export function guideCategoryIndexHrefs(): string[] {
-  return GUIDE_CATEGORY_INDEX.groups.flatMap((g) => [
+  return INDEX.groups.flatMap((g) => [
     g.picksHref,
     ...g.articles.map((a) => a.href),
     ...g.hubs.map((h) => h.href),

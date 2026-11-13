@@ -61,24 +61,39 @@ const required = [
     // 2026-10-21 — the roots shipped that shape and /compare answered 308 -> /
     // while /compare/ answered 404).
     name: 'redirects-bare-roots-rewritten',
-    ok: ['/compare', '/auth', '/search', '/transparency'].every(
+    // /auth graduated to a real prerendered page (scripts/prerender-pages.ts)
+    // on 2026-11-07, so it is no longer a bare root and must NOT carry a
+    // rewrite — that exact rule shadowed auth.html and served the homepage
+    // shell (see redirects-bare-roots-covered in check-redirects.mjs). This
+    // assertion kept demanding the rule afterwards, so it failed against the
+    // correct file and hid the real cause of the failures it reported.
+    ok: ['/compare', '/search', '/transparency'].every(
       (root) =>
         redirects.includes(`${root} / 200`) && redirects.includes(`${root}/ / 200`),
     ),
-    detail: '_redirects must rewrite each bare app root (/compare /auth /search /transparency) to "/" with an exact rule in both the no-slash and trailing-slash forms',
+    detail: '_redirects must rewrite each bare app root (/compare /search /transparency) to "/" with an exact rule in both the no-slash and trailing-slash forms',
   },
   {
     // The other half of the same lesson: a wildcard rule must never target a
     // static path, because the rewrite shadows every prerendered page under
     // that prefix. Redirects to another origin (/api/*) are fine.
+    //
+    // A wildcard REDIRECT (301/302/307/308) is exempt, for the same reason
+    // check-redirects.mjs exempts it: Pages applies a rewrite before the static
+    // asset tree, but a redirect only returns a Location header — it cannot
+    // shadow a file. The partial-bilingual /zh/<section>/* rules are exactly
+    // this shape, and this assertion used to fail them (it did not look at the
+    // status code), which is how two guards ended up disagreeing about a file
+    // that was correct on both counts.
     name: 'redirects-no-wildcard-static-target',
     ok: !redirects
       .split('\n')
       .map((line) => line.trim())
       .filter((line) => line && !line.startsWith('#'))
       .some((line) => {
-        const [source, target] = line.split(/\s+/);
-        return source.includes('*') && !/^https?:\/\//i.test(target || '');
+        const [source, target, status = ''] = line.split(/\s+/);
+        const isRedirect = /^30[1278]$/.test(status);
+        return source.includes('*') && !isRedirect && !/^https?:\/\//i.test(target || '');
       }),
     detail: '_redirects must not rewrite a wildcard source to a static path — it shadows every prerendered page under that prefix',
   },

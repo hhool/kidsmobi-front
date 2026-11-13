@@ -111,10 +111,22 @@ async function main() {
       const p = runAgainst(good);
       assert(p.length === 0, p.join(" | "));
     });
-    check("shared renderer emits 5 families + all 93 hrefs", () => {
+    check("shared renderer emits 5 families + all article and family hrefs", () => {
       assert((expectedHtml.match(/<details /g) || []).length === 5, "not 5 groups");
-      assert(hrefs.length === 93, `got ${hrefs.length} hrefs`);
+      // 68 CMS guides + 5 family picks pages = 73. The 20 thin pillars that used
+      // to add 20 more are retired (S8) and 301 into the directory hubs, so they
+      // are deliberately absent from this index — see
+      // RETIRED_CATEGORY_GUIDE_REDIRECTS in src/data/categoryGuides.ts.
+      assert(hrefs.length === 73, `got ${hrefs.length} hrefs`);
       assert(expectedHtml.includes("Buying guides by category"), "no heading");
+    });
+    check("REVERSE: the retired pillars are absent from the index", () => {
+      const retired = [
+        "/kids-bike/", "/balance-bike/", "/kids-scooter/", "/kids-stroller/",
+        "/kids-tricycle/", "/baby-stroller/", "/twin-stroller/",
+      ];
+      const leaked = retired.filter((h) => hrefs.includes(h));
+      assert(leaked.length === 0, `retired pillar(s) still indexed: ${leaked.join(", ")}`);
     });
     check("REVERSE: restoring the homepage block turns red", () => {
       const p = runAgainst({ ...good, homeHtml: "<section id='topic_guides_anchor'></section>" });

@@ -288,6 +288,7 @@ import CookieConsentModal from "./components/CookieConsentModal";
 import {
   CATEGORY_GUIDE_PATHS_SET,
   getCategoryGuideByTab,
+  isRetiredCategoryGuideRoot,
 } from "./data/categoryGuides";
 import { CategoryGuidePage } from "./components/CategoryGuidePage";
 
@@ -1388,7 +1389,11 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   // own path root as the tab name, recovered verbatim in the SEO effect and the
   // JSX render — same convention as the family asset clusters. Registered before
   // the unknown-root fallback so the page hydrates with its own canonical.
-  if (CATEGORY_GUIDE_PATHS_SET.has(root)) {
+  //
+  // S8: retired pillars fall through to the unknown-root branch below so they
+  // hydrate as a noindex soft-404 instead of a page. In production the Worker
+  // answers these paths with a 301 first, so this is the no-JS/no-Worker path.
+  if (CATEGORY_GUIDE_PATHS_SET.has(root) && !isRetiredCategoryGuideRoot(root)) {
     return {
       activeTab: root,
       activeProductCategory: "all",
@@ -5040,6 +5045,25 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     <p key={`hub-intro-${index}`}>{paragraph}</p>
                   ))}
                 </div>
+                {/* Migrated pillar sections (S8): mirrors hubSectionsHtml in
+                    prerender-pages.ts. Without this the createRoot() hydration
+                    drops the buying guidance the crawler first saw on the hub
+                    that inherited the retired /kids-bike/ 301. */}
+                {(hub.sections || []).map((section) => (
+                  <section key={`hub-section-${section.heading}`} className="pt-2">
+                    <h3 className="text-base font-black text-slate-800 mb-2">
+                      {section.heading}
+                    </h3>
+                    {section.paragraphs.map((paragraph, index) => (
+                      <p
+                        key={`hub-section-${section.heading}-${index}`}
+                        className="text-sm text-slate-600 font-medium leading-relaxed mb-2"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </section>
+                ))}
                 {hub.faqs.length >= 2 && (
                   <div className="space-y-4">
                     {hub.faqs.map((faq, index) => (

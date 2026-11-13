@@ -47,7 +47,7 @@ import { WEIGHT_PATH } from "../src/data/balanceBikeWeight";
 import { RECALL_SAFETY_PATH } from "../src/data/safetyRecallRecord";
 import { BUYER_FEEDBACK_PATH } from "../src/data/balanceBikeBuyerFeedback";
 import { BUDGET_PATH } from "../src/data/balanceBikeBudget";
-import { CATEGORY_GUIDE_LIST } from "../src/data/categoryGuides";
+import { ACTIVE_CATEGORY_GUIDE_LIST } from "../src/data/categoryGuides";
 import {
   normalizeCanonicalPath,
   buildCanonicalPathFromPageConfig,
@@ -80,7 +80,7 @@ const ASSET_PATHS = [
   ...KIDS_RIDE_ON_ASSET_PATHS,
   ...KIDS_TRICYCLE_ASSET_PATHS,
   ...KIDS_STROLLER_ASSET_PATHS,
-  ...CATEGORY_GUIDE_LIST.map((g) => g.route),
+  ...ACTIVE_CATEGORY_GUIDE_LIST.map((g) => g.route),
 ];
 
 const SECTION_KEYS = ["home", "products", "reviews", "guides", "news", "about"] as const;

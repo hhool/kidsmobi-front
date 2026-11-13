@@ -196,6 +196,7 @@ import {
 } from "../src/data/kidsStrollerSeo";
 import { renderKidsStrollerPages as renderKidsStrollerPageBodies } from "./kidsStrollerPages";
 import { renderCategoryGuidePages as renderCategoryGuidePageBodies } from "./categoryGuidePages";
+import { RETIRED_CATEGORY_GUIDE_REDIRECTS } from "../src/data/categoryGuides";
 import { relatedProductsBlockHtml } from "./assetRelatedProducts";
 import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
@@ -8585,6 +8586,23 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
           .join("")}
       </div>`
     : "";
+  // Migrated pillar sections (S8). Only the kids-bikes hub carries these — they
+  // came from the retired /kids-bike/ pillar, and rendering them per-hub keeps
+  // the guidance on exactly the page that inherited the 301.
+  const hubSectionsHtml = (hubContent.sections || [])
+    .map(
+      (section) => `
+        <section style="margin-top: 26px;">
+          <h3 style="margin: 0 0 10px; font-size: 1.08rem; color: #0f172a; line-height: 1.35;">${escapeHtml(section.heading)}</h3>
+          ${section.paragraphs
+            .map(
+              (p) =>
+                `<p style="margin: 0 0 10px; color: #475569; font-size: 0.95rem; line-height: 1.75;">${escapeHtml(p)}</p>`,
+            )
+            .join("")}
+        </section>`,
+    )
+    .join("");
   // Hub size distribution (S7 keyword alignment).
   //
   // The hub intro names wheel sizes in prose ("12-inch wheels sit at the low
@@ -8625,6 +8643,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
           <h2 style="margin: 8px 0 0; text-align: center; font-size: 1.45rem; color: #0f172a;">${escapeHtml(meta.label)} buying guide &amp; FAQ</h2>
           <div style="margin-top: 16px;">${hubIntroHtml}</div>
           ${hubSizeDistributionHtml}
+          ${hubSectionsHtml}
           ${hubFaqHtml}
         </section>`;
 
@@ -9333,6 +9352,18 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     // no-slash form 308-redirects to it). Keep the old underscore URL alive
     // with a 301 so anything indexed/bookmarked under it lands on canonical.
     ["/transparency/testing_methodology", "/transparency/testing-methodology/"],
+    // 2026-11-13 (S8): the 20 thin category pillars (300-600 words, zero
+    // product links, self-canonical) are retired into the seven directory hubs
+    // that already carry the catalogue and the inbound links. Two self-canonical
+    // URLs competing for one query is the cannibalisation pattern Google settles
+    // by ranking neither.
+    //
+    // The map lives in src/data/categoryGuides.ts beside the guides themselves,
+    // so the retirement is declared once and read by the prerender, the SPA and
+    // the guards. Exact-only by design — same as the entries above, because a
+    // prefix rule here would swallow the asset pages that must survive
+    // (/kids-bike-by-age/, /kids-bike-price/, /kids-bike-size-chart/, ...).
+    ...RETIRED_CATEGORY_GUIDE_REDIRECTS.map(([from, to]) => [from, to] as [string, string]),
   ];
   // 2026-10-22: pull-along wagons and playards were historically published
   // under /products/strollers/ (the live build predates the kebab-case re-home

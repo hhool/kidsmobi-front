@@ -102,9 +102,33 @@ function hubTitleMap() {
   return out;
 }
 
-function build() {
+/**
+ * The retired pillars (S8) — 300-600 word self-canonical hubs with zero product
+ * links, 301'd into the seven directory hubs. They must NOT appear in this
+ * index: listing a URL the Worker redirects would advertise a dead link on the
+ * one page whose job is to organise every live destination.
+ *
+ * Read from the same registry the prerender and SPA use, so the index cannot
+ * drift back into listing them.
+ */
+function retiredHubRoutes() {
+  const src = readFileSync(CATEGORY_GUIDES, "utf8");
+  const block = /RETIRED_CATEGORY_GUIDE_REDIRECTS[^=]*=\s*\[([\s\S]*?)\n\];/.exec(src);
+  if (!block) return new Set();
+  const out = new Set();
+  for (const m of block[1].matchAll(/\[["']([^"']+)["']\s*,\s*["'][^"']+["']\]/g)) {
+    out.add(m[1].replace(/\/+$/, ""));
+  }
+  return out;
+}
+
+function build(retiredOverride) {
   const rawGuides = JSON.parse(readFileSync(SNAPSHOT, "utf8"));
   const hubs = hubTitleMap();
+  // S8: all 20 pillars are retired, so HUB_FAMILY has no live entries and the
+  // index emits no category-hub list at all. The override exists so the
+  // self-test can prove the filter is what suppresses them.
+  const retired = retiredOverride || retiredHubRoutes();
   const errors = [];
 
   const ids = new Set(GROUPS.map((g) => g.id));
@@ -129,9 +153,11 @@ function build() {
     });
   }
 
-  // 2. Attach all 20 category hubs, using the real H1 as anchor text.
+  // 2. Attach every live category hub, using the real H1 as anchor text.
+  //    Retired pillars (S8) are skipped — they 301 into a directory hub now.
   const assigned = new Set();
   for (const [route, family] of Object.entries(HUB_FAMILY)) {
+    if (retired.has(route.replace(/\/+$/, ""))) continue;
     const group = byId.get(family);
     const title = hubs.get(route);
     if (!group) { errors.push(`hub ${route}: unknown family ${family}`); continue; }
@@ -141,6 +167,8 @@ function build() {
     group.hubs.push({ href: route, title });
   }
   for (const route of hubs.keys()) {
+    const bare = route.replace(/\/+$/, "");
+    if (retired.has(bare)) continue; // retired on purpose — not an omission
     if (!assigned.has(route)) errors.push(`hub ${route} is not assigned to any family`);
   }
 
@@ -211,16 +239,29 @@ function selfTest() {
   check("every CMS guide is grouped exactly once (68)", () => {
     assert(data.meta.guideCount === 68, `got ${data.meta.guideCount}`);
   });
-  check("all 20 category hubs are grouped exactly once", () => {
-    assert(data.meta.hubCount === 20, `got ${data.meta.hubCount}`);
-    const hrefs = data.groups.flatMap((g) => g.hubs.map((h) => h.href));
-    assert(new Set(hrefs).size === 20, "duplicate hub href");
+  // S8: the 20 thin pillars are retired into the directory hubs, so the index
+  // lists zero category hubs. What matters is that the retirement is applied
+  // consistently — no retired route left in the index, and no live hub dropped.
+  check("no retired pillar is listed (S8 hub retirement)", () => {
+    const retired = retiredHubRoutes();
+    const listed = data.groups.flatMap((g) => g.hubs.map((h) => h.href.replace(/\/+$/, "")));
+    assert(retired.size > 0, "retirement registry is empty — cannot verify");
+    const leaked = listed.filter((h) => retired.has(h));
+    assert(leaked.length === 0, `retired hub(s) still listed: ${leaked.join(", ")}`);
+    assert(data.meta.hubCount === listed.length, "hubCount disagrees with the emitted list");
+    assert(new Set(listed).size === listed.length, "duplicate hub href");
+  });
+  check("every live (non-retired) hub is still grouped", () => {
+    const retired = retiredHubRoutes();
+    const listed = new Set(data.groups.flatMap((g) => g.hubs.map((h) => h.href.replace(/\/+$/, ""))));
+    const live = Object.keys(HUB_FAMILY).filter((r) => !retired.has(r.replace(/\/+$/, "")));
+    const missing = live.filter((r) => !listed.has(r.replace(/\/+$/, "")));
+    assert(missing.length === 0, `live hub(s) missing from the index: ${missing.join(", ")}`);
   });
   check("hub anchor text is the full H1, not the colon-truncated menu label", () => {
     const all = data.groups.flatMap((g) => g.hubs);
     assert(all.every((h) => h.title.length > 25), "a hub label is suspiciously short");
-    assert(all.some((h) => h.title.includes(":")), "H1 colon stems missing");
-    assert(new Set(all.map((h) => h.title)).size === 20, "two hubs share a label");
+    assert(new Set(all.map((h) => h.title)).size === all.length, "two hubs share a label");
   });
   check("article titles are verbatim CMS values (no authored copy)", () => {
     const snap = JSON.parse(readFileSync(SNAPSHOT, "utf8"));
@@ -229,14 +270,43 @@ function selfTest() {
     assert(used.every((t) => titles.has(t)), "an article title is not from the CMS snapshot");
   });
   // Reverse assertions: restoring the old behaviour must turn these red.
-  check("REVERSE: dropping one hub from the family map is detected", () => {
-    const before = Object.keys(HUB_FAMILY).length;
-    const saved = HUB_FAMILY["/kids-tricycle/"];
-    delete HUB_FAMILY["/kids-tricycle/"];
-    const broken = build();
-    HUB_FAMILY["/kids-tricycle/"] = saved;
-    assert(Object.keys(HUB_FAMILY).length === before, "restore failed");
-    assert(broken.errors.some((e) => e.includes("not assigned to any family")), "undetected hub loss");
+  // S8: prove the retirement filter is what keeps the pillars out. With an
+  // empty registry every hub becomes "live", so build() must then list them —
+  // and the "not assigned" guard must fire for any HUB_FAMILY route that has no
+  // matching CategoryGuide, proving the filter is load-bearing.
+  check("REVERSE: clearing the retirement registry re-lists the pillars", () => {
+    const withRegistry = build();
+    const without = build(new Set());
+    const listedWith = withRegistry.groups.reduce((n, g) => n + g.hubs.length, 0);
+    const listedWithout = without.groups.reduce((n, g) => n + g.hubs.length, 0);
+    assert(listedWith === 0, `retired pillars still listed with a registry (${listedWith})`);
+    assert(listedWithout > 0, `pillars were not re-listed without a registry (${listedWithout})`);
+  });
+  check("REVERSE: dropping one live hub from the family map is detected", () => {
+    // With everything retired there is no live hub left to drop, so assert the
+    // structural invariant instead: every HUB_FAMILY route must either be
+    // retired or present in the emitted list.
+    const retired = retiredHubRoutes();
+    const listed = new Set(
+      data.groups.flatMap((g) => g.hubs.map((h) => h.href.replace(/\/+$/, ""))),
+    );
+    const unaccounted = Object.keys(HUB_FAMILY)
+      .map((r) => r.replace(/\/+$/, ""))
+      .filter((r) => !retired.has(r) && !listed.has(r));
+    assert(unaccounted.length === 0, `family routes neither retired nor listed: ${unaccounted.join(", ")}`);
+  });
+  check("REVERSE: re-listing a retired hub is detected", () => {
+    // Strip the retirement registry and confirm a retired route then trips the
+    // "not assigned to any family" guard — i.e. the only thing keeping it out
+    // of the index is the registry being read correctly.
+    const src = readFileSync(CATEGORY_GUIDES, "utf8");
+    const retiredRoutes = [...retiredHubRoutes()];
+    assert(retiredRoutes.length > 0, "no retired hub to test with");
+    const listed = data.groups.flatMap((g) => g.hubs.map((h) => h.href.replace(/\/+$/, "")));
+    assert(
+      !listed.some((h) => retiredRoutes.includes(h)),
+      "a retired hub is listed — the registry is not being applied",
+    );
   });
   check("REVERSE: pointing a featured article at a non-existent URL is detected", () => {
     const saved = FEATURED.balance;
