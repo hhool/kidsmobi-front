@@ -46,6 +46,15 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
       "A stroller is the piece of kid mobility gear you will touch every single day, so the differences that matter are the unglamorous ones: how it folds one-handed with a child on your hip, whether the handlebar height survives two caregivers of different heights, and how the suspension soaks up cracked sidewalks instead of shaking the nap out of a sleeping toddler. Our checklist scores every model below on those daily-use dimensions first, with styling and brand story deliberately last.",
       "The right category depends on your routine. Jogging strollers earn their larger footprint with three-wheel stability and real tire suspension for park and trail pace; travel strollers win on cabin gates and trunk space when the frame folds under umbrella size; double configurations trade width or length for keeping twins or siblings in one push. Weight limits, fold dimensions, and brake style are listed on every card so you can filter by the constraints that actually bind your day.",
     ],
+    sections: [
+      {
+        heading: "The brands in this group, by what they actually stock",
+        paragraphs: [
+          "Seven brand names cover most of the 68 strollers on this page, and they are not interchangeable — each brand's range leans toward a different way of pushing. Baby Trend has the deepest bench (15 of the 68, the most of any brand), and it leans hard into jogging: 7 of its models are typed Jogging Stroller in the published specs, including the Expedition line our four-model jogging comparison covers, at prices from roughly $97 to $328. Graco (10 listed, $144 to $750) takes the opposite bet: its strength is modular travel systems — car-seat-compatible frames and the Ready2Grow double line — rather than pure running strollers.",
+          "Chicco (4 listed, $110 to $360) plays the same travel-system game one tier up in price, while Evenflo (5 listed, $150 to $297) concentrates on converting and rotating frames such as the Revolve360 line. Delta Children and Jeep are one story, not two: the Jeep-branded strollers here (the Classic and Cross-Country jogging frames) are built by Delta Children under license, so \"Jeep\" and \"Delta\" products share a manufacturer across a combined $80 to $250 price band. At the budget end, Dream On Me stocks 6 models between $34 and $126, mostly umbrella and lightweight-travel formats — a fit for short trips and backup duty rather than all-terrain miles. Every claim above is a count or a price band read off the published specs on the model cards below; nothing here is a lab verdict.",
+        ],
+      },
+    ],
     faqs: [
       {
         q: "Jogging, travel, or full-size stroller — which should I buy first?",
