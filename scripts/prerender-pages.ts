@@ -243,6 +243,7 @@ import { buildProductDetailKeywords, resolveRouteKeywords, CATEGORY_TDK_MAP } fr
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
 import { ABOUT_FAQS, NEWS_FAQS, REVIEWS_FAQS, type PageFaq } from "../src/lib/pageFaq";
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "../src/lib/productHubContent";
+import { hubGuideCards, HUB_GUIDE_HEADINGS } from "../src/lib/hubGuideLinks";
 import { renderRichContentHtml } from "../src/lib/richContentHtml";
 import { normalizeListingBullets, isSubstantiveBullet } from "../src/lib/visibleText";
 import { ownerReportedCons } from "../src/lib/ownerReportedCons";
@@ -795,8 +796,53 @@ function clusterNavHtml(currentPath: string, heading?: string, lang: "en" | "zh"
 }
 
 /**
+ * Buying-guide block for a category hub (e.g. /products/strollers/).
+ *
+ * Separate from hubGuidesHtml() on purpose: that block is the reference-pages
+ * cluster (the /kids-stroller-* asset pages), and folding editorial guides
+ * into it would blur two different kinds of destination. This one links the
+ * deep buying guides that belong to the hub's own product family.
+ *
+ * The list is data-driven from the CMS guide records' taxonomy.productCategory
+ * (snapshotted into src/data/guideClusterData.generated.ts). Before this, the
+ * hub's guide links came from DEFAULT_REFERENCE_CLUSTER, whose five guide
+ * entries all carry balance-bike URLs; clusterGroupOfHref() groups cards by
+ * href prefix and every guide URL starts with "/guides/", so all five landed
+ * in the balance-bike bucket and six of the seven hubs rendered zero guide
+ * links. 63 of the 68 published guides were unreachable from any product hub.
+ *
+ * Mirrors the hydrated SPA render (src/App.tsx) so the static and hydrated
+ * link sets stay identical. Returns "" for hubs with no guide family
+ * (safety-seats) and for unknown slugs.
+ */
+function hubBuyingGuidesHtml(slug: string): string {
+  const cards = hubGuideCards(slug);
+  if (!cards.length) return "";
+  const title = HUB_GUIDE_HEADINGS[slug]?.en ?? "Buying guides";
+  return `
+      <section style="margin: 26px 0 0; border-top: 1px solid #e2e8f0; padding-top: 18px;">
+        <h2 style="margin: 0 0 6px; font-size: 1.2rem;">${escapeHtml(title)}</h2>
+        <p style="margin: 0 0 10px; font-size: 0.88rem; color: #64748b;">${escapeHtml(
+          `Read the buying guides for this category before you pick a model.`,
+        )}</p>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+          ${cards
+            .map(
+              (card) =>
+                `<li style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:12px 16px;"><a href="${escapeHtml(card.href)}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(card.titleEn)}</a>${
+                  card.descriptionEn
+                    ? `<span style="display:block;margin-top:4px;font-size:0.85rem;color:#64748b;">${escapeHtml(card.descriptionEn)}</span>`
+                    : ""
+                }</li>`,
+            )
+            .join("")}
+        </ul>
+      </section>`;
+}
+
+/**
  * Reference-pages block for a category hub (e.g. /products/strollers/).
- * Surfaces that cluster's editorial guides so a shopper browsing the hub can
+ * Surfaces that cluster's asset pages so a shopper browsing the hub can
  * reach the deep pages — the new-cluster hubs had no inbound link to their
  * asset pages at all. Mirrors the hydrated SPA render (App.tsx) so the static
  * and hydrated link sets stay identical. Returns "" for hubs with no cluster
@@ -8726,6 +8772,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>
         ${hubEditorialHtml}
         ${hubGuidesHtml(meta.slug)}
+        ${hubBuyingGuidesHtml(meta.slug)}
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
           <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">Compare every kids mobility category →</a></p>
         </section>

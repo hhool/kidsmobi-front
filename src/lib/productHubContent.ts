@@ -246,9 +246,27 @@ export function hubClusterGroup(slug: string): ClusterGroup | null {
   return HUB_SLUG_TO_CLUSTER[slug] ?? null;
 }
 
-/** Editorial reference pages for a hub's cluster (empty for hubs with none). */
+/**
+ * Asset reference pages for a hub's cluster (empty for hubs with none).
+ *
+ * Guide cards are deliberately excluded. DEFAULT_REFERENCE_CLUSTER still holds
+ * five balance-bike guide entries, and clusterGroupOfHref() derives a card's
+ * family from its href prefix — "/guides/..." matches none of the prefix
+ * patterns, so all five fall through to the balance-bike bucket. That used to
+ * be the only way a hub linked a guide, which is why six of the seven hubs had
+ * none. S9 replaced it with hubGuideCards() (src/lib/hubGuideLinks.ts), which
+ * reads the CMS taxonomy and covers all 67 active guides. Keeping both lists
+ * would ship the same five titles twice on the balance-bikes hub.
+ *
+ * Filtering here — rather than in each renderer — keeps the prerender and the
+ * hydrated SPA identical, since both call this one helper.
+ */
 export function hubReferenceCards(slug: string): ReferenceClusterCard[] {
   const group = HUB_SLUG_TO_CLUSTER[slug];
   if (!group) return [];
-  return DEFAULT_REFERENCE_CLUSTER.filter((card) => clusterGroupOfHref(card.href) === group);
+  return DEFAULT_REFERENCE_CLUSTER.filter(
+    (card) =>
+      clusterGroupOfHref(card.href) === group &&
+      !/^\/(?:zh\/)?guides\//i.test(card.href),
+  );
 }

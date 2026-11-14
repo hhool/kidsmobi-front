@@ -42,6 +42,7 @@ import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } f
 import { productCategoryPath, productDetailPath, productCategoryUrlSlug, productDetailUrlSlug } from "./lib/productCategoryPaths";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS } from "./lib/productFaq";
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "./lib/productHubContent";
+import { hubGuideCards, HUB_GUIDE_HEADINGS } from "./lib/hubGuideLinks";
 
 /**
  * Is this the static homepage document?
@@ -5111,6 +5112,55 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                             <span className="block mt-1 text-sm text-slate-500">
                               {lang === "zh" ? card.blurbZh : card.blurbEn}
                             </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  );
+                })()}
+                {/* Mirrors the prerendered hub's hubBuyingGuidesHtml
+                    (prerender-pages.ts hub body). This block links the deep
+                    buying guides of the hub's own product family, read from
+                    the CMS taxonomy snapshot — before it, six of the seven
+                    hubs rendered zero guide links because every guide card in
+                    DEFAULT_REFERENCE_CLUSTER carried a balance-bike URL and
+                    clusterGroupOfHref() groups cards by href prefix. Without
+                    this mirror the createRoot() hydration would wipe the
+                    static block's guide links. */}
+                {(() => {
+                  const guideCards = hubGuideCards(slug);
+                  if (!guideCards.length) return null;
+                  const heading = HUB_GUIDE_HEADINGS[slug];
+                  const zh = lang === "zh";
+                  return (
+                    <section className="mt-12 pt-6 border-t border-slate-100">
+                      <h2 className="km-section-title text-slate-900 mb-2">
+                        {heading ? (zh ? heading.zh : heading.en) : zh ? "选购指南" : "Buying guides"}
+                      </h2>
+                      <p className="text-sm text-slate-500 mb-4">
+                        {zh
+                          ? "先读这一类的选购指南，再挑具体型号。"
+                          : "Read the buying guides for this category before you pick a model."}
+                      </p>
+                      <ul className="grid gap-3 sm:grid-cols-2">
+                        {guideCards.map((card) => (
+                          <li
+                            key={card.href}
+                            className="bg-white border border-slate-100 rounded-2xl p-4"
+                          >
+                            <a
+                              href={zh ? card.hrefZh : card.href}
+                              className="font-bold text-orange-600 no-underline"
+                            >
+                              {zh ? card.titleZh : card.titleEn}
+                            </a>
+                            {(() => {
+                              const blurb = zh ? card.descriptionZh : card.descriptionEn;
+                              if (!blurb) return null;
+                              return (
+                                <span className="block mt-1 text-sm text-slate-500">{blurb}</span>
+                              );
+                            })()}
                           </li>
                         ))}
                       </ul>

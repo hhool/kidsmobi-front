@@ -119,6 +119,7 @@
     "data:rideons": "node scripts/fetch_rideon_data.mjs",
     "data:tricycles": "node scripts/fetch_tricycle_data.mjs",
     "data:strollers": "node scripts/fetch_stroller_data.mjs",
+    "data:guides": "node scripts/fetch_guide_cluster_data.mjs",
     "check:guidetext": "npx tsx scripts/check-guide-sanitize-links.ts",
     "check:tdk": "python3 scripts/audit-tdk.py --sitemap https://balancebiketoddler.com/sitemap.xml --no-robots --workers 8 --fail-on-problem",
     "build:fonts:subset": "node scripts/build-font-subset.mjs",

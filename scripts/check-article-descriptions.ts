@@ -25,6 +25,21 @@ import { readFileSync, existsSync, readdirSync, statSync } from "fs";
 import path from "path";
 import { buildArticleMetaDescription } from "../src/lib/articleDescription";
 import { getPageCopy } from "../src/config/pageCopy";
+import { RETIRED_STABILITY_GUIDE_PATHS } from "../src/data/balanceBikeStability";
+
+/**
+ * S4 (2026-11-13) retired /guides/scenario/balance-bike-stability and 301'd it
+ * to /balance-bike-stability/, merging its two unique sections into the target
+ * first. The CMS guide record stays published, so a guard that walks every
+ * snapshot record would demand a description for a page that MUST NOT exist.
+ * Skip retired slugs in the parity pass below; the 301 target has its own
+ * description and is already checked in step 1.
+ */
+const RETIRED_GUIDE_SLUGS: ReadonlySet<string> = new Set(
+  RETIRED_STABILITY_GUIDE_PATHS.map(
+    ([from]) => from.replace(/\/+$/, "").split("/").pop() ?? "",
+  ),
+);
 
 const ROOT = process.env.CHECK_DESCRIPTIONS_ROOT || "dist";
 const SNAPSHOT_DIR = path.resolve("scripts", "cms-snapshots");
@@ -72,6 +87,7 @@ function pickText(...values: unknown[]): string {
 
 interface CmsRecord {
   id: string;
+  slug?: string;
   seo?: { en?: { description?: string }; zh?: { description?: string } };
   en?: { summary?: string; content?: string };
   zh?: { summary?: string; content?: string };
@@ -189,6 +205,7 @@ function main() {
   let checkedRecords = 0;
   for (const { file, kind } of collections) {
     for (const record of loadRecords(file)) {
+      if (record.slug && RETIRED_GUIDE_SLUGS.has(record.slug)) continue;
       for (const lang of ["en", "zh"] as const) {
         const prerender = prerenderCopy(record, lang);
         const spa = spaCopy(record, lang, kind);

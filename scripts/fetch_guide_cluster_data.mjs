@@ -1,0 +1,176 @@
+// Generate src/data/guideClusterData.generated.ts from the site's CMS guide snapshot.
+//
+// WHY THIS FILE EXISTS
+//
+// Every /products/<family>/ hub renders a "reference pages" block, and that
+// block used to come from one hard-coded list (DEFAULT_REFERENCE_CLUSTER).
+// The list holds 48 cards: 40 asset pages, 3 balance-bike pages, and exactly
+// 5 guide cards — all five of them balance-bike guides. Because
+// clusterGroupOfHref() derives a card's family from its href PREFIX, and
+// every guide URL starts with "/guides/", all five fell into the
+// "balance-bike" bucket. Six of the seven hubs therefore rendered ZERO guide
+// links, and 63 of the 68 published guides could not be reached from any
+// product hub — the single largest internal-link gap on the site.
+//
+// The fix is to stop deriving the guide list from the cluster card list and
+// read it from the CMS instead: every guide carries taxonomy.productCategory,
+// which is the authority on which family a guide belongs to. This generator
+// snapshots that mapping into a static module so the prerender script and the
+// hydrated SPA render the SAME links (a runtime CMS fetch on one side only
+// would make hydration wipe the static block).
+//
+// The generated file is committed, like every other *.generated.ts in
+// src/data/, and refreshed with `npm run data:guides`.
+//
+// Usage: npm run data:guides
+//   (or: node scripts/fetch_guide_cluster_data.mjs [snapshot.json] [out.ts])
+import { readFileSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+const repoRoot = resolve(process.cwd());
+const exportPath = resolve(repoRoot, process.argv[2] || "scripts/cms-snapshots/guides.json");
+const outPath = resolve(repoRoot, process.argv[3] || "src/data/guideClusterData.generated.ts");
+
+/**
+ * Hub slug -> CMS taxonomy.productCategory.
+ *
+ * These are the five families the CMS publishes guides for. The mapping is
+ * one-directional on purpose: a guide whose productCategory has no hub (there
+ * are none today) simply does not appear on any hub. Hubs WITHOUT a guide
+ * family (safety-seats) render no guide block at all.
+ */
+const HUB_TO_PRODUCT_CATEGORY = {
+  "balance-bikes": "balance",
+  "kids-bikes": "bicycle",
+  "kids-scooters": "scooter",
+  "electric-cars": "electric_car",
+  strollers: "stroller",
+};
+
+/**
+ * Topic id of the channel page that actually EXISTS for a raw CMS topic.
+ * Mirrors guideChannelPageId() in scripts/prerender-pages.ts: "best" guides
+ * have no channel page, so a topic that names one is a broken link.
+ */
+const KNOWN_TOPIC_IDS = new Set([
+  "beginner",
+  "scenario",
+  "budget",
+  "risk",
+  "special",
+  "maintenance",
+]);
+
+/** Slugs that S4 retired: the URL 301s to its successor, so it must not be linked. */
+const RETIRED_GUIDE_SLUGS = new Set(["balance-bike-stability"]);
+
+const raw = JSON.parse(readFileSync(exportPath, "utf8"));
+const guides = Array.isArray(raw) ? raw : Array.isArray(raw.data) ? raw.data : [];
+
+const picked = [];
+const skippedRetired = [];
+const skippedNoSlug = [];
+const skippedNoTopic = [];
+
+for (const guide of guides) {
+  if (!guide || typeof guide !== "object") continue;
+  const slug = String(guide.slug || "").trim();
+  if (!slug) {
+    skippedNoSlug.push(String(guide.id || "(no id)"));
+    continue;
+  }
+  if (RETIRED_GUIDE_SLUGS.has(slug)) {
+    skippedRetired.push(slug);
+    continue;
+  }
+  const topic = String(guide.taxonomy?.topicCategory || guide.category || "").trim().toLowerCase();
+  const productCategory = String(guide.taxonomy?.productCategory || "").trim().toLowerCase();
+  if (!topic) {
+    skippedNoTopic.push(slug);
+    continue;
+  }
+  picked.push({
+    slug,
+    topic,
+    productCategory,
+    titleEn: String(guide.en?.title || guide.seo?.en?.title || slug).trim(),
+    titleZh: String(guide.zh?.title || guide.seo?.zh?.title || guide.en?.title || slug).trim(),
+    descriptionEn: String(guide.seo?.en?.description || "").trim(),
+    descriptionZh: String(guide.seo?.zh?.description || "").trim(),
+    publishedAt: String(guide.publishedAt || "").trim(),
+    updatedAt: String(guide.updatedAt || guide.publishedAt || "").trim(),
+  });
+}
+
+/** The set of product categories that a hub actually exists for. */
+const CATEGORIES_WITH_A_HUB = new Set(Object.values(HUB_TO_PRODUCT_CATEGORY));
+
+/** Grouped by productCategory, then by topic, so the hub can order them. */
+const byCategory = {};
+for (const guide of picked) {
+  if (!CATEGORIES_WITH_A_HUB.has(guide.productCategory)) continue;
+  (byCategory[guide.productCategory] = byCategory[guide.productCategory] || []).push(guide);
+}
+
+for (const list of Object.values(byCategory)) {
+  list.sort((a, b) => {
+    if (a.topic !== b.topic) return a.topic.localeCompare(b.topic);
+    return a.titleEn.localeCompare(b.titleEn);
+  });
+}
+
+/** Counts for the header comment, so a stale snapshot is obvious in review. */
+const counts = {};
+for (const [category, list] of Object.entries(byCategory)) counts[category] = list.length;
+
+const header = `// AUTO-GENERATED by scripts/fetch_guide_cluster_data.mjs — do not edit by hand.
+// Run \`npm run data:guides\` to refresh.
+//
+// Which buying guides belong to which product family, read from the CMS
+// guide records' own taxonomy.productCategory.
+//
+// WHY: the hub "reference pages" block used to read its guide cards from
+// DEFAULT_REFERENCE_CLUSTER, whose five guide entries all carry
+// balance-bike URLs. clusterGroupOfHref() groups cards by href PREFIX, and
+// every guide URL starts with "/guides/", so those five landed in the
+// balance-bike bucket and the other six hubs rendered zero guide links —
+// 63 of the 68 published guides were unreachable from any product hub.
+//
+// The CMS taxonomy is the authority on family membership, so it is what this
+// file snapshots. It is committed (like every other *.generated.ts) so the
+// prerender script and the hydrated SPA render identical links.
+//
+// Retired guides are excluded at generation time: a retired URL 301s, and
+// linking it would hand the crawler a redirect hop instead of the page.
+`;
+
+const body = {
+  meta: {
+    generatedAt: new Date().toISOString().slice(0, 10),
+    source: "scripts/cms-snapshots/guides.json (CMS guide snapshot, published only)",
+    counts,
+    skippedRetired,
+    skippedNoSlug,
+    skippedNoTopic,
+    note:
+      "A guide's family comes from taxonomy.productCategory. A hub renders the guides of the family it maps to; a family with no hub renders nowhere.",
+  },
+  hubToProductCategory: HUB_TO_PRODUCT_CATEGORY,
+  knownTopicIds: [...KNOWN_TOPIC_IDS],
+  byCategory,
+};
+
+writeFileSync(
+  outPath,
+  `${header}\nexport interface ClusterGuide {\n  slug: string;\n  topic: string;\n  productCategory: string;\n  titleEn: string;\n  titleZh: string;\n  descriptionEn: string;\n  descriptionZh: string;\n  publishedAt: string;\n  updatedAt: string;\n}\n\nexport const GUIDE_CLUSTER_DATA = ${JSON.stringify(body, null, 2)} as const;\n`,
+  "utf8",
+);
+
+console.log(`wrote ${outPath}`);
+console.log(`  guides picked      : ${picked.length}`);
+console.log(`  skipped (retired)  : ${skippedRetired.length}${skippedRetired.length ? ` -> ${skippedRetired.join(", ")}` : ""}`);
+console.log(`  skipped (no slug)  : ${skippedNoSlug.length}`);
+console.log(`  skipped (no topic) : ${skippedNoTopic.length}`);
+for (const [category, list] of Object.entries(byCategory)) {
+  console.log(`  ${category.padEnd(13)}: ${list.length}`);
+}
