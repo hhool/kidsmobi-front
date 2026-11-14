@@ -68,7 +68,12 @@ const CONTRAST_PATTERNS: RegExp[] = [
   // Anchored: only fires when the sentence *opens* with "While some".
   /^While\s+[^,]+,\s*(?:others?|some|many)\s+(?:report|say|find|mention|note|describe|complain)\s+(.+)$/i,
   // "… and one customer notes the front wheels aren't very responsive."
-  /(?:^|[.;]\s*|\s+and\s+)one customer (?:notes|says|mentions|reports|complains)\s+(?:that\s+)?(.+)$/i,
+  // "… with one customer noting it's too difficult for children to operate."
+  // The "with one customer <verb>ing" lead-in is the same attribution shape as
+  // "and one customer notes" — it was not covered, which dropped every
+  // "However, <topic> receives mixed feedback, with one customer noting …"
+  // sentence (a common shape in this data).
+  /(?:^|[.;]\s*|\s+and\s+|\s+with\s+|\s*,\s*)(?:one\s+)?(?:customers?\s+)?(?:notes?|noting|says?|saying|mentions?|mentioning|reports?|reporting|complains?|complaining|finds?|finding)\s+(?:that\s+)?(.+)$/i,
   // "… with several mentioning the brakes not working properly."
   /(?:^|[.;]\s*|\s+and\s+)(?:several|a few|multiple) (?:customers?|buyers?|reviewers?)\s+(?:mention|report|say|note|complain)\s+(?:that\s+)?(.+)$/i,
 // "… with some finding it sturdy while others describe it as flimsy."
@@ -170,7 +175,7 @@ function clipToDrawback(clause: string): string {
  * treated as a con.
  */
 const DRAWBACK_CUE =
-  /(mixed (?:reviews|feedback|reactions)|not (?:very|stable|sturdy|easy|responsive|durable|worth|suitable|fitting)|isn't|aren't|don't|doesn't|didn't|disappoint|complaint|issues?\s+(?:with|of)|problems?\s+(?:with|of)|breaking|broke|squeak|noisy|flimsy|cheaply|uncomfortable|confusing|stopped working|not working|poorly|faulty|defect|struggl|hard to (?:assemble|use|fold|push|steer|turn|put together)|difficult|too (?:heavy|small|large|big|light|wide)|wobbl|rattl|coming loose|coming apart|coming undone|falling off|falling apart|snapping|tearing|cracking|stuck)/i;
+  /(mixed (?:reviews|feedback|reactions)|not (?:very|stable|sturdy|easy|responsive|durable|worth|suitable|fitting)|isn't|aren't|don't|doesn't|didn't|disappoint|complaint|issues?\s+(?:with|of)|problems?\s+(?:with|of)|break(?:s|ing)?\b|broke|squeak|noisy|flimsy|cheaply|uncomfortable|confusing|stop(?:s|ped)? working|not working|poorly|faulty|defect|struggl|hard to (?:assemble|use|fold|push|steer|turn|put together)|difficult|too (?:heavy|small|large|big|light|wide)|(?:quite|a bit|somewhat|very)\s+(?:heavy|big|large|small|difficult|flimsy|unstable|tight|slow)|wobbl|rattl|coming loose|coming apart|coming undone|falling off|falling apart|snapping|tearing|cracking|stuck)/i;
 
 /**
  * The clause an owner *did not* like, stated as a clause.
@@ -217,8 +222,19 @@ function isMixedTopicTail(text: string): boolean {
 function isDrawbackClause(text: string): boolean {
   if (!text) return false;
   if (POSITIVE_LEAD.test(text)) return false;
+  // "The size receives mixed feedback, … while others say it's too small."
+  // The contrast handler already cut the tail to the drawback half, so the
+  // topic noun ("the size") it rejects on is no longer in the clause — the
+  // mixed-subject check only fires on tails that STILL open with the topic.
+  // A tail that made it through the contrast handler carries an explicit
+  // finding; trust it unless another gate rejects.
   if (isMixedTopicTail(text)) return false;
   if (isVagueTopicOnly(text)) return false;
+  // A negated adverb of ease is a BENEFIT: "it doesn't tip over easily",
+  // "doesn't fold down easily" praise the product. The bare-negation cue
+  // above cannot tell these from "it doesn't hold a charge", so they are
+  // rejected here explicitly.
+  if (/\b(?:doesn't|does not|don't|do not|isn't|is not|aren't|are not|won't|will not)\b[^,.]{0,40}\b(?:easily|well|smoothly|freely|quickly|cleanly)\b/i.test(text)) return false;
   return DRAWBACK_CUE.test(text) || /\b(?:not|n't|never|no longer|too|weak|poor|bad|broken|breaking|loose|wobbly|flimsy|squeak|stuck)\b/i.test(text);
 }
 
@@ -314,10 +330,17 @@ function tidyClause(clause: string): string {
   // stated, only named. Re-attach the reporting verb so the line reads as an
   // attributed report ("Owners report issues with stability") instead of a bare
   // noun phrase that asserts nothing.
+  // `attributionIsOurs` marks that the reporting lead-in below was added HERE,
+  // not sourced from the record — the lead-strip further down must not then
+  // remove our own attribution and leave a subject-less fragment
+  // ("Owners report it breaking" → strip → "It breaking", 11 chars, shorter
+  // than the gate that sized it).
+  let attributionIsOurs = false;
   const topic = TOPIC_ONLY_TAIL.exec(text);
   if (topic) {
     const subject = (topic[1] || text).trim();
     text = `owners report ${subject.charAt(0).toLowerCase()}${subject.slice(1)}`;
+    attributionIsOurs = true;
   }
 
   // The source routinely drops the copula after a reporting verb ("others say
@@ -328,7 +351,11 @@ function tidyClause(clause: string): string {
   // "it is", and the guard must not add a second one.
   text = text.replace(/^it\s+(?:as|being)\s+/i, "it is ");
   if (!/^it\s+is\b/i.test(text)) {
-    text = text.replace(/^it\s+(not\s+)?/i, "it is $1");
+    // Only insert the copula before an adjective/noun — "it very difficult",
+    // "it not stable". When a finite verb already follows ("it stops working",
+    // "it feels like it could break"), the clause is complete and inserting
+    // one produces "It is stops working completely".
+    text = text.replace(/^it\s+(?!stops\b|feels\b|works\b|breaks\b|comes\b|falls\b|keeps\b|runs\b|turns\b|rolls\b|steers\b|holds\b|lasts\b|fits\b|charges\b|needs\b|requires\b|seems\b|looks\b|tips\b|squeaks\b|wobbles\b)(not\s+)?/i, "it is $1");
   }
   // A contraction already carries its own auxiliary, so the inserted copula
   // would duplicate it ("It is doesn't keep its charge"). The negation form is
@@ -352,15 +379,22 @@ function tidyClause(clause: string): string {
   // too heavy"). Drop it *before* adding the caller's attribution, so the line
   // is not wrapped twice; the lead-in carries no information the Cons column
   // needs, because every line is attributed the same way.
-  text = text.replace(
-    /^(?:owners?|customers?|buyers?|reviewers?|users?|parents?)\s+(?:say|said|report|reported|note|noted|mention|mentioned|find|found|complain|complained)\s+/i,
-    "",
-  );
+  // When tidyClause itself added the attribution (topic rewrite above), keep
+  // it — stripping our own work would leave "It breaking", a fragment shorter
+  // than the fragment gate that the caller sizes against.
+  if (!attributionIsOurs) {
+    text = text.replace(
+      /^(?:owners?|customers?|buyers?|reviewers?|users?|parents?)\s+(?:say|said|report|reported|note|noted|mention|mentioned|find|found|complain|complained)\s+/i,
+      "",
+    );
+  }
 
   // A bare noun phrase ("Parts coming loose", "The chain falls off") is a
   // fragment on its own. Prefix the reporting verb so it reads as a finding
-  // rather than a bullet fragment.
-  if (!/^(?:it|its|they|their|this|these|the\s+\w+\s+(?:is|are|was|were|feels|seems|doesn't|don't|isn't|aren't|won't|can't|stopped|keeps|continues|breaks?|comes?|falls?|rips?|tears?|snaps?|cracks?|gets?|has|have|had|needs?|requires?|leaves?|works?|operates?|turns?|rolls?|steers?|holds?|lasts?|fits?|charges?|runs?))/i.test(text)) {
+  // rather than a bullet fragment. Skipped when tidyClause itself already
+  // attributed the line (topic rewrite above) — double-prefixing produced
+  // "Owners report owners report it breaking".
+  if (!attributionIsOurs && !/^(?:it|its|they|their|this|these|the\s+\w+\s+(?:is|are|was|were|feels|seems|doesn't|don't|isn't|aren't|won't|can't|stopped|keeps|continues|breaks?|comes?|falls?|rips?|tears?|snaps?|cracks?|gets?|has|have|had|needs?|requires?|leaves?|works?|operates?|turns?|rolls?|steers?|holds?|lasts?|fits?|charges?|runs?))/i.test(text)) {
     text = `owners report ${text.charAt(0).toLowerCase()}${text.slice(1)}`;
   }
   // Capitalise the first letter so it reads as a standalone statement.
@@ -412,7 +446,7 @@ export function extractOwnerDrawbacks(productId: string, feedback: unknown): str
     // merely mentions a drawback in passing stays out.
     if (!clause && (DIRECT_DRAWBACK.test(sentence) || DIRECT_PREDICATION.test(sentence) || DIRECT_AUX_NEGATION.test(sentence))) {
       const candidate = tidyClause(sentence);
-      if (candidate.length >= 16) clause = candidate;
+      if (candidate.length >= 12) clause = candidate;
     }
 
     if (!clause) continue;
@@ -421,7 +455,11 @@ export function extractOwnerDrawbacks(productId: string, feedback: unknown): str
     // to navigate while others struggle …" the marker sits before the positive
     // half, and taking its tail would put praise in the Cons column.
     if (!isDrawbackClause(clause)) continue;
-    if (clause.length < 16) continue;
+    // Length floor of 16 dropped real findings that are simply short —
+    // "it is breaking" (14) or "it is too small" (15) state a drawback a
+    // reader can act on. The gate that matters is isDrawbackClause above; the
+    // floor now only guards against typographic fragments.
+    if (clause.length < 12) continue;
     if (out.some((existing) => existing.toLowerCase() === clause!.toLowerCase())) continue;
     out.push(clause);
   }
