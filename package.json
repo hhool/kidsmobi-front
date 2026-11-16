@@ -99,6 +99,7 @@
     "seo:weekly": "node scripts/seo/indexnow-submit.mjs && node scripts/seo/site-health-check.mjs && node scripts/seo/keyword-opportunity-scan.mjs && node scripts/seo/geo-ops.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write",
     "check:newscovers": "node scripts/check-news-covers.mjs",
+    "check:newsenrich": "npx tsx scripts/check-news-enrichment.ts",
     "check:covergeometry": "node scripts/check-cover-geometry.mjs",
     "check:heroalign": "node scripts/check-article-hero-alignment.mjs",
     "check:hreflang": "node scripts/check-hreflang.mjs",

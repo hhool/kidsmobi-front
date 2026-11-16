@@ -245,6 +245,7 @@ import { ABOUT_FAQS, NEWS_FAQS, REVIEWS_FAQS, type PageFaq } from "../src/lib/pa
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "../src/lib/productHubContent";
 import { hubGuideCards, HUB_GUIDE_HEADINGS } from "../src/lib/hubGuideLinks";
 import { renderRichContentHtml } from "../src/lib/richContentHtml";
+import { renderNewsVisualEnrichmentHtml } from "../src/lib/newsVisualEnrichmentHtml";
 import { normalizeListingBullets, isSubstantiveBullet } from "../src/lib/visibleText";
 import { ownerReportedCons } from "../src/lib/ownerReportedCons";
 import { containsCjk } from "../src/lib/guideTextSanitize";
@@ -2439,6 +2440,7 @@ function renderNewsDetailPage(
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
+      ${renderNewsVisualEnrichmentHtml(item.slug || item.id, zh ? "zh" : "en")}
       ${relatedProductsHtml(`${title} ${summary} ${content}`, products, zh ? ZH_ARTICLE_LABELS.productsMentioned : "Related Products", 3, zh)}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">${zh ? `继续阅读最新<a href="/zh/news">新闻</a>，或浏览<a href="/zh/guides">指南库</a>。` : `Continue reading the <a href="/news">latest news</a> or browse the <a href="/guides">guide library</a>.`}</p>

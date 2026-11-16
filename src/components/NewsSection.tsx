@@ -16,6 +16,7 @@ import SectionFaq from "./SectionFaq";
 import SocialShareButtons from "./common/SocialShareButtons";
 import { getPageCopy } from "../config/pageCopy";
 import { renderRichContent } from "../lib/richContent";
+import { renderNewsVisualEnrichmentHtml } from "../lib/newsVisualEnrichmentHtml";
 import { NEWS_FAQS, NEWS_FAQS_ZH } from "../lib/pageFaq";
 
 const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "brand_news", "science"]);
@@ -633,6 +634,15 @@ export default function NewsSection({
             <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
               {renderRichContent(article.content)}
             </div>
+
+            {/* Editorial enrichment for the two thinnest stories. Same HTML
+                string the prerender injects, so createRoot() cannot wipe the
+                static block on hydration. Empty string for every other slug. */}
+            {(() => {
+              const enrichment = renderNewsVisualEnrichmentHtml(article.slug || article.id, lang);
+              if (!enrichment) return null;
+              return <div dangerouslySetInnerHTML={{ __html: enrichment }} />;
+            })()}
 
             {(() => {
               // Related products — token match over real CMS product fields,
