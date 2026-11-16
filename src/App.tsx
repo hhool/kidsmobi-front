@@ -5821,11 +5821,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={resolveSeoLink("/guides/beginner/balance-bike-size-chart")}
+                    href={resolveSeoLink(langPath("/guides/beginner/balance-bike-size-chart"))}
                     className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigateToPath("/guides/beginner/balance-bike-size-chart");
+                      navigateToPath(langPath("/guides/beginner/balance-bike-size-chart"));
                     }}
                   >
                     {lang === "en" ? "Size Chart" : "尺寸对照"}
@@ -5833,11 +5833,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={resolveSeoLink("/guides/beginner/balance-bike-weight")}
+                    href={resolveSeoLink(langPath("/guides/beginner/balance-bike-weight"))}
                     className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigateToPath("/guides/beginner/balance-bike-weight");
+                      navigateToPath(langPath("/guides/beginner/balance-bike-weight"));
                     }}
                   >
                     {lang === "en" ? "Weight & Build" : "重量与结构"}
@@ -5862,11 +5862,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={resolveSeoLink("/guides/risk/balance-bike-safety-standards")}
+                    href={resolveSeoLink(langPath("/guides/risk/balance-bike-safety-standards"))}
                     className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigateToPath("/guides/risk/balance-bike-safety-standards");
+                      navigateToPath(langPath("/guides/risk/balance-bike-safety-standards"));
                     }}
                   >
                     {lang === "en" ? "Safety Standards" : "安全标准"}
@@ -5874,11 +5874,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={resolveSeoLink("/guides/risk/balance-bike-recalls")}
+                    href={resolveSeoLink(langPath("/guides/risk/balance-bike-recalls"))}
                     className="block py-1.5 hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigateToPath("/guides/risk/balance-bike-recalls");
+                      navigateToPath(langPath("/guides/risk/balance-bike-recalls"));
                     }}
                   >
                     {lang === "en" ? "Recall Record" : "召回记录"}

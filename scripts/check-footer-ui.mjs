@@ -93,6 +93,33 @@ const RULES = [
     ok: (s) => !s.distArticle.includes("Price Tiers Explained"),
     break: (s) => ({ ...s, distArticle: s.distArticle + "<a>Price Tiers Explained</a>" }),
   },
+  {
+    // Translated footer links must stay in Chinese when clicked. A /zh page
+    // whose footer label is "尺寸对照" but whose href is the bare /guides/...
+    // URL drops the visitor onto an English URL — and since lang now follows
+    // the URL, the whole page flips to English. These four guides all have a
+    // real /zh edition (verified 200 in production), so both the href and the
+    // SPA navigate must go through langPath(), like the news/guides sections.
+    name: "translated footer guides links keep their /zh prefix",
+    file: "app",
+    ok: (s) =>
+      [
+        "/guides/beginner/balance-bike-size-chart",
+        "/guides/beginner/balance-bike-weight",
+        "/guides/risk/balance-bike-safety-standards",
+        "/guides/risk/balance-bike-recalls",
+      ].every(
+        (p) =>
+          s.app.includes(`resolveSeoLink(langPath("${p}"))`) &&
+          s.app.includes(`navigateToPath(langPath("${p}"))`),
+      ),
+    break: (s) => ({
+      ...s,
+      app: s.app
+        .replaceAll('resolveSeoLink(langPath("/guides/', 'resolveSeoLink("/guides/')
+        .replaceAll('navigateToPath(langPath("/guides/', 'navigateToPath("/guides/'),
+    }),
+  },
 ];
 
 function loadSources() {
