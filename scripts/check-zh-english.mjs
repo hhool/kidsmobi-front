@@ -94,6 +94,31 @@ function walk(dir) {
 const problems = [];
 let checked = 0;
 
+/**
+ * 4. CMS body language. The UI blocklist cannot see an article whose BODY is
+ * English — that is exactly how guide-B07Y5VQYFW:overview shipped 228 Latin
+ * characters and zero Chinese ones. Check the source data, not the rendered
+ * HTML, so product names in templates can never produce a false positive.
+ * Threshold only fires on a substantial body with almost no CJK at all.
+ */
+for (const collection of ["guides", "news", "evaluations"]) {
+  const file = join("scripts", "cms-snapshots", `${collection}.json`);
+  if (!existsSync(file)) continue;
+  let records;
+  try { records = JSON.parse(readFileSync(file, "utf8")); } catch { continue; }
+  for (const record of records) {
+    const body = String(record?.zh?.content || "");
+    const latin = (body.match(/[A-Za-z]/g) || []).length;
+    const cjk = (body.match(/[\u4e00-\u9fff]/g) || []).length;
+    if (latin >= 60 && cjk < latin * 0.12) {
+      problems.push(
+        `cms/${collection}/${record.slug || record.id}: zh body is English ` +
+          `(cjk=${cjk}, latin=${latin})`,
+      );
+    }
+  }
+}
+
 if (!existsSync(ZH_ROOT)) {
   console.error("check:zh-english FAILED — dist/zh does not exist (run `npm run build` first)");
   process.exit(1);

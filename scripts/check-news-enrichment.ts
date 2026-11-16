@@ -1,5 +1,5 @@
 /**
- * Guard for the two enriched news articles.
+ * Guard for the four enriched news articles.
  *
  * Checks three things the generic dist guards cannot:
  *   1. GROUNDING — every number shown in the enrichment panels is a literal
@@ -37,10 +37,26 @@ const GROUNDING: Record<string, { en: string[]; zh: string[] }> = {
     en: ["70%", "50%", "15 months", "4 to 12", "ISOFIX", "2-3 cm"],
     zh: ["70%", "50%", "15个月", "4岁至12岁", "ISOFIX", "3厘米"],
   },
+  "balance-bike-brand-news-october-2026": {
+    en: ["$139.99", "4.9 lb", "3.2 kg", "3 kg", "82–100 cm", "2017", "7–14", "12-inch"],
+    zh: ["139.99 美元", "4.9 磅", "3.2 公斤", "3 公斤", "82–100 厘米", "2017 年", "7 至 14 岁", "12 英寸"],
+  },
+  "balance-bike-research": {
+    en: ["2,005", "4.16", "5.97", "7.27", "100%", "77%", "50 children", "six sessions"],
+    zh: ["2005", "4.16 岁", "5.97 岁", "7.27 岁", "100%", "77%", "50 名", "六个课时"],
+  },
 };
 
-const records: Array<{ slug?: string; id: string; en?: { content?: string }; zh?: { content?: string } }> =
-  JSON.parse(readFileSync(SNAPSHOT, "utf8"));
+const records: Array<{
+  slug?: string;
+  id: string;
+  category?: string;
+  en?: { content?: string };
+  zh?: { content?: string };
+}> = JSON.parse(readFileSync(SNAPSHOT, "utf8"));
+
+/** Chinese panels must read as Chinese: no English units or section labels. */
+const ZH_ENGLISH_LEAK = /\b(?:in|cm|kg|lb|FAQ|AT A GLANCE|Source|years|months|Brand|Model)\b/i;
 
 for (const slug of ENRICHED_NEWS_SLUGS) {
   const record = records.find((r) => r.slug === slug);
@@ -77,12 +93,20 @@ for (const slug of ENRICHED_NEWS_SLUGS) {
     if (/we tested|in our testing|hands-on testing|实测|实验室/i.test(html)) {
       fail(`${slug}/${lang}`, "enrichment contains an unsupportable testing claim");
     }
+    if (lang === "zh") {
+      const visible = html.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/gi, " ");
+      const leaks = [...new Set(visible.match(ZH_ENGLISH_LEAK) || [])];
+      if (leaks.length) {
+        fail(`${slug}/zh`, `English expression(s) in Chinese panel: ${leaks.join(", ")}`);
+      }
+    }
   }
 
   // 3. static pages actually carry the section (both languages).
-  const rel = slug === "strider-bikes-kellys-juvenile-models"
-    ? ["news/new_product/", "zh/news/new_product/"]
-    : ["news/science/", "zh/news/science/"];
+  // Channel comes from the CMS record — never infer it from a slug, or a new
+  // article in a third channel would silently skip this assertion.
+  const channel = record.category || "science";
+  const rel = [`news/${channel}/`, `zh/news/${channel}/`];
   for (const dir of rel) {
     const file = join(DIST, dir, `${slug}.html`);
     if (!existsSync(file)) {

@@ -26,6 +26,17 @@ interface RangeItem {
   start: number;
   end: number;
 }
+/** A labelled bar on a 0..max axis; `display` is the CMS-quoted value text. */
+interface BarItem {
+  label: string;
+  value: number;
+  display: string;
+}
+interface BarSeries {
+  caption: string;
+  max: number;
+  items: BarItem[];
+}
 interface Question {
   q: string;
   a: string;
@@ -37,6 +48,7 @@ interface Block {
   rows?: Row[];
   steps?: { title: string; detail: string }[];
   ranges?: RangeItem[];
+  bars?: BarSeries[];
   questions?: Question[];
   note?: string;
 }
@@ -168,12 +180,12 @@ const STRIDER_KELLYS: Record<"en" | "zh", Treatment> = {
           },
           {
             title: "不做批发",
-            detail: "Strider 发言人告诉 BRAIN，Strider 不会批发 Kellys 的车型。",
+            detail: "Strider 发言人告诉《BRAIN》，Strider 不会批发 Kellys 的车型。",
           },
           {
             title: "品牌方的适配说法",
             detail:
-              "创始人兼 CEO Ryan McFarland 称其轻便、可靠、易维护，并配备专为儿童设计的部件。",
+              "创始人兼首席执行官 Ryan McFarland 称其轻便、可靠、易维护，并配备专为儿童设计的部件。",
           },
         ],
       },
@@ -348,9 +360,341 @@ const SAFETY_SEATS: Record<"en" | "zh", Treatment> = {
   },
 };
 
+const BRAND_NEWS: Record<"en" | "zh", Treatment> = {
+  en: {
+    eyebrow: "AT A GLANCE",
+    title: "Four 2026 brand moves, one comparison grid",
+    intro:
+      "This roundup reports four launches and the material choice behind each. The grid keeps the published figures together and marks the fields the announcements leave open.",
+    blocks: [
+      {
+        heading: "The published numbers",
+        facts: [
+          { value: "$139.99", label: "12 Comp list price" },
+          { value: "4.9 lb", label: "12 Comp, complete" },
+          { value: "3.2 kg", label: "Micro magnesium frame, approximate" },
+          { value: "3 kg", label: "woom GO 1 frame" },
+        ],
+      },
+      {
+        heading: "What each brand changed",
+        tableHead: ["Brand / model", "Published move", "Buyer-relevant detail"],
+        rows: [
+          {
+            cells: [
+              "Strider 12 Comp",
+              "First new model since 2017",
+              "Nylon composite, 4.9 lb complete, fixed handlebar, shorter seat range",
+            ],
+          },
+          {
+            cells: [
+              "Micro Balance Bike Ultra LED Neochrome",
+              "Listed as new for 2026",
+              "Dynamo LED rims, no batteries; magnesium frame about 3.2 kg, low step-through",
+            ],
+          },
+          {
+            cells: [
+              "woom GO 1",
+              "Neon lime and neon pink limited editions",
+              "Aluminum, 3 kg, 12-inch wheels, roughly 1.5 to 3.5 years, 82–100 cm",
+            ],
+          },
+          {
+            cells: [
+              "woom EXPLORE e",
+              "Global launch in March",
+              "Pedal-assist e-bike for ages 7–14 with a MAHLE drive — not a balance bike",
+            ],
+          },
+        ],
+        note: "The launches are not a like-for-like comparison: some figures describe a complete bike, others a frame only.",
+      },
+      {
+        heading: "Age-led searches, mapped to published facts",
+        tableHead: ["What shoppers search", "What this article publishes", "What it does not"],
+        rows: [
+          {
+            cells: ["Balance bike for a 2 year old", "12-inch class: Strider 12 Comp and woom GO 1", "No rider-height band for the 12 Comp"],
+          },
+          {
+            cells: ["Best balance bike for a 3 year old", "woom GO 1: 12-inch, 82–100 cm, roughly 1.5 to 3.5 years", "No ranking of the four launches"],
+          },
+          {
+            cells: ["Stable track balance bike", "Wheel size, step-through and weight are published for three of the four", "No stability score or measured result"],
+          },
+        ],
+        note: "Search phrases are reported as observed demand, not as product claims by any brand in this article.",
+      },
+      {
+        heading: "The frame-material shift, in order",
+        steps: [
+          { title: "Steel", detail: "The 12 Sport — the model the 12 Comp slots under." },
+          { title: "Aluminum", detail: "The 12 Pro and the woom GO 1 at 3 kg." },
+          { title: "Nylon composite", detail: "The 12 Comp at 4.9 lb, the lightest 12-inch Strider to date." },
+          { title: "Magnesium", detail: "The Micro at about 3.2 kg, paired with a low step-through frame." },
+        ],
+      },
+      {
+        heading: "Questions this roundup answers",
+        questions: [
+          {
+            q: "Which 2026 launch is the lightest?",
+            a: "The published figures are not like-for-like: 4.9 lb is the Strider's complete weight, while 3 kg and about 3.2 kg describe the woom and Micro frames. This article gives no comparable complete-weight table.",
+          },
+          {
+            q: "Do limited editions change the woom GO 1?",
+            a: "No. Neon lime and neon pink are color options; the specs stay the same, but current-season stock rotates quickly.",
+          },
+          {
+            q: "Which launch states an age range?",
+            a: "The woom GO 1 — roughly 1.5 to 3.5 years with an 82–100 cm rider height. The Strider 12 Comp's announcement gives no rider-height band.",
+          },
+        ],
+      },
+    ],
+    sourceNote:
+      "Source: the launch reports reproduced in this article. Prices, weights and dimensions are the manufacturers' published figures; no measured comparison is claimed.",
+  },
+  zh: {
+    eyebrow: "要点速览",
+    title: "2026 年四次品牌动作，一表看清",
+    intro: "本文报道四次新品发布，以及各自的车架材质选择。下表把已公布的数字放在一起，没有公布的字段照实标注。",
+    blocks: [
+      {
+        heading: "已公布的数字",
+        facts: [
+          { value: "139.99 美元", label: "12 Comp 标价" },
+          { value: "4.9 磅", label: "12 Comp 整车重量" },
+          { value: "3.2 公斤", label: "Micro 镁合金车架，约数" },
+          { value: "3 公斤", label: "woom GO 1 车架" },
+        ],
+      },
+      {
+        heading: "各品牌改变了什么",
+        tableHead: ["品牌 / 车型", "公布的动作", "与买家相关的细节"],
+        rows: [
+          {
+            cells: ["Strider 12 Comp", "2017 年以来首款新车", "尼龙复合车架、整车 4.9 磅、车把固定、座高范围更短"],
+          },
+          {
+            cells: ["Micro Balance Bike Ultra LED Neochrome", "被零售商列为 2026 年新款", "花鼓发电 LED 轮圈、不用电池；镁合金车架约 3.2 公斤、低横梁"],
+          },
+          {
+            cells: ["woom GO 1", "荧光青绿与荧光粉限量配色", "铝架、3 公斤、12 英寸轮，约 1.5 至 3.5 岁、82–100 厘米"],
+          },
+          {
+            cells: ["woom EXPLORE e", "3 月全球发布", "面向 7 至 14 岁的电助力脚踏车，配 MAHLE 驱动——不是平衡车"],
+          },
+        ],
+        note: "这几次发布并非同条件比较：部分数字是整车重量，另一些只描述车架。",
+      },
+      {
+        heading: "年龄热词对应到哪些已公布事实",
+        tableHead: ["搜索表述", "本文公布的信息", "本文没有的信息"],
+        rows: [
+          {
+            cells: ["两岁平衡车", "12 英寸级别：Strider 12 Comp 与 woom GO 1", "12 Comp 没有公布骑手身高区间"],
+          },
+          {
+            cells: ["三岁最佳平衡车", "woom GO 1：12 英寸、82–100 厘米、约 1.5 至 3.5 岁", "没有对四款发布做排名"],
+          },
+          {
+            cells: ["强调骑行稳定的平衡车", "四款中有三款公布了轮径、跨步设计与重量", "没有稳定性评分或测量结果"],
+          },
+        ],
+        note: "搜索表述只作为被观察到的需求列出，不代表文中任何品牌的产品宣称。",
+      },
+      {
+        heading: "车架材质的变化顺序",
+        steps: [
+          { title: "钢架", detail: "12 Sport——12 Comp 就定位在它之下。" },
+          { title: "铝架", detail: "12 Pro，以及 3 公斤的 woom GO 1。" },
+          { title: "尼龙复合", detail: "4.9 磅的 12 Comp，Strider 迄今最轻的 12 英寸车。" },
+          { title: "镁合金", detail: "约 3.2 公斤的 Micro，配低横梁车架。" },
+        ],
+      },
+      {
+        heading: "这篇盘点能回答什么",
+        questions: [
+          {
+            q: "2026 年哪款最轻？",
+            a: "公布的数字不是同一口径：4.9 磅是 Strider 的整车重量，3 公斤与约 3.2 公斤分别描述 woom 与 Micro 的车架。本文没有可比的整车重量表。",
+          },
+          {
+            q: "限量配色会改规格吗？",
+            a: "不会。荧光青绿与荧光粉只是配色，规格不变；但当季库存轮换很快。",
+          },
+          {
+            q: "哪款给出了年龄区间？",
+            a: "woom GO 1：约 1.5 至 3.5 岁，骑手身高 82–100 厘米。Strider 12 Comp 的公告没有给出骑手身高区间。",
+          },
+        ],
+      },
+    ],
+    sourceNote:
+      "来源：本文转载的发布报道。价格、重量与尺寸均为厂商公布值，不声称做过同条件测量。",
+  },
+};
+
+const RESEARCH: Record<"en" | "zh", Treatment> = {
+  en: {
+    eyebrow: "AT A GLANCE",
+    title: "What the two studies measured — and what they did not",
+    intro:
+      "One survey and one small intervention do most of the work behind the research-backed claim. The figures below are the ones reported in the two papers linked in this article.",
+    blocks: [
+      {
+        heading: "The reported figures",
+        facts: [
+          { value: "2,005", label: "parent responses in the 2022 survey" },
+          { value: "50", label: "children in the 2025 intervention" },
+          { value: "100%", label: "balance-bike group success in 2025" },
+          { value: "77%", label: "training-wheels group, approximate" },
+        ],
+      },
+      {
+        heading: "Mean age at independent cycling, by first bike",
+        bars: [
+          {
+            caption: "2022 survey — years; average with a wide spread",
+            max: 8,
+            items: [
+              { label: "Balance bike first", value: 4.16, display: "4.16 years" },
+              { label: "Training wheels first", value: 5.97, display: "5.97 years" },
+              { label: "Pedal bike first", value: 7.27, display: "7.27 years" },
+            ],
+          },
+        ],
+        note: "These are group averages for when independent cycling happened, not a recommended starting age for a balance bike.",
+      },
+      {
+        heading: "Two studies, two designs",
+        tableHead: ["Study", "Design", "Sample", "Reported result"],
+        rows: [
+          {
+            cells: ["2022", "Parent survey", "2,005 responses in Portugal", "Learning age: 4.16 / 5.97 / 7.27 years"],
+          },
+          {
+            cells: ["2025", "Six-session intervention", "50 children who could not yet cycle", "100% vs about 77% independent-cycling success"],
+          },
+        ],
+        note: "A self-reported survey and a small intervention are different kinds of evidence; neither is a product comparison.",
+      },
+      {
+        heading: "What the evidence supports — and what it does not",
+        tableHead: ["Claim", "Status in these two papers"],
+        rows: [
+          { cells: ["Starting on a balance bike precedes independent cycling sooner", "Supported as a narrow claim"] },
+          { cells: ["Better balance or coordination later", "Not measured"] },
+          { cells: ["Fewer crashes or safer riding years later", "Not measured"] },
+          { cells: ["A defined number of practice hours", "Not measured"] },
+          { cells: ["Independent replication across research groups", "Limited — both papers share one group"] },
+        ],
+      },
+      {
+        heading: "Questions the studies actually answer",
+        questions: [
+          {
+            q: "At what age do children ride independently?",
+            a: "In the 2022 survey the averages were 4.16, 5.97 and 7.27 years by first bike. Those are group averages with a wide spread, not a promise for one child.",
+          },
+          {
+            q: "Do balance bikes make children safer cyclists?",
+            a: "Neither paper followed children beyond the learning period, so there is no long-term safety or crash result to report.",
+          },
+          {
+            q: "Should a 2-year-old start on a balance bike?",
+            a: "The studies do not set an introduction age. Fit is a separate question they did not test — the inseam-to-seat measurement in our balance bike by age guide is the practical check.",
+          },
+        ],
+      },
+    ],
+    sourceNote:
+      "Source: the two peer-reviewed papers linked in this article. Age bands and sample sizes are theirs; no product or brand conclusion is drawn.",
+  },
+  zh: {
+    eyebrow: "要点速览",
+    title: "两项研究测了什么，没有测什么",
+    intro: "有研究背书这个说法，主要来自一项问卷和一项小样本干预实验。下面的数字都出自本文链接的两篇论文。",
+    blocks: [
+      {
+        heading: "论文报告的数字",
+        facts: [
+          { value: "2005", label: "2022 年问卷的家长回复数" },
+          { value: "50", label: "2025 年干预实验的孩子数" },
+          { value: "100%", label: "2025 年平衡车组成功率" },
+          { value: "77%", label: "训练轮组成功率，约数" },
+        ],
+      },
+      {
+        heading: "按第一辆车分组的独立骑行平均年龄",
+        bars: [
+          {
+            caption: "2022 年问卷，单位：岁；群体均值，个体差异很大",
+            max: 8,
+            items: [
+              { label: "先骑平衡车", value: 4.16, display: "4.16 岁" },
+              { label: "先用训练轮", value: 5.97, display: "5.97 岁" },
+              { label: "直接上脚踏车", value: 7.27, display: "7.27 岁" },
+            ],
+          },
+        ],
+        note: "这些是何时学会独立骑行的群体平均值，不是建议几岁开始骑平衡车。",
+      },
+      {
+        heading: "两项研究，两种设计",
+        tableHead: ["研究", "设计", "样本", "报告结果"],
+        rows: [
+          {
+            cells: ["2022 年", "家长问卷", "葡萄牙的 2005 份回复", "学会年龄：4.16 / 5.97 / 7.27 岁"],
+          },
+          {
+            cells: ["2025 年", "六个课时干预实验", "50 名还不会骑车的孩子", "独立骑行成功率 100% 与约 77%"],
+          },
+        ],
+        note: "自报问卷与小样本干预不是同一种证据；两者都不是产品对比。",
+      },
+      {
+        heading: "证据支持什么，没有支持什么",
+        tableHead: ["说法", "在这两篇论文中的状态"],
+        rows: [
+          { cells: ["从平衡车起步更早学会独立骑行", "支持，但仅限这一狭窄结论"] },
+          { cells: ["以后平衡感或协调性更好", "没有测量"] },
+          { cells: ["以后摔车更少、骑得更安全", "没有测量"] },
+          { cells: ["需要练习多少小时", "没有测量"] },
+          { cells: ["不同团队独立复现", "有限——两篇出自同一团队"] },
+        ],
+      },
+      {
+        heading: "研究真正回答了哪些问题",
+        questions: [
+          {
+            q: "孩子几岁能独立骑车？",
+            a: "2022 年问卷按第一辆车分组的均值分别是 4.16 岁、5.97 岁和 7.27 岁。这是群体均值，个体差异很大，不是对某个孩子的承诺。",
+          },
+          {
+            q: "平衡车会让孩子骑得更安全吗？",
+            a: "两项研究都没有在学习期之后继续追踪孩子，因此没有长期安全或摔车结果可讲。",
+          },
+          {
+            q: "两岁该不该开始骑平衡车？",
+            a: "研究没有给出开始年龄。适配是另一回事，两篇论文都没有测量；实用做法是量腿长对座高，见我们的《平衡车按年龄选》指南。",
+          },
+        ],
+      },
+    ],
+    sourceNote:
+      "来源：本文链接的两篇同行评审论文。年龄区间与样本量均出自原文，不由此推出任何品牌或产品结论。",
+  },
+};
+
 const TREATMENTS: Record<string, Record<"en" | "zh", Treatment>> = {
   "strider-bikes-kellys-juvenile-models": STRIDER_KELLYS,
   "choosing-and-using-child-safety-seats": SAFETY_SEATS,
+  "balance-bike-brand-news-october-2026": BRAND_NEWS,
+  "balance-bike-research": RESEARCH,
 };
 
 function renderFacts(facts: Fact[]): string {
@@ -382,16 +726,32 @@ function renderTable(head: string[], rows: Row[]): string {
 }
 
 /** Wheel-size bands on a fixed 18–24 in axis; widths are pure presentation. */
-function renderRanges(items: RangeItem[]): string {
+function renderRanges(items: RangeItem[], lang: "en" | "zh"): string {
   const MIN = 18;
   const MAX = 24;
+  const unit = lang === "zh" ? "英寸" : "in";
   const pct = (n: number) => Math.max(0, Math.min(100, ((n - MIN) / (MAX - MIN)) * 100));
   return `<div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:14px 16px;margin-bottom:14px;">${items
     .map(
       (r) =>
-        `<div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;gap:10px;font-size:0.8rem;color:#334155;margin-bottom:5px;"><strong>${esc(r.label)}</strong><span style="color:#64748b;">${r.start}–${r.end} in</span></div><div style="position:relative;height:10px;border-radius:999px;background:#f1f5f9;overflow:hidden;"><span style="position:absolute;left:${pct(r.start)}%;width:${pct(r.end) - pct(r.start)}%;top:0;bottom:0;border-radius:999px;background:#f97316;"></span></div></div>`,
+        `<div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;gap:10px;font-size:0.8rem;color:#334155;margin-bottom:5px;"><strong>${esc(r.label)}</strong><span style="color:#64748b;">${r.start}–${r.end} ${unit}</span></div><div style="position:relative;height:10px;border-radius:999px;background:#f1f5f9;overflow:hidden;"><span style="position:absolute;left:${pct(r.start)}%;width:${pct(r.end) - pct(r.start)}%;top:0;bottom:0;border-radius:999px;background:#f97316;"></span></div></div>`,
     )
-    .join("")}<div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:6px;"><span>18 in</span><span>24 in</span></div></div>`;
+    .join("")}<div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:6px;"><span>18 ${unit}</span><span>24 ${unit}</span></div></div>`;
+}
+
+/** Labelled bars on a 0..max axis. Every display string is CMS-quoted copy. */
+function renderBars(series: BarSeries[]): string {
+  return series
+    .map(
+      (s) =>
+        `<div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:14px 16px;margin-bottom:14px;"><p style="margin:0 0 12px;font-size:0.78rem;color:#64748b;">${esc(s.caption)}</p>${s.items
+          .map(
+            (item) =>
+              `<div style="margin-bottom:11px;"><div style="display:flex;justify-content:space-between;gap:10px;font-size:0.82rem;color:#334155;margin-bottom:5px;"><strong>${esc(item.label)}</strong><span style="color:#c2410c;font-weight:800;">${esc(item.display)}</span></div><div style="height:12px;border-radius:999px;background:#f1f5f9;overflow:hidden;"><span style="display:block;height:100%;width:${Math.max(0, Math.min(100, (item.value / s.max) * 100))}%;border-radius:999px;background:#f97316;"></span></div></div>`,
+          )
+          .join("")}</div>`,
+    )
+    .join("");
 }
 
 function renderQuestions(items: Question[]): string {
@@ -425,7 +785,8 @@ export function renderNewsVisualEnrichmentHtml(slug: string, lang: "en" | "zh"):
       let body = "";
       if (b.facts?.length) body += renderFacts(b.facts);
       if (b.tableHead && b.rows?.length) body += renderTable(b.tableHead, b.rows);
-      if (b.ranges?.length) body += renderRanges(b.ranges);
+      if (b.ranges?.length) body += renderRanges(b.ranges, lang);
+      if (b.bars?.length) body += renderBars(b.bars);
       if (b.steps?.length) body += renderSteps(b.steps);
       if (b.questions?.length) body += renderQuestions(b.questions);
       if (b.note) {

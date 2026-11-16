@@ -1,14 +1,18 @@
 /**
- * Editorial enrichment for the two thinnest published news articles.
+ * Editorial enrichment for four published news articles.
  *
  * WHY THIS EXISTS
  * ---------------
  * GSC's 2026-11-13 export shows nine news articles but impressions on only one
- * detail page (the October brand roundup). The two thinnest — the Strider/Kellys
- * announcement (195 EN words) and the child-safety-seat primer (264 EN words) —
- * had zero impressions and read like wire copy: a short prose block, one cover,
- * no scannable structure. This module adds an industry-leadership treatment:
- * key-fact cards, a spec grid, a stage ladder and a source note.
+ * detail page (the October brand roundup). Round 1 treated the two thinnest —
+ * the Strider/Kellys announcement and the child-safety-seat primer. Round 2
+ * adds the only indexed article (the October brand roundup) and the research
+ * piece, whose two cited studies carry the strongest "industry leadership"
+ * material on the site. Each gets an at-a-glance panel, a comparison grid,
+ * a study/age visual and a source note.
+ *
+ * The 2026-11-16 CMS write lengthened all four BODIES as well; these panels
+ * restate that prose in scannable form and never introduce a fact it omits.
  *
  * GROUNDING RULE
  * --------------
@@ -34,6 +38,8 @@ export { renderNewsVisualEnrichmentHtml };
 export const ENRICHED_NEWS_SLUGS = [
   "strider-bikes-kellys-juvenile-models",
   "choosing-and-using-child-safety-seats",
+  "balance-bike-brand-news-october-2026",
+  "balance-bike-research",
 ] as const;
 
 export type EnrichedNewsSlug = (typeof ENRICHED_NEWS_SLUGS)[number];
