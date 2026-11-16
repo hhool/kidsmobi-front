@@ -302,6 +302,53 @@ for (const route of ROUTES) {
   }
 }
 
+// 2026-11-16 regression: the language must follow the URL on hydration, not a
+// stale `app_lang` in localStorage. Reproduce the reported sequence in one
+// browser context: open a /zh page (which persists app_lang=zh), then open an
+// English URL directly. The hydrated language toggle must read "English";
+// before the fix it read "简体中文" while the static HTML was English.
+{
+  const langCtx = await browser.newContext();
+  // The top nav's Home label is `t.navHome`: "Home" in English, "首页" in
+  // Chinese. `document.documentElement.lang` cannot be used here — it follows
+  // the canonical path, so it stays "en" even when the UI hydrated to Chinese.
+  const navLangText = async (page) => {
+    return await page.evaluate(() => {
+      const spans = Array.from(document.querySelectorAll('button span, a span'));
+      const hit = spans.find((n) => /^(Home|首页)$/.test((n.textContent || '').trim()));
+      return (hit?.textContent || '').trim();
+    });
+  };
+  try {
+    const zhPage = await langCtx.newPage();
+    await zhPage.goto(base + '/zh/news', { waitUntil: 'load', timeout: 90000 });
+    await zhPage.waitForTimeout(2000);
+    const zhMarker = await navLangText(zhPage);
+    await zhPage.close();
+    if (zhMarker !== '首页') {
+      failures.push({ route: '/zh/news', why: `language regression setup: /zh page did not hydrate in Chinese (marker "${zhMarker}")` });
+      console.log(`[FAIL] /zh/news — setup marker "${zhMarker}" is not Chinese`);
+    } else {
+      const enPage = await langCtx.newPage();
+      await enPage.goto(base + '/news', { waitUntil: 'load', timeout: 90000 });
+      await enPage.waitForTimeout(2500);
+      const enMarker = await navLangText(enPage);
+      await enPage.close();
+      if (enMarker !== 'Home') {
+        failures.push({ route: '/news (after /zh)', why: `language regression: EN URL hydrated in Chinese (marker "${enMarker}") — URL must decide language, not localStorage` });
+        console.log(`[FAIL] /news after /zh — hydrated marker "${enMarker}" should be English`);
+      } else {
+        console.log(`[pass] /news after /zh — EN URL stayed English after hydration (URL decides language)`);
+      }
+    }
+  } catch (e) {
+    failures.push({ route: '/news (after /zh)', why: 'lang scenario: ' + String(e.message || e).slice(0, 120) });
+    console.log(`[FAIL] /news after /zh — ${failures[failures.length - 1].why}`);
+  } finally {
+    await langCtx.close();
+  }
+}
+
 await browser.close();
 
 if (failures.length > 0) {

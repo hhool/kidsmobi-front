@@ -839,11 +839,6 @@ const isDevAdminBypassEnabled = (): boolean => {
   return safeStorageGet("dev_admin_bypass") === "true";
 };
 
-const resolveInitialLang = (): "zh" | "en" => {
-  const saved = safeStorageGet("app_lang");
-  return saved === "zh" ? "zh" : "en";
-};
-
 type RouteState = {
   activeTab: string;
   activeProductCategory: string;
@@ -1422,11 +1417,12 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
 };
 
 export default function App() {
-  // Lang toggle state. A /zh URL always wins over the stored preference: the
-  // path is the indexable language variant, so the page must render in that
-  // language even when localStorage says otherwise.
+  // The URL is the single source of truth for language. A /zh path renders
+  // Chinese; every other path renders English. A stored `app_lang` value must
+  // never decide the initial language: it caused the static HTML (English on
+  // an EN URL) to hydrate into Chinese after a visitor had once used /zh.
   const [lang, setLang] = useState<"zh" | "en">(() =>
-    typeof window !== "undefined" && isZhPath(window.location.pathname) ? "zh" : resolveInitialLang(),
+    typeof window !== "undefined" && isZhPath(window.location.pathname) ? "zh" : "en",
   );
 
   const [isBBT, setIsBBT] = useState<boolean>(() => {
@@ -1983,22 +1979,11 @@ export default function App() {
     safeStorageSet("app_lang", lang);
   }, [lang]);
 
-  // Keep the rendered language in step with the URL. A /zh path always means
-  // Chinese; leaving a /zh URL for an English path means English. Paths
-  // without the prefix keep whatever the visitor picked (the toggle stores it).
-  const previousLangPrefixedPath = useRef<boolean>(false);
+  // URL decides language on every path change, including a full page load.
+  // /zh -> Chinese, any non-/zh path -> English. localStorage is still written
+  // for the client-only toggle below, but it no longer overrides the URL.
   useEffect(() => {
-    if (isZhPath(currentPath)) {
-      setLang("zh");
-      return;
-    }
-    if (previousLangPrefixedPath.current) {
-      setLang("en");
-    }
-  }, [currentPath]);
-
-  useEffect(() => {
-    previousLangPrefixedPath.current = isZhPath(currentPath);
+    setLang(isZhPath(currentPath) ? "zh" : "en");
   }, [currentPath]);
 
   /**
