@@ -40,6 +40,11 @@ export const ENRICHED_NEWS_SLUGS = [
   "choosing-and-using-child-safety-seats",
   "balance-bike-brand-news-october-2026",
   "balance-bike-research",
+  "new-balance-bikes-2026",
+  "kids-electric-bike-development-trends-2026",
+  "ride-on-safety-standards-2026",
+  "foldable-electric-scooter-brands-worldwide",
+  "electric-dirt-bikes-for-kids",
 ] as const;
 
 export type EnrichedNewsSlug = (typeof ENRICHED_NEWS_SLUGS)[number];

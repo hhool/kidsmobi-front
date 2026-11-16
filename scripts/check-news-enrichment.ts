@@ -45,6 +45,26 @@ const GROUNDING: Record<string, { en: string[]; zh: string[] }> = {
     en: ["2,005", "4.16", "5.97", "7.27", "100%", "77%", "50 children", "six sessions"],
     zh: ["2005", "4.16 岁", "5.97 岁", "7.27 岁", "100%", "77%", "50 名", "六个课时"],
   },
+  "new-balance-bikes-2026": {
+    en: ["4.9 lb", "3.2 kg", "$139.99", "2017", "nylon composite", "magnesium", "11–15 in", "33.5–40 cm", "45 lb", "50 kg", "6.7 lb", "5.6 lb", "1–3 years", "18 months"],
+    zh: ["4.9 磅", "3.2 公斤", "139.99 美元", "2017 年", "尼龙复合", "镁合金", "11–15 英寸", "33.5–40 cm", "45 磅", "50 公斤", "6.7 磅", "5.6 磅", "1–3 岁", "18 个月"],
+  },
+  "kids-electric-bike-development-trends-2026": {
+    en: ["12V eight times", "24V five times", "36V once", "6V once", "11 of 16 titles", "3 of 16 spec sheets", "55 lb to 264 lb", "400W", "37-120 months", "1.5 MPH", "3.5 MPH", "5-8 MPH", "61-132 lb", "65-264 lb"],
+    zh: ["12V 八次", "24V 五次", "36V 一次", "6V 一次", "11/16 个标题", "3/16 个规格表", "55 磅到 264 磅", "400W", "37-120 个月", "1.5 MPH", "3.5 MPH", "5-8 MPH", "61-132 磅", "65-264 磅"],
+  },
+  "ride-on-safety-standards-2026": {
+    en: ["8.21", "five of them new tests", "10 N·m", "40, 50, and 60 N", "300 N", "200 N", "28 January 2026", "31 July 2026", "31 July 2027", "2009/48/EC", "25 inches (63.5 cm)", "90 ppm", "100 ppm", "16 CFR 1250", "April 2024"],
+    zh: ["8.21", "五项是新测试", "10 N·m", "40、50、60 牛", "300 牛", "200 牛", "2026 年 1 月 28 日", "2026 年 7 月 31 日", "2027 年 7 月 31 日", "2009/48/EC", "25 英寸（63.5 cm）", "90 ppm", "100 ppm", "16 CFR 1250", "2024 年 4 月"],
+  },
+  "foldable-electric-scooter-brands-worldwide": {
+    en: ["Segway-Ninebot", "Xiaomi", "NIU", "Apollo", "Unagi", "Gotrax", "Dualtron", "Kaabo", "Vsett", "NAMI", "50 km/h", "MAX G2", "KQi3 Pro", "Mantis"],
+    zh: ["Segway-Ninebot", "Xiaomi", "NIU", "Apollo", "Unagi", "Gotrax", "Dualtron", "Kaabo", "Vsett", "NAMI", "50km/h", "MAX G2", "KQi3 Pro", "Mantis"],
+  },
+  "electric-dirt-bikes-for-kids": {
+    en: ["55 lb", "132 lb", "65 lb", "400W", "4x100W", "5-8 MPH", "14-inch EVA", "37-120 months", "122 minutes", "60.6 lb", "16.8 lb", "0 of 16 spec sheets", "11 of 16 titles", "3 of 16 spec sheets", "55 lb to 264 lb", "36 months"],
+    zh: ["55 磅", "132 磅", "65 磅", "400W", "4x100W", "5-8 MPH", "14 英寸 EVA", "37-120 个月", "122 分钟", "60.6 磅", "16.8 磅", "0/16 个规格表", "11/16 个标题", "3/16 个规格表", "55 磅到 264 磅", "36 个月"],
+  },
 };
 
 const records: Array<{

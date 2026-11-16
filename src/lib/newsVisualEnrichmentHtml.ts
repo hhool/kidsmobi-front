@@ -53,7 +53,7 @@ interface Block {
   note?: string;
 }
 
-interface Treatment {
+export interface Treatment {
   eyebrow: string;
   title: string;
   intro: string;
@@ -690,11 +690,14 @@ const RESEARCH: Record<"en" | "zh", Treatment> = {
   },
 };
 
+import { ROUND3_TREATMENTS } from "./newsVisualEnrichmentRound3";
+
 const TREATMENTS: Record<string, Record<"en" | "zh", Treatment>> = {
   "strider-bikes-kellys-juvenile-models": STRIDER_KELLYS,
   "choosing-and-using-child-safety-seats": SAFETY_SEATS,
   "balance-bike-brand-news-october-2026": BRAND_NEWS,
   "balance-bike-research": RESEARCH,
+  ...ROUND3_TREATMENTS,
 };
 
 function renderFacts(facts: Fact[]): string {
