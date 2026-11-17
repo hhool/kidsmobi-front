@@ -134,6 +134,7 @@
     "check:guideindex:selftest": "npx tsx scripts/check-guide-category-index.mjs --selftest",
     "check:titles:selftest": "node scripts/check-prerender-titles.mjs --self-test",
     "check:footer": "node scripts/check-footer-ui.mjs",
+    "check:covers": "node scripts/check-guide-covers.mjs",
     "check:footer:selftest": "node scripts/check-footer-ui.mjs --selftest",
     "check:product-schema": "node scripts/check-product-schema.mjs",
     "check:product-schema:selftest": "node scripts/check-product-schema.mjs --self-test"
