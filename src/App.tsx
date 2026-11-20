@@ -1786,7 +1786,14 @@ export default function App() {
       auth: "/auth",
     };
 
-    navigateToPath(tabPathMap[tabId] || "/");
+    // Only /zh/guides and /zh/news are translated sections. Every other tab
+    // has no Chinese edition (/zh/<path> 301s back to English), so those two
+    // keep the prefix and the rest deliberately land on the English URL.
+    // Without this, a Chinese reader clicking 选购指南 was sent to /guides:
+    // the URL decides the language, so the whole page flipped to English.
+    const path = tabPathMap[tabId] || "/";
+    const localized = tabId === "guides" || tabId === "news" ? langPath(path) : path;
+    navigateToPath(localized);
   };
 
   const openAdminProductEditor = (product: Product) => {
@@ -4736,7 +4743,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <button
                   onClick={() => {
                     handlePrimaryTabClick("guides");
-                    navigateToPath("/guides");
+                    // The tab handler already navigates; repeating the same
+                    // localised path is a no-op (navigateToPath skips an
+                    // unchanged pathname) but keeps the header's intent
+                    // explicit. /zh/guides is the Chinese edition.
+                    navigateToPath(langPath("/guides"));
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "guides" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
@@ -4754,7 +4765,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     // genuine 404 (noindex,nofollow), so it only survived
                     // because an effect below replaceState'd it to /news.
                     // Push the real URL directly — no dead stop in history.
-                    navigateToPath("/news");
+                    // On /zh pages langPath() keeps the Chinese /zh/news hub.
+                    navigateToPath(langPath("/news"));
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "news" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
