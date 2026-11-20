@@ -30,7 +30,7 @@
 # Paths that outside links still point at. Each one answers 404 today, and a
 # 404 on a URL somebody linked to is a lost visit and a lost signal. Both URL
 # forms get their own rule: Pages matches the source exactly, so "/blog" alone
-# leaves "/blog/" on the 404 page (see the exact-match note above).
+# leaves "/blog/" on the 404 page (see the exact-match note above). The final two are crawler-probed dead URLs: a Yoast sitemap index and the SPA's old /news/page/1 (both were genuine 404s with noindex).
 /blog /news 301
 /blog/ /news 301
 /shop /products 301
@@ -39,6 +39,9 @@
 /contact/ /about 301
 /privacy /transparency 301
 /privacy/ /transparency 301
+
+/sitemap_index.xml /sitemap.xml 301
+/news/page/1 /news 301
 
 # Chinese edition is PARTIAL: only /zh/guides and /zh/news (hubs + articles that
 # have a zh body) are real prerendered pages. Every other /zh/<path> has no

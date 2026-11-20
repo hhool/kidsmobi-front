@@ -4749,7 +4749,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <button
                   onClick={() => {
                     handlePrimaryTabClick("news");
-                    navigateToPath("/news/page/1");
+                    // /news is the canonical, prerendered index. The old
+                    // /news/page/1 was never a route: a hard load answered a
+                    // genuine 404 (noindex,nofollow), so it only survived
+                    // because an effect below replaceState'd it to /news.
+                    // Push the real URL directly — no dead stop in history.
+                    navigateToPath("/news");
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "news" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
