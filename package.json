@@ -136,6 +136,7 @@
     "check:guideindex:selftest": "npx tsx scripts/check-guide-category-index.mjs --selftest",
     "check:guidekw": "node scripts/check-guide-keywords.mjs",
     "check:guidekw:selftest": "node scripts/check-guide-keywords.mjs --selftest",
+    "check:c3": "node scripts/extend-stroller-guides-c3.mjs --verify",
     "check:titles:selftest": "node scripts/check-prerender-titles.mjs --self-test",
     "check:footer": "node scripts/check-footer-ui.mjs",
     "check:headeri18n": "node scripts/check-header-i18n.mjs",
