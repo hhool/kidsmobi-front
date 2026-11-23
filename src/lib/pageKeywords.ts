@@ -326,6 +326,36 @@ const STROLLER_BASE_KEYWORDS: Record<KeywordLang, readonly string[]> = {
   zh: ["婴儿推车选购指南", "旅行婴儿推车", "婴儿推车安全"],
 };
 
+/**
+ * The three core stroller keyword families specified on 2026-11-23:
+ * travel stroller / jogging stroller / lightweight stroller.
+ *
+ * Each of the 21 stroller guide detail pages publishes EXACTLY ONE of them,
+ * chosen from its own subject, so the guides do not compete with each other
+ * for the same query. /products/strollers/ already carries all three in one
+ * set and stays the family-wide landing page. Slot 1 of the base set is the
+ * core slot; the other two slots are generic buying-guide terms.
+ *
+ * Before this split the base set hard-coded "travel stroller" on every page,
+ * which left `lightweight stroller` at 0/21 and `jogging stroller` at 2/21
+ * even though four articles are about each of those families.
+ */
+const STROLLER_CORE_KEYWORDS = {
+  travel: { en: "travel stroller", zh: "旅行婴儿推车" },
+  jogging: { en: "jogging stroller", zh: "慢跑婴儿推车" },
+  lightweight: { en: "lightweight stroller", zh: "轻便婴儿推车" },
+} as const;
+
+type StrollerCoreFamily = keyof typeof STROLLER_CORE_KEYWORDS;
+
+/** Subject -> core family. Order matters: specific beats the travel catch-all. */
+function strollerCoreFamily(slug: string): StrollerCoreFamily {
+  const s = slug.toLowerCase();
+  if (/jogging|jogger|all-terrain/.test(s)) return "jogging";
+  if (/lightweight|compact|ultra|under-15|umbrella-vs-full/.test(s)) return "lightweight";
+  return "travel";
+}
+
 const STROLLER_CLUSTERS: Record<string, Record<KeywordLang, readonly string[]>> = {
   // C1 holiday / Black Friday — 0/21 coverage before this change.
   holiday: {
@@ -418,8 +448,10 @@ export function guidesArticleKeywords(
 ): string[] {
   const slug = String(articleSlug || "").trim().toLowerCase();
   if (slug && GUIDE_SLUG_CATEGORY[slug] === "stroller") {
+    const base = [...STROLLER_BASE_KEYWORDS[lang]];
+    base[1] = STROLLER_CORE_KEYWORDS[strollerCoreFamily(slug)][lang];
     return [
-      ...STROLLER_BASE_KEYWORDS[lang],
+      ...base,
       ...strollerClusterIds(slug).flatMap((id) => [...(STROLLER_CLUSTERS[id]?.[lang] || [])]),
     ];
   }

@@ -35,6 +35,10 @@ const CATEGORY_CHIPS = [
   "/products/electric-cars/",
 ];
 
+/** The three core stroller families specified 2026-11-23. */
+const CORE_TERMS = ["travel stroller", "jogging stroller", "lightweight stroller"];
+const CORE_MIN = { "travel stroller": 10, "jogging stroller": 2, "lightweight stroller": 2 };
+
 const decode = (s) =>
   s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 
@@ -72,6 +76,35 @@ function keywordProblems(htmlBySlug, expectedSlugs) {
     seen.add(kw);
   }
   if (seen.size < 3) out.push(`keyword sets collapsed (${seen.size} distinct across ${expectedSlugs.length} pages)`);
+  return out;
+}
+
+/**
+ * Core-family invariants. Each detail page carries exactly one of the three
+ * core terms in the base slot; the counts below stop a future edit from
+ * silently reverting to "travel stroller on all 21" (which had left
+ * lightweight stroller at 0/21 and jogging stroller at 2/21).
+ */
+function coreProblems(pageKeywordsSrc, htmlBySlug, slugs, min) {
+  const out = [];
+  for (const term of CORE_TERMS) {
+    if (!pageKeywordsSrc.includes(`"${term}"`)) out.push(`pageKeywords.ts lost core keyword "${term}"`);
+  }
+  if (!/strollerCoreFamily\(/.test(pageKeywordsSrc)) out.push("pageKeywords.ts lost the core-family split");
+  const counts = Object.fromEntries(CORE_TERMS.map((t) => [t, 0]));
+  for (const slug of slugs) {
+    const html = htmlBySlug[slug];
+    if (!html) continue;
+    const match = /<meta\s+name="keywords"\s+content="([^"]*)"/i.exec(html);
+    if (!match) continue;
+    const kw = decode(match[1]).toLowerCase();
+    for (const term of CORE_TERMS) if (kw.includes(term)) counts[term]++;
+  }
+  for (const term of CORE_TERMS) {
+    if (counts[term] < min[term]) {
+      out.push(`core keyword "${term}" appears on only ${counts[term]}/${slugs.length} stroller guides (min ${min[term]})`);
+    }
+  }
   return out;
 }
 
@@ -115,6 +148,21 @@ function main() {
     check("REVERSE: missing category chip turns red",
       navProblems(goodNav.replace('href="/products/strollers/"', 'href="/elsewhere/"')).length > 0);
 
+    const coreSrc = 'const STROLLER_CORE_KEYWORDS = { travel: { en: "travel stroller" }, jogging: { en: "jogging stroller" }, lightweight: { en: "lightweight stroller" } }; function strollerCoreFamily(slug) {}';
+    const coreHtml = (t) => `<meta name="keywords" content="stroller buying guide, ${t}, stroller safety">`;
+    const coreBySlug = {
+      a: coreHtml("travel stroller"),
+      b: coreHtml("jogging stroller"),
+      c: coreHtml("lightweight stroller"),
+      d: coreHtml("travel stroller"),
+    };
+    const coreMin = { "travel stroller": 1, "jogging stroller": 1, "lightweight stroller": 1 };
+    check("core keyword invariants pass", coreProblems(coreSrc, coreBySlug, slugs, coreMin).length === 0);
+    check("REVERSE: dropping lightweight from source turns red",
+      coreProblems(coreSrc.replace('"lightweight stroller"', '"x"'), coreBySlug, slugs, coreMin).length > 0);
+    check("REVERSE: all pages back on travel-only turns red",
+      coreProblems(coreSrc, Object.fromEntries(slugs.map((s) => [s, coreHtml("travel stroller")])), slugs, coreMin).length > 0);
+
     for (const c of cases) console.log(`  ${c.ok ? "OK  " : "FAIL"} ${c.name}`);
     const failed = cases.filter((c) => !c.ok);
     if (failed.length) process.exit(1);
@@ -155,6 +203,12 @@ function main() {
     }
   }
   problems.push(...keywordProblems(htmlBySlug, strollerSlugs));
+  problems.push(...coreProblems(
+    readFileSync(join(FRONT, "src", "lib", "pageKeywords.ts"), "utf8"),
+    htmlBySlug,
+    strollerSlugs,
+    CORE_MIN,
+  ));
 
   // 4. static /guides category nav.
   const guidesHtmlPath = join(DIST, "guides.html");
