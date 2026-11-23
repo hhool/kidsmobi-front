@@ -20,6 +20,7 @@ audit-tdk.py — 稳定提取 balancebiketoddler.com（及同类预渲染站点�
 """
 
 import argparse
+import http.client
 import json
 import ssl
 import sys
@@ -127,7 +128,11 @@ def fetch(url: str, ua: str = BROWSER_UA, timeout: int = 30, retries: int = 3) -
     final_url = url
     req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept-Language": "en-US,en;q=0.9"})
     last_err: Exception | None = None
-    transient = (urllib.error.URLError, ConnectionError, TimeoutError, OSError, ssl.SSLError)
+    # http.client.IncompleteRead is NOT an OSError subclass: resp.read() can
+    # raise it when the Cloudflare edge drops a large HTML response mid-body.
+    # Without this entry the retry loop never runs and the page is reported as
+    # "missing title/description/keywords" for a pure transport hiccup.
+    transient = (urllib.error.URLError, ConnectionError, TimeoutError, OSError, ssl.SSLError, http.client.IncompleteRead)
     for attempt in range(retries):
         try:
             with urllib.request.urlopen(req, timeout=timeout) as resp:

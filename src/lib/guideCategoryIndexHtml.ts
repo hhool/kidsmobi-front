@@ -48,6 +48,26 @@ const esc = (value: string): string =>
 
 const LINK_STYLE = "color:#334155;text-decoration:none;";
 const SUB_STYLE = "margin:0 0 8px;color:#475569;";
+const NAV_LINK_STYLE = "color:#ea580c;font-weight:700;text-decoration:none;";
+
+/**
+ * The six wizard chips, as crawlable links in the STATIC document.
+ *
+ * The React wizard (GuidesSection) renders these chips only after hydration,
+ * so a crawler reading /guides saw zero category buttons. The chip hrefs now
+ * point at the product hubs that already carry a per-category TDK and the
+ * catalogue — the thin category pillars were retired into those hubs in S8
+ * (see RETIRED_CATEGORY_GUIDE_REDIRECTS), so no new URL family is created.
+ * The Chinese edition omits this whole section (English UI is forbidden there).
+ */
+const CATEGORY_NAV: ReadonlyArray<readonly [string, string]> = [
+  ["All Categories", "/guides"],
+  ["Balance Bike", "/products/balance-bikes/"],
+  ["Kids Bike", "/products/kids-bikes/"],
+  ["Kids Scooter", "/products/kids-scooters/"],
+  ["Stroller", "/products/strollers/"],
+  ["Kids Electric Car", "/products/electric-cars/"],
+];
 
 /**
  * The complete index section. Deterministic: same bytes on every call, so the
@@ -82,23 +102,31 @@ export function renderGuideCategoryIndexHtml(): string {
             ${articles}
           </ul>
           ${hubs}
-          <p style="margin:12px 0 0;"><a href="${esc(group.picksHref)}" style="color:#ea580c;font-weight:700;">More Picks</a></p>
+          <p style="margin:12px 0 0;"><a href="${esc(group.picksHref)}" style="color:#ea580c;font-weight:700;">Browse ${esc(group.keyword)} picks</a></p>
         </details>`;
     })
     .join("\n");
 
+  const categoryNav = CATEGORY_NAV.map(
+    ([label, href]) => `<a href="${esc(href)}" style="${NAV_LINK_STYLE}">${esc(label)}</a>`,
+  ).join(' <span style="color:#cbd5e1;">·</span> ');
+
   return `<section id="guide_category_index" style="padding:22px 0;border-top:1px solid #e2e8f0;" data-guide-index-schema="${INDEX.schema}">
   <h2 style="margin:0 0 6px;font-size:1.5rem;">Buying guides by category</h2>
   <p style="margin:0 0 14px;color:#475569;">Every published guide grouped by the product family it covers. Open a family to see its articles and category buying guides.</p>
+  <p style="margin:0 0 16px;line-height:1.9;font-size:0.9rem;"><span style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;">Browse by category:</span> ${categoryNav}</p>
 ${groups}
 </section>`;
 }
 
 /** Every href this index emits — used by the parity guard and self-test. */
 export function guideCategoryIndexHrefs(): string[] {
-  return INDEX.groups.flatMap((g) => [
-    g.picksHref,
-    ...g.articles.map((a) => a.href),
-    ...g.hubs.map((h) => h.href),
-  ]);
+  return [
+    ...CATEGORY_NAV.map(([, href]) => href),
+    ...INDEX.groups.flatMap((g) => [
+      g.picksHref,
+      ...g.articles.map((a) => a.href),
+      ...g.hubs.map((h) => h.href),
+    ]),
+  ];
 }

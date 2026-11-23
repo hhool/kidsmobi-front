@@ -1007,7 +1007,10 @@ export default function GuidesSection({
           }),
           image: normalizeMediaUrl(resolveCardImage(found.imageUrl, found.content)) || undefined,
           canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
-          keywords: guidesArticleKeywords(found.category, lang),
+          // Pass the URL slug: the resolver is path-only, so without it a
+          // stroller guide inherits the balance-bike topic keywords (the
+          // 21/21 mismatch found in the 2026-11-23 review).
+          keywords: guidesArticleKeywords(found.category, lang, getGuideArticleRouteId(found)),
         });
         return;
       }
@@ -1690,18 +1693,31 @@ export default function GuidesSection({
               </span>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
                 {[
-                  { id: "all", emoji: "🌐", labelEn: "All Categories", labelZh: "全部品类" },
-                  { id: "stroller", emoji: "🛒", labelEn: "Stroller", labelZh: "安全伞车/手推车" },
-                  { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车" },
-                  { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车" },
-                  { id: "balance", emoji: "🚲", labelEn: "Balance Bike", labelZh: "学步滑步平衡车" },
-                  { id: "electric_car", emoji: "⚡", labelEn: "Kids electric Car", labelZh: "儿童电动车" },
+                  // Each chip carries a real, crawlable URL. The wizard still
+                  // filters in place on click (preventDefault), but a crawler,
+                  // a middle-click or a shared link now reaches a page with its
+                  // own TDK instead of an unaddressable JS-only state. Product
+                  // hubs are the successors of the retired thin category
+                  // pillars (S8) — do not point at /guides/<category>, those
+                  // paths have never existed and answer 404.
+                  { id: "all", emoji: "🌐", labelEn: "All Categories", labelZh: "全部品类", href: "/guides" },
+                  { id: "stroller", emoji: "🛒", labelEn: "Stroller", labelZh: "安全伞车/手推车", href: "/products/strollers/" },
+                  { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车", href: "/products/kids-bikes/" },
+                  { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车", href: "/products/kids-scooters/" },
+                  { id: "balance", emoji: "🚲", labelEn: "Balance Bike", labelZh: "学步滑步平衡车", href: "/products/balance-bikes/" },
+                  { id: "electric_car", emoji: "⚡", labelEn: "Kids electric Car", labelZh: "儿童电动车", href: "/products/electric-cars/" },
                 ].map((cat) => (
-                  <button
+                  <a
                     key={cat.id}
-                    type="button"
-                    onClick={() => setWizardCategory(cat.id)}
-                    className={`py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 font-black text-[11px] leading-none transition-all border cursor-pointer active:scale-95 select-none ${
+                    href={cat.href}
+                    onClick={(event) => {
+                      // Keep the in-page filter as the primary interaction;
+                      // the href is the crawl/share fallback.
+                      event.preventDefault();
+                      setWizardCategory(cat.id);
+                    }}
+                    aria-pressed={wizardCategory === cat.id}
+                    className={`py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 font-black text-[11px] leading-none transition-all border cursor-pointer active:scale-95 select-none no-underline ${
                       wizardCategory === cat.id
                         ? "bg-slate-900 border-slate-900 text-white shadow-lg shadow-slate-950/15"
                         : "bg-slate-50/70 border-slate-100 hover:bg-slate-50 text-slate-500 hover:text-slate-800"
@@ -1709,7 +1725,7 @@ export default function GuidesSection({
                   >
                     <span className="text-sm">{cat.emoji}</span>
                     <span className="truncate">{lang === "en" ? cat.labelEn : cat.labelZh}</span>
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>

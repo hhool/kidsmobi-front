@@ -68,6 +68,7 @@ import {
   normalizeGuidesTopicId,
   type GuidesTopicPageId,
 } from "./guidesTopicPages";
+import { GUIDE_SLUG_CATEGORY } from "../data/guideArticleCategories.generated";
 
 export type KeywordLang = "zh" | "en";
 
@@ -306,11 +307,122 @@ export function newsChannelKeywords(channelSegment: string, lang: KeywordLang): 
 }
 
 /**
- * Keyword set for a guides article detail page (/guides/<topic>/<slug>),
- * resolved by its topic segment. Mirrors GuidesSection's topic normalisation
- * so the prerendered meta and the hydrated one publish the same set.
+ * Stroller keyword clusters, from the 2026-11-23 trending-keyword review
+ * (.workbuddy/reports/stroller-trending-keywords-20261123.html, section 2).
+ *
+ * These are SEARCH TERMS, not factual claims: only low/medium-risk dimension
+ * words are used. Model names, weights, prices and recall conclusions (clusters
+ * C2/C3/C4 high-risk rows) are deliberately absent — the GROUNDING RULE and the
+ * honesty guard would require a sourced, "not measured by us" note for each of
+ * those, which a <meta name="keywords"> tag cannot carry.
+ *
+ * Google ignores this meta, but Bing/Yandex read it, and the project's own
+ * parity guard requires the static HTML and the hydrated SPA to publish the
+ * same set. Before this branch every one of the 21 published stroller guides
+ * published the balance-bike topic words instead.
  */
-export function guidesArticleKeywords(topicSegment: string, lang: KeywordLang): string[] {
+const STROLLER_BASE_KEYWORDS: Record<KeywordLang, readonly string[]> = {
+  en: ["stroller buying guide", "travel stroller", "stroller safety"],
+  zh: ["婴儿推车选购指南", "旅行婴儿推车", "婴儿推车安全"],
+};
+
+const STROLLER_CLUSTERS: Record<string, Record<KeywordLang, readonly string[]>> = {
+  // C1 holiday / Black Friday — 0/21 coverage before this change.
+  holiday: {
+    en: ["travel stroller for holiday flying 2026", "Black Friday stroller deal"],
+    zh: ["节日出行旅行推车", "黑五婴儿推车"],
+  },
+  // C8 cabin / IATA — 11/21.
+  cabin: {
+    en: ["overhead bin stroller", "cabin-size stroller"],
+    zh: ["可登机婴儿推车", "登机箱旅行推车"],
+  },
+  // C3 carbon / ultralight — 0/21. No weight figures (9.9 lb vs 11.6 lb differ
+  // by model; see the report — never let a model guess write that number).
+  ultralight: {
+    en: ["carbon fiber travel stroller", "lightest travel stroller 2026"],
+    zh: ["碳纤维婴儿推车", "超轻旅行推车"],
+  },
+  // C6 one-hand / self-standing fold — 9/21.
+  fold: {
+    en: ["one-hand fold stroller", "self-standing fold"],
+    zh: ["单手折叠推车", "自立折叠推车"],
+  },
+  // C7 standards — 9/21. Standard names only, never "model X is certified".
+  safety: {
+    en: ["ASTM F833 stroller", "5-point harness stroller"],
+    zh: ["ASTM F833 婴儿推车", "五点式安全带推车"],
+  },
+  // C4 recall — 1/21. Query intent only, no recall conclusion.
+  recall: {
+    en: ["stroller recall 2026", "check stroller model recall"],
+    zh: ["婴儿推车召回查询", "2026 婴儿推车召回"],
+  },
+  canopy: {
+    en: ["UPF 50+ stroller canopy", "breathable mesh stroller"],
+    zh: ["UPF50+ 遮阳篷", "透气网布推车"],
+  },
+  newborn: {
+    en: ["lie-flat travel stroller", "from-birth stroller 2026"],
+    zh: ["可平躺婴儿推车", "新生儿可用推车"],
+  },
+  budget: {
+    en: ["stroller under $200", "budget travel stroller"],
+    zh: ["200 美元内婴儿推车", "平价旅行推车"],
+  },
+  // C2 as a pure query, without any manufacturer model name.
+  models: {
+    en: ["2026 travel stroller models", "new stroller models 2026"],
+    zh: ["2026 新款旅行推车", "2026 婴儿推车型号"],
+  },
+  terrain: {
+    en: ["all-terrain stroller", "jogging stroller guide"],
+    zh: ["全地形婴儿推车", "慢跑推车选购"],
+  },
+};
+
+/** Two clusters per article, chosen from the slug so the 21 pages do not all
+ *  publish one identical keyword string. Order matters: "2026"/"best" and the
+ *  specific feature words must win over the generic "travel" catch-all. */
+function strollerClusterIds(slug: string): string[] {
+  const s = slug.toLowerCase();
+  if (/best-|2026/.test(s)) return ["models", "holiday"];
+  if (/safety|recall|standards|tips/.test(s)) return ["safety", "recall"];
+  if (/newborn|pramette|travel-system|double|twins|umbrella-vs-full/.test(s)) return ["newborn", "fold"];
+  if (/lightweight|compact|ultra|under-15/.test(s)) return ["ultralight", "fold"];
+  if (/under-200|budget|price/.test(s)) return ["budget", "fold"];
+  if (/jogging|all-terrain/.test(s)) return ["terrain", "safety"];
+  if (/clean|maintenance|how-to|choose/.test(s)) return ["canopy", "fold"];
+  return ["holiday", "cabin"];
+}
+
+/**
+ * Keyword set for a guides article detail page (/guides/<topic>/<slug>).
+ *
+ * articleSlug is optional so existing callers that only know the topic keep
+ * working; both the prerender (resolveRouteKeywords) and the SPA
+ * (GuidesSection) pass the URL slug, so the two render paths stay identical.
+ * The slug -> productCategory lookup comes from a generated CMS snapshot
+ * module, because a path-only resolver otherwise has no way to know that
+ * "graco-modes-pramette-travel-system" is a stroller guide.
+ *
+ * Only the stroller family is split out in this round (21 published guides,
+ * the scope of the 2026-11-23 review). Other families keep inheriting their
+ * topic set; extend STROLLER_CLUSTERS-style tables when they get the same
+ * treatment.
+ */
+export function guidesArticleKeywords(
+  topicSegment: string,
+  lang: KeywordLang,
+  articleSlug?: string,
+): string[] {
+  const slug = String(articleSlug || "").trim().toLowerCase();
+  if (slug && GUIDE_SLUG_CATEGORY[slug] === "stroller") {
+    return [
+      ...STROLLER_BASE_KEYWORDS[lang],
+      ...strollerClusterIds(slug).flatMap((id) => [...(STROLLER_CLUSTERS[id]?.[lang] || [])]),
+    ];
+  }
   const topic = normalizeGuidesTopicId(topicSegment);
   const page = GUIDES_TOPIC_PAGES[topic as GuidesTopicPageId];
   return page ? [...page.keywords[lang]] : [...GUIDES_TOPIC_PAGES.beginner.keywords[lang]];
@@ -456,7 +568,7 @@ export function resolveRouteKeywords(
   // GuidesSection normalises the CMS taxonomy value.
   const guidesArticleMatch = /^\/guides\/([^/]+)\/([^/]+)\/?$/.exec(clean);
   if (guidesArticleMatch) {
-    return guidesArticleKeywords(guidesArticleMatch[1], lang);
+    return guidesArticleKeywords(guidesArticleMatch[1], lang, guidesArticleMatch[2]);
   }
 
   // News channel pages and article detail pages: /news/<channel>[/<slug>].

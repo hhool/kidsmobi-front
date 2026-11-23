@@ -113,12 +113,28 @@ async function main() {
     });
     check("shared renderer emits 5 families + all article and family hrefs", () => {
       assert((expectedHtml.match(/<details /g) || []).length === 5, "not 5 groups");
-      // 68 CMS guides + 5 family picks pages = 73. The 20 thin pillars that used
-      // to add 20 more are retired (S8) and 301 into the directory hubs, so they
-      // are deliberately absent from this index — see
-      // RETIRED_CATEGORY_GUIDE_REDIRECTS in src/data/categoryGuides.ts.
-      assert(hrefs.length === 73, `got ${hrefs.length} hrefs`);
+      // 67 CMS guide links + 5 family picks + 6 crawlable category-nav chips
+      // = 78. Five chips deliberately repeat a family picks href (same product
+      // hub, each with its own TDK), so the DISTINCT set is 73 — only /guides
+      // is a genuinely new destination. The 20 thin pillars that used to add
+      // 20 more are retired (S8) and 301 into the directory hubs, so they are
+      // deliberately absent — see RETIRED_CATEGORY_GUIDE_REDIRECTS.
+      assert(hrefs.length === 78, `got ${hrefs.length} hrefs`);
+      assert(new Set(hrefs).size === 73, `got ${new Set(hrefs).size} distinct hrefs`);
       assert(expectedHtml.includes("Buying guides by category"), "no heading");
+    });
+    check("static index carries all six crawlable category chips", () => {
+      const chips = [
+        "/guides", "/products/balance-bikes/", "/products/kids-bikes/",
+        "/products/kids-scooters/", "/products/strollers/", "/products/electric-cars/",
+      ];
+      for (const href of chips) {
+        assert(expectedHtml.includes(`href="${href}"`), `missing category chip: ${href}`);
+      }
+      assert(expectedHtml.includes("Browse by category:"), "category nav label gone");
+      // Five identical "More Picks" anchors used to be the only crawlable
+      // category links. Each family now names its own destination.
+      assert(!expectedHtml.includes(">More Picks</a>"), "generic More Picks anchor returned");
     });
     check("REVERSE: the retired pillars are absent from the index", () => {
       const retired = [
