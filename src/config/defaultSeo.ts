@@ -100,20 +100,23 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   guides: {
     zh: {
-      // 2026-11-23 keywords 重构：指南库现按品类覆盖 5 个文章族（stroller 21 /
-      // balance 15 / scooter 12 / bicycle 10 / electric 10，见
-      // guideArticleCategories.generated.ts），旧词组是两篇文章级查询的混拼。
-      // 现改为每族一个复数族词——索引页是栏目头，不再与文章级单数长尾
-      // （"stroller buying guide"、"balance bike for 1 year old"）争位。
-      title: "平衡车指南：年龄、尺寸与预算 | BalanceBikeToddler",
+      // 2026-11-23 keywords+title 重构：指南库现按品类覆盖 5 个文章族
+      // （stroller 21 / balance 15 / scooter 12 / bicycle 10 / electric 10，见
+      // guideArticleCategories.generated.ts），旧词组/旧题是单一品类视角。
+      // keywords 改为每族一个复数族词——索引页是栏目头，不再与文章级单数
+      // 长尾（"stroller buying guide"、"balance bike for 1 year old"）争位；
+      // 标题枚举多品类（平衡车/自行车/婴儿推车/滑板车），与族词呼应。
+      title: "平衡车、自行车、婴儿推车与滑板车指南 | BalanceBikeToddler",
       description: "手把手教你挑选婴儿推车、为 1 岁宝宝选对平衡车，并用尺寸对照表与腿长（内缝）计算器核对坐高。",
       keywords: ["平衡车指南", "婴儿推车指南", "儿童自行车指南", "儿童滑板车指南", "儿童电动汽车指南"],
     },
     en: {
-      // 2026-11-23 keywords 重构：与 zh 对称，5 个文章族各一个复数族词。
-      // title/description 维持 2026-11-02 稿（"stroller 选择 + 1 岁平衡车 +
-      // 尺寸表/内缝计算器"三件事）；若后续 GSC 显示族词点击差，再议标题。
-      title: "Balance Bike Guides: Age, Size & Budget | BalanceBikeToddler",
+      // 2026-11-23 keywords+title 重构：与 zh 对称，keywords 每族一个复数族词，
+      // 标题枚举三大族（Bikes 覆盖 balance + kids bikes）。主干必须 ≤38 字符
+      // （TITLE_MAX_CHARS=60 含 22 字符品牌后缀），42 字符的
+      // "Balance Bikes, Strollers & Scooters Guides" 会被 capSeoTitle 裁掉
+      // 尾词 "Guides"。description 维持 2026-11-02 稿。
+      title: "Bikes, Strollers & Scooters Guides | BalanceBikeToddler",
       description: "Learn how to choose a baby stroller, pick the best balance bike for a 1-year-old, and use our size charts and inseam calculators.",
       keywords: ["balance bike guides", "stroller guides", "kids bike guides", "kids scooter guides", "kids electric car guides"],
     },
