@@ -82,6 +82,19 @@ function alternates(file) {
   return out;
 }
 
+/**
+ * How many rel="alternate" tags a document carries, duplicates included.
+ *
+ * alternates() is a Map, so it silently collapses a route that lists the same
+ * hreflang twice — which is exactly what happened when the SPA appended its own
+ * set on top of the prerendered one. Counting the raw tags is what makes that
+ * visible.
+ */
+function alternateTagCount(file) {
+  const html = readFileSync(file, "utf8");
+  return [...html.matchAll(/<link rel="alternate"[^>]*hreflang="[^"]+"/g)].length;
+}
+
 // The English and Chinese article families live in the same place.
 const en = new Map([...routes(join(DIST, "guides"), "/guides"), ...routes(join(DIST, "news"), "/news")]);
 en.set("/guides", join(DIST, "guides.html"));
@@ -97,7 +110,24 @@ let pairs = 0;
 for (const [route, file] of en) {
   const zhRoute = `/zh${route}`;
   const zhFile = zh.get(zhRoute);
-  if (!zhFile) continue; // no Chinese edition for this route
+  if (!zhFile) {
+    // No Chinese edition of this route exists, so nothing may claim one. This
+    // is the check that was missing, and the reason a real defect survived
+    // several rounds of green guards: the old loop simply `continue`d here, so
+    // the 11 English routes with no /zh file were never inspected at all — and
+    // one of them was shipping hreflang at build time (the SPA emitted it from
+    // the URL root, hid the static "no alternates" fact from every static
+    // guard, and only a browser probe could see it).
+    const strayAlts = alternates(file);
+    if (strayAlts.size > 0) {
+      const listed = [...strayAlts].map(([lang, url]) => `${lang}=${url}`).join(", ");
+      fail(
+        route,
+        `declares ${strayAlts.size} hreflang alternate(s) (${listed}) but no /zh edition of this route was built — every target is a 404`,
+      );
+    }
+    continue;
+  }
   pairs += 1;
 
   const enAlts = alternates(file);
@@ -126,6 +156,60 @@ for (const [route, file] of en) {
   const zhUrl = enAlts.get("zh");
   if (enUrl && !enUrl.endsWith(route)) fail(rel, `hreflang="en" points at "${enUrl}", not this route`);
   if (zhUrl && !zhUrl.endsWith(zhRoute)) fail(rel, `hreflang="zh" points at "${zhUrl}", not the Chinese edition`);
+}
+
+// Duplicate declarations: a route may list each hreflang once.
+//
+// alternates() is keyed by language, so a second tag for the same language is
+// invisible to every reciprocity check above. That is precisely how the SPA's
+// hydration bug hid: the prerendered tags carry no data- attribute, the SPA's
+// cleanup selector only matched its own marked nodes, so hydrating APPENDED a
+// duplicate set (measured: 6 tags / 3 pairs on /guides and on a translated
+// article) and the copies disagreed about the origin. Google reports duplicate
+// hreflang for one language as an error, so this has to be caught statically.
+for (const [route, file] of [...en, ...zh]) {
+  const declared = alternates(file).size;
+  const tags = alternateTagCount(file);
+  if (tags > declared) {
+    fail(route, `${tags} hreflang tag(s) for ${declared} language(s) — duplicate declarations for the same language`);
+  }
+}
+
+// The SPA's copy of "which routes have a Chinese edition" must equal the set
+// the prerender actually built.
+//
+// This is the assertion that was missing, and its absence let a real defect
+// ship: the SPA derived translations from the URL root alone, so it declared
+// alternates for every guides/news route — topic channel pages, news channel
+// pages, the whole guides category axis — none of which has a /zh file. The
+// bundle check further down only grepped for the string "x-default", so a
+// "right rule, wrong set" bug looked identical to a healthy build.
+//
+// The two sides are now generated from one place (dist/data/zh-routes.json,
+// written by the prerender, mirrored into src/lib/zhRoutes.generated.ts by
+// scripts/sync_zh_routes_to_front.mjs). This compares them anyway, because a
+// generated file that was not regenerated after a build is a silent drift.
+const manifestFile = join(DIST, "data", "zh-routes.json");
+const generatedModule = resolve("src/lib/zhRoutes.generated.ts");
+if (!existsSync(manifestFile)) {
+  fail("zh-routes", "dist/data/zh-routes.json is missing — run `npm run build`");
+} else if (!existsSync(generatedModule)) {
+  fail("zh-routes", "src/lib/zhRoutes.generated.ts is missing — run `node scripts/sync_zh_routes_to_front.mjs`");
+} else {
+  const built = JSON.parse(readFileSync(manifestFile, "utf8"));
+  const source = readFileSync(generatedModule, "utf8");
+  const listed = new Set([...source.matchAll(/"(\/zh\/[^"]*)"/g)].map((m) => m[1]));
+  const builtSet = new Set(built);
+  for (const route of builtSet) {
+    if (!listed.has(route)) {
+      fail("zh-routes", `the prerender built ${route} but src/lib/zhRoutes.generated.ts does not list it — the SPA would not offer its Chinese edition`);
+    }
+  }
+  for (const route of listed) {
+    if (!builtSet.has(route)) {
+      fail("zh-routes", `src/lib/zhRoutes.generated.ts lists ${route} but no such Chinese edition was built — the SPA would advertise a 404`);
+    }
+  }
 }
 
 // The homepage declares no alternates: it has no translated edition, and its

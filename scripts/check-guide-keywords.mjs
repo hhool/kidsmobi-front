@@ -48,7 +48,15 @@ function sourceProblems(guidesSectionSrc) {
   if (!/guidesArticleKeywords\(found\.category, lang, getGuideArticleRouteId\(found\)\)/.test(guidesSectionSrc)) {
     out.push("GuidesSection no longer passes the article slug to guidesArticleKeywords");
   }
-  if (!/href=\{cat\.href\}/.test(guidesSectionSrc)) {
+  // The chip must carry a REAL href — an anchor whose target resolves to a
+  // guides route, not a JS-only button. This used to assert the literal
+  // `href={cat.href}`; R48 (2026-11-24) replaced that static per-chip href with
+  // `href={localizedGuidesPath(lang, guidesFilterPath(cat.id, topic))}` so the
+  // address bar reflects the chosen category. Asserting the old literal tested
+  // the expression, not the property that matters, so it is now tested on the
+  // behaviour: an <a> whose href is built from guidesFilterPath.
+  const chipHref = /href=\{[^}]*guidesFilterPath\([^}]*\}/.test(guidesSectionSrc);
+  if (!chipHref && !/href=\{cat\.href\}/.test(guidesSectionSrc)) {
     out.push("wizard category chips lost their crawlable href");
   }
   if (/<button[\s\S]{0,400}onClick=\{\(\) => setWizardCategory\(cat\.id\)\}/.test(guidesSectionSrc)) {
@@ -125,7 +133,7 @@ function main() {
   if (selftest) {
     const goodSrc = [
       'keywords: guidesArticleKeywords(found.category, lang, getGuideArticleRouteId(found)),',
-      '<a href={cat.href} onClick={(event) => { event.preventDefault(); setWizardCategory(cat.id); }}>',
+      '<a href={localizedGuidesPath(lang, guidesFilterPath(cat.id, ""))} onClick={(event) => { event.preventDefault(); handleProductCategoryClick(cat.id); }}>',
     ].join("\n");
     const goodHtml = (slug) =>
       `<meta name="keywords" content="stroller buying guide, travel stroller, holiday travel stroller, ${slug}">`;
@@ -140,7 +148,7 @@ function main() {
     check("REVERSE: dropping the slug argument turns red",
       sourceProblems(goodSrc.replace("getGuideArticleRouteId(found)", "found.category")).length > 0);
     check("REVERSE: JS-only chips turn red",
-      sourceProblems(goodSrc.replace('<a href={cat.href} ', "<button ")).length > 0);
+      sourceProblems(goodSrc.replace('<a href={localizedGuidesPath(lang, guidesFilterPath(cat.id, ""))} ', "<button ")).length > 0);
     check("REVERSE: balance-bike keywords turn red",
       keywordProblems({ ...bySlug, a: '<meta name="keywords" content="balance bike guide, balance bike size chart">' }, slugs).length > 0);
     check("REVERSE: identical keyword sets turn red",

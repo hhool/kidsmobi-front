@@ -212,6 +212,22 @@ import {
   type GuidesTopicPageId,
 } from "../src/lib/guidesTopicPages";
 import {
+  COMPOSITE_INDEX_THRESHOLD,
+  GUIDE_CATEGORY_IDS,
+  GUIDE_CATEGORY_LABELS,
+  GUIDE_TOPIC_LABELS,
+  GUIDE_TOPIC_IDS,
+  GUIDE_TOPIC_NOUN,
+  hasTopicChannelPage,
+  isCompositeChannel,
+  type GuideCategoryId,
+  type GuideTopicId,
+} from "../src/lib/guidesCategoryTopic";
+import {
+  buildGuidesCategoryCopy,
+  buildGuidesCompositeCopy,
+} from "../src/lib/guidesCompositePage";
+import {
   DEFAULT_REFERENCE_CLUSTER,
   resolveReferenceCluster,
   clusterGroupOfHref,
@@ -378,6 +394,14 @@ type RoutePage = {
    *  is a working SPA-booting page (so a hard link from the static homepage
    *  opens the auth tab) but must never be indexed. */
   noindex?: boolean;
+  /** With noindex, emit `noindex,follow` instead of `noindex,nofollow`.
+   *
+   *  For a page that must not be INDEXED but whose outbound links are the
+   *  point. A composite guides page below the thin-content threshold is exactly
+   *  that: it lists one or two real articles and the crawl path to them runs
+   *  through it, so a nofollow would orphan the very pages the page exists to
+   *  serve. /auth keeps nofollow — its links go nowhere new. */
+  noindexFollow?: boolean;
 };
 
 type AppAssets = {
@@ -1019,7 +1043,7 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
     <title>${escapeHtml(titleTag)}</title>
     <meta name="description" content="${escapeHtml(descTag)}" />
     <meta name="keywords" content="${escapeHtml(keywordTag)}" />
-    <meta name="robots" content="${page.noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"}" />
+    <meta name="robots" content="${page.noindex ? (page.noindexFollow ? "noindex,follow" : "noindex,nofollow") : "index,follow,max-image-preview:large"}" />
     <meta property="og:site_name" content="BalanceBikeToddler" />
     <meta property="og:type" content="${ogType}" />
     <meta property="og:url" content="${escapeHtml(canonical)}" />
@@ -1386,6 +1410,17 @@ const NEWS_CHANNEL_PAGE_SLUGS = ["brand_news", "industry", "new_product", "scien
 function guideTopicCategory(guide: CmsGuide): string {
   const topic = String(guide.taxonomy?.topicCategory || guide.category || "").trim();
   return topic || "beginner";
+}
+
+/**
+ * The guide's product category, in the GUIDE vocabulary (stroller / balance /
+ * bicycle / scooter / electric_car) — the same string the category axis of the
+ * URL uses. Three vocabularies coexist in this codebase (see the note in
+ * src/lib/guidesCategoryTopic.ts); this is the only one the composite pages
+ * speak, so anything comparing a guide to a URL segment must come through here.
+ */
+function guideProductCategory(guide: CmsGuide): string {
+  return String(guide.taxonomy?.productCategory || "").trim().toLowerCase();
 }
 
 /**
@@ -3694,6 +3729,255 @@ function renderFilterListPage(config: FilterPageConfig): RoutePage {
       config.faqs,
     ),
   };
+}
+
+/**
+ * Guides category axis — /guides/<category>/ and /guides/<category>/<topic>/.
+ *
+ * Both shapes are real addresses now: the library's category chips and topic
+ * tiles push them on click (src/App.tsx), so they have to exist as documents.
+ * Before this, a chip click only mutated React state, which meant the address
+ * bar kept saying /guides while the page showed a narrower list — a view that
+ * could not be refreshed, shared, or crawled.
+ *
+ * INDEXABILITY — the whole point of the threshold.
+ *
+ * The live library is 68 published guides over 7 topics x 5 categories = 35
+ * combinations, and it is very uneven: stroller x scenario holds 9 while 19 of
+ * the 35 hold exactly one. Publishing every combination as an indexable URL
+ * would add ~55 thin pages (x2 languages) to a site whose stroller guides are
+ * only ~20% indexed (GSC, 2026-11-24) — crawl budget spent on documents that
+ * cannot rank, competing with the pages that can.
+ *
+ * So a combination below COMPOSITE_INDEX_THRESHOLD still EXISTS and still
+ * renders its articles (the address is shareable, the back button works, no
+ * reader hits a dead end) but it self-canonicalises to the narrowest real
+ * parent and carries robots noindex, so it never joins the index.
+ *
+ * The threshold is applied to the COUNT OF ARTICLES, computed from the records
+ * at build time — never hand-listed. Add articles and the page promotes itself.
+ *
+ * CANONICAL PARENT. A composite page's parent is its topic channel
+ * (/guides/<topic>) — except for `best`, which has no channel page (see
+ * guideChannelPageId). For `best` the parent is /guides, the library index that
+ * does list every article. hasTopicChannelPage() is the single test for this,
+ * shared with the SPA's copy builder.
+ */
+function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
+  // One pass over the published records into a category -> topic -> cards map.
+  // Both page shapes below read from it, so the two cannot disagree about what
+  // a combination contains.
+  const cardsByPair = new Map<string, FilterCard[]>();
+  const totalByCategory = new Map<string, number>();
+  const pushCard = (key: string, card: FilterCard) => {
+    const list = cardsByPair.get(key);
+    if (list) list.push(card);
+    else cardsByPair.set(key, [card]);
+  };
+
+  for (const guide of cmsGuides) {
+    const route = guideRoutePath(guide);
+    if (!route) continue;
+    const category = guideProductCategory(guide);
+    if (!(GUIDE_CATEGORY_IDS as readonly string[]).includes(category)) continue;
+    const topic = guideTopicCategory(guide);
+    const card: FilterCard = {
+      title: pickText(guide.en?.title, guide.zh?.title, guide.id),
+      summary: guideCardTeaser(guide),
+      meta: `${GUIDE_TOPIC_LABELS[topic as GuideTopicId]?.en || topic.replace(/_/g, " ")} · ${isoDay(guide.publishedAt) || isoDay(guide.updatedAt) || FALLBACK_PAGE_DATE}`,
+      mod: isoDay(guide.updatedAt) || isoDay(guide.publishedAt) || FALLBACK_PAGE_DATE,
+      path: route,
+      image: toPublicImageUrl(pickText(guide.imageUrl)),
+      fit: "contain" as const,
+    };
+    pushCard(`${category}|${topic}`, card);
+    totalByCategory.set(category, (totalByCategory.get(category) || 0) + 1);
+  }
+
+  // Newest first inside a combination: the page is a shelf, and a shelf whose
+  // order is build order is not a shelf a reader can scan.
+  const sortCards = (cards: FilterCard[]): FilterCard[] =>
+    [...cards].sort((a, b) => String(b.mod || "").localeCompare(String(a.mod || "")));
+
+  const pages: RoutePage[] = [];
+
+  for (const category of GUIDE_CATEGORY_IDS) {
+    const categoryCardCount = totalByCategory.get(category) || 0;
+
+    // --- /guides/<category>/ ------------------------------------------------
+    const categoryCopy = buildGuidesCategoryCopy(category, "en");
+    const categoryCards = sortCards(
+      GUIDE_TOPIC_IDS.flatMap((topic) => cardsByPair.get(`${category}|${topic}`) || []),
+    );
+    // Topic chips: the second axis, as crawlable links. Without them a category
+    // page is a flat list of 57 stroller articles and the 7 composite addresses
+    // have no inbound link at all.
+    const topicChips = GUIDE_TOPIC_IDS.map((topic) => {
+      const count = (cardsByPair.get(`${category}|${topic}`) || []).length;
+      if (!count) return "";
+      return `<a href="/guides/${category}/${topic}/" style="display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid #e2e8f0;border-radius:999px;text-decoration:none;color:#334155;font-size:0.88rem;background:#fff;">${escapeHtml(GUIDE_TOPIC_LABELS[topic].en)} <span style="color:#94a3b8;">${count}</span></a>`;
+    }).join("");
+
+    pages.push({
+      route: `/guides/${category}/`,
+      title: categoryCopy.h1,
+      fullTitle: categoryCopy.fullTitle,
+      description: categoryCopy.description,
+      h1: categoryCopy.h1,
+      skipLeadDescription: true,
+      // NO hreflang. /guides/<category>/ has no Chinese edition: the topic
+      // channel pages (/guides/<topic>) never got one either, and /zh/guides is
+      // the single Chinese hub that lists every translated article. Emitting an
+      // alternate pair here would point Google at a URL that does not exist
+      // (check:hreflang would fail it, and a live hreflang to a 404 is worse
+      // than none). Add the pairs when the Chinese channel pages ship.
+      body: `
+      ${renderProductBreadcrumb([
+        { name: "Home", href: "/" },
+        { name: "Guides", href: "/guides" },
+        { name: GUIDE_CATEGORY_LABELS[category].en, href: `/guides/${category}/` },
+      ])}
+      <section style="padding: 22px 0;">
+        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;">${escapeHtml(categoryCopy.intro)}</p>
+        <p style="margin: 0 0 14px; font-size: 0.9rem; color: #475569;">${categoryCardCount} published guide${categoryCardCount === 1 ? "" : "s"} in this category.</p>
+        <h2 style="margin: 18px 0 10px; font-size: 1.15rem;">Narrow by topic</h2>
+        <div>${topicChips || '<p style="margin:0;color:#475569;">Topic pages are being published.</p>'}</div>
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 14px; font-size: 1.5rem;">${escapeHtml(categoryCopy.h1)}</h2>
+        ${filterCardGrid(categoryCards, "Guides are being published — check back shortly.")}
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Other categories</h2>
+        <ul style="margin: 0; padding-left: 1.2rem;">
+          ${GUIDE_CATEGORY_IDS.filter((other) => other !== category)
+            .map((other) => `<li style="margin-bottom: 6px;"><a href="/guides/${other}/">${escapeHtml(GUIDE_CATEGORY_LABELS[other].en)} guides</a></li>`)
+            .join("")}
+          <li style="margin-bottom: 6px;"><a href="/guides">All guides</a></li>
+          <li style="margin-bottom: 6px;"><a href="/products/${guideCategoryProductSlug(category)}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} product hub</a></li>
+        </ul>
+      </section>
+    `,
+      jsonLd: filterListSchemas(
+        `${PUBLIC_SITE_BASE}/guides/${category}/`,
+        `${categoryCopy.h1} | BalanceBikeToddler`,
+        categoryCopy.description,
+        categoryCards,
+        [],
+      ).filter((node) => (node as { "@type"?: string })["@type"] !== "FAQPage"),
+    });
+
+    // --- /guides/<category>/<topic>/ ---------------------------------------
+    for (const topic of GUIDE_TOPIC_IDS) {
+      const cards = sortCards(cardsByPair.get(`${category}|${topic}`) || []);
+      const copy = buildGuidesCompositeCopy(category, topic, "en");
+      const indexable = cards.length >= COMPOSITE_INDEX_THRESHOLD;
+      const parentPath = hasTopicChannelPage(topic) ? `/guides/${topic}` : "/guides";
+      const siblingTopics = GUIDE_TOPIC_IDS.filter(
+        (other) => other !== topic && (cardsByPair.get(`${category}|${other}`) || []).length,
+      );
+      // The address the page declares about itself. A below-threshold page stays
+      // SELF-canonical even though it is noindex.
+      //
+      // The first shape tried here was canonical -> parent topic page, on the
+      // theory that a one-article page should consolidate upward. Google's
+      // guidance says not to: a noindex page whose canonical points at a
+      // DIFFERENT URL sends two contradictory instructions and both get
+      // discounted. Worse, it broke hydration — the SPA decides "am I looking at
+      // my own prerendered document?" by comparing the delivered canonical to
+      // the current path, so a canonical aimed at the parent made every
+      // below-threshold composite look like a client-side navigation and the
+      // section block overwrote its head with the /guides hub copy.
+      //
+      // noindex + self-canonical is the coherent signal: "this URL exists, it is
+      // not worth indexing, and here is exactly what it is." The upward link
+      // still exists, as a visible "Keep reading" item.
+
+      pages.push({
+        route: `/guides/${category}/${topic}/`,
+        title: copy.h1,
+        fullTitle: copy.fullTitle,
+        description: copy.description,
+        h1: copy.h1,
+        skipLeadDescription: true,
+        // Same reasoning as the category pages above: no /zh counterpart
+        // exists, so no alternate pair is emitted.
+        // Below the threshold the page is real but must not join the index: it
+        // cannot outrank its own parent with one article, and publishing it
+        // spends crawl budget the parent needs. It still lists that article, so
+        // a reader who lands here is served — only the indexer is told to skip.
+        noindex: !indexable,
+        // Below the threshold the page is a crawl PATH, not a destination: it
+        // must not be indexed, but its article links have to stay followable or
+        // the one or two guides it lists lose the inbound link this page just
+        // created for them. /auth keeps nofollow — its links lead nowhere new.
+        noindexFollow: !indexable,
+        body: `
+      ${renderProductBreadcrumb([
+        { name: "Home", href: "/" },
+        { name: "Guides", href: "/guides" },
+        { name: GUIDE_CATEGORY_LABELS[category].en, href: `/guides/${category}/` },
+        { name: GUIDE_TOPIC_LABELS[topic].en, href: `/guides/${category}/${topic}/` },
+      ])}
+      <section style="padding: 22px 0;">
+        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;">${escapeHtml(copy.intro)}</p>
+        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">By <strong>BalanceBikeToddler Editorial Team</strong> · ${cards.length} published guide${cards.length === 1 ? "" : "s"}${indexable ? "" : " · this combination is still growing"}</p>
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 14px; font-size: 1.5rem;">${escapeHtml(copy.listHeading)}</h2>
+        ${filterCardGrid(cards, "No guides in this combination yet — the parent topic page lists everything published so far.")}
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.35rem;">Keep reading</h2>
+        <ul style="margin: 0; padding-left: 1.2rem;">
+          <li style="margin-bottom: 6px;"><a href="${escapeHtml(parentPath)}">${escapeHtml(hasTopicChannelPage(topic) ? `${GUIDE_TOPIC_LABELS[topic].en} — all categories` : "All guides")}</a></li>
+          <li style="margin-bottom: 6px;"><a href="/guides/${category}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} — every topic</a></li>
+          ${siblingTopics
+            .map((other) => `<li style="margin-bottom: 6px;"><a href="/guides/${category}/${other}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} ${escapeHtml(GUIDE_TOPIC_NOUN[other].en)}</a></li>`)
+            .join("")}
+          <li style="margin-bottom: 6px;"><a href="/products/${guideCategoryProductSlug(category)}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} product hub</a></li>
+        </ul>
+      </section>
+    `,
+        jsonLd: filterListSchemas(
+          `${PUBLIC_SITE_BASE}/guides/${category}/${topic}/`,
+          `${copy.h1} | BalanceBikeToddler`,
+          copy.description,
+          cards,
+          [],
+        ).filter((node) => (node as { "@type"?: string })["@type"] !== "FAQPage"),
+      });
+    }
+  }
+
+  return pages;
+}
+
+/**
+ * The /products/ hub slug for a guide category id.
+ *
+ * Fourth mapping between vocabularies in this file's neighbourhood, so it is
+ * worth saying why it is not imported: productCategoryPaths.ts speaks the
+ * product-core vocabulary (balance_bike / kids_bikes / ...), and translating
+ * guide ids through it needs the same hop every time. Only two call sites need
+ * the public slug, both in the composite builder, so the table lives next to
+ * them. Anything that grows beyond that should move to productCategoryPaths.ts.
+ */
+function guideCategoryProductSlug(category: string): string {
+  switch (category) {
+    case "stroller":
+      return "strollers";
+    case "balance":
+      return "balance-bikes";
+    case "bicycle":
+      return "kids-bikes";
+    case "scooter":
+      return "kids-scooters";
+    case "electric_car":
+      return "electric-cars";
+    default:
+      return "strollers";
+  }
 }
 
 function renderFilterPages(
@@ -8994,6 +9278,13 @@ async function main() {
     .map((item) => renderEvaluationDetailPage(item, productMap))
     .filter((page): page is RoutePage => page !== null);
   const filterPages = renderFilterPages(cmsGuides, cmsNews, cmsEvaluations);
+  // Guides category axis: /guides/<category>/ and /guides/<category>/<topic>/.
+  // Deliberately NOT folded into filterPages: that array also feeds
+  // workerPublishedRoutes, the "routes the Worker publishes on its own" set, and
+  // no CMS row describes a category page — the Worker's D1 scan cannot see it.
+  // Listed there, the 12 indexable routes would vanish from the live sitemap
+  // while the dist one kept advertising them.
+  const guidesCategoryPages = renderGuidesCategoryPages(cmsGuides);
   const retitledReviews = resolveDuplicateTitles(productDetailPages, evaluationDetailPages);
   if (retitledReviews) {
     console.log(`[prerender] ${retitledReviews} CMS review page(s) retitled to stop sharing a <title> with a product page.`);
@@ -9017,6 +9308,7 @@ async function main() {
     zhNewsHubPage,
     renderReviewsPage(cmsEvaluations),
     ...filterPages,
+    ...guidesCategoryPages,
     renderAboutPage(),
     ...renderTransparencyPages(),
     ...renderSafetyRecallPage(),
@@ -9284,6 +9576,17 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   for (const topic of GUIDES_TOPIC_PAGE_IDS) {
     staticModByRoute.set(`/guides/${topic}`, guidesMax);
   }
+  // Guides category axis (/guides/<category>/ and /guides/<category>/<topic>/).
+  // Same rule as the topic channels: dated by the guides collection's freshest
+  // edit, because what the page lists is drawn from that collection. Pages the
+  // builder marked noindex never reach the sitemap (filtered above), so dating
+  // them here costs nothing.
+  for (const category of GUIDE_CATEGORY_IDS) {
+    staticModByRoute.set(`/guides/${category}/`, guidesMax);
+    for (const topic of GUIDE_TOPIC_IDS) {
+      staticModByRoute.set(`/guides/${category}/${topic}/`, guidesMax);
+    }
+  }
   for (const category of ["brand_news", "industry", "new_product", "science"]) {
     staticModByRoute.set(`/news/${category}`, newsMax);
   }
@@ -9396,6 +9699,15 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     "/zh/news",
     ...PRODUCT_CATEGORY_PAGES.map((meta) => `/products/${meta.slug}/`),
     ...filterPages.map((page) => page.route),
+    // The guides category axis is deliberately NOT listed here, unlike
+    // filterPages above. This set means "routes the Worker publishes from its
+    // own sources" (the D1 scan plus FILTER_LIST_PATHS); anything left over goes
+    // into sitemap-static-paths.json so the Worker can publish it anyway, since
+    // its D1 scan will never see a prerendered asset route. A category page is
+    // exactly that -- no CMS row describes /guides/stroller/ -- so listing it
+    // here would silently drop all 12 indexable routes out of the live sitemap
+    // while the dist sitemap still advertised them. That divergence is what
+    // check:workerparity exists to catch, and it did.
     ...guideDetailPages.map((page) => page.route),
     ...newsDetailPages.map((page) => page.route),
     ...zhGuideDetailPages.map((page) => page.route),
@@ -9424,6 +9736,35 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     JSON.stringify(referenceCluster, null, 2),
     "utf8",
   );
+
+  // Which routes actually have a /zh edition — the single source the SPA's
+  // language toggle and its hreflang emitter must agree with.
+  //
+  // The prerender already knows: it builds a Chinese hub for both families and
+  // a Chinese article only when the record carries a translated title + body
+  // (hasZhBody above). The SPA used to guess from the first URL segment alone,
+  // so it declared en/zh/x-default alternates for every guides/news route —
+  // including topic and news CHANNEL pages, the guides category axis, and every
+  // composite page, none of which has a /zh file. Those annotations pointed at
+  // URLs the site never built, which is the failure that earns the entire set
+  // being ignored rather than just the bad member.
+  //
+  // Emitting the list is what makes the two sides provably equal instead of
+  // tentatively equal: scripts/sync_zh_routes_to_front.mjs turns it into
+  // src/lib/zhRoutes.generated.ts, and scripts/check-hreflang.mjs compares that
+  // module against dist route by route.
+  const zhRoutePaths = [
+    "/zh/guides",
+    "/zh/news",
+    ...zhGuideDetailPages.map((page) => page.route),
+    ...zhNewsDetailPages.map((page) => page.route),
+  ].sort();
+  await writeFile(
+    path.join(distDir, "data", "zh-routes.json"),
+    JSON.stringify(zhRoutePaths, null, 2),
+    "utf8",
+  );
+  console.log(`[prerender] zh-routes.json: ${zhRoutePaths.length} route(s) with a Chinese edition.`);
 
   // Legacy URL family 301s (P0-2): underscore/id-form category directories and
   // the abolished /products/other/ bucket point at the kebab-case family.

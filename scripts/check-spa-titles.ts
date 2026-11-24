@@ -52,6 +52,8 @@ import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 import { resolveSectionRouteSeo, publishSectionTitle } from "../src/lib/cmsSectionSeo";
 import { CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import { GUIDES_TOPIC_PAGES, GUIDES_TOPIC_PAGE_IDS } from "../src/lib/guidesTopicPages";
+import { GUIDE_CATEGORY_IDS, GUIDE_TOPIC_IDS } from "../src/lib/guidesCategoryTopic";
+import { buildGuidesCategoryCopy, buildGuidesCompositeCopy } from "../src/lib/guidesCompositePage";
 import type { CMSSettings } from "../src/types";
 
 type Expectation = { label: string; route: string; title: string; description: string };
@@ -210,6 +212,35 @@ for (const topic of GUIDES_TOPIC_PAGE_IDS) {
     title: page.fullTitle,
     description: buildMetaDescription(page.description, sanitizeUnsupportedClaims),
   });
+}
+
+// --- Guides category axis (/guides/<category>[/<topic>]) --------------------
+// Same contract as the topic channels above, and the same failure mode if it
+// lapses: the prerender builds these from guidesCompositePage.ts, and the SPA
+// keeps that TDK only while the channel-route early return holds. Both sides
+// call the module, so its own value is the only correct expectation.
+//
+// noindex pages are included deliberately. robots is their indexability lever,
+// not their identity — a below-threshold composite still has to publish the
+// same <title> after hydration as in the delivered HTML, or the two documents
+// Google compares are not the same page.
+for (const category of GUIDE_CATEGORY_IDS) {
+  const categoryCopy = buildGuidesCategoryCopy(category, "en");
+  expectations.push({
+    label: `guides category ${category}`,
+    route: `/guides/${category}/`,
+    title: categoryCopy.fullTitle,
+    description: buildMetaDescription(categoryCopy.description, sanitizeUnsupportedClaims),
+  });
+  for (const topic of GUIDE_TOPIC_IDS) {
+    const copy = buildGuidesCompositeCopy(category, topic, "en");
+    expectations.push({
+      label: `guides composite ${category}/${topic}`,
+      route: `/guides/${category}/${topic}/`,
+      title: copy.fullTitle,
+      description: buildMetaDescription(copy.description, sanitizeUnsupportedClaims),
+    });
+  }
 }
 
 // --- Category hubs (/products/<slug>/) --------------------------------------

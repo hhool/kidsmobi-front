@@ -96,9 +96,29 @@ const HUB_FILES = new Set([
   "about.html",
   "404.html",
 ]);
+/**
+ * A guides CHANNEL page is a listing, not an editorial leaf.
+ *
+ * Two shapes were added in R48 (2026-11-24): /guides/<category>/ and
+ * /guides/<category>/<topic>/ — 40 directory indexes in total. They were being
+ * classified as leaves, so each got compared against every other one and the
+ * guard fired on 0.082 body overlap between, say, /guides/balance/beginner/ and
+ * /guides/balance/budget/. That overlap is the intro sentence and the "Keep
+ * reading" block, which is exactly the same reason `guides.html` is excluded —
+ * this file's own header says a hub "is supposed to repeat its children". A
+ * channel page is a hub one level down.
+ *
+ * Recognised by DIRECTORY SHAPE rather than by listing all 40 paths: any
+ * directory index under guides/ is a listing. Editorial leaves under
+ * guides/<topic>/ are .html FILES, so the two never collide.
+ */
+const isGuidesListing = (file) =>
+  /^guides\//.test(file) && (file.endsWith("/index.html") || file === "guides/index.html");
+
 const isLeaf = (file) => {
   if (file.startsWith("products/")) return false;
   if (HUB_FILES.has(file)) return false;
+  if (isGuidesListing(file)) return false;
   const depth = file.split("/").length;
   if (/^(guides|news|reviews)\//.test(file)) return depth >= 3;
   return true;

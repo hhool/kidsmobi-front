@@ -26,6 +26,7 @@
  * sitemap route and fails the build if either side drifts again.
  */
 import { productCategoryUrlSlug } from "./productCategoryPaths";
+import { isGuideCategoryId } from "./guidesCategoryTopic";
 
 /** Trailing-slash-stripped pathname, "/" for the root. */
 export const normalizePathname = (pathname: string): string => {
@@ -105,4 +106,29 @@ export function transparencyCanonicalPath(configuredPath: string): string {
   const raw = String(configuredPath || "").trim();
   if (!raw) return "/";
   return raw.startsWith("/") ? raw : `/${raw}`;
+}
+
+/**
+ * Canonical for the guides category axis: /guides/<category>/ and
+ * /guides/<category>/<topic>/.
+ *
+ * These are the only guides routes with a TRAILING SLASH because they are
+ * prerendered as directory indexes (dist/guides/stroller/index.html). Pages
+ * 308-redirects the bare form onto the slash form, so a canonical that drops
+ * the slash points at a redirecting URL — the same mistake that put
+ * /transparency/privacy-policy/ in Search Console's "alternate page" group.
+ *
+ * Recognised by the first segment after /guides being a CATEGORY id. The topic
+ * axis cannot be mistaken for it: the two vocabularies are disjoint, which is
+ * what lets /guides/stroller/beginner/ (three segments, looks exactly like an
+ * article detail route) be classified correctly here.
+ *
+ * Returns null for every other route so the caller keeps its existing rule.
+ */
+export function guidesCategoryCanonicalPath(pathname: string): string | null {
+  const segments = String(pathname || "").split("/").filter(Boolean);
+  if (segments[0] !== "guides") return null;
+  if (!isGuideCategoryId(segments[1])) return null;
+  const bare = `/${segments.join("/")}`;
+  return `${bare}/`;
 }

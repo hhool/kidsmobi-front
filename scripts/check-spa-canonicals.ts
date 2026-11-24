@@ -55,6 +55,7 @@ import {
   transparencyCanonicalPath,
 } from "../src/lib/canonicalPath";
 import { DEFAULT_CMS_PAGE_BLUEPRINT } from "../src/lib/cmsSectionSeo";
+import { guidesCategoryCanonicalPath } from "../src/lib/canonicalPath";
 
 const ROOT = process.env.CHECK_SPA_CANONICALS_ROOT || "dist";
 const ORIGIN = "https://balancebiketoddler.com";
@@ -115,6 +116,20 @@ function spaCanonicalForRoute(route: string): string {
     if (segments.length === 2) return `${ORIGIN}${productCategoryCanonicalPath(segments[1])}`;
     return `${ORIGIN}${normalizeCanonicalPath(route)}`; // product detail: self
   }
+
+  // Guides CATEGORY axis (front R48): /guides/<category>/ and
+  // /guides/<category>/<topic>/ are prerendered as TRAILING-SLASH directory
+  // routes, so their canonical keeps the slash (Pages 308s the bare form onto
+  // it). They are recognised by the FIRST segment being a category id — the
+  // topic axis below must not swallow them, because /guides/stroller/beginner/
+  // has three segments and would otherwise be treated as an article detail
+  // route and have its slash normalized away.
+  //
+  // This reproduces guidesCategoryCanonicalPath() from src/lib/canonicalPath.ts,
+  // the function App.tsx actually calls at runtime. Keeping the copy here in
+  // step with that one is the whole job of this guard.
+  const guidesCategoryCanonical = guidesCategoryCanonicalPath(route);
+  if (guidesCategoryCanonical) return `${ORIGIN}${guidesCategoryCanonical}`;
 
   if (segments.length >= 2 && (segments[0] === "news" || segments[0] === "guides")) {
     if (segments.length >= 3) return `${ORIGIN}${normalizeCanonicalPath(route)}`; // article detail: self

@@ -163,9 +163,17 @@ import {
   normalizePathname,
   normalizeCanonicalPath,
   buildCanonicalPathFromPageConfig,
+  guidesCategoryCanonicalPath,
   productCategoryCanonicalPath,
   transparencyCanonicalPath,
 } from "./lib/canonicalPath";
+import {
+  matchGuidesChannelRoute,
+  guidesCompositePath,
+  guidesFilterPath,
+  type GuideCategoryId,
+} from "./lib/guidesCategoryTopic";
+import type { GuidesTopicPageId } from "./lib/guidesTopicPages";
 import {
   ZH_LANG_PREFIX,
   hasZhVariant,
@@ -809,6 +817,44 @@ const DELIVERED_PRODUCT_DETAIL = (() => {
   }
 })();
 
+// The robots value and route the server actually shipped, captured ONCE at
+// module load — before any effect can overwrite them.
+//
+// This exists because two questions can only be answered about the DELIVERED
+// document, not about the live one:
+//
+//   1. "Is this route thin by the prerender's own threshold?" The answer is
+//      computed at build time from CMS record counts and written into the
+//      static HTML. Re-deriving it in the browser would mean re-implementing
+//      the card filter and the threshold, and any drift between the two
+//      implementations publishes a different robots value on the same URL
+//      (the exact shape of bug check:hydration exists to catch). So we read
+//      what the prerender decided.
+//
+//   2. "Am I still on the page that value describes?" A live re-read cannot
+//      answer this: this file's own effects write the robots tag, so the
+//      second effect run reads the first run's output. That is self-referential
+//      and, once a reader client-side-navigates from a thin composite to an
+//      indexable one, permanently wrong — the stale "noindex,follow" would be
+//      copied forward and re-read as authoritative on every later route.
+//
+// Capturing the pair at load makes every later run agree with the document the
+// crawler was handed. Routes reached by client-side navigation fall back to the
+// generic rule, which is what they did before: a client-side jump is not a
+// crawl boundary, so no crawler ever sees that value for that URL.
+const DELIVERED_HEAD = (() => {
+  try {
+    const robots = (document.querySelector('meta[name="robots"]')?.getAttribute("content") || "").trim();
+    const canonicalHref = document.querySelector("link[rel='canonical']")?.getAttribute("href") || "";
+    const canonicalPath = canonicalHref
+      ? new URL(canonicalHref, window.location.origin).pathname
+      : "";
+    return { robots, canonicalPath, routePath: normalizePathname(window.location.pathname) };
+  } catch {
+    return { robots: "", canonicalPath: "", routePath: "" };
+  }
+})();
+
 const safeStorageGet = (key: string): string | null => {
   try {
     return window.localStorage.getItem(key);
@@ -847,6 +893,13 @@ type RouteState = {
   activeProductId: string;
   activeGuidesCategory?: string;
   activeGuidesArticleId?: string;
+  /**
+   * Guide-side product-category id carried by /guides/<category>[/<topic>].
+   * "" when the route has no category segment (the unfiltered library).
+   * Speaks the CMS guide vocabulary (stroller/balance/bicycle/scooter/
+   * electric_car), not the product-layer one — see guidesCategoryTopic.ts.
+   */
+  activeGuidesProductCategory?: GuideCategoryId | "";
   activeNewsCategory?: string;
   activeNewsArticleId?: string;
   activePageIndex: number;
@@ -1272,10 +1325,45 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
     const contentSegments = pageSegmentIndex >= 0 ? segments.slice(0, pageSegmentIndex) : segments;
     
+    // Category axis (2026-11-24). /guides/<category>[/<topic>] carries the
+    // product-category filter in the URL instead of leaving it in React state.
+    // The two segment vocabularies are disjoint (see guidesCategoryTopic.ts),
+    // so the first segment alone decides the route family: a topic id keeps the
+    // existing article-detail behaviour, a category id opens a category or
+    // composite channel.
+    const channel = matchGuidesChannelRoute(contentSegments.slice(1));
+
     let activeGuidesCategory = "all";
     let activeGuidesArticleId = "";
-    
-    if (contentSegments[1]) {
+    let activeGuidesProductCategory: GuideCategoryId | "" = "";
+
+    if (channel?.category) {
+      activeGuidesProductCategory = channel.category;
+      if (channel.topic) {
+        // /guides/<category>/<topic>/ — both axes. The topic is the library
+        // filter (selectedCategory); the category narrows it further.
+        activeGuidesCategory = channel.topic;
+        if (channel.articleSlug) {
+          activeGuidesArticleId = normalizeGuideArticleRouteId(channel.articleSlug);
+        }
+      } else if (channel.articleSlug) {
+        // /guides/<category>/<slug> is not a route family. Surface it as a
+        // soft 404 rather than silently rendering the unfiltered library.
+        return {
+          activeTab: "guides",
+          activeProductCategory: "all",
+          activeReviewType: "all",
+          activeEvaluationId: "",
+          activeProductId: "",
+          activeGuidesCategory: "all",
+          activeGuidesArticleId: "",
+          activePageIndex,
+          currentPath,
+          langPrefix,
+          isNotFound: true,
+        };
+      }
+    } else if (contentSegments[1]) {
       if (contentSegments[2]) {
         activeGuidesCategory = contentSegments[1];
         activeGuidesArticleId = normalizeGuideArticleRouteId(contentSegments[2]);
@@ -1301,6 +1389,7 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
       activeProductId: "",
       activeGuidesCategory,
       activeGuidesArticleId,
+      activeGuidesProductCategory,
       activePageIndex,
       currentPath,
       langPrefix,
@@ -1485,6 +1574,10 @@ export default function App() {
   const [activeNewsCategory, setActiveNewsCategory] = useState<string>(initialRouteState.activeNewsCategory || "all");
   const [activeNewsArticleId, setActiveNewsArticleId] = useState<string>(initialRouteState.activeNewsArticleId || "");
   const [activeGuidesCategory, setActiveGuidesCategory] = useState<string>(initialRouteState.activeGuidesCategory || "all");
+  // Product-category axis of the guides channel (/guides/<cat>/<topic>/).
+  // Stored separately from activeGuidesCategory because the two segment
+  // vocabularies are disjoint and both can be active at once.
+  const [activeGuidesProductCategory, setActiveGuidesProductCategory] = useState<string>(initialRouteState.activeGuidesProductCategory || "");
   const [activeGuidesArticleId, setActiveGuidesArticleId] = useState<string>(initialRouteState.activeGuidesArticleId || "");
   const [activeGuidesSearchQuery, setActiveGuidesSearchQuery] = useState<string>("");
   const [activeProductId, setActiveProductId] = useState<string>(initialRouteState.activeProductId || "");
@@ -1662,6 +1755,7 @@ export default function App() {
     setActiveNewsCategory(routeState.activeNewsCategory || "all");
     setActiveNewsArticleId(routeState.activeNewsArticleId || "");
     setActiveGuidesCategory(routeState.activeGuidesCategory || "all");
+    setActiveGuidesProductCategory(routeState.activeGuidesProductCategory || "");
     setActiveGuidesArticleId(routeState.activeGuidesArticleId || "");
     setActiveProductId(routeState.activeProductId || "");
     setActivePageIndex(routeState.activePageIndex);
@@ -2607,7 +2701,33 @@ export default function App() {
   };
 
   const updateHreflangLinks = (links: Array<{ hreflang: string; href: string }>) => {
-    document.querySelectorAll("link[data-kidsmobi-hreflang='true']").forEach((node) => node.remove());
+    // Remove the PRERENDERED alternates too, not just the ones a previous run
+    // of this function added.
+    //
+    // The old selector only matched nodes carrying data-kidsmobi-hreflang,
+    // which the prerender does not write (it emits plain
+    // <link rel="alternate" hreflang=... href=...>). So on every route that
+    // shipped alternates, hydrating APPENDED a second identical set and the
+    // document ended up advertising each pair twice — measured on /guides and
+    // on /guides/beginner/balance-bike-by-age, 6 tags for 3 pairs. Duplicate
+    // hreflang for the same language is an error Google reports, and the copies
+    // disagreed about the origin (the prerender writes
+    // https://balancebiketoddler.com, the SPA writes window.location.origin),
+    // so the two sets also pointed at different hosts.
+    //
+    // Every rel="alternate" this site emits is an hreflang pair — verified
+    // across the whole build: 156 tags, all of them carrying hreflang, none of
+    // any other alternate type (RSS, print, AMP). Matching on rel="alternate"
+    // alone would therefore be safe, but scoping it to hreflang as well keeps
+    // the selector honest if another alternate type is ever added.
+    //
+    // On a route with no translation this now correctly REMOVES the previous
+    // page's alternates, which the old code also failed to do; a client-side
+    // jump from a translated article into /guides/<category>/ left the stale
+    // pair behind.
+    document
+      .querySelectorAll("link[rel='alternate'][hreflang], link[data-kidsmobi-hreflang='true']")
+      .forEach((node) => node.remove());
     links.forEach(({ hreflang, href }) => {
       const link = document.createElement("link");
       link.setAttribute("rel", "alternate");
@@ -3833,9 +3953,18 @@ export default function App() {
     // of being overwritten with the English section copy.
     const routePathForMatch = isZhPath(currentPath) ? stripZhPrefix(currentPath) : currentPath;
     const isReviewsSubIndexRoute = /^\/reviews\/(?:single|compare|value|ranking|safety)\/?$/.test(routePathForMatch);
+    // The guides category axis (/guides/<category>[/<topic>]) is a channel
+    // route too. It was not, because this test only looked at the TOPIC axis:
+    // /guides/stroller/ has activeGuidesCategory === "all" (no topic filter),
+    // so it fell through to the section block and the SPA overwrote the
+    // prerendered category TDK with the /guides hub's. Same failure mode
+    // Search Console reported on 2026-10-19 for /news/new_product.
+    const isGuidesCategoryRoute =
+      seoKey === "guides" && Boolean(activeGuidesProductCategory) && !activeGuidesArticleId;
     const isChannelRoute =
       (seoKey === "news" && activeNewsCategory !== "all" && !activeNewsArticleId) ||
       (seoKey === "guides" && activeGuidesCategory !== "all" && !activeGuidesArticleId) ||
+      isGuidesCategoryRoute ||
       (seoKey === "reviews" && isReviewsSubIndexRoute);
     // Article detail routes — /guides/<topic>/<slug>, /news/<channel>/<slug>,
     // /reviews/<type>/<slug> — ship prerendered with their own curated TDK.
@@ -3852,9 +3981,31 @@ export default function App() {
       (seoKey === "news" && /^\/news\/[^/]+\/[^/]+\/?$/.test(routePathForMatch)) ||
       (seoKey === "reviews" && /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(routePathForMatch));
     if (isChannelRoute || isArticleDetailRoute) {
-      const staticCanonical = document.querySelector("link[rel='canonical']")?.getAttribute("href") || "";
+      // Compare PATHS, normalized on both sides, not a string suffix of the
+      // absolute URL. Two separate mistakes were hiding in the old suffix test
+      // (`staticCanonical.endsWith(selfPath)`):
+      //
+      // 1. It cannot match a directory route. normalizeCanonicalPath() strips
+      //    the trailing slash, so selfPath is "/guides/stroller" while the
+      //    delivered canonical is "https://balancebiketoddler.com/guides/stroller/"
+      //    — no suffix match, the early return never fired, and the section
+      //    block below rewrote every /guides/<category>/ and
+      //    /guides/<category>/<topic>/ title with the /guides hub copy. The
+      //    <h1> stayed correct because it comes from the component, which is
+      //    why this presented as a component bug.
+      // 2. A suffix test also matches the WRONG page: a canonical of
+      //    "/foo/guides/stroller" ends with "/guides/stroller". Whole-path
+      //    equality cannot.
+      //
+      // Read the DELIVERED canonical (captured at module load), not the live
+      // one. The live value is written by this very effect, so a second run —
+      // and this effect does run again once cmsSettings resolves — would read
+      // back its own output instead of what the server sent. That made the
+      // winner depend on network timing: the same build passed
+      // check:hydration one run and failed the next, on different routes.
       const selfPath = normalizeCanonicalPath(currentPath);
-      if (selfPath !== "/" && staticCanonical.endsWith(selfPath)) {
+      const deliveredPath = normalizeCanonicalPath(DELIVERED_HEAD.canonicalPath);
+      if (selfPath !== "/" && deliveredPath === selfPath) {
         return; // hydrated onto this page's own prerendered HTML — keep its TDK
       }
     }
@@ -3977,6 +4128,10 @@ export default function App() {
     // "Alternate page with proper canonical tag" on 2026-10-19.
     const canonicalPath =
       (seoKey === "products" ? productCategoryCanonicalPath(activeProductCategory) : undefined) ??
+      // Guides category axis keeps its trailing slash: the pages ship as
+      // directory indexes and Pages 308s the bare form onto the slash form, so
+      // normalizing it away would point the canonical at a redirect.
+      guidesCategoryCanonicalPath(currentPath) ??
       buildCanonicalPathFromPageConfig(pageConfig, currentPath, activePageIndex);
     // <html lang> follows the resolved route, not the SPA shell's static
     // default. The prerender now emits lang="zh" for /zh routes, but a
@@ -3994,7 +4149,36 @@ export default function App() {
       shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname) ||
       isOutOfRangePagination ||
       pageConfig?.indexingPolicy === "noindex";
-    updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+    // Thin composite guides pages are noindex by design (below the article
+    // threshold), and the prerender marks them noindex,follow. The section
+    // indexability rules above know nothing about the composite threshold, so
+    // without this the hydrated SPA would publish index,follow over a document
+    // the static HTML told Google to drop — the exact two-answers-one-URL shape
+    // check:hydration exists to catch. Keys off the same two segments the route
+    // parser uses, and only when an article is not open.
+    const isThinCompositeRoute =
+      seoKey === "guides" &&
+      Boolean(activeGuidesProductCategory) &&
+      activeGuidesCategory !== "all" &&
+      !activeGuidesArticleId &&
+      // Mirror COMPOSITE_INDEX_THRESHOLD without re-deriving the counts here:
+      // the prerender already decided, and it wrote the answer into the
+      // delivered document. Re-read it rather than duplicating the rule.
+      //
+      // Only trustworthy while we are still on the route that document was
+      // built for. After a client-side navigation the captured value describes
+      // the PREVIOUS page, so it is ignored — see DELIVERED_HEAD.
+      DELIVERED_HEAD.routePath !== "" &&
+      normalizePathname(currentPath) === DELIVERED_HEAD.routePath &&
+      DELIVERED_HEAD.robots.startsWith("noindex");
+    updateMetaTag(
+      "robots",
+      isThinCompositeRoute
+        ? "noindex,follow"
+        : noIndex
+          ? "noindex,follow,max-image-preview:large"
+          : defaultRobotsIndex,
+    );
 
     const canonicalOrigin =
       cmsSettings?.seoGlobal?.siteOrigin ||
@@ -5249,19 +5433,38 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             currentPage={activePageIndex}
             activeCategory={activeGuidesCategory}
             activeArticleId={activeGuidesArticleId}
+            activeProductCategory={activeGuidesProductCategory || ""}
             activeSearchQuery={activeGuidesSearchQuery}
             onSearchQueryChange={(query) => setActiveGuidesSearchQuery(query)}
             isAdmin={isAdmin}
             onOpenAdminGuideEditor={openAdminGuideEditor}
-            onCategoryChange={(cat) => navigateToPath(langPath(cat === "all" ? "/guides" : `/guides/${cat}`), { preserveScroll: true })}
+            // Both axes now live in the URL. A click pushes a real address
+            // (/guides/<cat>/<topic>/) instead of mutating state silently, so
+            // the view survives a refresh, can be shared, and the back button
+            // steps through the filters the reader actually applied.
+            onCategoryChange={(cat) => {
+              const nextTopic = cat === "all" ? "" : (cat as GuidesTopicPageId);
+              navigateToPath(
+                langPath(guidesFilterPath(activeGuidesProductCategory || "", nextTopic)),
+                { preserveScroll: true },
+              );
+            }}
+            onProductCategoryChange={(cat) => {
+              // Keep the topic filter when a category is chosen: the pair is
+              // the composite channel.
+              navigateToPath(
+                langPath(guidesFilterPath(cat, activeGuidesCategory === "all" ? "" : (activeGuidesCategory as GuidesTopicPageId))),
+                { preserveScroll: true },
+              );
+            }}
             onArticleOpen={(cat, articleId) => {
               rememberReturnView("guides");
               navigateToPath(langPath(`/guides/${cat}/${articleId}`), { preserveScroll: true });
             }}
-            onArticleClose={() => restoreReturnView("guides", langPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`))}
+            onArticleClose={() => restoreReturnView("guides", langPath(guidesFilterPath(activeGuidesProductCategory || "", activeGuidesCategory === "all" ? "" : (activeGuidesCategory as GuidesTopicPageId))))}
             onPageChange={(page) => {
-              const guidesPath = langPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`);
-              navigateToPath(page <= 1 ? guidesPath : `${guidesPath}/page/${page}`, { preserveScroll: true });
+              const guidesPath = langPath(guidesFilterPath(activeGuidesProductCategory || "", activeGuidesCategory === "all" ? "" : (activeGuidesCategory as GuidesTopicPageId)));
+              navigateToPath(page <= 1 ? guidesPath : `${guidesPath.replace(/\/$/, "")}/page/${page}`, { preserveScroll: true });
             }}
             onPaginationMetaChange={(meta) => setGuidesPaginationTotalPages(meta.totalPages)}
             onActiveArticleMeta={setGuidesArticleSeoMeta}

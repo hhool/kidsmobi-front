@@ -43,6 +43,27 @@ import {
   GUIDES_TOPIC_PAGE_IDS,
   GUIDES_TOPIC_PAGES,
 } from "../lib/guidesTopicPages";
+import {
+  guidesFilterPath,
+  isGuideCategoryId,
+  isGuideTopicId,
+  type GuideCategoryId as GuideProductCategoryId,
+  type GuideTopicId,
+} from "../lib/guidesCategoryTopic";
+import {
+  buildGuidesCategoryCopy,
+  buildGuidesCompositeCopy,
+  type GuidesCompositeCopy,
+} from "../lib/guidesCompositePage";
+import type { GuidesTopicPageId } from "../lib/guidesTopicPages";
+
+/**
+ * Local mirror of App.tsx's langPath(): the guides family is translated, so a
+ * Chinese page links the Chinese edition of the same channel route. Kept local
+ * because that helper is a closure over the current path inside App.
+ */
+const localizedGuidesPath = (lang: "zh" | "en", path: string): string =>
+  lang === "zh" && path !== "/" ? `/zh${path}` : path;
 import { guidesArticleKeywords } from "../lib/pageKeywords";
 import { cmsSeoTitleOverride } from "../lib/seoTitleOverrides";
 
@@ -634,9 +655,17 @@ interface GuidesSectionProps {
   currentPage?: number;
   activeCategory?: string;
   activeArticleId?: string;
+  /**
+   * Guide-side product-category id from /guides/<category>[/<topic>]. Empty
+   * string when the route carries no category segment. See
+   * src/lib/guidesCategoryTopic.ts for the vocabulary.
+   */
+  activeProductCategory?: string;
   onPageChange?: (page: number) => void;
   onPaginationMetaChange?: (meta: { totalPages: number }) => void;
   onCategoryChange?: (category: string) => void;
+  /** Category-axis click; pushes /guides/<cat>/[/<topic>/]. */
+  onProductCategoryChange?: (category: string) => void;
   onArticleOpen?: (category: string, articleId: string) => void;
   onArticleClose?: () => void;
   activeSearchQuery?: string;
@@ -661,9 +690,11 @@ export default function GuidesSection({
   currentPage = 1,
   activeCategory,
   activeArticleId,
+  activeProductCategory = "",
   onPageChange,
   onPaginationMetaChange,
   onCategoryChange,
+  onProductCategoryChange,
   onArticleOpen,
   onArticleClose,
   activeSearchQuery,
@@ -674,8 +705,41 @@ export default function GuidesSection({
   reviewsData,
   onOpenReviewPath,
 }: GuidesSectionProps) {
-  /** Topic index being viewed; see resolveGuidesTopicPage for what it suppresses. */
-  const topicPage = resolveGuidesTopicPage(activeCategory, activeArticleId);
+  /**
+   * Topic index being viewed; see resolveGuidesTopicPage for what it suppresses.
+   *
+   * A COMPOSITE route (/guides/<category>/<topic>/) also carries a topic id in
+   * activeCategory, but it is not the bare topic channel: it renders its own
+   * heading (category · topic) and its own listing. Letting the topic page win
+   * would print the plain topic <h1> and intro on a page whose title names both
+   * axes — so the product axis has to be empty for the topic page to apply.
+   */
+  const topicPage = activeProductCategory
+    ? null
+    : resolveGuidesTopicPage(activeCategory, activeArticleId);
+
+  /**
+   * Head copy for the category axis (/guides/<category>/<topic>/ and
+   * /guides/<category>/). Computed here from the URL segments for the same
+   * reason topicPage is: the prerender's <h1> does not survive hydration, so
+   * the SPA must produce the identical heading from the identical module.
+   * Null on every other route — /guides itself keeps the wizard heading.
+   */
+  const compositeCopy: GuidesCompositeCopy | null = useMemo(() => {
+    if (activeArticleId) return null;
+    if (!isGuideCategoryId(activeProductCategory)) return null;
+    if (isGuideTopicId(activeCategory)) {
+      return buildGuidesCompositeCopy(activeProductCategory, activeCategory as GuideTopicId, lang);
+    }
+    if (!activeCategory || activeCategory === "all") {
+      const categoryCopy = buildGuidesCategoryCopy(activeProductCategory, lang);
+      return {
+        ...categoryCopy,
+        listHeading: categoryCopy.h1,
+      };
+    }
+    return null;
+  }, [activeProductCategory, activeCategory, activeArticleId, lang]);
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
   const [cmsSourceActive, setCmsSourceActive] = useState<boolean>(false);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
@@ -717,11 +781,34 @@ export default function GuidesSection({
     }
   }, [activeCategory]);
 
+  // The category axis now comes from the URL (/guides/<cat>[/<topic>]), so the
+  // URL is the authority: a direct visit or a back-button step has to restore
+  // the chip that matches the address, not whatever the previous render left
+  // in state. Done in an effect (not during render) so the wizard and the
+  // library settle on the same value.
+  useEffect(() => {
+    const urlCategory = activeProductCategory || "all";
+    setWizardCategory((current) => (current === urlCategory ? current : urlCategory));
+  }, [activeProductCategory]);
+
   const handleCategoryClick = (catId: string) => {
     if (onCategoryChange) {
       onCategoryChange(catId);
     } else {
       setSelectedCategory(catId);
+    }
+  };
+
+  /**
+   * Category-axis click. Goes through the URL so the address bar reflects the
+   * filter pair (/guides/<category>/<topic>/). The in-page state follows from
+   * the route on the next render — one source of truth instead of two.
+   */
+  const handleProductCategoryClick = (catId: string) => {
+    if (onProductCategoryChange) {
+      onProductCategoryChange(catId);
+    } else {
+      setWizardCategory(catId);
     }
   };
 
@@ -1380,7 +1467,19 @@ export default function GuidesSection({
                 <Zap className="w-4 h-4 text-orange-500 fill-orange-500 animate-pulse" />
                 {lang === "en" ? "Smart Wizard" : "智能选车助手"}
               </span>
-            {topicPage ? (
+            {compositeCopy ? (
+              // /guides/<category>[/<topic>]: mirror the prerendered heading.
+              // Same reason as the topic branch below — the static <h1> is
+              // discarded when React takes over, so the SPA has to print it.
+              <>
+                <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl">
+                  {compositeCopy.h1}
+                </h1>
+                <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
+                  {compositeCopy.intro}
+                </p>
+              </>
+            ) : topicPage ? (
               // /guides/<topic>: mirror the prerendered heading.
               //
               // The prerendered <h1> sits INSIDE #root, and the app mounts
@@ -1693,28 +1792,37 @@ export default function GuidesSection({
               </span>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
                 {[
-                  // Each chip carries a real, crawlable URL. The wizard still
-                  // filters in place on click (preventDefault), but a crawler,
-                  // a middle-click or a shared link now reaches a page with its
-                  // own TDK instead of an unaddressable JS-only state. Product
-                  // hubs are the successors of the retired thin category
-                  // pillars (S8) — do not point at /guides/<category>, those
-                  // paths have never existed and answer 404.
-                  { id: "all", emoji: "🌐", labelEn: "All Categories", labelZh: "全部品类", href: "/guides" },
-                  { id: "stroller", emoji: "🛒", labelEn: "Stroller", labelZh: "安全伞车/手推车", href: "/products/strollers/" },
-                  { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车", href: "/products/kids-bikes/" },
-                  { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车", href: "/products/kids-scooters/" },
-                  { id: "balance", emoji: "🚲", labelEn: "Balance Bike", labelZh: "学步滑步平衡车", href: "/products/balance-bikes/" },
-                  { id: "electric_car", emoji: "⚡", labelEn: "Kids electric Car", labelZh: "儿童电动车", href: "/products/electric-cars/" },
+                  // Each chip carries a real, crawlable URL and a click now
+                  // PUSHES that URL (2026-11-24). Before this, the click only
+                  // mutated wizardCategory: the address bar stayed on /guides,
+                  // so a refresh lost the filter, a shared link could not
+                  // reproduce it, and no crawler saw the narrowed document.
+                  // The href is built from the same helper the router reads, so
+                  // the address a reader lands on is the address the click
+                  // pushed — /guides/<category>/<topic>/ keeps the topic filter
+                  // when one is active.
+                  { id: "all", emoji: "🌐", labelEn: "All Categories", labelZh: "全部品类" },
+                  { id: "stroller", emoji: "🛒", labelEn: "Stroller", labelZh: "安全伞车/手推车" },
+                  { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车" },
+                  { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车" },
+                  { id: "balance", emoji: "🚲", labelEn: "Balance Bike", labelZh: "学步滑步平衡车" },
+                  { id: "electric_car", emoji: "⚡", labelEn: "Kids electric Car", labelZh: "儿童电动车" },
                 ].map((cat) => (
                   <a
                     key={cat.id}
-                    href={cat.href}
+                    href={localizedGuidesPath(
+                      lang,
+                      guidesFilterPath(
+                        (cat.id === "all" ? "" : cat.id) as GuideProductCategoryId | "",
+                        (activeCategory && activeCategory !== "all" ? activeCategory : "") as GuidesTopicPageId | "",
+                      ),
+                    )}
                     onClick={(event) => {
-                      // Keep the in-page filter as the primary interaction;
-                      // the href is the crawl/share fallback.
+                      // Let modified clicks (middle/ctrl/cmd) fall through to
+                      // the browser — the href is a real page.
+                      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
                       event.preventDefault();
-                      setWizardCategory(cat.id);
+                      handleProductCategoryClick(cat.id);
                     }}
                     aria-pressed={wizardCategory === cat.id}
                     className={`py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 font-black text-[11px] leading-none transition-all border cursor-pointer active:scale-95 select-none no-underline ${
@@ -1885,7 +1993,7 @@ export default function GuidesSection({
           document and the hydrated view cannot drift. English /guides only:
           /zh/guides has no Chinese-language category hubs and check:zh-english
           forbids English UI strings there. */}
-      {lang === "en" && !selectedGuideState && !topicPage && (
+      {lang === "en" && !selectedGuideState && !topicPage && !compositeCopy && (
         <section
           className="rounded-[32px] border border-slate-100 bg-white p-6 sm:p-8 shadow-sm"
           aria-label="Buying guides by category"
@@ -1902,7 +2010,7 @@ export default function GuidesSection({
             "What is listed here?", "Common questions" and "Explore more". The
             generic library explainer is guides-hub copy, so it is skipped on
             those routes instead of being prefixed to the list. */}
-        {!selectedGuideState && !topicPage && (
+        {!selectedGuideState && !topicPage && !compositeCopy && (
           <section className="bg-white border border-slate-100 rounded-[32px] p-6 sm:p-8 shadow-sm space-y-6">
             <h2 className="km-section-title text-slate-900">{lang === "en" ? "What each guide type covers" : "不同指南类型分别解决什么问题？"}</h2>
             <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
@@ -2314,11 +2422,25 @@ export default function GuidesSection({
                       const Icon = c.icon || BookOpen;
                       const count = c.id === "all" ? activeArticlesList.length : guideCategoryCounts[c.id] || 0;
                       return (
-                        <button
+                        <a
                           key={c.id}
-                          onClick={() => {
-                            setSelectedCategory(c.id);
-                            onPageChange?.(1);
+                          // Topic tiles used to be <button>: clicking one only
+                          // swapped React state, so the URL stayed on /guides
+                          // and the filtered library had no address. They are
+                          // anchors now — the click pushes /guides/<cat>/<topic>/
+                          // (or /guides/<topic>/ when no category is active),
+                          // which also makes them crawlable.
+                          href={localizedGuidesPath(
+                            lang,
+                            guidesFilterPath(
+                              (activeProductCategory || "") as GuideProductCategoryId | "",
+                              (c.id === "all" ? "" : c.id) as GuidesTopicPageId | "",
+                            ),
+                          )}
+                          onClick={(event) => {
+                            if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+                            event.preventDefault();
+                            handleCategoryClick(c.id);
                           }}
                           className={`text-left rounded-3xl border px-6 py-5 transition-all group cursor-pointer active:scale-[0.98] ${
                             selectedCategory === c.id
@@ -2338,7 +2460,7 @@ export default function GuidesSection({
                             </div>
                             <span className={`text-[10px] font-black rounded-full px-2.5 py-1 shrink-0 border transition-colors ${selectedCategory === c.id ? "bg-white/15 border-white/20 text-white" : "bg-slate-50 border-slate-100 text-slate-400 group-hover:bg-orange-50 group-hover:border-orange-100"}`}>{count}</span>
                           </div>
-                        </button>
+                        </a>
                       );
                     })}
                   </div>
