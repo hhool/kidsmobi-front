@@ -44,7 +44,17 @@
  * Usage:
  *   node scripts/fill-guides-stroller-gaps.mjs              # dry run
  *   CMS_ADMIN_ALL_TOKEN=<token> node scripts/fill-guides-stroller-gaps.mjs --apply
+ *   node scripts/fill-guides-stroller-gaps.mjs --sql        # emit a D1 .sql file
  *   node scripts/fill-guides-stroller-gaps.mjs --verify     # re-fetch and assert
+ *
+ * --sql exists because the admin token is a Worker SECRET and is not held in
+ * this environment (checked: absent from env, .env*, keychain, both GitHub
+ * repos' Actions secrets; local wrangler OAuth expired 2026-11-07). Writing
+ * cms_records directly is the precedent already used for the three compare
+ * evaluations in the 2026-09-29 round. The emitted file is a plain
+ * `wrangler d1 execute --file --remote` input, and it is written with the same
+ * buildRecord() output as --apply, so the two paths cannot diverge in content.
+ * It refuses to emit for a slug the live CMS already publishes.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -52,6 +62,7 @@ import { adminHeaders } from "./_cmsAdminToken.mjs";
 
 const APPLY = process.argv.includes("--apply");
 const VERIFY = process.argv.includes("--verify");
+const EMIT_SQL = process.argv.includes("--sql");
 const API_BASE = (process.env.CMS_API_BASE || "https://store.balancebiketoddler.com").replace(/\/+$/, "");
 const TOKEN = String(process.env.CMS_ADMIN_ALL_TOKEN || "").trim();
 
@@ -80,7 +91,13 @@ const ARTICLES = [
     // cut mid-clause by buildDocumentTitle() — the first draft of this batch
     // shipped "Stroller Price Tiers: What Each Step Up | BalanceBikeToddler".
     // The full detail lives in the description, not in the tab title.
-    title: "Stroller Price Tiers: What You Pay For",
+    //
+    // It also must not END on a function word. "What You Pay For" reads fine
+    // but is 59 chars total, and check-prerender-titles.mjs treats a title
+    // ending in "for" at >=56 chars as a truncation scar (it cannot tell an
+    // authored "for" from a cut one that close to the cap). "What Changes"
+    // closes on a content word at 55.
+    title: "Stroller Price Tiers: What Changes",
     description:
       "Splitting the stroller market into price tiers, and naming the one feature that changes at each step — so a higher price has to justify itself.",
     keywords: ["stroller price tiers", "stroller budget guide", "what does a stroller price include", "cheap vs expensive stroller"],
@@ -580,6 +597,27 @@ const CHANNEL_TOPICS = new Set(["beginner", "scenario", "budget", "risk", "speci
  */
 const TITLE_STEM_MAX = 60 - " | BalanceBikeToddler".length;
 
+/**
+ * Function words that must not be the LAST word of a title this close to the
+ * cap. Mirrors TITLE_DANGLING_WORDS in src/lib/documentTitle.ts and the
+ * >=56-char rule in scripts/check-prerender-titles.mjs.
+ *
+ * "Stroller Price Tiers: What You Pay For" is 59 chars and reads perfectly, but
+ * the guard cannot distinguish an authored trailing "for" from one a truncation
+ * left behind at that length — so it fails the build. Catching it here is
+ * cheaper than discovering it after the CMS row exists.
+ */
+const TITLE_DANGLING_WORDS = new Set([
+  "a", "an", "the", "and", "or", "but", "nor", "as", "at", "by", "for", "from",
+  "in", "of", "on", "to", "with", "than", "then", "that", "this", "these",
+  "those", "it", "its", "is", "are", "was", "we", "our", "you", "your", "who",
+  "how", "what", "when", "where", "why", "&",
+]);
+
+/** Same window as the title guard: below 56 chars a trailing function word is
+ *  unambiguously authored, so only the near-cap case is a defect. */
+const TITLE_TRUNCATION_MIN_LEN = 60 - 4;
+
 /** Local checks that run before anything touches the network. */
 function selfCheck(topicBySlug, publishedSlugs) {
   const problems = [];
@@ -602,6 +640,16 @@ function selfCheck(topicBySlug, publishedSlugs) {
     if (!/^##\s/m.test(a.en) || !/##/.test(a.zh)) problems.push(`${a.slug}: missing section headings`);
     if (a.title.length > TITLE_STEM_MAX) {
       problems.push(`${a.slug}: title stem ${a.title.length} chars — truncates (max ${TITLE_STEM_MAX} before the brand suffix)`);
+    }
+    // A near-cap title ending on a function word is indistinguishable from a
+    // truncated one, so the title guard rejects it. Check the assembled string,
+    // exactly as buildDocumentTitle() would emit it.
+    {
+      const full = `${a.title} | BalanceBikeToddler`;
+      const tail = a.title.split(" ").pop().toLowerCase().replace(/[^a-z0-9.]/g, "");
+      if (tail && TITLE_DANGLING_WORDS.has(tail) && full.length >= TITLE_TRUNCATION_MIN_LEN) {
+        problems.push(`${a.slug}: title ends on "${tail}" at ${full.length} chars — reads as truncated (check:${"titles"})`);
+      }
     }
     if (a.description.length > 158) problems.push(`${a.slug}: description ${a.description.length} chars (>158)`);
     // The Chinese SEO block is not optional: prerender gates the /zh edition on
@@ -762,6 +810,42 @@ async function main() {
   }
 
   if (!planned.length) { console.log("Nothing to do — all 7 already exist."); return; }
+
+  // Emit a D1 script instead of POSTing. Same buildRecord() output as --apply,
+  // serialised the way the Worker's saveCMSRecord() stores it: the whole record
+  // as a JSON blob in `payload`, keyed by (collection, id).
+  if (EMIT_SQL) {
+    const dir = join(process.cwd(), ".workbuddy", "tmp", "guides-fill-b1");
+    mkdirSync(dir, { recursive: true });
+    const sqlFile = join(dir, "insert-guides-b1.sql");
+    const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
+    const lines = [
+      "-- R48 batch 1: 7 stroller guides, taking every stroller combination to >=3.",
+      "-- Generated by scripts/fill-guides-stroller-gaps.mjs --sql.",
+      "-- Apply: wrangler d1 execute my_d1_j13_binder --remote --file <this file>",
+      "--",
+      "-- The INSERT matches the Worker's saveCMSRecord() upsert shape exactly:",
+      "-- payload is the entire record as one JSON blob, not a column per field.",
+      "-- ON CONFLICT is deliberately DO NOTHING, not DO UPDATE: these are new",
+      "-- records, and a slug that has appeared since the dry run must fail loudly",
+      "-- rather than silently overwrite an editor's work.",
+      "",
+    ];
+    for (const { slug, rec } of planned) {
+      lines.push(
+        `INSERT INTO cms_records (collection, id, payload, updated_at)`,
+        `VALUES ('guides', ${q(rec.id)}, ${q(JSON.stringify(rec))}, ${q(new Date().toISOString())})`,
+        `ON CONFLICT(collection, id) DO NOTHING;`,
+        "",
+      );
+    }
+    writeFileSync(sqlFile, lines.join("\n"), "utf8");
+    writeFileSync(join(dir, "records-b1.json"), JSON.stringify(planned.map((p) => p.rec), null, 2));
+    console.log(`wrote ${sqlFile}  (${planned.length} INSERT, ${lines.join("\n").length} bytes)`);
+    console.log(`wrote ${join(dir, "records-b1.json")} (same payloads, for --verify cross-check)`);
+    return;
+  }
+
   if (!APPLY) { console.log(`\nDry run: ${planned.length} record(s) would be created. Re-run with --apply.`); return; }
 
   const backupDir = join(process.cwd(), ".workbuddy", "tmp", "guides-fill-b1");
