@@ -857,9 +857,17 @@ const DELIVERED_HEAD = (() => {
     const canonicalPath = canonicalHref
       ? new URL(canonicalHref, window.location.origin).pathname
       : "";
-    return { robots, canonicalPath, routePath: normalizePathname(window.location.pathname) };
+    // The delivered <h1>, captured at module load — before React mounts and
+    // discards #root. Article routes need it: the SPA cannot know an article's
+    // heading until the CMS fetch resolves, so between load and resolve it used
+    // to render the guides wizard <h1> over an article body. Measured window on
+    // /zh/guides/best/best-balance-bike-for-2-year-olds: correct at 200ms, wrong
+    // at 600/1200/2000ms, correct at 3000ms. The prerender has always had the
+    // right heading; nothing read it. Captured here for the holding render.
+    const h1 = (document.querySelector("h1")?.textContent || "").trim();
+    return { robots, canonicalPath, routePath: normalizePathname(window.location.pathname), h1 };
   } catch {
-    return { robots: "", canonicalPath: "", routePath: "" };
+    return { robots: "", canonicalPath: "", routePath: "", h1: "" };
   }
 })();
 
@@ -5486,6 +5494,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeCategory={activeGuidesCategory}
             activeArticleId={activeGuidesArticleId}
             activeProductCategory={activeGuidesProductCategory || ""}
+            deliveredArticleH1={DELIVERED_HEAD.h1}
             activeSearchQuery={activeGuidesSearchQuery}
             onSearchQueryChange={(query) => setActiveGuidesSearchQuery(query)}
             isAdmin={isAdmin}

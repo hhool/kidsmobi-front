@@ -131,7 +131,42 @@ const ROUTES = [
   '/zh/guides/beginner/stroller-travel-airplane',
   '/zh/guides/beginner/balance-bike-size-chart',
   '/zh/news/industry/electric-dirt-bikes-for-kids',
+  // 2026-11-24 category axis (R47) + batch-2 balance fill. The 35 composite
+  // pages and 5 category hubs are exactly the class of page whose header is
+  // written by a SPA branch that can silently disagree with the prerender —
+  // the three defects R47 shipped (title overwritten by the category block,
+  // thin-page robots read from the live DOM, duplicated hreflang nodes) were
+  // ALL invisible to the static guards and visible only here. Sampling one
+  // hub, one indexable composite, one thin composite and one ZH composite
+  // keeps the probe representative without fetching 40 pages per run:
+  //   - /guides/stroller/ : category hub, 1327 words, must keep its own TDK
+  //   - /guides/balance/best/ : composite that flipped to index,follow when
+  //     batch 2 took the combination to 3 — the noindex->index transition is
+  //     decided by a build-time count, so the hydrated DOM must agree
+  //   - /guides/bicycle/risk/ : still below COMPOSITE_INDEX_THRESHOLD, so the
+  //     hydrated page must KEEP noindex,follow with a SELF canonical
+  //   - /zh/guides/best/best-balance-bike-for-2-year-olds : a Chinese article
+  //     from batch 2. NOTE: the category axis was never built for /zh (R47
+  //     deliberately shipped EN-only, so /zh keeps the topic axis:
+  //     /zh/guides/<topic>/<slug>). There is no /zh/guides/<cat>/<topic>/ page,
+  //     which is exactly the kind of assumption this list must not encode —
+  //     the first draft of this entry pointed at a 404.
+  '/guides/stroller/',
+  '/guides/balance/best/',
+  '/guides/bicycle/risk/',
+  '/zh/guides/best/best-balance-bike-for-2-year-olds',
 ];
+
+// Composite pages are noindex below COMPOSITE_INDEX_THRESHOLD=3 and indexable
+// at or above it. The count lives in the CMS and is applied at build time, so
+// the hydrated page inherits a decision it cannot recompute — it must keep
+// whatever the prerender wrote. Pinning the expected value here is what makes
+// the probe able to catch a hydration that overwrites robots with a default.
+const EXPECT_ROBOTS = {
+  '/guides/stroller/': 'index,follow',
+  '/guides/balance/best/': 'index,follow',
+  '/guides/bicycle/risk/': 'noindex,follow',
+};
 
 // Every hub must still link its own topic indexes AFTER hydration. The
 // prerendered hub HTML is not enough: everything it emits lives inside #root,
@@ -240,6 +275,14 @@ for (const route of ROUTES) {
           // ran with an empty array); the A2 source split had it disagree with
           // the prerendered value. Both are invisible to curl.
           keywords: document.querySelector('meta[name="keywords"]')?.getAttribute('content') || null,
+          // The hydrated robots meta, and the canonical it was paired with.
+          // Composite pages carry a build-time decisions (index vs noindex from
+          // COMPOSITE_INDEX_THRESHOLD) plus a SELF canonical on the thin branch.
+          // Both are written by the prerender; if hydration re-derives robots
+          // from a default, the page promises Google the opposite of the
+          // sitemap — and the static HTML looks correct the whole time.
+          robots: document.querySelector('meta[name="robots"]')?.getAttribute('content') || null,
+          canonical: document.querySelector('link[rel="canonical"]')?.getAttribute('href') || null,
           // A markdown marker that survived into the hydrated DOM means the
           // app's renderer parsed a syntax level the prerender's did (or the
           // other way round). The static HTML looked perfect the whole time.
@@ -286,6 +329,10 @@ for (const route of ROUTES) {
           if (missing.length) {
             why = `hub does not link its topic index(es) after hydration: ${missing.join(', ')}`;
           }
+        }
+        const wantRobots = EXPECT_ROBOTS[route];
+        if (!why && wantRobots && !String(probe.robots || '').includes(wantRobots)) {
+          why = `robots changed on hydration — prerender wrote "${wantRobots}", hydrated page has "${probe.robots}"`;
         }
       }
     }

@@ -661,6 +661,14 @@ interface GuidesSectionProps {
    * src/lib/guidesCategoryTopic.ts for the vocabulary.
    */
   activeProductCategory?: string;
+  /**
+   * The <h1> the server delivered for this URL, captured before React mounts.
+   *
+   * Only consulted while an article route is waiting for the CMS library, so
+   * the page keeps the heading the static HTML published instead of falling
+   * through to the wizard block. See App.tsx DELIVERED_HEAD.
+   */
+  deliveredArticleH1?: string;
   onPageChange?: (page: number) => void;
   onPaginationMetaChange?: (meta: { totalPages: number }) => void;
   onCategoryChange?: (category: string) => void;
@@ -691,6 +699,7 @@ export default function GuidesSection({
   activeCategory,
   activeArticleId,
   activeProductCategory = "",
+  deliveredArticleH1 = "",
   onPageChange,
   onPaginationMetaChange,
   onCategoryChange,
@@ -1061,6 +1070,21 @@ export default function GuidesSection({
       };
     });
   }, [guideArticles, generatedGuideArticles, lang, cmsSourceActive]);
+
+  // Is this an article URL whose record genuinely is not in the library?
+  //
+  // This is the line between "not loaded yet" and "no such article", and it
+  // needs both halves: the CMS must have settled (otherwise every article looks
+  // missing for the first second) AND no record may match the slug. Only then
+  // is the wizard the correct thing to render. `loadingGuides` alone cannot
+  // answer it — it flips false a tick before guideArticles recomputes — and a
+  // plain "no match" cannot either, because the initial state is the static
+  // fallback list, which knows none of the CMS slugs.
+  const articleMissing =
+    Boolean(activeArticleId) &&
+    !loadingGuides &&
+    cmsSourceActive &&
+    !allGuideArticles.some((g) => isGuideArticleRouteMatch(String(activeArticleId), g));
 
   // Keep the latest callback in a ref so unmount cleanup cannot go stale.
   const onActiveArticleMetaRef = useRef(onActiveArticleMeta);
@@ -1455,7 +1479,52 @@ export default function GuidesSection({
       {/* ========================================================
           Part 1: 智能选购匹配工效算力工具 (Interactive Match Wizard)
           ======================================================== */}
-      {!selectedGuideState && (
+      {/*
+        Holding state for an article route whose record is not available yet.
+
+        `selectedGuideState` is only populated once the CMS fetch resolves, so
+        on an article URL it is null for a window of up to ~3s. The old guard
+        (`!selectedGuideState`) therefore rendered the WIZARD during that
+        window: the page showed the wizard <h1> ("全品类工效学智能选车计算器" /
+        "Smart Wizard: …") above an article body, then flipped back when the
+        record landed. Measured on
+        /zh/guides/best/best-balance-bike-for-2-year-olds: correct at 200ms,
+        wrong at 600/1200/2000ms, correct again at 3000ms.
+
+        That is not cosmetic: the prerendered <h1> is discarded when React
+        mounts, so whatever the SPA prints in that window IS the page heading
+        for any renderer that snapshots early, and h1 is the strongest on-page
+        relevance signal. Every static guard passed throughout, because the
+        static HTML was correct the whole time.
+
+        The heading is not invented here — the prerender already wrote it, and
+        DELIVERED_HEAD captured it before mount. Printing it keeps the crawled
+        heading stable across the whole hydration window and stops the wizard
+        from flashing.
+
+        Why the condition is "no matching record yet" rather than "still
+        loading": `setLoadingGuides(false)` is flushed a tick before
+        `guideArticles` recomputes and before the sync effect promotes the
+        record to `selectedGuideState`. That gap is a real render where
+        `loadingGuides` is already false and `selectedGuideState` is still null
+        — it re-showed the wizard after the fetch had finished (caught on
+        /guides/best/best-lightweight-balance-bike at 700ms and 3500ms). Keying
+        on the record instead of the flag closes both.
+
+        `aria-busy` marks the region as in flight so assistive tech does not
+        announce a half-built article.
+      */}
+      {!selectedGuideState && activeArticleId && !articleMissing && (
+        <div className="space-y-6" aria-busy="true" aria-live="polite">
+          {deliveredArticleH1 && (
+            <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl">
+              {deliveredArticleH1}
+            </h1>
+          )}
+        </div>
+      )}
+
+      {!selectedGuideState && (!activeArticleId || articleMissing) && (
         <section className="bg-white border border-slate-100 rounded-[48px] p-8 sm:p-10 shadow-xl shadow-slate-200/50 text-left relative overflow-hidden">
           
           {/* Background blobs for B2C feel */}
