@@ -15,7 +15,7 @@
  * scripts/check-hreflang.mjs compares this list against the delivered dist
  * route by route, so drift fails the build rather than shipping silently.
  *
- * 95 route(s).
+ * 106 route(s).
  */
 
 export const ZH_ROUTE_PATHS: readonly string[] = [
@@ -29,6 +29,7 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/beginner/graco-modes-pramette-travel-system",
   "/zh/guides/beginner/how-to-choose-the-perfect-baby-stroller",
   "/zh/guides/beginner/kids-bike-first-by-age",
+  "/zh/guides/beginner/kids-bike-pedal-start-and-stopping",
   "/zh/guides/beginner/kids-bike-size-chart",
   "/zh/guides/beginner/kids-ride-on-12v-vs-24v",
   "/zh/guides/beginner/kids-scooter-3-vs-2-wheel",
@@ -38,6 +39,7 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/best/best-double-stroller-2026",
   "/zh/guides/best/best-electric-car-for-kids-2026",
   "/zh/guides/best/best-jogger-stroller-2026",
+  "/zh/guides/best/best-kids-bike-for-4-year-olds",
   "/zh/guides/best/best-lightweight-balance-bike",
   "/zh/guides/best/best-travel-stroller-2026",
   "/zh/guides/best/kids-bike-best-16-inch",
@@ -49,7 +51,9 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/budget/balance-bike-price-tiers",
   "/zh/guides/budget/balance-bike-resale-and-hand-me-downs",
   "/zh/guides/budget/balance-bike-under-100",
+  "/zh/guides/budget/kids-bike-secondhand-buying",
   "/zh/guides/budget/kids-bike-under-100",
+  "/zh/guides/budget/kids-bike-when-to-spend-more",
   "/zh/guides/budget/kids-ride-on-under-200",
   "/zh/guides/budget/kids-scooter-under-50",
   "/zh/guides/budget/stroller-price-tiers-what-you-pay-for",
@@ -58,7 +62,9 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/maintenance/balance-bike-frame-and-fastener-checks",
   "/zh/guides/maintenance/balance-bike-maintenance",
   "/zh/guides/maintenance/balance-bike-tyre-and-wheel-care",
+  "/zh/guides/maintenance/kids-bike-brake-pad-and-cable-service",
   "/zh/guides/maintenance/kids-bike-chain-tire-care",
+  "/zh/guides/maintenance/kids-bike-storage-and-winter-layup",
   "/zh/guides/maintenance/kids-ride-on-battery-care",
   "/zh/guides/maintenance/kids-ride-on-winter-storage",
   "/zh/guides/maintenance/kids-scooter-fix-wobbly-wheel",
@@ -68,7 +74,9 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/risk/balance-bike-recalls",
   "/zh/guides/risk/balance-bike-safety-checks",
   "/zh/guides/risk/balance-bike-safety-standards",
+  "/zh/guides/risk/kids-bike-falls-and-first-response",
   "/zh/guides/risk/kids-bike-helmet-fit",
+  "/zh/guides/risk/kids-bike-lights-and-visibility",
   "/zh/guides/risk/kids-ride-on-weight-limit",
   "/zh/guides/risk/kids-scooter-helmet-pads",
   "/zh/guides/risk/stroller-brake-and-restraint-checks",
@@ -78,6 +86,8 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/scenario/balance-bike-indoors-and-small-spaces",
   "/zh/guides/scenario/best-travel-stroller-for-3-year-old",
   "/zh/guides/scenario/compact-travel-stroller",
+  "/zh/guides/scenario/kids-bike-family-ride-logistics",
+  "/zh/guides/scenario/kids-bike-riding-to-school",
   "/zh/guides/scenario/kids-bike-teach-to-ride",
   "/zh/guides/scenario/kids-ride-on-best-3-year",
   "/zh/guides/scenario/kids-scooter-best-6-8-school",
@@ -95,6 +105,7 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/special/balance-bikes-for-twins-and-siblings",
   "/zh/guides/special/kids-bike-balance-vs-training-wheels",
   "/zh/guides/special/kids-bike-coaster-vs-hand-brake",
+  "/zh/guides/special/kids-bike-for-a-child-with-low-tone",
   "/zh/guides/special/kids-ride-on-2-seater-vs-single",
   "/zh/guides/special/kids-ride-on-parental-remote",
   "/zh/guides/special/kids-ride-on-tires-grass",
