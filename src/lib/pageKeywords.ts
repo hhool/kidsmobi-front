@@ -69,6 +69,15 @@ import {
   type GuidesTopicPageId,
 } from "./guidesTopicPages";
 import { GUIDE_SLUG_CATEGORY } from "../data/guideArticleCategories.generated";
+import {
+  GUIDE_CATEGORY_LABELS,
+  GUIDE_TOPIC_LABELS,
+  GUIDE_TOPIC_PLAIN_LABELS,
+  isGuideCategoryId,
+  isGuideTopicId,
+  type GuideCategoryId,
+  type GuideTopicId,
+} from "./guidesCategoryTopic";
 
 export type KeywordLang = "zh" | "en";
 
@@ -461,6 +470,64 @@ export function guidesArticleKeywords(
 }
 
 /**
+ * Keyword set for the guides CATEGORY axis: /guides/<category>/ and
+ * /guides/<category>/<topic>/.
+ *
+ * These two shapes shipped on 2026-11-24 with no resolver branch, and because
+ * they are structurally identical to the pre-existing article shapes they did
+ * not fall through to the unknown-route fallback — they resolved as ARTICLES:
+ *
+ *   /guides/stroller/budget/   matched ^/guides/([^/]+)/([^/]+)/?$  with
+ *                              topicSegment="stroller", slug="budget"
+ *   /guides/stroller/          matched ^/guides/([^/]+)/?$           with
+ *                              topic="stroller"
+ *
+ * Neither segment is a topic id, so both took the `GUIDES_TOPIC_PAGES.beginner`
+ * tail — every one of the 7 composite pages published the balance-bike beginner
+ * set ("balance bike guide, first balance bike, …"), which is precisely the
+ * 21/21 cross-family mismatch that started the 2026-11-23 review. Caught on the
+ * live site after deploy; the build guards only assert that a keyword term
+ * appears, not that it belongs to the right product family.
+ *
+ * The set is composed from the same label maps the pages render, so a category
+ * or topic rename cannot leave the keywords behind.
+ */
+export function guidesCategoryAxisKeywords(
+  category: string,
+  lang: KeywordLang,
+  topic?: string,
+): string[] {
+  const categoryLabel = GUIDE_CATEGORY_LABELS[category as GuideCategoryId]?.[lang];
+  if (!categoryLabel) return [...GUIDES_TOPIC_PAGES.beginner.keywords[lang]];
+  const lower = String(categoryLabel).toLowerCase();
+  // The tail phrases are LANGUAGE-SPECIFIC, not templated. Concatenating the
+  // localised product name with an English tail produced "婴儿推车 guides" and
+  // "婴儿推车 buying guide" — half-English keyword tags on a Chinese page, which
+  // is both useless and the kind of thing a manual review reads as machine
+  // output. Chinese gets Chinese tails; there is no natural-language suffix
+  // that works for both.
+  const tails = lang === "zh"
+    ? ["指南", "选购指南", "怎么选"]
+    : ["guides", "buying guide", "how to choose"];
+  const terms = new Set<string>(tails.map((tail) => `${lower} ${tail}`));
+  // Chinese does not put a space between the product and the qualifier, so the
+  // topic variant is joined without one.
+  const join = (a: string, b: string) => (lang === "zh" ? `${a}${b}` : `${a} ${b}`);
+  const topicLabel = topic ? GUIDE_TOPIC_LABELS[topic as GuideTopicId]?.[lang] : null;
+  if (topicLabel) {
+    // Lower-case the label: these are tile faces ("Budget Guide"), but inside a
+    // keyword phrase mid-sentence they read as a title ("baby stroller Budget
+    // Guide"). Chinese has no case, so this is a no-op there.
+    terms.add(join(lower, String(topicLabel).toLowerCase()));
+    const plain = GUIDE_TOPIC_PLAIN_LABELS[topic as GuideTopicId]?.[lang];
+    if (plain) terms.add(join(lower, String(plain).toLowerCase()));
+  }
+  // Keep the family word first so the tag opens with the product, and drop any
+  // empty term a missing label would otherwise produce ("stroller ").
+  return [...terms].map((t) => t.replace(/\s+/g, " ").trim()).filter(Boolean);
+}
+
+/**
  * Asset routes are keyed without a trailing slash. They are not all one shape:
  * six are directory indexes ("/balance-bike-weight/") but the recall record
  * became a file route when it moved under /guides/risk/ (2026-10-22), and a
@@ -579,6 +646,26 @@ export function resolveRouteKeywords(
   const reviewDetailMatch = /^\/reviews\/(single|compare|value|ranking|safety)\/[^/]+\/?$/.exec(clean);
   if (reviewDetailMatch) {
     return Array.from(new Set([...defaultKeywords("reviews", lang), ...REVIEW_DETAIL_KEYWORDS[lang]]));
+  }
+
+  // Guides CATEGORY axis, two shapes, resolved BEFORE the topic/article branches
+  // below. Order is the whole fix: /guides/<category>/ matches the topic regex
+  // and /guides/<category>/<topic>/ matches the article regex, so checking them
+  // afterwards is unreachable. The guards inside the checks are what make the
+  // earlier position safe — a segment is only claimed when it IS a category id,
+  // so /guides/beginner (a topic) and /guides/beginner/<slug> (an article) fall
+  // through untouched.
+  const guidesCategoryMatch = /^\/guides\/([^/]+)\/?$/.exec(clean);
+  if (guidesCategoryMatch && isGuideCategoryId(guidesCategoryMatch[1])) {
+    return guidesCategoryAxisKeywords(guidesCategoryMatch[1], lang);
+  }
+  const guidesCompositeMatch = /^\/guides\/([^/]+)\/([^/]+)\/?$/.exec(clean);
+  if (
+    guidesCompositeMatch &&
+    isGuideCategoryId(guidesCompositeMatch[1]) &&
+    isGuideTopicId(guidesCompositeMatch[2])
+  ) {
+    return guidesCategoryAxisKeywords(guidesCompositeMatch[1], lang, guidesCompositeMatch[2]);
   }
 
   // Guides topic pages: /guides/<topic>. Without this branch every topic

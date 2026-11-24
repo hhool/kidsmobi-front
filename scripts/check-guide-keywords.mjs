@@ -126,6 +126,50 @@ function navProblems(guidesHtml) {
   return out;
 }
 
+/**
+ * Cross-family keyword contamination on the CATEGORY axis.
+ *
+ * /guides/<category>/ and /guides/<category>/<topic>/ are structurally
+ * identical to the pre-existing topic and article shapes, so with no resolver
+ * branch of their own they were parsed as articles and published the
+ * balance-bike beginner keyword block — every stroller composite page, on the
+ * live site, for the whole of 2026-11-24. This assertion is the one that would
+ * have caught it: it compares each page's keyword tag against the product
+ * family its URL names, instead of merely checking that SOME keyword exists.
+ *
+ * Deliberately URL-driven, not page-driven: deriving the family from the page's
+ * own copy would agree with a mislabelled page.
+ */
+const FAMILY_KEYWORD = {
+  stroller: /stroller|推车/i,
+  balance: /balance[ -]bike|平衡车|滑步/i,
+  bicycle: /kids bike|bicycle|儿童自行车/i,
+  scooter: /scooter|滑板车/i,
+  electric_car: /electric car|电动车|ride-?on/i,
+};
+
+function crossFamilyProblems(htmlByRoute) {
+  const out = [];
+  for (const [route, html] of Object.entries(htmlByRoute)) {
+    // "/guides/<family>/..." -> filter(Boolean) = ["guides", family, ...], so the
+    // family is index 1. Index 2 is the topic on a composite and undefined on a
+    // category page, and using it here made the whole check a no-op that
+    // reported itself green.
+    const family = route.split("/").filter(Boolean)[1];
+    if (!FAMILY_KEYWORD[family]) continue;
+    const match = /<meta\s+name="keywords"\s+content="([^"]*)"/i.exec(html);
+    if (!match) { out.push(`${route}: no keywords meta`); continue; }
+    const kw = decode(match[1]).trim();
+    if (!kw) { out.push(`${route}: empty keywords meta`); continue; }
+    for (const [other, re] of Object.entries(FAMILY_KEYWORD)) {
+      if (other !== family && re.test(kw)) {
+        out.push(`${route}: ${family} page publishes ${other} keywords -> ${kw.slice(0, 90)}`);
+      }
+    }
+  }
+  return out;
+}
+
 function main() {
   const selftest = process.argv.includes("--selftest");
   const problems = [];
@@ -170,6 +214,26 @@ function main() {
       coreProblems(coreSrc.replace('"lightweight stroller"', '"x"'), coreBySlug, slugs, coreMin).length > 0);
     check("REVERSE: all pages back on travel-only turns red",
       coreProblems(coreSrc, Object.fromEntries(slugs.map((s) => [s, coreHtml("travel stroller")])), slugs, coreMin).length > 0);
+
+    // Category-axis cross-family check. The defect it guards shipped to
+    // production on 2026-11-24, so both directions are asserted.
+    const kwPage = (kw) => `<meta name="keywords" content="${kw}">`;
+    const axisGood = {
+      "/guides/stroller/": kwPage("baby stroller guides, baby stroller buying guide"),
+      "/guides/stroller/budget/": kwPage("baby stroller guides, baby stroller budget guide"),
+      "/guides/balance/": kwPage("balance bike guides, balance bike buying guide"),
+      "/guides/electric_car/special/": kwPage("electric car guides, electric car special-fit"),
+    };
+    check("category-axis families pass", crossFamilyProblems(axisGood).length === 0);
+    check("REVERSE: the shipped defect (stroller composite on balance-bike keywords) turns red",
+      crossFamilyProblems({
+        ...axisGood,
+        "/guides/stroller/budget/": kwPage("balance bike guide, first balance bike, balance bike for beginners"),
+      }).length > 0);
+    check("REVERSE: a balance page on stroller keywords turns red",
+      crossFamilyProblems({ ...axisGood, "/guides/balance/": kwPage("baby stroller guides, travel stroller") }).length > 0);
+    check("REVERSE: an empty keywords tag on a family page turns red",
+      crossFamilyProblems({ ...axisGood, "/guides/scooter/": kwPage("") }).length > 0);
 
     for (const c of cases) console.log(`  ${c.ok ? "OK  " : "FAIL"} ${c.name}`);
     const failed = cases.filter((c) => !c.ok);
@@ -238,6 +302,24 @@ function main() {
   const guidesHtmlPath = join(DIST, "guides.html");
   if (!existsSync(guidesHtmlPath)) problems.push("dist/guides.html missing — run npm run build");
   else problems.push(...navProblems(readFileSync(guidesHtmlPath, "utf8")));
+
+  // 4b. category-axis keyword families. Walks every built /guides/<family>/**
+  // index (the category page and all of its composites) and asserts the keyword
+  // tag belongs to the family the URL names.
+  const axisHtml = {};
+  if (existsSync(guidesDir)) {
+    for (const family of readdirSync(guidesDir)) {
+      const familyDir = join(guidesDir, family);
+      if (!existsSync(familyDir) || !statSync(familyDir).isDirectory()) continue;
+      const catIndex = join(familyDir, "index.html");
+      if (existsSync(catIndex)) axisHtml[`/guides/${family}/`] = readFileSync(catIndex, "utf8");
+      for (const sub of readdirSync(familyDir)) {
+        const subIndex = join(familyDir, sub, "index.html");
+        if (existsSync(subIndex)) axisHtml[`/guides/${family}/${sub}/`] = readFileSync(subIndex, "utf8");
+      }
+    }
+  }
+  problems.push(...crossFamilyProblems(axisHtml));
 
   // 5. source invariants.
   const guidesSectionPath = join(FRONT, "src", "components", "GuidesSection.tsx");
