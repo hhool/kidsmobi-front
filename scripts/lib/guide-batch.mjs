@@ -221,6 +221,15 @@ export function assertCopy(articles, { publishedSlugs, topicBySlug, coverUse, pr
       ...String(a.zh).matchAll(/\]\((\/guides\/[^)]+)\)/g),
     ].map((m) => m[1]);
 
+    // The Chinese body links the ENGLISH path. Every one of the 490 guide links
+    // across the 85 published Chinese bodies is /guides/..., none carries /zh,
+    // and prerender does not prefix them — so a /zh/guides/ link in a Chinese
+    // body points at a route the site never advertises. All 53 such links in
+    // batch 3 had to be corrected by hand because nothing caught them.
+    for (const m of String(a.zh).matchAll(/\]\((\/zh\/guides\/[^)]+)\)/g)) {
+      problems.push(`${a.slug}: ZH body links ${m[1]} — Chinese bodies link /guides/... (no /zh prefix)`);
+    }
+
     for (const t of targets) {
       const seg = t.replace(/^\/guides\//, "").replace(/\/$/, "").split("/");
       if (seg.length === 1) {
