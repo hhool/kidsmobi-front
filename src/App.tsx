@@ -171,8 +171,16 @@ import {
   matchGuidesChannelRoute,
   guidesCompositePath,
   guidesFilterPath,
+  isGuideCategoryId,
+  isGuideTopicId,
   type GuideCategoryId,
 } from "./lib/guidesCategoryTopic";
+// Head copy for the guides category axis, shared verbatim with the prerender so
+// a client-side click and a cold load cannot disagree about the same URL.
+import {
+  buildGuidesCategoryCopy,
+  buildGuidesCompositeCopy,
+} from "./lib/guidesCompositePage";
 import type { GuidesTopicPageId } from "./lib/guidesTopicPages";
 import {
   ZH_LANG_PREFIX,
@@ -4038,6 +4046,38 @@ export default function App() {
         : `${descStr} This is paginated page ${activePageIndex}.`;
     }
 
+    // Guides category axis TDK: /guides/<category>/ and
+    // /guides/<category>/<topic>/.
+    //
+    // These pages are the only guides routes that resolve their TDK from
+    // src/lib/guidesCompositePage.ts, and the prerender uses that same module,
+    // so both renderers agree by construction. Without this branch a CLIENT-SIDE
+    // click into the axis published the /guides section title ("Bikes, Strollers
+    // & Scooters Guides") over a page whose visible <h1> said "Baby Stroller
+    // Beginner Guides" — measured on the live site after the 2026-11-24 deploy.
+    // A refresh fixed it because hydration took the channel early-return path and
+    // kept the prerendered head, so the same URL answered differently depending
+    // on how the reader arrived.
+    //
+    // Ordering matters: this must come AFTER the own-page early return above and
+    // BEFORE the reviews overrides, and it must not touch anything when an
+    // article is open — activeGuidesArticleId set means the URL is
+    // /guides/<topic>/<slug> on the topic axis, which has its own TDK on the
+    // article-detail path.
+    if (seoKey === "guides" && activeGuidesProductCategory && !activeGuidesArticleId) {
+      if (isGuideCategoryId(activeGuidesProductCategory)) {
+        if (isGuideTopicId(activeGuidesCategory)) {
+          const compositeCopy = buildGuidesCompositeCopy(activeGuidesProductCategory, activeGuidesCategory, lang);
+          titleStr = compositeCopy.fullTitle;
+          descStr = compositeCopy.description;
+        } else if (activeGuidesCategory === "all") {
+          const categoryCopy = buildGuidesCategoryCopy(activeGuidesProductCategory, lang);
+          titleStr = categoryCopy.fullTitle;
+          descStr = categoryCopy.description;
+        }
+      }
+    }
+
     const isReviewsIndexPath = /^\/reviews(?:\/page\/\d+)?\/?$/.test(currentPath);
     const isReviewDetailPath = /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(currentPath);
 
@@ -4168,6 +4208,18 @@ export default function App() {
       // Only trustworthy while we are still on the route that document was
       // built for. After a client-side navigation the captured value describes
       // the PREVIOUS page, so it is ignored — see DELIVERED_HEAD.
+      //
+      // Ignoring it fails OPEN (index,follow), which is the right direction.
+      // There is no build-time answer available in the browser once we have
+      // navigated: the card count lives in the CMS fetch that GuidesSection
+      // owns, and feeding it back through a callback would make the value
+      // depend on network timing — the exact class of bug that made
+      // check:hydration pass one run and fail the next. A crawler never sees
+      // this state anyway: it fetches /guides/<cat>/<topic>/ directly, gets the
+      // prerendered noindex,follow, and the early return above keeps it. Only a
+      // clicking reader ever renders the fail-open value, and they are not the
+      // one being indexed. Same philosophy as DELIVERED_PRODUCT_DETAIL: never
+      // downgrade a page you cannot prove is thin.
       DELIVERED_HEAD.routePath !== "" &&
       normalizePathname(currentPath) === DELIVERED_HEAD.routePath &&
       DELIVERED_HEAD.robots.startsWith("noindex");
