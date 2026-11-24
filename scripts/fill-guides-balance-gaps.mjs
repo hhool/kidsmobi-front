@@ -52,20 +52,7 @@
  *   node scripts/fill-guides-balance-gaps.mjs --sql        # emit a D1 .sql file
  *   node scripts/fill-guides-balance-gaps.mjs --verify     # re-fetch and assert
  */
-import { mkdirSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import {
-  CHANNEL_TOPICS,
-  assertCopy,
-  buildRecord,
-  collectKnownRoutes,
-  coverKey,
-  emitSql,
-  nonGuideTargets,
-  request,
-  unwrap,
-  wordCount,
-} from "./lib/guide-batch.mjs";
+import { runBatch } from "./lib/guide-batch.mjs";
 
 const APPLY = process.argv.includes("--apply");
 const VERIFY = process.argv.includes("--verify");
@@ -839,151 +826,21 @@ For a child at the coasting stage, weight and geometry together are the two crit
 
 /* ------------------------------------------------------------------ */
 
-async function main() {
-  // The token gates WRITES only. `GET /api/cms/guides` is public (verified: 200
-  // without a token), and `POST /api/cms/guides/save` is 403 without one, so a
-  // dry run — the whole point of which is to be safe to run anywhere — must not
-  // be blocked by a credential it never uses.
-  if (!TOKEN && APPLY) {
-    console.error("CMS_ADMIN_ALL_TOKEN is required for --apply (POST /api/cms/guides/save returns 403 without it).");
-    process.exit(1);
-  }
+// The driver lives in lib/guide-batch.mjs — see runBatch() there for why the
+// fetch, the retired-guide filter, the cover budget and the write path are one
+// shared implementation rather than a per-batch copy. This file contributes
+// editorial content and the category it belongs to; nothing else.
 
-  const payload = await request(API_BASE, `/api/cms/guides?cb=${Date.now()}`);
-  const records = unwrap(payload);
-  if (!records) { console.error("Unexpected CMS response shape"); process.exit(1); }
-
-  // The counts below are computed over the LIVE published set the prerender
-  // actually renders. `balance-bike-stability` is published in the CMS but
-  // RETIRED (301 to the asset page), and the prerender drops it before counting
-  // anything — counting raw CMS rows would overstate scenario by one and ship a
-  // batch that leaves the combination below the threshold.
-  const RETIRED = new Set(["balance-bike-stability"]);
-  const published = records.filter((r) => String(r.status || "published") === "published");
-  const livePublished = published.filter((r) => !RETIRED.has(r.slug));
-  const bySlug = new Map(published.map((r) => [r.slug, r]));
-  const publishedSlugs = new Set(livePublished.map((r) => r.slug));
-  const topicBySlug = new Map(
-    livePublished.map((r) => [r.slug, String(r.taxonomy?.topicCategory || r.category || "").trim()]),
-  );
-  console.log(`CMS guides: ${records.length} total, ${published.length} published, ${livePublished.length} live (retired excluded)`);
-
-  if (VERIFY) {
-    let bad = 0;
-    for (const a of ARTICLES) {
-      const r = bySlug.get(a.slug);
-      if (!r) { console.error(`[MISSING] ${a.slug}`); bad++; continue; }
-      const okEn = String(r.en?.content || "").includes("##");
-      const okZh = String(r.zh?.content || "").includes("##");
-      const okTax = r.taxonomy?.productCategory === PRODUCT_CATEGORY && r.taxonomy?.topicCategory === a.topic;
-      const okSeo = Boolean(r.seo?.en?.title && r.seo?.zh?.title);
-      if (!(okEn && okZh && okTax && okSeo)) {
-        console.error(`[FAIL] ${a.slug} en=${okEn} zh=${okZh} tax=${okTax} seo=${okSeo}`); bad++;
-      } else {
-        console.log(`[ok] ${a.slug}  en=${wordCount(r.en.content)}w zh=${String(r.zh.content).length}c`);
-      }
-    }
-
-    const counts = new Map();
-    const liveAfter = published.filter((r) => !RETIRED.has(r.slug));
-    for (const r of liveAfter) {
-      const k = `${r.taxonomy?.productCategory}/${r.taxonomy?.topicCategory}`;
-      counts.set(k, (counts.get(k) || 0) + 1);
-    }
-    console.log(`\n${PRODUCT_CATEGORY} combinations after fill:`);
-    for (const t of ["beginner", "scenario", "budget", "risk", "special", "maintenance", "best"]) {
-      const n = counts.get(`${PRODUCT_CATEGORY}/${t}`) || 0;
-      console.log(`  ${t.padEnd(14)} ${n}  ${n >= 3 ? "indexable" : "STILL BELOW 3"}`);
-    }
-    process.exit(bad ? 1 : 0);
-  }
-
-  // Cover budget: count how many LIVE guides already use each cover, so the
-  // batch cannot push any one image to three sharers (check:covers fails at 3).
-  const coverUse = new Map();
-  for (const r of livePublished) {
-    const k = coverKey(r.imageUrl);
-    if (k) coverUse.set(k, (coverUse.get(k) || 0) + 1);
-  }
-
-  // Body copy links to prerendered asset pages (/balance-bike-stability/,
-  // /products/balance-bikes/), which no CMS fetch can prove exist. Read the
-  // build when it is there; report the gap when it is not, rather than passing
-  // those links silently.
-  const knownRoutes = collectKnownRoutes(join(process.cwd(), "dist"));
-  if (knownRoutes) {
-    console.log(`route check: ${knownRoutes.size} prerendered routes read from dist`);
-  } else {
-    const unchecked = new Set(ARTICLES.flatMap((a) => [...nonGuideTargets(a)]));
-    console.log(`route check: dist absent — ${unchecked.size} non-guides link target(s) NOT verified:`);
-    for (const t of unchecked) console.log(`  ? ${t}`);
-  }
-
-  const problems = assertCopy(ARTICLES, {
-    publishedSlugs,
-    topicBySlug,
-    coverUse,
-    productCategory: PRODUCT_CATEGORY,
-    knownRoutes,
-  });
-  if (problems.length) {
-    console.error(`Refusing to write — ${problems.length} copy problem(s):`);
-    for (const p of problems.slice(0, 40)) console.error(`  - ${p}`);
-    process.exit(1);
-  }
-  console.log(`copy self-check OK — ${ARTICLES.length} articles, grounded, covers within budget, all links resolve`);
-
-  const planned = [];
-  for (const a of ARTICLES) {
-    if (publishedSlugs.has(a.slug)) { console.log(`[skip] ${a.slug} — already published`); continue; }
-    const rec = buildRecord(a, PRODUCT_CATEGORY);
-    planned.push({ slug: a.slug, rec });
-    console.log(`[plan] ${a.slug.padEnd(44)} ${PRODUCT_CATEGORY}/${a.topic}  en=${wordCount(a.en)}w zh=${a.zh.length}c`);
-  }
-
-  if (!planned.length) { console.log(`Nothing to do — all ${ARTICLES.length} already exist.`); return; }
-
-  if (EMIT_SQL) {
-    const outDir = join(process.cwd(), ".workbuddy", "tmp", `guides-fill-${BATCH_LABEL}`);
-    const { sqlFile, recordsFile, bytes } = emitSql({
-      planned,
-      outDir,
-      label: BATCH_LABEL,
-      header: [
-        `R48 batch 2: ${ARTICLES.length} balance guides, taking every balance combination to >=3.`,
-        `Generated by scripts/fill-guides-balance-gaps.mjs --sql.`,
-        `Apply: wrangler d1 execute my_d1_j13_binder --remote --file <this file>`,
-      ],
-    });
-    console.log(`wrote ${sqlFile}  (${planned.length} INSERT, ${bytes} bytes)`);
-    console.log(`wrote ${recordsFile} (same payloads, for --verify cross-check)`);
-    return;
-  }
-
-  if (!APPLY) { console.log(`\nDry run: ${planned.length} record(s) would be created. Re-run with --apply.`); return; }
-
-  const backupDir = join(process.cwd(), ".workbuddy", "tmp", `guides-fill-${BATCH_LABEL}`);
-  mkdirSync(backupDir, { recursive: true });
-  const backupFile = join(backupDir, `created-${Date.now()}.json`);
-  writeFileSync(backupFile, JSON.stringify(planned.map((p) => p.rec), null, 2));
-  console.log(`backup of created records: ${backupFile}`);
-
-  let ok = 0;
-  for (const { slug, rec } of planned) {
-    const saved = await request(API_BASE, "/api/cms/guides/save", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(rec),
-    });
-    if (!saved?.data?.saved) {
-      console.error(`[FAIL] ${slug}: ${JSON.stringify(saved).slice(0, 200)}`);
-      process.exitCode = 1;
-    } else { ok++; console.log(`[ok] ${slug}`); }
-  }
-  console.log(`\nCreated ${ok}/${planned.length} guide(s).`);
-}
-
-main().catch((error) => {
+runBatch({
+  apiBase: API_BASE,
+  productCategory: PRODUCT_CATEGORY,
+  batchLabel: BATCH_LABEL,
+  articles: ARTICLES,
+  token: TOKEN,
+  apply: APPLY,
+  emitSql: EMIT_SQL,
+  verify: VERIFY,
+}).catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
