@@ -15,7 +15,7 @@
  * scripts/check-hreflang.mjs compares this list against the delivered dist
  * route by route, so drift fails the build rather than shipping silently.
  *
- * 85 route(s).
+ * 95 route(s).
  */
 
 export const ZH_ROUTE_PATHS: readonly string[] = [
@@ -34,9 +34,11 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/beginner/kids-scooter-3-vs-2-wheel",
   "/zh/guides/beginner/stroller-travel-airplane",
   "/zh/guides/best/best-balance-bike-2026",
+  "/zh/guides/best/best-balance-bike-for-2-year-olds",
   "/zh/guides/best/best-double-stroller-2026",
   "/zh/guides/best/best-electric-car-for-kids-2026",
   "/zh/guides/best/best-jogger-stroller-2026",
+  "/zh/guides/best/best-lightweight-balance-bike",
   "/zh/guides/best/best-travel-stroller-2026",
   "/zh/guides/best/kids-bike-best-16-inch",
   "/zh/guides/best/kids-bike-best-20-inch",
@@ -45,13 +47,17 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/best/kids-scooter-foldable-travel",
   "/zh/guides/best/stroller-newborn-picks",
   "/zh/guides/budget/balance-bike-price-tiers",
+  "/zh/guides/budget/balance-bike-resale-and-hand-me-downs",
+  "/zh/guides/budget/balance-bike-under-100",
   "/zh/guides/budget/kids-bike-under-100",
   "/zh/guides/budget/kids-ride-on-under-200",
   "/zh/guides/budget/kids-scooter-under-50",
   "/zh/guides/budget/stroller-price-tiers-what-you-pay-for",
   "/zh/guides/budget/stroller-under-200",
   "/zh/guides/budget/stroller-what-cheap-models-skip",
+  "/zh/guides/maintenance/balance-bike-frame-and-fastener-checks",
   "/zh/guides/maintenance/balance-bike-maintenance",
+  "/zh/guides/maintenance/balance-bike-tyre-and-wheel-care",
   "/zh/guides/maintenance/kids-bike-chain-tire-care",
   "/zh/guides/maintenance/kids-ride-on-battery-care",
   "/zh/guides/maintenance/kids-ride-on-winter-storage",
@@ -68,6 +74,8 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/risk/stroller-brake-and-restraint-checks",
   "/zh/guides/risk/stroller-safety-tips",
   "/zh/guides/risk/stroller-tip-over-and-loading",
+  "/zh/guides/scenario/balance-bike-first-two-weeks",
+  "/zh/guides/scenario/balance-bike-indoors-and-small-spaces",
   "/zh/guides/scenario/best-travel-stroller-for-3-year-old",
   "/zh/guides/scenario/compact-travel-stroller",
   "/zh/guides/scenario/kids-bike-teach-to-ride",
@@ -83,6 +91,8 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/scenario/travel-stroller-for-toddler",
   "/zh/guides/scenario/where-to-ride-balance-bike",
   "/zh/guides/special/balance-bikes-extra-support",
+  "/zh/guides/special/balance-bikes-for-tall-and-short-kids",
+  "/zh/guides/special/balance-bikes-for-twins-and-siblings",
   "/zh/guides/special/kids-bike-balance-vs-training-wheels",
   "/zh/guides/special/kids-bike-coaster-vs-hand-brake",
   "/zh/guides/special/kids-ride-on-2-seater-vs-single",
