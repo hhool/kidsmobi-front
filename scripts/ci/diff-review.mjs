@@ -24,6 +24,7 @@
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 
 const STRICT = process.argv.includes("--strict");
 const root = process.cwd();
@@ -255,6 +256,32 @@ const SECRET_ASSIGN_RE = /(?:CMS_ADMIN_ALL_TOKEN|CLOUDFLARE_API_TOKEN|VITE_[A-Z_
 // production (403) — or worse, indicate a bypass attempt.
 const TOKEN_HELPER_RE = /_cmsAdminToken|x-cms-admin-token/i;
 
+/**
+ * Does this CMS-writing script reach the admin-token helper, directly or
+ * through a local import?
+ *
+ * Checking the changed file alone answered "no" for any script that delegates
+ * its HTTP to a shared module — which is the pattern the repo now prefers
+ * precisely so there is one implementation. The rule has to follow the same
+ * shape or it punishes the good structure. Depth 2 is deliberate: file ->
+ * shared module -> helper covers the current tree, and anything deeper would
+ * start asserting about code the diff does not touch.
+ */
+function carriesTokenHelper(file, content, depth = 0, seen = new Set()) {
+  if (TOKEN_HELPER_RE.test(content)) return true;
+  if (depth >= 2) return false;
+  const imports = [...content.matchAll(/from\s+["'](\.[^"']+)["']/g)].map((m) => m[1]);
+  for (const spec of imports) {
+    const target = resolve(dirname(join(root, file)), spec);
+    if (seen.has(target) || !existsSync(target)) continue;
+    seen.add(target);
+    let text;
+    try { text = readFileSync(target, "utf8"); } catch { continue; }
+    if (carriesTokenHelper(target.slice(root.length + 1), text, depth + 1, seen)) return true;
+  }
+  return false;
+}
+
 // R9 — Infra files with outsized blast radius.
 const INFRA_FILES = [
   "public/_headers", // Cache-Control rules: hard cap 100, must stay mutually exclusive
@@ -411,7 +438,13 @@ for (const { file } of reviewable) {
   // R8 CMS write scripts (file-level on changed scripts)
   if (isScript && /\.mjs?$/.test(file) && content) {
     const postsToCms = /\/api\/cms\//.test(content) && /method:\s*["']POST|method:\s*["']PUT|method:\s*["']DELETE|fetch\([^)]*\{[^}]*method/i.test(content);
-    if (postsToCms && !TOKEN_HELPER_RE.test(content)) {
+    // The token can arrive through a local module rather than the same file:
+    // the batch scripts hand every request to lib/guide-batch.mjs, which is
+    // what imports _cmsAdminToken.mjs. Reading only the changed file reported
+    // the batch-2 script as a token-less CMS writer and failed the gate on a
+    // write path that does send the header. Follow the relative imports (one
+    // level is enough; two keeps a re-export from hiding it).
+    if (postsToCms && !carriesTokenHelper(file, content)) {
       add("fail", "cms-write-token", file, null,
         "script mutates /api/cms/* without the admin-token helper (_cmsAdminToken.mjs) — production gate #48 returns 403");
     }

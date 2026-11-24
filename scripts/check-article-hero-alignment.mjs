@@ -50,10 +50,26 @@ const RETIRED_COMPOSITE = /-800x800\.webp(?:[?#]|$)/i;
 
 const ARTICLE_DIRS = ["guides", "news", "zh/guides", "zh/news"];
 
-// Detail pages sit two levels deep (guides/<topic>/<slug>.html); hub indexes
-// sit one level deep and carry no hero of their own. Exactly one detail page
-// is allowed to ship without a cover: the recall record is a static data page
-// generated from src/data/kidsBikeRecalls.ts and has never had artwork.
+// Which pages are DETAIL pages? Depth alone used to answer this: every detail
+// page was `guides/<topic>/<slug>.html` (depth 3, hero) and every index was
+// `guides/<topic>.html` (depth 2, no hero). The category axis added two new
+// index shapes — `guides/<cat>/index.html` (depth 3) and `guides/<cat>/
+// <topic>/index.html` (depth 4) — which the depth rule cannot tell apart from
+// a detail page. It reported all 40 of them as "article detail page carries
+// no hero — its cover silently disappeared": the guard invented 40 regressions
+// that did not exist while the 187 real detail pages stayed covered.
+//
+// Depth is still necessary (a channel page such as `guides/beginner.html` is
+// depth 2 and legitimately has no hero), so the two conditions are combined
+// rather than swapped: a DETAIL page is deeper than a channel page AND was not
+// emitted as a directory index. The basename is the structural fact; reading
+// it means the next axis cannot re-break this.
+const isDirectoryIndex = (relPath) => relPath.endsWith("/index") || relPath === "index";
+const isDetailPage = (relPath) => relPath.split("/").length > 2 && !isDirectoryIndex(relPath);
+
+// Exactly one detail page is allowed to ship without a cover: the recall
+// record is a static data page generated from src/data/kidsBikeRecalls.ts and
+// has never had artwork.
 const NO_COVER_ALLOWLIST = ["guides/risk/balance-bike-recall-record"];
 
 let pagesWithHero = 0;
@@ -75,22 +91,30 @@ for (const rel of ARTICLE_DIRS) {
   for (const file of walk(join(DIST, rel))) {
     const html = readFileSync(file, "utf8");
     const relPath = file.slice(DIST.length + 1).split("\\").join("/").replace(/\.html$/, "");
-    const depth = relPath.split("/").length;
+    const isDetail = isDetailPage(relPath);
     HERO_DIV.lastIndex = 0;
     const heroes = [...html.matchAll(HERO_DIV)];
     if (!heroes.length) {
       pagesWithoutHero++;
-      // A hub index legitimately has no hero; a DETAIL page losing its cover
-      // is a silent regression (the article renders text-only) unless the
-      // page is on the allowlist.
-      if (depth > 2 && !NO_COVER_ALLOWLIST.includes(relPath)) {
+      // An index or channel page legitimately has no hero; a DETAIL page
+      // losing its cover is a silent regression (the article renders
+      // text-only) unless the page is on the allowlist.
+      if (isDetail && !NO_COVER_ALLOWLIST.includes(relPath)) {
         silentNoCover.push(relPath);
-      } else if (depth > 2) {
+      } else if (isDetail) {
         expectedNoCover++;
       }
       continue;
     }
     pagesWithHero++;
+    if (!isDetail) {
+      // Not a detail page, so the hero rules below do not apply — but an
+      // index carrying the article-hero class means the element leaked into
+      // the card grid, which is its own defect. Report it rather than
+      // silently counting the page as a covered article.
+      fail(relPath, "index page carries class=\"article-hero\" — an index has no article hero");
+      continue;
+    }
     for (const hero of heroes) {
       const tag = hero[0];
       const style = (tag.match(/style="([^"]*)"/) || [])[1] || "";

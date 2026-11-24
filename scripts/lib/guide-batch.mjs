@@ -33,6 +33,12 @@ import { join } from "node:path";
 import { adminHeaders } from "../_cmsAdminToken.mjs";
 
 /** Claims this site cannot make about itself. Scanned before any write. */
+// diff-review:skip-begin
+// Enforcement data, not published copy. The diff-review honesty-claim rule
+// scans added source lines and would otherwise match its own vocabulary and
+// fail the push gate (2026-11-24: this file reported 4 honesty-claim findings
+// whose "claim" was the ban list itself). The markers are the documented
+// opt-out — payload copy outside them stays fully checked.
 export const FORBIDDEN_EN = [
   "we tested", "hands-on testing", "in our test group", "in our testing",
   "in our checks", "backed by real testing", "lab test", "lab-measured",
@@ -41,6 +47,7 @@ export const FORBIDDEN_EN = [
 export const FORBIDDEN_ZH = [
   "实测", "实验室", "测试方法", "台架测试", "我们测试", "我们验证", "本组实测",
 ];
+// diff-review:skip-end
 
 /**
  * The channel pages that actually exist: /guides/<topic>.

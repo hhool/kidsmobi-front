@@ -25,7 +25,9 @@
  * publisher with no laboratory, so this copy:
  *   - states no third-party figure: no model weights, no prices, no load limits,
  *     no recall conclusions, no certification claims.
- *   - makes no first-person measurement claim (no "we tested", 实测, 实验室).
+ *   - makes no first-person measurement claim (see FORBIDDEN_EN / FORBIDDEN_ZH
+ *     in lib/guide-batch.mjs; that is the single vocabulary for the rule, so
+ *     naming the phrases again here would only risk drifting from it).
  *     check-honesty-claims.ts scans the built HTML for exactly these.
  *   - argues from published-document structure instead: which question a spec
  *     sheet answers, which line on a listing is the one that matters, what a
