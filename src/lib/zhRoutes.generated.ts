@@ -15,7 +15,7 @@
  * scripts/check-hreflang.mjs compares this list against the delivered dist
  * route by route, so drift fails the build rather than shipping silently.
  *
- * 78 route(s).
+ * 85 route(s).
  */
 
 export const ZH_ROUTE_PATHS: readonly string[] = [
@@ -48,20 +48,26 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/budget/kids-bike-under-100",
   "/zh/guides/budget/kids-ride-on-under-200",
   "/zh/guides/budget/kids-scooter-under-50",
+  "/zh/guides/budget/stroller-price-tiers-what-you-pay-for",
   "/zh/guides/budget/stroller-under-200",
+  "/zh/guides/budget/stroller-what-cheap-models-skip",
   "/zh/guides/maintenance/balance-bike-maintenance",
   "/zh/guides/maintenance/kids-bike-chain-tire-care",
   "/zh/guides/maintenance/kids-ride-on-battery-care",
   "/zh/guides/maintenance/kids-ride-on-winter-storage",
   "/zh/guides/maintenance/kids-scooter-fix-wobbly-wheel",
   "/zh/guides/maintenance/stroller-how-to-clean",
+  "/zh/guides/maintenance/stroller-storage-and-off-season-care",
+  "/zh/guides/maintenance/stroller-wheel-and-brake-care",
   "/zh/guides/risk/balance-bike-recalls",
   "/zh/guides/risk/balance-bike-safety-checks",
   "/zh/guides/risk/balance-bike-safety-standards",
   "/zh/guides/risk/kids-bike-helmet-fit",
   "/zh/guides/risk/kids-ride-on-weight-limit",
   "/zh/guides/risk/kids-scooter-helmet-pads",
+  "/zh/guides/risk/stroller-brake-and-restraint-checks",
   "/zh/guides/risk/stroller-safety-tips",
+  "/zh/guides/risk/stroller-tip-over-and-loading",
   "/zh/guides/scenario/best-travel-stroller-for-3-year-old",
   "/zh/guides/scenario/compact-travel-stroller",
   "/zh/guides/scenario/kids-bike-teach-to-ride",
@@ -85,6 +91,7 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/special/kids-scooter-adjustable-height",
   "/zh/guides/special/kids-scooter-kick-vs-electric",
   "/zh/guides/special/kids-scooter-vs-bike-commute",
+  "/zh/guides/special/stroller-for-tall-parents-and-children",
   "/zh/guides/special/stroller-travel-system",
   "/zh/guides/special/stroller-umbrella-vs-full",
   "/zh/news",
