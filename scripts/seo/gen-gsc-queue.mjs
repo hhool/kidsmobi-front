@@ -75,10 +75,24 @@ const scored = urls.map((u) => ({ u, r: rank(u) }));
 scored.sort((a, b) => a.r - b.r || a.u.localeCompare(b.u));
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
-fs.writeFileSync(OUT, scored.map(({ u, r }) => `${r}\t${u}`).join("\n") + "\n");
+
+/**
+ * TWO OUTPUTS, BECAUSE THE CONSUMERS DISAGREE.
+ *
+ * gsc_inspect_batch.py keeps a line only when it `startswith("http")`, so the
+ * `priority\turl` form below holds zero URLs for it — a silent 0-URL run that
+ * still exits 0 and prints an empty summary. The plain list is what that script
+ * reads; the tabbed list is the human shortlist to work down in the GSC UI.
+ * Writing both from one selection keeps them from drifting apart.
+ */
+const TABBED = OUT;
+const PLAIN = OUT.replace(/\.txt$/, "") + "-urls.txt";
+fs.writeFileSync(TABBED, scored.map(({ u, r }) => `${r}\t${u}`).join("\n") + "\n");
+fs.writeFileSync(PLAIN, scored.map(({ u }) => u).join("\n") + "\n");
 
 const counts = scored.reduce((m, { r }) => ((m[r] = (m[r] || 0) + 1), m), {});
-console.log(`wrote ${OUT}`);
+console.log(`wrote ${TABBED}`);
+console.log(`wrote ${PLAIN}  (plain URL list, for gsc_inspect_batch.py)`);
 console.log(`  total: ${scored.length}`);
 for (const r of Object.keys(counts).sort()) {
   const label = { 0: "new this round", 1: "composite EN", 2: "composite ZH", 3: "rest" }[r];
@@ -93,3 +107,23 @@ if (fs.existsSync(PREV)) {
   console.log(`  vs previous queue: ${stale.length} stale dropped, ${missing.length} not previously listed`);
 }
 if (NEW.length) console.log(`  marked new this round: ${NEW.length}`);
+
+/**
+ * The format check that would have caught the empty run.
+ *
+ * gsc_inspect_batch.py filters on `startswith("http")` and reports "0 URLs" as
+ * success. Rather than leave that to be rediscovered, assert here that every
+ * line of the plain list is a bare URL and that the two files agree on
+ * membership.
+ */
+const plainLines = fs.readFileSync(PLAIN, "utf8").trim().split("\n").filter(Boolean);
+const badLine = plainLines.find((l) => !l.startsWith("http"));
+if (badLine) {
+  console.error(`FATAL: plain list line is not a bare URL: ${JSON.stringify(badLine)}`);
+  process.exit(1);
+}
+if (plainLines.length !== scored.length) {
+  console.error(`FATAL: plain list has ${plainLines.length} lines, expected ${scored.length}`);
+  process.exit(1);
+}
+console.log(`  format check: ${plainLines.length} bare URLs, no tab prefixes`);

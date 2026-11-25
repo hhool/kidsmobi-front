@@ -98,6 +98,15 @@ def main() -> None:
         urls = [ln.strip() for ln in f if ln.strip().startswith("http")]
     if args.limit:
         urls = urls[: args.limit]
+    # A queue whose lines carry a priority prefix ("0\t<url>") yields ZERO urls
+    # here, and the run then "succeeds" with an empty summary — which is exactly
+    # what happened the first time this script met the generated queue. Fail
+    # loudly instead: zero URLs is never a meaningful inspection result.
+    if not urls:
+        raise SystemExit(
+            f"no URLs found in {args.queue} — every non-empty line must start "
+            "with http (a priority-prefixed '0\\t<url>' queue yields none)"
+        )
 
     opener = make_opener(not args.no_proxy)
     token = adc_token()
