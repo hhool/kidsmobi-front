@@ -143,8 +143,15 @@ const ROUTES = [
   //   - /guides/balance-bike/best/ : composite that flipped to index,follow when
   //     batch 2 took the combination to 3 — the noindex->index transition is
   //     decided by a build-time count, so the hydrated DOM must agree
-  //   - /guides/kids-scooter/beginner/ : still below COMPOSITE_INDEX_THRESHOLD, so the
-  //     hydrated page must KEEP noindex,follow with a SELF canonical
+  //   - /guides/kids-scooter/scenario/ : still below COMPOSITE_INDEX_THRESHOLD, so the
+  //     hydrated page must KEEP noindex,follow with a SELF canonical.
+  //     This entry used to point at /guides/kids-scooter/beginner/, which was
+  //     thin until batch 4 took scooter beginner to 3 and flipped it to
+  //     index,follow — the assertion then described the opposite of the truth.
+  //     That is the hazard of pinning a build-time count: the number moves with
+  //     content, so the sample must be chosen to stay thin, not chosen once.
+  //     scenario/budget/maintenance are scooter's remaining three at 2 each
+  //     (batch 4 spent the whole cover budget on the other three combinations).
   //   - /zh/guides/best/best-balance-bike-for-2-year-olds : a Chinese article
   //     from batch 2. NOTE: the category axis was never built for /zh (R47
   //     deliberately shipped EN-only, so /zh keeps the topic axis:
@@ -153,20 +160,43 @@ const ROUTES = [
   //     the first draft of this entry pointed at a 404.
   '/guides/stroller/',
   '/guides/balance-bike/best/',
-  '/guides/kids-scooter/beginner/',
+  //   - /guides/kids-electric-car/beginner/ : the same transition in the other
+  //     direction. It sat at 1 article (noindex) until batch 4 took it to 3, so
+  //     the hydrated DOM has to agree with a build that just promoted it. Proven
+  //     alongside the thin sample above: one page that must now say index, one
+  //     that must still say noindex, from the same code path.
+  '/guides/kids-electric-car/beginner/',
+  '/guides/kids-scooter/scenario/',
   '/zh/guides/best/best-balance-bike-for-2-year-olds',
+  // Batch 4 articles — the newest prerendered detail pages, one per category,
+  // each carrying a Chinese edition and a cover from the tight scooter budget.
+  '/guides/scenario/kids-ride-on-gift-prep',
+  '/guides/risk/kids-scooter-brake-reach',
 ];
 
+// ROBOTS: THE INVARIANT IS EQUALITY WITH THE PRERENDER, NOT A PINNED VALUE.
+//
 // Composite pages are noindex below COMPOSITE_INDEX_THRESHOLD=3 and indexable
-// at or above it. The count lives in the CMS and is applied at build time, so
+// at or above it. That count lives in the CMS and is applied at BUILD time, so
 // the hydrated page inherits a decision it cannot recompute — it must keep
-// whatever the prerender wrote. Pinning the expected value here is what makes
-// the probe able to catch a hydration that overwrites robots with a default.
-const EXPECT_ROBOTS = {
-  '/guides/stroller/': 'index,follow',
-  '/guides/balance-bike/best/': 'index,follow',
-  '/guides/kids-scooter/beginner/': 'noindex,follow',
-};
+// whatever the prerender wrote, and the probe's job is to catch a hydration
+// that overwrites robots with a default.
+//
+// This list used to be a hard-coded route -> expected-value table, and it went
+// wrong exactly the way a hard-coded count always goes wrong: it pinned
+// /guides/kids-scooter/beginner/ as noindex, batch 4 took that combination to 3
+// articles and flipped it to index,follow, and the assertion then described the
+// OPPOSITE of the correct behaviour. Nothing failed — a guard that is confidently
+// wrong is worse than no guard, because it also has to be re-edited every batch.
+//
+// So the comparison is now derived: for every probed route, the hydrated robots
+// must equal the robots the prerendered HTML served. That is the actual
+// invariant, it needs no maintenance, and it binds on all 94 routes instead of
+// four. Coverage is asserted separately, at the end of the run: the probed set
+// must contain at least one route the build marked indexable AND at least one
+// it marked noindex, otherwise "every page agrees with itself" would be true of
+// a run that never visited a thin composite. That check reads the static side,
+// so it stays true both before and after a batch flips a combination.
 
 // Every hub must still link its own topic indexes AFTER hydration. The
 // prerendered hub HTML is not enough: everything it emits lives inside #root,
@@ -196,10 +226,41 @@ const HUB_TOPIC_CHILDREN = {
 const ASSET_ROUTE_RE = /^\/(balance-bike|kids-bike|kids-scooter|kids-ride-on|kids-tricycle|kids-stroller)-[a-z-]+\/$/;
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
+
+// Probing a loopback preview server is a different contract from probing
+// production, and the robots assertion has to know which one it is in — see the
+// comment at the assertion. Deliberately does NOT try to spoof the production
+// hostname: balancebiketoddler.com is in Chrome's HSTS preload list, so a
+// browser asked for http://balancebiketoddler.com:4173 upgrades to https on
+// that port and never reaches the preview server at all.
+const isLoopback = /^(https?:\/\/)?(127\.0\.0\.1|localhost)(:\d+)?/i.test(base);
+
 const chromePath =
   process.env.CHROME_PATH ||
   (process.platform === 'win32' ? 'C:/Program Files/Google/Chrome/Application/chrome.exe' : undefined);
 
+// THE robots ASSERTION DEPENDS ON WHERE THE PROBE IS POINTED.
+//
+// isNonProductionHostname() in App.tsx forces robots to noindex on `localhost`
+// and `127.0.0.1` — deliberately, so a dev server can never be indexed. CI
+// serves dist from 127.0.0.1, so every route hydrates as noindex while the
+// prerender wrote index,follow, and the two sides can never agree locally.
+//
+// The previous code compared them with .includes("index,follow"), and that
+// substring is CONTAINED IN "noindex,follow,max-image-preview:large". Every
+// route passed, every run, asserting nothing — the four-route expectation
+// table was the only thing that ever bound, and it went stale the moment a
+// content batch flipped a composite.
+//
+// So the assertion splits by target (see the assertion site): loopback asserts
+// the dev-host noindex rule, production asserts exact equality with the
+// prerender. Both are real properties; neither can pass vacuously.
+//
+// Spoofing the production hostname against a loopback server was tried and
+// does not work: balancebiketoddler.com is in Chrome's HSTS preload list, so
+// http://balancebiketoddler.com:4173 is upgraded to https on that port and
+// never reaches the preview server.
+//
 let chromium;
 try {
   ({ chromium } = await import('playwright'));
@@ -217,10 +278,18 @@ try {
 }
 
 const failures = [];
+// Every static robots value the run actually compared against. The coverage
+// assertion below needs to see BOTH sides of COMPOSITE_INDEX_THRESHOLD; a run
+// that only ever visited indexable pages would make the equality rule vacuous.
+const sawRobots = [];
+// Local runs assert the opposite thing (every route must be noindex), so they
+// collect into their own bag and the coverage check follows the target.
+const sawLocalRobots = [];
 // Static-HTML reference for the keywords comparison: one shared request
 // context, plain GETs (redirects, if any, are followed to the final 200).
 const reqCtx = await browser.newContext();
 const staticKeywordsCache = new Map();
+const staticRobotsCache = new Map();
 // The prerender HTML-escapes attribute values (children&#39;s), while
 // getAttribute returns the decoded string (children's). Decode the static side
 // before comparing or every keyword containing an apostrophe "diverges".
@@ -240,6 +309,19 @@ async function staticKeywordsFor(route) {
   const kw = m ? decodeEntities(m[1]) : null;
   staticKeywordsCache.set(route, kw);
   return kw;
+}
+
+// The prerendered robots value for a route — the thing the hydrated DOM must
+// not contradict. Kept separate from the keywords fetch only so the cache key
+// can be shared; both come from the same request.
+async function staticRobotsFor(route) {
+  if (staticRobotsCache.has(route)) return staticRobotsCache.get(route);
+  const res = await reqCtx.request.get(base + route);
+  const html = await res.text();
+  const m = html.match(/<meta\s+name="robots"\s+content="([^"]*)"/i);
+  const v = m ? decodeEntities(m[1]).trim() : null;
+  staticRobotsCache.set(route, v);
+  return v;
 }
 for (const route of ROUTES) {
   // Each attempt uses a fresh page: retrying goto() on a page whose previous
@@ -330,9 +412,57 @@ for (const route of ROUTES) {
             why = `hub does not link its topic index(es) after hydration: ${missing.join(', ')}`;
           }
         }
-        const wantRobots = EXPECT_ROBOTS[route];
-        if (!why && wantRobots && !String(probe.robots || '').includes(wantRobots)) {
-          why = `robots changed on hydration — prerender wrote "${wantRobots}", hydrated page has "${probe.robots}"`;
+        if (!why) {
+          // ROBOTS. Two different assertions depending on where we are probing,
+          // because the app makes two different — both correct — promises.
+          //
+          // LOCAL (loopback): isNonProductionHostname() in App.tsx forces
+          // noindex on every route. That is deliberate (a dev server must never
+          // be indexed) and it means the hydrated value can NEVER equal the
+          // prerendered one locally. Asserting equality here is what forced the
+          // old code into `.includes("index,follow")`, and that substring is
+          // contained in "noindex,follow,max-image-preview:large" — so the
+          // check passed on every route, in every run, asserting nothing. The
+          // honest local assertion is the complementary one: every route must
+          // come back noindex. That is a real property of the app and it is now
+          // actually tested.
+          //
+          // PRODUCTION: the app takes its production branch, so the hydrated
+          // robots must equal exactly what the prerender served for that URL.
+          // That is the invariant that catches an SPA re-deriving a build-time
+          // decision (the composite threshold) and disagreeing with it.
+          const staticRobots = await staticRobotsFor(route);
+          if (staticRobots === null) {
+            why = 'static HTML has no robots meta — prerender stopped emitting it';
+          } else {
+            // Recorded on BOTH paths: the coverage check needs to know what the
+            // prerender wrote even when the assertion is the local one.
+            sawRobots.push(staticRobots);
+            const hydrated = String(probe.robots || '');
+            if (isLoopback) {
+              sawLocalRobots.push(hydrated);
+              // On a dev hostname the app may do exactly one of two correct
+              // things, and which one it does is decided per route by design:
+              //
+              //   (a) it never re-writes robots at all — the section branch
+              //       returns early when the delivered canonical IS this route
+              //       (src/App.tsx, "keep its TDK"), so the prerendered value
+              //       survives untouched. `/` is such a page; asserting noindex
+              //       there was wrong and is what the first version of this
+              //       check got wrong.
+              //   (b) it does rewrite robots, and then the dev-host rule in
+              //       shouldNoIndexCurrentPath must make it noindex.
+              //
+              // Anything else is a real defect: a route that rewrites robots on
+              // a dev hostname WITHOUT the noindex flag would mean
+              // isNonProductionHostname is not reaching that path.
+              if (hydrated !== staticRobots && !hydrated.startsWith('noindex')) {
+                why = `local preview rewrote robots to "${hydrated}" (prerender had "${staticRobots}") and did not force noindex — the dev-host noindex rule in shouldNoIndexCurrentPath is not reaching this route`;
+              }
+            } else if (hydrated !== staticRobots) {
+              why = `robots changed on hydration — static "${staticRobots}" vs hydrated "${hydrated}"`;
+            }
+          }
         }
       }
     }
@@ -398,6 +528,38 @@ for (const route of ROUTES) {
 
 await browser.close();
 
+// COVERAGE. Whichever assertion ran, the probed set has to be able to
+// distinguish correct from incorrect — otherwise "everything agreed" is a
+// statement about the route list, not about the app.
+//
+//   production: the set must contain at least one page the build marked
+//     indexable AND at least one it marked noindex, else equality with the
+//     prerender would hold trivially on a set that is all one value.
+//   loopback: the assertion is "every route is noindex", which can only fail
+//     if the app would otherwise have produced index,follow — so the static
+//     side must contain an indexable page. If the whole route list were
+//     noindex in the prerender too, the local check would prove nothing.
+if (isLoopback) {
+  const staticIndexable = sawRobots.some((r) => /\bindex\b/.test(r) && !/noindex/.test(r));
+  if (!staticIndexable) {
+    failures.push({
+      route: '(coverage)',
+      why: 'no probed route is indexable in the prerender — the local "must be noindex" assertion would hold for any app, including a broken one; add an indexable page',
+    });
+    console.log('[FAIL] (coverage) — no indexable route in the probed set');
+  }
+} else {
+  const sawIndex = sawRobots.some((r) => /\bindex\b/.test(r) && !/noindex/.test(r));
+  const sawNoindex = sawRobots.some((r) => /noindex/.test(r));
+  if (!sawIndex || !sawNoindex) {
+    failures.push({
+      route: '(coverage)',
+      why: `probed routes did not exercise both robots decisions (indexable=${sawIndex}, noindex=${sawNoindex}) — the equality check would pass vacuously; add a composite page on the missing side`,
+    });
+    console.log(`[FAIL] (coverage) — saw indexable=${sawIndex}, noindex=${sawNoindex}`);
+  }
+}
+
 if (failures.length > 0) {
   console.log(`\nhydration-probe FAILED — ${failures.length}/${ROUTES.length} route(s) broken after hydration:`);
   for (const f of failures) console.log(`  ${f.route}: ${f.why}`);
@@ -405,3 +567,8 @@ if (failures.length > 0) {
   process.exit(1);
 }
 console.log(`\nhydration-probe OK — ${ROUTES.length} route(s) hydrate clean (no recovery mode, no pageerror, keywords survive hydration).`);
+console.log(
+  isLoopback
+    ? `robots: on a dev hostname, ${sawLocalRobots.filter((r) => r.startsWith('noindex')).length}/${sawLocalRobots.length} probed route(s) were forced noindex, the rest kept their prerendered value untouched (early-return path), as designed.`
+    : `robots: hydrated value matched the prerender on every probed route (${sawRobots.length} compared, both decisions exercised).`,
+);
