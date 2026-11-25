@@ -54,10 +54,27 @@ const NAV_LINK_STYLE = "color:#ea580c;font-weight:700;text-decoration:none;";
  * The six wizard chips, as crawlable links in the STATIC document.
  *
  * The React wizard (GuidesSection) renders these chips only after hydration,
- * so a crawler reading /guides saw zero category buttons. The chip hrefs now
- * point at the product hubs that already carry a per-category TDK and the
- * catalogue — the thin category pillars were retired into those hubs in S8
- * (see RETIRED_CATEGORY_GUIDE_REDIRECTS), so no new URL family is created.
+ * so a crawler reading /guides saw zero category buttons. The chip hrefs point
+ * at the product hubs that carry a per-category TDK and the catalogue.
+ *
+ * WHY THE AXIS LINE EXISTS SEPARATELY
+ * -----------------------------------
+ * These chips answer a SHOPPING intent ("show me the scooters"), so they go to
+ * the product hub. But each category also has a guide-side axis page,
+ * /guides/<cat>/, that lists every guide for that family — a READING intent.
+ * Until now nothing on /guides linked those five pages: their only inbound
+ * links were back-links from their own composite pages, so a crawler arriving
+ * at the hub could reach topics and products but never the axis itself.
+ *
+ * The axis pages are not thin — they carry 764-1004 words, their own TDK,
+ * index,follow, and sit in the sitemap. A sitemap URL with no link from the
+ * page that owns its topic is exactly the "discovered but not indexed" shape
+ * this site has been fighting all year, so the axis line is the fix.
+ *
+ * Both lines are kept rather than repointing the chips: a chip that lands a
+ * reader on a product catalogue when they wanted to read is a worse failure
+ * than two adjacent lines that each say plainly where they go.
+ *
  * The Chinese edition omits this whole section (English UI is forbidden there).
  */
 const CATEGORY_NAV: ReadonlyArray<readonly [string, string]> = [
@@ -67,6 +84,25 @@ const CATEGORY_NAV: ReadonlyArray<readonly [string, string]> = [
   ["Kids Scooter", "/products/kids-scooters/"],
   ["Stroller", "/products/strollers/"],
   ["Kids Electric Car", "/products/electric-cars/"],
+];
+
+/**
+ * Guide-side axis pages, one per family that has one.
+ *
+ * Slug vocabulary is GUIDE_CATEGORY_ROUTE_SLUGS, NOT the CMS category ids:
+ * `stroller` stays bare, `bicycle` is `kids-bikes`, `electric_car` is
+ * `kids-electric-car`. Deriving these by hand is what made an earlier pass
+ * link /guides/bicycle/ and /guides/electric_car/ — both of which only ever
+ * existed for one day and now 301. Keep this list literal but paired with the
+ * guard assertion that every href is in the sitemap, so a future rename fails
+ * the build instead of shipping a 404.
+ */
+const CATEGORY_AXIS_NAV: ReadonlyArray<readonly [string, string]> = [
+  ["Balance Bike", "/guides/balance-bike/"],
+  ["Kids Bike", "/guides/kids-bikes/"],
+  ["Kids Scooter", "/guides/kids-scooter/"],
+  ["Stroller", "/guides/stroller/"],
+  ["Kids Electric Car", "/guides/kids-electric-car/"],
 ];
 
 /**
@@ -111,10 +147,15 @@ export function renderGuideCategoryIndexHtml(): string {
     ([label, href]) => `<a href="${esc(href)}" style="${NAV_LINK_STYLE}">${esc(label)}</a>`,
   ).join(' <span style="color:#cbd5e1;">·</span> ');
 
+  const axisNav = CATEGORY_AXIS_NAV.map(
+    ([label, href]) => `<a href="${esc(href)}" style="${NAV_LINK_STYLE}">${esc(label)} guides</a>`,
+  ).join(' <span style="color:#cbd5e1;">·</span> ');
+
   return `<section id="guide_category_index" style="padding:22px 0;border-top:1px solid #e2e8f0;" data-guide-index-schema="${INDEX.schema}">
   <h2 style="margin:0 0 6px;font-size:1.5rem;">Buying guides by category</h2>
   <p style="margin:0 0 14px;color:#475569;">Every published guide grouped by the product family it covers. Open a family to see its articles and category buying guides.</p>
   <p style="margin:0 0 16px;line-height:1.9;font-size:0.9rem;"><span style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;">Browse by category:</span> ${categoryNav}</p>
+  <p style="margin:0 0 18px;line-height:1.9;font-size:0.9rem;"><span style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;">Every guide in a family:</span> ${axisNav}</p>
 ${groups}
 </section>`;
 }
@@ -123,6 +164,7 @@ ${groups}
 export function guideCategoryIndexHrefs(): string[] {
   return [
     ...CATEGORY_NAV.map(([, href]) => href),
+    ...CATEGORY_AXIS_NAV.map(([, href]) => href),
     ...INDEX.groups.flatMap((g) => [
       g.picksHref,
       ...g.articles.map((a) => a.href),

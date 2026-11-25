@@ -114,13 +114,13 @@ async function main() {
     check("shared renderer emits 5 families + all article and family hrefs", () => {
       assert((expectedHtml.match(/<details /g) || []).length === 5, "not 5 groups");
       // 67 CMS guide links + 5 family picks + 6 crawlable category-nav chips
-      // = 78. Five chips deliberately repeat a family picks href (same product
-      // hub, each with its own TDK), so the DISTINCT set is 73 — only /guides
-      // is a genuinely new destination. The 20 thin pillars that used to add
-      // 20 more are retired (S8) and 301 into the directory hubs, so they are
-      // deliberately absent — see RETIRED_CATEGORY_GUIDE_REDIRECTS.
-      assert(hrefs.length === 78, `got ${hrefs.length} hrefs`);
-      assert(new Set(hrefs).size === 73, `got ${new Set(hrefs).size} distinct hrefs`);
+      // + 5 guide-axis chips = 83. Five product chips deliberately repeat a
+      // family picks href (same product hub, each with its own TDK), so the
+      // DISTINCT set is one smaller than the raw count minus that overlap.
+      // The 20 thin pillars that used to add 20 more are retired (S8) and 301
+      // into the directory hubs — see RETIRED_CATEGORY_GUIDE_REDIRECTS.
+      assert(hrefs.length === 83, `got ${hrefs.length} hrefs`);
+      assert(new Set(hrefs).size === 78, `got ${new Set(hrefs).size} distinct hrefs`);
       assert(expectedHtml.includes("Buying guides by category"), "no heading");
     });
     check("static index carries all six crawlable category chips", () => {
@@ -135,6 +135,27 @@ async function main() {
       // Five identical "More Picks" anchors used to be the only crawlable
       // category links. Each family now names its own destination.
       assert(!expectedHtml.includes(">More Picks</a>"), "generic More Picks anchor returned");
+    });
+    check("static index links every guide-side category axis", () => {
+      // The axis pages (/guides/<cat>/) are in the sitemap, carry 764-1004
+      // words and index,follow, but before this line their only inbound links
+      // were back-links from their own composite pages — /guides itself never
+      // pointed at them. That is the discovered-but-not-indexed shape, so the
+      // axis chips are asserted here and their membership is asserted against
+      // the sitemap by the general "every href resolves" rule below.
+      const axes = [
+        "/guides/balance-bike/", "/guides/kids-bikes/", "/guides/kids-scooter/",
+        "/guides/stroller/", "/guides/kids-electric-car/",
+      ];
+      for (const href of axes) {
+        assert(expectedHtml.includes(`href="${href}"`), `missing axis chip: ${href}`);
+      }
+      assert(expectedHtml.includes("Every guide in a family:"), "axis nav label gone");
+      // The id-shaped slugs shipped for one day and now 301; linking them would
+      // make the index point at redirects.
+      for (const dead of ["/guides/bicycle/", "/guides/electric_car/", "/guides/balance/"]) {
+        assert(!expectedHtml.includes(`href="${dead}"`), `axis links a retired slug: ${dead}`);
+      }
     });
     check("REVERSE: the retired pillars are absent from the index", () => {
       const retired = [
