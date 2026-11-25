@@ -14,8 +14,49 @@ const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
  */
 const UNSAFE_URL_CHARS = /[\s<>"{}|\\^`[\]]/g;
 
+/**
+ * Encodes one path segment, preserving any %XX escape it already carries.
+ *
+ * encodeURIComponent() turns an already-escaped segment into a double escape
+ * ("Mompush%20Lithe" -> "Mompush%2520Lithe"), pointing at a key that does not
+ * exist. The CMS holds most media keys raw but some records are already
+ * encoded, and the same URL passes through this resolver more than once on the
+ * way to the page, so this has to be idempotent.
+ *
+ * Mirrors encodeUrlSegment() in scripts/prerender-pages.ts.
+ */
+function encodeUrlSegment(segment: string): string {
+  return String(segment || "")
+    .split(/(%[0-9a-f]{2})/gi)
+    .map((chunk) => (/^%[0-9a-f]{2}$/i.test(chunk) ? chunk : encodeURIComponent(chunk)))
+    .join("");
+}
+
 function encodeUnsafeUrlChars(raw: string): string {
   return String(raw || "").replace(UNSAFE_URL_CHARS, (ch) => encodeURIComponent(ch));
+}
+
+/**
+ * Drops the bucket-name segment from an ALREADY-ABSOLUTE store media URL.
+ *
+ * `scrape_store/` marks "this key lives in the media bucket", and the relative
+ * branch below strips it before rebuilding the URL. The absolute branch used to
+ * pass such a URL straight through, so 11 guides whose CMS imageUrl was stored
+ * as https://store.balancebiketoddler.com/scrape_store/kids_bikes/.../primary.jpg
+ * rendered an <img src> that 404s — the bucket serves `kids_bikes/...` and has
+ * no `scrape_store/` prefix. Only our own media host is rewritten; an external
+ * URL that happens to contain the string is left alone.
+ *
+ * Mirrors dropStoreBucketPrefix() in scripts/prerender-pages.ts. The two exist
+ * because the static build and the SPA bundle cannot share a module here; keep
+ * them in lockstep.
+ */
+function dropStoreBucketPrefix(absoluteUrl: string): string {
+  const match = /^(https?:\/\/[^/]+)\/scrape_store\/(.+)$/i.exec(absoluteUrl);
+  if (!match) return absoluteUrl;
+  const [, origin, rest] = match;
+  if (!/^https?:\/\/(?:store\.)?balancebiketoddler\.com$/i.test(origin)) return absoluteUrl;
+  return `${origin}/${rest}`;
 }
 
 function toStoreMediaUrl(rawPath: string): string {
@@ -32,7 +73,7 @@ function toStoreMediaUrl(rawPath: string): string {
   const encodedPath = mediaPath
     .split("/")
     .filter(Boolean)
-    .map((segment) => encodeURIComponent(segment))
+    .map(encodeUrlSegment)
     .join("/");
 
   return encodedPath ? `${STORE_MEDIA_ORIGIN}/${encodedPath}` : "";
@@ -55,7 +96,7 @@ function normalizeUrl(raw: unknown): string {
   }
 
   if (/^https?:\/\//i.test(normalized) || normalized.startsWith("/")) {
-    return encodeUnsafeUrlChars(normalized);
+    return encodeUnsafeUrlChars(dropStoreBucketPrefix(normalized));
   }
 
   if (lower.includes("scrape_store/")) {

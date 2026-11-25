@@ -145,7 +145,8 @@
     "check:covers": "node scripts/check-guide-covers.mjs",
     "check:footer:selftest": "node scripts/check-footer-ui.mjs --selftest",
     "check:product-schema": "node scripts/check-product-schema.mjs",
-    "check:product-schema:selftest": "node scripts/check-product-schema.mjs --self-test"
+    "check:product-schema:selftest": "node scripts/check-product-schema.mjs --self-test",
+    "check:media": "node scripts/check-media-urls.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1073.0",

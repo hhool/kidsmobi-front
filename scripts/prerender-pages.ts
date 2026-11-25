@@ -451,14 +451,56 @@ function encodeUnsafeUrlChars(raw: string): string {
 }
 
 /**
+ * Encodes one path segment, preserving any %XX escape it already carries.
+ *
+ * Plain encodeURIComponent() turns an already-escaped segment into a double
+ * escape: "Mompush%20Lithe" becomes "Mompush%2520Lithe", which points at a key
+ * that does not exist. The CMS stores most media keys raw (spaces and all) but
+ * some records were written back already-encoded, so both shapes reach here.
+ * Callers pass these URLs through more than one resolver on the way to the
+ * page (card -> page.image -> og:image), so idempotence is required, not
+ * merely nice: re-running the resolver must not keep re-escaping.
+ */
+function encodeUrlSegment(segment: string): string {
+  return String(segment || "")
+    .split(/(%[0-9a-f]{2})/gi)
+    .map((chunk) => (/^%[0-9a-f]{2}$/i.test(chunk) ? chunk : encodeURIComponent(chunk)))
+    .join("");
+}
+
+/**
+ * Drops the bucket-name segment from an ALREADY-ABSOLUTE store media URL.
+ *
+ * `scrape_store/` in a CMS record is a marker for "this key lives in the media
+ * bucket", and the relative-path branch below strips it before rebuilding the
+ * URL. The absolute branch used to pass such a URL through untouched, which is
+ * the whole bug: 11 guides carry
+ *   https://store.balancebiketoddler.com/scrape_store/kids_bikes/.../primary.jpg
+ * every one of which 404s, because the bucket serves `kids_bikes/...` and has
+ * no `scrape_store/` prefix. The early return only encoded the literal spaces
+ * in the directory name, so the URL was "valid" and quietly dead.
+ *
+ * Deliberately narrow: it rewrites only our own media host. An external URL
+ * that happens to contain the string is none of our business, and rewriting it
+ * would be the same class of mistake in the other direction.
+ */
+function dropStoreBucketPrefix(absoluteUrl: string): string {
+  const match = /^(https?:\/\/[^/]+)\/scrape_store\/(.+)$/i.exec(absoluteUrl);
+  if (!match) return absoluteUrl;
+  const [, origin, rest] = match;
+  if (!/^https?:\/\/(?:store\.)?balancebiketoddler\.com$/i.test(origin)) return absoluteUrl;
+  return `${origin}/${rest}`;
+}
+
+/**
  * Resolves CMS media paths ("scrape_store/..." or bare category paths) to
  * absolute URLs on the store media host. Already-absolute URLs pass through
- * (after sanitising any illegal characters).
+ * (after sanitising any illegal characters and dropping a stray bucket name).
  */
 function toAbsoluteMediaUrl(raw: unknown): string {
   const text = String(raw || "").trim().replace(/\\/g, "/");
   if (!text) return "";
-  if (/^https?:\/\//i.test(text)) return encodeUnsafeUrlChars(text);
+  if (/^https?:\/\//i.test(text)) return encodeUnsafeUrlChars(dropStoreBucketPrefix(text));
   const marker = "scrape_store/";
   const markerIndex = text.indexOf(marker);
   const mediaPath = markerIndex >= 0
@@ -468,7 +510,7 @@ function toAbsoluteMediaUrl(raw: unknown): string {
   const encodedPath = mediaPath
     .split("/")
     .filter(Boolean)
-    .map((segment) => encodeURIComponent(segment))
+    .map(encodeUrlSegment)
     .join("/");
   return encodedPath ? `${STORE_MEDIA_ORIGIN}/${encodedPath}` : "";
 }
@@ -513,7 +555,10 @@ function imageDimensions(rawUrl: unknown): [number, number] | undefined {
 function toPublicImageUrl(raw: unknown): string {
   const text = String(raw || "").trim().replace(/\\/g, "/");
   if (!text) return "";
-  if (/^https?:\/\//i.test(text)) return encodeUnsafeUrlChars(text);
+  // Same bucket-name trap as toAbsoluteMediaUrl: an absolute store URL that
+  // still carries `scrape_store/` 404s. Guides resolve their covers here, so
+  // both branches need the fix — patching only one leaves the other path dead.
+  if (/^https?:\/\//i.test(text)) return encodeUnsafeUrlChars(dropStoreBucketPrefix(text));
   if (text.startsWith("/")) return `${PUBLIC_SITE_BASE}${encodeUnsafeUrlChars(text)}`;
   return toAbsoluteMediaUrl(text);
 }
