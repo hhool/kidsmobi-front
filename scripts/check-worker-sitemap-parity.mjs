@@ -197,6 +197,72 @@ const checks = [
     detail: 'no Worker sitemap path may be the source of a retired-URL 301',
   },
   {
+    // LASTMOD COVERAGE, the class of drift that shipped on 2026-11-25.
+    //
+    // The parity checks above compare which URLs each side lists. They do not
+    // compare whether each side can DATE them — and that gap is exactly what
+    // went wrong: the front's prerender dated all 38 guides axis/composite
+    // pages, the Worker had no rule for them, so the live sitemap (the one
+    // Google fetches) emitted 38 undated URLs. Google's URL Inspection then
+    // reported all 38 as "URL is unknown to Google" — never seen at all.
+    //
+    // This asserts the reverse direction on the paths the Worker builds itself:
+    // every no-CMS path the front dates must be datable by a rule named in the
+    // Worker source. It reads the source for the rule FUNCTION names rather
+    // than re-implementing the matching, so a renamed/removed rule fails here
+    // instead of silently leaving URLs undated again.
+    name: 'worker-sitemap-lastmod-coverage',
+    // NOTE on shape: this returns a BOOLEAN, not an Error. An earlier version
+    // returned `new Error(msg)` as `ok`, and an Error object is truthy — so
+    // `checks.filter(c => !c.ok)` never fired and the check passed while
+    // reporting nothing. Caught by sabotage: renaming the Worker's dating rule
+    // left the guard green. Boolean in `ok`, reason in `detail`.
+    ...(() => {
+      const fail = (detail) => ({ ok: false, detail });
+      const distXml = readFileSync(sitemapPath, 'utf8');
+      const dated = new Set();
+      for (const block of distXml.match(/<url>[\s\S]*?<\/url>/g) || []) {
+        const loc = (block.match(/<loc>([^<]*)<\/loc>/) || [])[1];
+        if (loc && block.includes('<lastmod>')) {
+          dated.add(loc.replace('https://balancebiketoddler.com', ''));
+        }
+      }
+      const workerSrc = readFileSync(resolve(backendWorker, 'src', 'index.ts'), 'utf8');
+      // A rule must be both DEFINED and CALLED in the static-path fallback
+      // chain. Looking for the name anywhere is not enough — the call site
+      // satisfies a substring search on its own.
+      const ruleNames = ['assetFamilyLastmod', 'familyHubLastmod', 'recallLastmod', 'guidesAxisLastmod'];
+      const broken = ruleNames.filter(
+        (n) => !workerSrc.includes(`const ${n} =`) || !workerSrc.includes(`${n}(staticPath)`),
+      );
+      if (broken.length) {
+        return fail(`Worker dating rule(s) missing or uncalled in the static-path chain: ${broken.join(' ')}`);
+      }
+      // The guides axis + composite shapes have no CMS record and no
+      // asset-family prefix, so they depend entirely on guidesAxisLastmod.
+      // Assert the front dates all of them (the Worker side is covered by the
+      // rule-exists check above plus the workerparity list comparison).
+      const AXIS_SLUGS = ['stroller', 'balance-bike', 'kids-bikes', 'kids-scooter', 'kids-electric-car'];
+      const TOPICS = ['beginner', 'budget', 'special', 'best', 'scenario', 'risk', 'maintenance'];
+      const axisPaths = (distNoCmsPaths || []).filter((p) =>
+        AXIS_SLUGS.some((s) => p === `/guides/${s}/` || TOPICS.some((t) => p === `/guides/${s}/${t}/`)),
+      );
+      const undated = axisPaths.filter((p) => !dated.has(p));
+      if (undated.length) {
+        return fail(
+          `guides axis/composite paths in the Worker's no-CMS list that the front sitemap leaves undated: ${undated.join(' ')}`,
+        );
+      }
+      if (axisPaths.length === 0) {
+        return fail('found no guides axis/composite paths to check — the derivation is broken, not the site');
+      }
+      return {
+        ok: true,
+        detail: `all ${axisPaths.length} guides axis/composite no-CMS paths are dated by the front and the Worker has a rule for them`,
+      };
+    })(),
+  },
+  {
     // The Worker strips the trailing slash before looking a path up, so a key
     // written with one can never match and the old URL 404s instead of
     // redirecting.
