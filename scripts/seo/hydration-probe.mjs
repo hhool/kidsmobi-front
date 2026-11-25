@@ -148,10 +148,11 @@ const ROUTES = [
   //     This entry used to point at /guides/kids-scooter/beginner/, which was
   //     thin until batch 4 took scooter beginner to 3 and flipped it to
   //     index,follow — the assertion then described the opposite of the truth.
-  //     That is the hazard of pinning a build-time count: the number moves with
-  //     content, so the sample must be chosen to stay thin, not chosen once.
-  //     scenario/budget/maintenance are scooter's remaining three at 2 each
-  //     (batch 4 spent the whole cover budget on the other three combinations).
+//     That is the hazard of pinning a build-time count: the number moves with
+//     content, so the sample must be chosen to stay thin, not chosen once.
+//     scenario/budget/maintenance are scooter's remaining three at 1 article
+//     each (batch 4 spent the whole cover budget on the other three
+//     combinations), so they stay below COMPOSITE_INDEX_THRESHOLD=3.
   //   - /zh/guides/best/best-balance-bike-for-2-year-olds : a Chinese article
   //     from batch 2. NOTE: the category axis was never built for /zh (R47
   //     deliberately shipped EN-only, so /zh keeps the topic axis:
