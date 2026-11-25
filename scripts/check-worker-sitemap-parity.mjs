@@ -263,6 +263,51 @@ const checks = [
     })(),
   },
   {
+    // R55. The sitemap dates each collection's hubs with that collection's
+    // "latest edit". The front derives it from its published-only snapshot;
+    // the Worker scanned every row. The two agreed only while every row
+    // happened to be published, so the first withhold (one product flipped to
+    // draft) pushed 9 product URLs' lastmod to the withhold timestamp on the
+    // live sitemap while the front kept the real date. That is the R52 shape
+    // again: a sitemap signal Google reads, silently disagreeing with the one
+    // this repo builds.
+    //
+    // The assertion is on the Worker source because that is the side that
+    // cannot be imported here. It checks that pickRecordLastmod is called
+    // INSIDE a published-status branch — a bare `includes('pickRecordLastmod')`
+    // would pass on the call site alone, and reading the comment above would
+    // pass on prose. Both of those are how the last two guards in this family
+    // lied, so the shape is asserted, not the vocabulary.
+    name: 'worker-collection-lastmod-published-only',
+    ...(() => {
+      const workerSrc = readFileSync(resolve(backendWorker, 'src', 'index.ts'), 'utf8');
+      // Narrow to buildSitemapXml's collection loop so a published-only
+      // filter anywhere else in the file cannot satisfy this.
+      const start = workerSrc.indexOf('async function buildSitemapXml');
+      const end = workerSrc.indexOf('Phase 2: collect category hubs', start);
+      if (start < 0 || end < 0) {
+        return { ok: false, detail: 'could not locate the buildSitemapXml collection loop to inspect' };
+      }
+      const loopSrc = workerSrc.slice(start, end);
+      // The gate must be both present and guarding the max tracking.
+      const gate = /const\s+isPublishedRow\s*=\s*rowStatus\s*===\s*"published"/.test(loopSrc);
+      const guardedMax = /if\s*\(\s*isPublishedRow\s*\)\s*\{[^}]*pickRecordLastmod/.test(loopSrc);
+      const skipsDrafts = /if\s*\(\s*!\s*isPublishedRow\s*\)\s*\{[^}]*continue;/.test(loopSrc);
+      const missingParts = [
+        !gate && 'no `isPublishedRow = rowStatus === "published"` gate',
+        !guardedMax && 'pickRecordLastmod is not called inside the isPublishedRow branch',
+        !skipsDrafts && 'non-published rows are not skipped before path derivation',
+      ].filter(Boolean);
+      if (missingParts.length) {
+        return { ok: false, detail: `Worker sitemap collection loop must count only published rows: ${missingParts.join('; ')}` };
+      }
+      return {
+        ok: true,
+        detail: 'the Worker derives each collection\'s latest-edit date from published rows only, matching the front snapshot',
+      };
+    })(),
+  },
+  {
     // The Worker strips the trailing slash before looking a path up, so a key
     // written with one can never match and the old URL 404s instead of
     // redirecting.
