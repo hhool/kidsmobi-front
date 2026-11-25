@@ -155,6 +155,16 @@ jobs:
       - name: News cover images
         run: npm run check:newscovers
 
+      # 23 covers pointed at store keys that were never scraped. A broken <img>
+      # renders exactly like a working one, so this went unnoticed: check:covers
+      # asserts uniqueness (a URL can be unique and still 404) and
+      # check:newscovers only inspects news. Needs the CMS for cover provenance;
+      # MEDIA_PROBE=1 additionally asks the store whether the bytes exist.
+      - name: Media URLs reachable and store-clean
+        run: npm run check:media
+        env:
+          CMS_ADMIN_ALL_TOKEN: ${{ secrets.CMS_ADMIN_ALL_TOKEN }}
+
       # 45 of the 56 guide covers were centre-cropped inside the file, so the
       # subject (wheels, handlebars) was gone before the page ever rendered
       # it. Nothing in the DOM could show that, because the page uses

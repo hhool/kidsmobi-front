@@ -308,6 +308,55 @@ const checks = [
     })(),
   },
   {
+    // Sixth instance of the front/Worker divergence family (2026-11-25): the
+    // live sitemap carried 43 <image:loc> entries as
+    //   https://store.balancebiketoddler.com/scrape_store/<key>
+    // and every one of them 404s, because the bucket serves <key>. The pages
+    // were fixed in the front prerender but the Worker builds its own image
+    // URLs from D1 and kept the marker.
+    //
+    // Asserts the SHAPE of sitemapCoverImage, not the presence of a string:
+    //   - the helper must be DEFINED, and separately CALLED on the absolute
+    //     branch (a definition alone satisfies a substring grep while the call
+    //     site stays broken — that is how an earlier guard in this file lied);
+    //   - segments must go through encodeUrlSegment, not encodeURIComponent,
+    //     because re-encoding an already-escaped segment yields %2520.
+    name: 'worker-sitemap-image-url-clean',
+    ...(() => {
+      const workerSrc = readFileSync(resolve(backendWorker, 'src', 'index.ts'), 'utf8');
+      const start = workerSrc.indexOf('function sitemapCoverImage');
+      const end = workerSrc.indexOf('function sitemapCoverTitle', start);
+      if (start < 0 || end < 0) {
+        return { ok: false, detail: 'could not locate sitemapCoverImage to inspect' };
+      }
+      const fnSrc = workerSrc.slice(start, end);
+      const helperDefined = /function\s+dropStoreBucketPrefix\s*\(/.test(workerSrc);
+      const segDefined = /function\s+encodeUrlSegment\s*\(/.test(workerSrc);
+      // The call must sit on the absolute-URL branch: it is the branch that
+      // returns early, which is exactly where the marker used to survive.
+      const helperCalled =
+        /if\s*\(\s*\/\^https\?[\s\S]{0,80}?\)\s*return\s+encodeUnsafeUrlChars\s*\(\s*dropStoreBucketPrefix\s*\(/.test(
+          fnSrc,
+        );
+      const idempotentSegments = /\.map\(\s*encodeUrlSegment\s*\)/.test(fnSrc);
+      const naiveSegments = /\.map\([^)]*encodeURIComponent/.test(fnSrc);
+      const missingParts = [
+        !helperDefined && 'dropStoreBucketPrefix is not defined',
+        !segDefined && 'encodeUrlSegment is not defined',
+        !helperCalled && 'the absolute-URL branch does not strip the bucket marker',
+        !idempotentSegments && 'segments are not encoded through encodeUrlSegment',
+        naiveSegments && 'a branch still calls encodeURIComponent on whole segments (double-encoding risk)',
+      ].filter(Boolean);
+      if (missingParts.length) {
+        return { ok: false, detail: `Worker sitemap image URLs must be store-clean: ${missingParts.join('; ')}` };
+      }
+      return {
+        ok: true,
+        detail: 'Worker strips the scrape_store marker and encodes segments idempotently, matching the front prerender',
+      };
+    })(),
+  },
+  {
     // The Worker strips the trailing slash before looking a path up, so a key
     // written with one can never match and the old URL 404s instead of
     // redirecting.
