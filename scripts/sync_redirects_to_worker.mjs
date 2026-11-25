@@ -46,7 +46,13 @@ if (!existsSync(mapPath)) {
 const map = JSON.parse(readFileSync(mapPath, "utf8"));
 const exact = Object.entries(map.exact || {}).map(([from, to]) => [String(from), String(to)]);
 const prefix = (map.prefix || []).map(([from, to]) => [String(from), String(to)]);
-if (!exact.length && !prefix.length) {
+// Directory-index families. Same 1:1 semantics as `prefix`, but every child URL
+// ends in a slash and that slash is the canonical form, so the Worker appends
+// the remainder and then terminates it. Emitted as a separate table for the
+// same reason the front publishes it separately: one expansion rule cannot be
+// correct for a file route and a directory index at the same time.
+const prefixDir = (map.prefixDir || []).map(([from, to]) => [String(from), String(to)]);
+if (!exact.length && !prefix.length && !prefixDir.length) {
   console.error(`${mapPath} carries no rules — refusing to wipe the Worker's redirect table`);
   process.exit(1);
 }
@@ -60,6 +66,7 @@ const needsOtherWildcard = otherBucketExact.length > 0;
 // slash form included), or when the other-bucket wildcard does.
 const isCovered = (from) =>
   prefix.some(([prefixFrom]) => from.startsWith(`${prefixFrom}/`))
+  || prefixDir.some(([prefixFrom]) => from === prefixFrom || from.startsWith(`${prefixFrom}/`))
   || (needsOtherWildcard && from.startsWith(`${OTHER_BUCKET}/`));
 
 // Both slash shapes, because Cloudflare matches a route pattern literally: a
@@ -69,8 +76,19 @@ const isCovered = (from) =>
 // still exact — neither pattern widens onto paths the rule does not own, which
 // is why this is not done with a `/*` pattern.
 const uncoveredExactPaths = exact.filter(([from]) => !isCovered(from)).map(([from]) => from);
+
+// `from/*` and `from` are two different patterns and BOTH are required: `*`
+// matches the remainder AFTER a slash, so `host/guides/bicycle/*` does not
+// intercept `/guides/bicycle` — it intercepts `/guides/bicycle/` and everything
+// deeper. On 2026-11-25 the guide families were emitted wildcard-only, and all
+// four bare forms answered 404 in production while every slash form redirected
+// correctly. The retired directories no longer exist, so Pages had no 308 to
+// fall back on either. (This comment previously claimed `*` also covers the
+// slash form "because `*` matches the empty string" — true for the slash form,
+// false for the bare one, and the asymmetry is what shipped the bug.)
 const patterns = [
   ...prefix.map(([from]) => `balancebiketoddler.com${from}/*`),
+  ...prefixDir.flatMap(([from]) => [`balancebiketoddler.com${from}`, `balancebiketoddler.com${from}/*`]),
   ...(needsOtherWildcard ? [`balancebiketoddler.com${OTHER_BUCKET}/*`] : []),
   ...uncoveredExactPaths.flatMap((from) => [`balancebiketoddler.com${from}`, `balancebiketoddler.com${from}/`]),
 ];
@@ -105,11 +123,28 @@ ${exact.map(([from, to]) => `  ${JSON.stringify(from)}: ${JSON.stringify(to)},`)
 export const LEGACY_CATEGORY_PREFIX_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
 ${prefix.map(([from, to]) => `  [${JSON.stringify(from)}, ${JSON.stringify(to)}],`).join("\n")}
 ];
+
+/**
+ * Retired prefix -> canonical prefix, over DIRECTORY indexes.
+ *
+ * Same 1:1 semantics as the file table above, but the expansion differs: every
+ * child URL of these families ends in a slash and that slash is its canonical
+ * form, so the Worker appends the remainder and then terminates it
+ * (/guides/<old>/<rest> -> /guides/<new>/<rest>/). The file table appends the
+ * remainder verbatim, because its children are filenames.
+ *
+ * Targets already carry the trailing slash; the handler strips the request's
+ * trailing slash before lookup, so the remainder never begins with one and the
+ * join cannot produce a double slash.
+ */
+export const LEGACY_GUIDE_PREFIX_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
+${prefixDir.map(([from, to]) => `  [${JSON.stringify(from)}, ${JSON.stringify(to)}],`).join("\n")}
+];
 `,
   "utf8",
 );
 console.log(
-  `wrote ${outFile} (${exact.length} exact + ${prefix.length} prefix rule(s), ${otherBucketExact.length} in the other bucket)`,
+  `wrote ${outFile} (${exact.length} exact + ${prefix.length} file prefix + ${prefixDir.length} directory prefix rule(s), ${otherBucketExact.length} in the other bucket)`,
 );
 
 // --- keep the Worker routes in wrangler.toml in lockstep ---------------------

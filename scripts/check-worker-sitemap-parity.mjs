@@ -115,11 +115,66 @@ const wrangler = readFileSync(wranglerPath, 'utf8');
 const patterns = new Set([...wrangler.matchAll(/^pattern = "([^"]+)"/gm)].map((m) => m[1]));
 const hasPattern = (path) => patterns.has(`balancebiketoddler.com${path}`);
 
+// --- parse the directory-index prefix families -------------------------------
+// The 2026-11-25 guides rename shipped two defects that no existing check could
+// see, because both live in the *expansion* of the table rather than in the
+// table itself:
+//
+//   1. The Worker emits `<from>/*` zone routes, and Cloudflare's `*` matches the
+//      remainder AFTER a slash — so `/guides/bicycle/*` intercepts
+//      `/guides/bicycle/` and everything below it, but NOT `/guides/bicycle`.
+//      The bare form fell through to Pages, the directory no longer existed,
+//      and all four bare URLs answered 404. The product families were never
+//      exposed to this because their entries are also exact rules, which get a
+//      bare pattern of their own.
+//   2. The prefix targets were emitted without a trailing slash and the handler
+//      expanded them verbatim, so every one of the 35 composites 301'd to its
+//      no-slash form and then took a second 308 back to the slash.
+//
+// Both are asserted here against the generated artefact, so a change to the
+// prerender or the sync script fails before the Worker is deployed.
+const prefixDirPairs = (redirects.prefixDir || []).map(([from, to]) => [String(from), String(to)]);
+const rawFilePrefixes = (redirects.prefix || []).map(([from]) => String(from));
+
+const guidePrefixChecks = [
+  {
+    // Defect 1. A `*`-suffixed pattern does not cover the bare prefix.
+    name: 'redirect-guide-prefix-bare-route',
+    ok: prefixDirPairs.every(([from]) => hasPattern(from)),
+    detail:
+      `every guide category prefix needs a BARE Worker route as well as its wildcard, because ` +
+      `Cloudflare's "*" does not match the empty remainder without a slash — missing: ` +
+      `${prefixDirPairs.filter(([from]) => !hasPattern(from)).map(([from]) => from).join(' ') || 'none'} ` +
+      `(re-run scripts/sync_redirects_to_worker.mjs)`,
+  },
+  {
+    // Defect 2. Directory children are directory indexes; their canonical URL
+    // ends in a slash, so a slashless target guarantees a second hop.
+    name: 'redirect-guide-prefix-target-terminated',
+    ok: prefixDirPairs.every(([, to]) => to.endsWith('/')),
+    detail:
+      `every guide category prefix target must end with "/" — the children are directory indexes and ` +
+      `a slashless target costs an extra 308 per URL: ` +
+      `${prefixDirPairs.filter(([, to]) => !to.endsWith('/')).map(([f, t]) => `${f} -> ${t}`).join(' ') || 'none'}`,
+  },
+  {
+    // The two families must stay disjoint. A path in both tables would be
+    // expanded twice with different shapes and the winner would depend on loop
+    // order — the exact class of bug this split exists to prevent.
+    name: 'redirect-prefix-families-disjoint',
+    ok: prefixDirPairs.every(([from]) => !rawFilePrefixes.includes(from)),
+    detail:
+      `no path may appear in both the file and the directory prefix tables: ` +
+      `${prefixDirPairs.filter(([from]) => rawFilePrefixes.includes(from)).map(([from]) => from).join(' ') || 'none'}`,
+  },
+];
+
 const sameSet = (a, b) =>
   Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((x) => b.includes(x));
 
 const checks = [
   retiredGuideCheck,
+  ...guidePrefixChecks,
   {
     name: 'worker-sitemap-asset-parity',
     ok: sameSet(distAssetPaths, workerAssetPaths),

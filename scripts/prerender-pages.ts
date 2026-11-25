@@ -9898,8 +9898,23 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   // Only the four RENAMED ids appear: `stroller` kept its segment, and routing
   // such a prefix into itself would make the Worker redirect a URL to the URL
   // it was already on.
+  //
+  // Published under their own key, NOT merged into `prefix` above, because the
+  // two families do not share a URL shape and the Worker has to expand them
+  // differently:
+  //
+  //   - product families are FILE routes — /products/<cat>/<id> has no
+  //     trailing slash, and the remainder is a filename;
+  //   - guide category children are DIRECTORY indexes — /guides/<cat>/<topic>/
+  //     always carries the trailing slash, and that slash is the canonical URL.
+  //
+  // Folding both into one table means one of them gets the wrong shape, which
+  // is exactly what shipped on 2026-11-25: every composite 301'd to its
+  // no-slash form and then took a second 308 hop back to the slash. Hence the
+  // targets here carry the trailing slash and the Worker expands this table by
+  // appending one (see resolveLegacyRedirect).
   const guideCategoryPrefixRedirects: Array<[string, string]> = LEGACY_GUIDE_CATEGORY_ROUTE_SLUGS.map(
-    ([from, to]) => [`/guides/${from}`, `/guides/${to}`],
+    ([from, to]) => [`/guides/${from}`, `/guides/${to}/`],
   );
 
   await mkdir(path.join(distDir, "data"), { recursive: true });
@@ -9908,7 +9923,14 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     `${JSON.stringify(
       {
         exact: Object.fromEntries(legacyExactRedirects),
-        prefix: [...legacyPrefixRedirects, ...guideCategoryPrefixRedirects],
+        // 1:1 families over FILE routes: the remainder is a filename and is
+        // appended verbatim, so `/products/stroller/<id>` -> `/products/strollers/<id>`.
+        prefix: legacyPrefixRedirects,
+        // 1:1 families over DIRECTORY indexes: every child URL ends in a slash
+        // and the slash is the canonical form, so the remainder is appended and
+        // then terminated. Kept in its own key because one expansion rule
+        // cannot be right for both shapes.
+        prefixDir: guideCategoryPrefixRedirects,
       },
       null,
       2,
@@ -9916,7 +9938,8 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     "utf8",
   );
   console.log(
-    `[prerender] legacy-redirects.json: ${legacyExactRedirects.length} exact + ${legacyPrefixRedirects.length} prefix rule(s) (owned by the Worker).`,
+    `[prerender] legacy-redirects.json: ${legacyExactRedirects.length} exact + ` +
+      `${legacyPrefixRedirects.length} file prefix + ${guideCategoryPrefixRedirects.length} directory prefix rule(s) (owned by the Worker).`,
   );
 }
 
