@@ -15,7 +15,7 @@
  * scripts/check-hreflang.mjs compares this list against the delivered dist
  * route by route, so drift fails the build rather than shipping silently.
  *
- * 120 route(s).
+ * 122 route(s).
  */
 
 export const ZH_ROUTE_PATHS: readonly string[] = [
@@ -63,6 +63,8 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/budget/kids-ride-on-price-tiers",
   "/zh/guides/budget/kids-ride-on-under-100",
   "/zh/guides/budget/kids-ride-on-under-200",
+  "/zh/guides/budget/kids-scooter-first-year-upkeep",
+  "/zh/guides/budget/kids-scooter-ride-on-vs-convertible",
   "/zh/guides/budget/kids-scooter-under-50",
   "/zh/guides/budget/stroller-price-tiers-what-you-pay-for",
   "/zh/guides/budget/stroller-under-200",
