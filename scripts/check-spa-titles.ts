@@ -52,7 +52,7 @@ import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 import { resolveSectionRouteSeo, publishSectionTitle } from "../src/lib/cmsSectionSeo";
 import { CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import { GUIDES_TOPIC_PAGES, GUIDES_TOPIC_PAGE_IDS } from "../src/lib/guidesTopicPages";
-import { GUIDE_CATEGORY_IDS, GUIDE_TOPIC_IDS } from "../src/lib/guidesCategoryTopic";
+import { GUIDE_CATEGORY_IDS, GUIDE_TOPIC_IDS, guideCategoryRouteSlug } from "../src/lib/guidesCategoryTopic";
 import { buildGuidesCategoryCopy, buildGuidesCompositeCopy } from "../src/lib/guidesCompositePage";
 import type { CMSSettings } from "../src/types";
 
@@ -228,7 +228,7 @@ for (const category of GUIDE_CATEGORY_IDS) {
   const categoryCopy = buildGuidesCategoryCopy(category, "en");
   expectations.push({
     label: `guides category ${category}`,
-    route: `/guides/${category}/`,
+    route: `/guides/${guideCategoryRouteSlug(category)}/`,
     title: categoryCopy.fullTitle,
     description: buildMetaDescription(categoryCopy.description, sanitizeUnsupportedClaims),
   });
@@ -236,7 +236,7 @@ for (const category of GUIDE_CATEGORY_IDS) {
     const copy = buildGuidesCompositeCopy(category, topic, "en");
     expectations.push({
       label: `guides composite ${category}/${topic}`,
-      route: `/guides/${category}/${topic}/`,
+      route: `/guides/${guideCategoryRouteSlug(category)}/${topic}/`,
       title: copy.fullTitle,
       description: buildMetaDescription(copy.description, sanitizeUnsupportedClaims),
     });

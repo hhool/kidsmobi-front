@@ -140,13 +140,42 @@ function navProblems(guidesHtml) {
  * Deliberately URL-driven, not page-driven: deriving the family from the page's
  * own copy would agree with a mislabelled page.
  */
+/**
+ * Keyword family of each guides CATEGORY page, keyed by the **URL segment** the
+ * page is published under — not by the CMS id.
+ *
+ * This distinction is the whole point of the check: it asks "does the page at
+ * /guides/<this segment>/ talk about the thing that segment names?" The URL
+ * segment is the public vocabulary (kids-bikes, balance-bike, ...), while the
+ * CMS id (bicycle, balance, ...) is what the record stores. Keying this table
+ * on the ids was correct while the two vocabularies happened to be identical;
+ * once the category axis moved to reader-facing slugs it would have read every
+ * page as an unknown family and skipped all 40 of them — a guard reporting
+ * green while checking nothing, which is the failure mode its own comment about
+ * index 2 already warns against.
+ *
+ * UNKNOWN_FAMILY check below is the structural fix for that class: a directory
+ * under dist/guides that is a category page but is missing here is a FAILURE,
+ * so renaming a category can never silently disable the check again.
+ */
 const FAMILY_KEYWORD = {
   stroller: /stroller|推车/i,
-  balance: /balance[ -]bike|平衡车|滑步/i,
-  bicycle: /kids bike|bicycle|儿童自行车/i,
-  scooter: /scooter|滑板车/i,
-  electric_car: /electric car|电动车|ride-?on/i,
+  "balance-bike": /balance[ -]bike|平衡车|滑步/i,
+  "kids-bikes": /kids bike|bicycle|儿童自行车/i,
+  "kids-scooter": /scooter|滑板车/i,
+  "kids-electric-car": /electric car|电动车|ride-?on/i,
 };
+
+/** Directories under dist/guides that are the TOPIC axis, not categories. */
+const TOPIC_DIRS = new Set([
+  "beginner",
+  "scenario",
+  "budget",
+  "risk",
+  "special",
+  "maintenance",
+  "best",
+]);
 
 function crossFamilyProblems(htmlByRoute) {
   const out = [];
@@ -221,8 +250,8 @@ function main() {
     const axisGood = {
       "/guides/stroller/": kwPage("baby stroller guides, baby stroller buying guide"),
       "/guides/stroller/budget/": kwPage("baby stroller guides, baby stroller budget guide"),
-      "/guides/balance/": kwPage("balance bike guides, balance bike buying guide"),
-      "/guides/electric_car/special/": kwPage("electric car guides, electric car special-fit"),
+      "/guides/balance-bike/": kwPage("balance bike guides, balance bike buying guide"),
+      "/guides/kids-electric-car/special/": kwPage("electric car guides, electric car special-fit"),
     };
     check("category-axis families pass", crossFamilyProblems(axisGood).length === 0);
     check("REVERSE: the shipped defect (stroller composite on balance-bike keywords) turns red",
@@ -231,9 +260,9 @@ function main() {
         "/guides/stroller/budget/": kwPage("balance bike guide, first balance bike, balance bike for beginners"),
       }).length > 0);
     check("REVERSE: a balance page on stroller keywords turns red",
-      crossFamilyProblems({ ...axisGood, "/guides/balance/": kwPage("baby stroller guides, travel stroller") }).length > 0);
+      crossFamilyProblems({ ...axisGood, "/guides/balance-bike/": kwPage("baby stroller guides, travel stroller") }).length > 0);
     check("REVERSE: an empty keywords tag on a family page turns red",
-      crossFamilyProblems({ ...axisGood, "/guides/scooter/": kwPage("") }).length > 0);
+      crossFamilyProblems({ ...axisGood, "/guides/kids-scooter/": kwPage("") }).length > 0);
 
     for (const c of cases) console.log(`  ${c.ok ? "OK  " : "FAIL"} ${c.name}`);
     const failed = cases.filter((c) => !c.ok);
@@ -316,6 +345,18 @@ function main() {
       for (const sub of readdirSync(familyDir)) {
         const subIndex = join(familyDir, sub, "index.html");
         if (existsSync(subIndex)) axisHtml[`/guides/${family}/${sub}/`] = readFileSync(subIndex, "utf8");
+      }
+      // A directory that carries a category index but is neither a known
+      // category slug nor a topic is a rename this table has not caught up
+      // with. Report it instead of skipping: skipping is how a guard can pass
+      // while checking nothing, and the cost of a rename landing unguarded is a
+      // production page publishing another family's keywords — which is exactly
+      // the 2026-11-24 defect this check exists for.
+      if (existsSync(catIndex) && !FAMILY_KEYWORD[family] && !TOPIC_DIRS.has(family)) {
+        problems.push(
+          `dist/guides/${family}/ is a category page with no FAMILY_KEYWORD entry — ` +
+            `the category slug changed and this table was not updated with it`,
+        );
       }
     }
   }

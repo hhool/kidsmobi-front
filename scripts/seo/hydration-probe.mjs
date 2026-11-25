@@ -140,10 +140,10 @@ const ROUTES = [
   // hub, one indexable composite, one thin composite and one ZH composite
   // keeps the probe representative without fetching 40 pages per run:
   //   - /guides/stroller/ : category hub, 1327 words, must keep its own TDK
-  //   - /guides/balance/best/ : composite that flipped to index,follow when
+  //   - /guides/balance-bike/best/ : composite that flipped to index,follow when
   //     batch 2 took the combination to 3 — the noindex->index transition is
   //     decided by a build-time count, so the hydrated DOM must agree
-  //   - /guides/bicycle/risk/ : still below COMPOSITE_INDEX_THRESHOLD, so the
+  //   - /guides/kids-scooter/beginner/ : still below COMPOSITE_INDEX_THRESHOLD, so the
   //     hydrated page must KEEP noindex,follow with a SELF canonical
   //   - /zh/guides/best/best-balance-bike-for-2-year-olds : a Chinese article
   //     from batch 2. NOTE: the category axis was never built for /zh (R47
@@ -152,8 +152,8 @@ const ROUTES = [
   //     which is exactly the kind of assumption this list must not encode —
   //     the first draft of this entry pointed at a 404.
   '/guides/stroller/',
-  '/guides/balance/best/',
-  '/guides/bicycle/risk/',
+  '/guides/balance-bike/best/',
+  '/guides/kids-scooter/beginner/',
   '/zh/guides/best/best-balance-bike-for-2-year-olds',
 ];
 
@@ -164,8 +164,8 @@ const ROUTES = [
 // the probe able to catch a hydration that overwrites robots with a default.
 const EXPECT_ROBOTS = {
   '/guides/stroller/': 'index,follow',
-  '/guides/balance/best/': 'index,follow',
-  '/guides/bicycle/risk/': 'noindex,follow',
+  '/guides/balance-bike/best/': 'index,follow',
+  '/guides/kids-scooter/beginner/': 'noindex,follow',
 };
 
 // Every hub must still link its own topic indexes AFTER hydration. The

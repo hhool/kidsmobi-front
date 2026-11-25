@@ -122,6 +122,70 @@ export const GUIDE_CATEGORY_IDS = ["stroller", "balance", "bicycle", "scooter", 
 
 export type GuideCategoryId = (typeof GUIDE_CATEGORY_IDS)[number];
 
+/**
+ * The public URL segment for each category id.
+ *
+ * TWO VOCABULARIES, ONE ID SPACE. The ids above are the CMS's, and they stay
+ * exactly as stored: `taxonomy.productCategory` is what every guide record
+ * carries, and changing it would mean rewriting 96 live rows to rename
+ * something a reader never sees. The URL is a different question — it is the
+ * one place a stranger reads the name of the category — so it gets its own
+ * words.
+ *
+ * The old URL segments WERE the ids (`/guides/bicycle/`, `/guides/electric_car/`)
+ * which read as a database column: an underscore in an address bar, and
+ * `bicycle` when the site, the page title and the product hub all say "Kids
+ * Bike". These segments match the product hub slugs and the labels the wizard
+ * chips already show, so a reader who clicks "Kids Bike" and a reader who types
+ * a URL now see the same words.
+ *
+ * NOT derived mechanically from GUIDE_CATEGORY_LABELS: a label is prose
+ * ("Baby Stroller", "Electric Car") and a slug is an address. `stroller` stays
+ * bare because /guides/stroller/ was already the shortest correct form and
+ * changing it would 301 a URL for no gain — the four renamed are the four whose
+ * ids were not English the reader could recognise.
+ */
+export const GUIDE_CATEGORY_ROUTE_SLUGS: Record<GuideCategoryId, string> = {
+  stroller: "stroller",
+  balance: "balance-bike",
+  bicycle: "kids-bikes",
+  scooter: "kids-scooter",
+  electric_car: "kids-electric-car",
+};
+
+/** URL slug -> category id, for parsing a path segment. */
+const ROUTE_SLUG_TO_CATEGORY: ReadonlyMap<string, GuideCategoryId> = new Map(
+  (Object.entries(GUIDE_CATEGORY_ROUTE_SLUGS) as Array<[GuideCategoryId, string]>).map(
+    ([id, slug]) => [slug, id],
+  ),
+);
+
+/**
+ * Previous URL segments, kept only so they can be recognised and 301'd.
+ *
+ * These are the ids-as-slugs shapes that shipped 2026-11-24 and lived for one
+ * day. They are NOT accepted as routes (a page must have exactly one address);
+ * they are listed here so the redirect generators on both sides read them from
+ * the same place as the current values, and so nobody has to guess later which
+ * segments were ever real.
+ */
+export const LEGACY_GUIDE_CATEGORY_ROUTE_SLUGS: ReadonlyArray<readonly [string, string]> = [
+  ["balance", "balance-bike"],
+  ["bicycle", "kids-bikes"],
+  ["scooter", "kids-scooter"],
+  ["electric_car", "kids-electric-car"],
+];
+
+/** The URL segment for a category id. */
+export function guideCategoryRouteSlug(category: GuideCategoryId): string {
+  return GUIDE_CATEGORY_ROUTE_SLUGS[category];
+}
+
+/** Category id for a URL segment, or null when the segment is not a category. */
+export function guideCategoryIdFromRouteSlug(value: unknown): GuideCategoryId | null {
+  return ROUTE_SLUG_TO_CATEGORY.get(String(value || "").trim().toLowerCase()) || null;
+}
+
 export const GUIDE_CATEGORY_LABELS: Record<GuideCategoryId, { en: string; zh: string }> = {
   stroller: { en: "Baby Stroller", zh: "婴儿推车" },
   balance: { en: "Balance Bike", zh: "滑步平衡车" },
@@ -195,6 +259,13 @@ export interface GuidesRouteMatch {
  * here, otherwise /guides/stroller/best/ decodes as category + article slug and
  * every best-of article loses its composite listing. Routing vocabulary and
  * channel-page vocabulary are two different questions; see GUIDE_TOPIC_IDS.
+ *
+ * The category segment is matched against the PUBLIC slug vocabulary
+ * (GUIDE_CATEGORY_ROUTE_SLUGS), not the CMS ids. Those two vocabularies are
+ * also disjoint today — no slug equals another category's id — so a request for
+ * the retired id form (/guides/bicycle/) does not silently resolve here; it
+ * falls through to the legacy-article branch and surfaces as a soft 404, which
+ * is the honest answer for an address that has moved.
  */
 export function matchGuidesChannelRoute(segments: string[]): GuidesRouteMatch | null {
   const [first = "", second = "", third = ""] = segments;
@@ -207,11 +278,12 @@ export function matchGuidesChannelRoute(segments: string[]): GuidesRouteMatch | 
     return { category: "", topic: first, articleSlug: second || third || "" };
   }
 
-  // /guides/<category> — category channel (new).
-  if (isGuideCategoryId(first)) {
-    const category = first as GuideCategoryId;
+  // /guides/<category> — category channel.
+  const firstCategory = guideCategoryIdFromRouteSlug(first);
+  if (firstCategory) {
+    const category = firstCategory;
     if (!second) return { category, topic: "", articleSlug: "" };
-    // /guides/<category>/<topic> — composite channel (new).
+    // /guides/<category>/<topic> — composite channel.
     if (isGuideTopicId(second)) {
       return { category, topic: second, articleSlug: third || "" };
     }
@@ -226,21 +298,22 @@ export function matchGuidesChannelRoute(segments: string[]): GuidesRouteMatch | 
   return { category: "", topic: "", articleSlug: first };
 }
 
-/** "/guides/<category>/" for an English route. */
+/** "/guides/<category-slug>/" for an English route. */
 export function guidesCategoryPath(category: GuideCategoryId | ""): string {
-  return category ? `/guides/${category}/` : "/guides";
+  return category ? `/guides/${guideCategoryRouteSlug(category)}/` : "/guides";
 }
 
 /**
- * "/guides/<category>/<topic>/" for an English route. Falls back to whichever
- * single axis is set so callers can use one builder for all three shapes.
+ * "/guides/<category-slug>/<topic>/" for an English route. Falls back to
+ * whichever single axis is set so callers can use one builder for all three
+ * shapes.
  */
 export function guidesCompositePath(
   category: GuideCategoryId | "",
   topic: GuideTopicId | "",
 ): string {
-  if (category && topic) return `/guides/${category}/${topic}/`;
-  if (category) return `/guides/${category}/`;
+  if (category && topic) return `/guides/${guideCategoryRouteSlug(category)}/${topic}/`;
+  if (category) return `/guides/${guideCategoryRouteSlug(category)}/`;
   if (topic) return `/guides/${topic}/`;
   return "/guides";
 }

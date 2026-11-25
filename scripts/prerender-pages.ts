@@ -216,8 +216,10 @@ import {
   GUIDE_CATEGORY_IDS,
   GUIDE_CATEGORY_LABELS,
   GUIDE_TOPIC_LABELS,
+  guideCategoryRouteSlug,
   GUIDE_TOPIC_IDS,
   GUIDE_TOPIC_NOUN,
+  LEGACY_GUIDE_CATEGORY_ROUTE_SLUGS,
   hasTopicChannelPage,
   isCompositeChannel,
   type GuideCategoryId,
@@ -3815,11 +3817,11 @@ function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
     const topicChips = GUIDE_TOPIC_IDS.map((topic) => {
       const count = (cardsByPair.get(`${category}|${topic}`) || []).length;
       if (!count) return "";
-      return `<a href="/guides/${category}/${topic}/" style="display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid #e2e8f0;border-radius:999px;text-decoration:none;color:#334155;font-size:0.88rem;background:#fff;">${escapeHtml(GUIDE_TOPIC_LABELS[topic].en)} <span style="color:#94a3b8;">${count}</span></a>`;
+      return `<a href="/guides/${guideCategoryRouteSlug(category)}/${topic}/" style="display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid #e2e8f0;border-radius:999px;text-decoration:none;color:#334155;font-size:0.88rem;background:#fff;">${escapeHtml(GUIDE_TOPIC_LABELS[topic].en)} <span style="color:#94a3b8;">${count}</span></a>`;
     }).join("");
 
     pages.push({
-      route: `/guides/${category}/`,
+      route: `/guides/${guideCategoryRouteSlug(category)}/`,
       title: categoryCopy.h1,
       fullTitle: categoryCopy.fullTitle,
       description: categoryCopy.description,
@@ -3835,7 +3837,7 @@ function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
       ${renderProductBreadcrumb([
         { name: "Home", href: "/" },
         { name: "Guides", href: "/guides" },
-        { name: GUIDE_CATEGORY_LABELS[category].en, href: `/guides/${category}/` },
+        { name: GUIDE_CATEGORY_LABELS[category].en, href: `/guides/${guideCategoryRouteSlug(category)}/` },
       ])}
       <section style="padding: 22px 0;">
         <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;">${escapeHtml(categoryCopy.intro)}</p>
@@ -3851,7 +3853,7 @@ function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Other categories</h2>
         <ul style="margin: 0; padding-left: 1.2rem;">
           ${GUIDE_CATEGORY_IDS.filter((other) => other !== category)
-            .map((other) => `<li style="margin-bottom: 6px;"><a href="/guides/${other}/">${escapeHtml(GUIDE_CATEGORY_LABELS[other].en)} guides</a></li>`)
+            .map((other) => `<li style="margin-bottom: 6px;"><a href="/guides/${guideCategoryRouteSlug(other)}/">${escapeHtml(GUIDE_CATEGORY_LABELS[other].en)} guides</a></li>`)
             .join("")}
           <li style="margin-bottom: 6px;"><a href="/guides">All guides</a></li>
           <li style="margin-bottom: 6px;"><a href="/products/${guideCategoryProductSlug(category)}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} product hub</a></li>
@@ -3859,7 +3861,7 @@ function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
       </section>
     `,
       jsonLd: filterListSchemas(
-        `${PUBLIC_SITE_BASE}/guides/${category}/`,
+        `${PUBLIC_SITE_BASE}/guides/${guideCategoryRouteSlug(category)}/`,
         `${categoryCopy.h1} | BalanceBikeToddler`,
         categoryCopy.description,
         categoryCards,
@@ -3894,7 +3896,7 @@ function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
       // still exists, as a visible "Keep reading" item.
 
       pages.push({
-        route: `/guides/${category}/${topic}/`,
+        route: `/guides/${guideCategoryRouteSlug(category)}/${topic}/`,
         title: copy.h1,
         fullTitle: copy.fullTitle,
         description: copy.description,
@@ -3916,8 +3918,8 @@ function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
       ${renderProductBreadcrumb([
         { name: "Home", href: "/" },
         { name: "Guides", href: "/guides" },
-        { name: GUIDE_CATEGORY_LABELS[category].en, href: `/guides/${category}/` },
-        { name: GUIDE_TOPIC_LABELS[topic].en, href: `/guides/${category}/${topic}/` },
+        { name: GUIDE_CATEGORY_LABELS[category].en, href: `/guides/${guideCategoryRouteSlug(category)}/` },
+        { name: GUIDE_TOPIC_LABELS[topic].en, href: `/guides/${guideCategoryRouteSlug(category)}/${topic}/` },
       ])}
       <section style="padding: 22px 0;">
         <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;">${escapeHtml(copy.intro)}</p>
@@ -3931,16 +3933,16 @@ function renderGuidesCategoryPages(cmsGuides: CmsGuide[] = []): RoutePage[] {
         <h2 style="margin: 0 0 12px; font-size: 1.35rem;">Keep reading</h2>
         <ul style="margin: 0; padding-left: 1.2rem;">
           <li style="margin-bottom: 6px;"><a href="${escapeHtml(parentPath)}">${escapeHtml(hasTopicChannelPage(topic) ? `${GUIDE_TOPIC_LABELS[topic].en} — all categories` : "All guides")}</a></li>
-          <li style="margin-bottom: 6px;"><a href="/guides/${category}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} — every topic</a></li>
+          <li style="margin-bottom: 6px;"><a href="/guides/${guideCategoryRouteSlug(category)}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} — every topic</a></li>
           ${siblingTopics
-            .map((other) => `<li style="margin-bottom: 6px;"><a href="/guides/${category}/${other}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} ${escapeHtml(GUIDE_TOPIC_NOUN[other].en)}</a></li>`)
+            .map((other) => `<li style="margin-bottom: 6px;"><a href="/guides/${guideCategoryRouteSlug(category)}/${other}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} ${escapeHtml(GUIDE_TOPIC_NOUN[other].en)}</a></li>`)
             .join("")}
           <li style="margin-bottom: 6px;"><a href="/products/${guideCategoryProductSlug(category)}/">${escapeHtml(GUIDE_CATEGORY_LABELS[category].en)} product hub</a></li>
         </ul>
       </section>
     `,
         jsonLd: filterListSchemas(
-          `${PUBLIC_SITE_BASE}/guides/${category}/${topic}/`,
+          `${PUBLIC_SITE_BASE}/guides/${guideCategoryRouteSlug(category)}/${topic}/`,
           `${copy.h1} | BalanceBikeToddler`,
           copy.description,
           cards,
@@ -9582,9 +9584,9 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   // builder marked noindex never reach the sitemap (filtered above), so dating
   // them here costs nothing.
   for (const category of GUIDE_CATEGORY_IDS) {
-    staticModByRoute.set(`/guides/${category}/`, guidesMax);
+    staticModByRoute.set(`/guides/${guideCategoryRouteSlug(category)}/`, guidesMax);
     for (const topic of GUIDE_TOPIC_IDS) {
-      staticModByRoute.set(`/guides/${category}/${topic}/`, guidesMax);
+      staticModByRoute.set(`/guides/${guideCategoryRouteSlug(category)}/${topic}/`, guidesMax);
     }
   }
   for (const category of ["brand_news", "industry", "new_product", "science"]) {
@@ -9681,7 +9683,14 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     .join("");
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${sitemapUrls}</urlset>\n`;
   await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
-  console.log(`[prerender] sitemap.xml: ${pages.length} URL(s) written.`);
+  // Report what was WRITTEN, not what was considered. The old line printed
+  // `pages.length`, which counts every prerendered page including the noindex
+  // composites and the excluded product details — so it read 537 while the file
+  // held 350, and every "sitemap gained N URLs" check that trusted the log was
+  // off by the size of the noindex set. sitemapUrls is the emitted string, so
+  // counting its <url> elements is the honest number.
+  const sitemapCount = (sitemapUrls.match(/<url>/g) || []).length;
+  console.log(`[prerender] sitemap.xml: ${sitemapCount} URL(s) written (${pages.length - sitemapCount} page(s) excluded: noindex or product detail).`);
 
   // Manifest of the routes that have no CMS record, so the Worker can publish
   // them (its D1 scan never sees them). The old proxy — "the entry has no
@@ -9879,13 +9888,27 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   // (hydrated noindex) instead of a misleading redirect.
   const legacyPrefixRedirects = LEGACY_CATEGORY_301S.filter(([, to]) => to !== "/products/");
 
+  // Guides category-axis rename (2026-11-25): /guides/<cms id>/ ->
+  // /guides/<reader-facing slug>/. The four renamed categories are 1:1 prefix
+  // families — the segment is the only thing that changed, so every composite
+  // beneath it keeps its remainder. Source of truth for both sides is
+  // LEGACY_GUIDE_CATEGORY_ROUTE_SLUGS in guidesCategoryTopic.ts, so the front's
+  // redirect table and this one cannot disagree about which segments are old.
+  //
+  // Only the four RENAMED ids appear: `stroller` kept its segment, and routing
+  // such a prefix into itself would make the Worker redirect a URL to the URL
+  // it was already on.
+  const guideCategoryPrefixRedirects: Array<[string, string]> = LEGACY_GUIDE_CATEGORY_ROUTE_SLUGS.map(
+    ([from, to]) => [`/guides/${from}`, `/guides/${to}`],
+  );
+
   await mkdir(path.join(distDir, "data"), { recursive: true });
   await writeFile(
     path.join(distDir, "data", "legacy-redirects.json"),
     `${JSON.stringify(
       {
         exact: Object.fromEntries(legacyExactRedirects),
-        prefix: legacyPrefixRedirects,
+        prefix: [...legacyPrefixRedirects, ...guideCategoryPrefixRedirects],
       },
       null,
       2,

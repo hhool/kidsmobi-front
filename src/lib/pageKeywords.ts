@@ -73,6 +73,7 @@ import {
   GUIDE_CATEGORY_LABELS,
   GUIDE_TOPIC_LABELS,
   GUIDE_TOPIC_PLAIN_LABELS,
+  guideCategoryIdFromRouteSlug,
   isGuideCategoryId,
   isGuideTopicId,
   type GuideCategoryId,
@@ -649,23 +650,34 @@ export function resolveRouteKeywords(
   }
 
   // Guides CATEGORY axis, two shapes, resolved BEFORE the topic/article branches
-  // below. Order is the whole fix: /guides/<category>/ matches the topic regex
-  // and /guides/<category>/<topic>/ matches the article regex, so checking them
-  // afterwards is unreachable. The guards inside the checks are what make the
-  // earlier position safe — a segment is only claimed when it IS a category id,
-  // so /guides/beginner (a topic) and /guides/beginner/<slug> (an article) fall
-  // through untouched.
+  // below. Order is the whole fix: /guides/<category-slug>/ matches the topic
+  // regex and /guides/<category-slug>/<topic>/ matches the article regex, so
+  // checking them afterwards is unreachable. The guards inside the checks are
+  // what make the earlier position safe — a segment is only claimed when it IS
+  // a category route slug, so /guides/beginner (a topic) and
+  // /guides/beginner/<slug> (an article) fall through untouched.
+  //
+  // The captured segment is a URL slug, so it goes through
+  // guideCategoryIdFromRouteSlug() before reaching guidesCategoryAxisKeywords(),
+  // which speaks the CMS id vocabulary. Skipping that hop would have made every
+  // renamed category silently drop to the home-keyword fallback.
   const guidesCategoryMatch = /^\/guides\/([^/]+)\/?$/.exec(clean);
-  if (guidesCategoryMatch && isGuideCategoryId(guidesCategoryMatch[1])) {
-    return guidesCategoryAxisKeywords(guidesCategoryMatch[1], lang);
+  const guidesCategoryMatchId = guidesCategoryMatch
+    ? guideCategoryIdFromRouteSlug(guidesCategoryMatch[1])
+    : null;
+  if (guidesCategoryMatchId) {
+    return guidesCategoryAxisKeywords(guidesCategoryMatchId, lang);
   }
   const guidesCompositeMatch = /^\/guides\/([^/]+)\/([^/]+)\/?$/.exec(clean);
+  const guidesCompositeMatchId = guidesCompositeMatch
+    ? guideCategoryIdFromRouteSlug(guidesCompositeMatch[1])
+    : null;
   if (
+    guidesCompositeMatchId &&
     guidesCompositeMatch &&
-    isGuideCategoryId(guidesCompositeMatch[1]) &&
     isGuideTopicId(guidesCompositeMatch[2])
   ) {
-    return guidesCategoryAxisKeywords(guidesCompositeMatch[1], lang, guidesCompositeMatch[2]);
+    return guidesCategoryAxisKeywords(guidesCompositeMatchId, lang, guidesCompositeMatch[2]);
   }
 
   // Guides topic pages: /guides/<topic>. Without this branch every topic
