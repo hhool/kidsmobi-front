@@ -91,9 +91,13 @@ export const GUIDE_SLUGS_BY_CATEGORY: Readonly<Record<string, readonly string[]>
     "kids-scooter-kick-vs-electric",
     "kids-scooter-ride-on-vs-convertible",
     "kids-scooter-riding-surface",
+    "kids-scooter-school-run-surface",
+    "kids-scooter-steering-column-wobble",
     "kids-scooter-two-wheel-transition",
     "kids-scooter-under-50",
     "kids-scooter-vs-bike-commute",
+    "kids-scooter-wet-weather-riding",
+    "kids-scooter-winter-storage",
   ],
   "stroller": [
     "best-double-stroller-2026",

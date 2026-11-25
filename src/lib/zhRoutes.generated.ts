@@ -15,7 +15,7 @@
  * scripts/check-hreflang.mjs compares this list against the delivered dist
  * route by route, so drift fails the build rather than shipping silently.
  *
- * 122 route(s).
+ * 126 route(s).
  */
 
 export const ZH_ROUTE_PATHS: readonly string[] = [
@@ -79,6 +79,8 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/maintenance/kids-ride-on-tire-wear",
   "/zh/guides/maintenance/kids-ride-on-winter-storage",
   "/zh/guides/maintenance/kids-scooter-fix-wobbly-wheel",
+  "/zh/guides/maintenance/kids-scooter-steering-column-wobble",
+  "/zh/guides/maintenance/kids-scooter-winter-storage",
   "/zh/guides/maintenance/stroller-how-to-clean",
   "/zh/guides/maintenance/stroller-storage-and-off-season-care",
   "/zh/guides/maintenance/stroller-wheel-and-brake-care",
@@ -107,6 +109,8 @@ export const ZH_ROUTE_PATHS: readonly string[] = [
   "/zh/guides/scenario/kids-ride-on-best-3-year",
   "/zh/guides/scenario/kids-ride-on-gift-prep",
   "/zh/guides/scenario/kids-scooter-best-6-8-school",
+  "/zh/guides/scenario/kids-scooter-school-run-surface",
+  "/zh/guides/scenario/kids-scooter-wet-weather-riding",
   "/zh/guides/scenario/lightweight-travel-stroller",
   "/zh/guides/scenario/stroller-all-terrain",
   "/zh/guides/scenario/stroller-double-twins",
