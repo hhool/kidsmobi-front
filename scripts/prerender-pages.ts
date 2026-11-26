@@ -8295,7 +8295,8 @@ function resolveProductCategoryIdFull(product: CmsProductFull): string {
  */
 function hasConsistentProductCategory(product: CmsProductLite | CmsProductFull): boolean {
   const id = String(product.id || "");
-  const categoryId = String(product.categoryId || "");
+  // CmsProductLite may not have categoryId, so use category as fallback
+  const categoryId = String((product as CmsProductFull).categoryId || product.category || "");
   const idPrefix = id.split("-")[0].toLowerCase();
   
   // Map id prefixes to their expected category ids
