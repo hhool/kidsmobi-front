@@ -412,6 +412,10 @@ const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "kids_scooters", zh: "儿童滑板车", en: "Kids Scooter" },
   { id: "electric_vehicles", zh: "儿童电动车", en: "Kids Electric Car" },
   { id: "car_seat", zh: "安全座椅", en: "Car Seat" },
+  // New physical directories split from the legacy "other" bucket (P0-2).
+  { id: "kids_push_ride_ons", zh: "儿童推行车", en: "Kids Ride-On Toys" },
+  { id: "kids_pull_along_wagons", zh: "儿童拖车", en: "Kids Wagons" },
+  { id: "playard", zh: "游戏床", en: "Kids Playards" },
 ];
 
 const PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
@@ -422,10 +426,14 @@ const PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
   "electric_vehicles",
   "car_seat",
 ]);
-// kids_tricycles owns the prerendered /products/kids-tricycles/ hub (P0-2
-// re-homed legacy "other" bucket), so its URL must resolve to the category
-// view instead of falling through to the unknown-product 404 branch.
-const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set<string>(["kids_tricycles"]);
+// Legacy "other" bucket categories re-homed to their own physical directories.
+// These are not in the main nav but must resolve to category views.
+const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set<string>([
+  "kids_tricycles",
+  "kids_push_ride_ons",
+  "kids_pull_along_wagons",
+  "playard",
+]);
 
 const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "single", zh: "单品评测", en: "Single Review" },
