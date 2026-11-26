@@ -23,13 +23,22 @@
  *   2. no Product node carries a `review` with a `reviewRating` but no
  *      `reviewBody` (a Rating with no body is a fabricated-looking claim);
  *   3. at least one Product node survives the scan (the guard is not silently
- *      passing an empty tree).
+ *      passing an empty tree);
+ *   4. every Product node's brand.name equals what src/lib/productBrand.ts
+ *      resolves for that record. This is a PARITY check, not a "brand must be
+ *      long" check: some records genuinely carry an unresolvable clipped brand
+ *      ("Baby" for a product whose listed Brand attribute is a different
+ *      company), and the resolver deliberately keeps those. What must never
+ *      happen is a renderer reading `product.brand` directly and disagreeing
+ *      with the resolver — that shipped "Radio" in review structured data while
+ *      the product page said "Radio Flyer".
  *
  * Run: npm run check:product-schema   (after `npm run build`)
  * Self-test: npm run check:product-schema:selftest
  */
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { resolveProductBrand } from "../src/lib/productBrand.ts";
 
 const DIST = resolve(process.env.CHECK_PRODUCT_SCHEMA_ROOT || "dist");
 
@@ -87,6 +96,50 @@ function rel(file) {
   return file.slice(DIST.length + 1).split("\\").join("/");
 }
 
+/**
+ * Brand parity: the published brand must equal the shared resolver's answer.
+ *
+ * The records that carry a clipped brand are a known, quantified data issue
+ * (src/lib/productBrand.ts documents all 54 it can prove). A guard that simply
+ * demands "no short brands" would stay red forever on the handful the resolver
+ * cannot prove — and a permanently red guard gets ignored, which is worse than
+ * no guard. What is both true and checkable is CONSISTENCY: whoever emits
+ * Brand.name must use the resolver. Reading `product.brand` directly is the
+ * failure mode that produced a review page saying "Radio" beside a product page
+ * saying "Radio Flyer".
+ */
+let BRAND_SNAPSHOT = null;
+
+/** Record id -> the brand the resolver produces, for the current snapshot. */
+function resolvedBrandIndex() {
+  if (BRAND_SNAPSHOT) return BRAND_SNAPSHOT;
+  const snapshot = resolve(join(import.meta.dirname ?? ".", "cms-snapshots", "products.json"));
+  const index = new Map();
+  if (existsSync(snapshot)) {
+    const raw = JSON.parse(readFileSync(snapshot, "utf8"));
+    const records = Array.isArray(raw) ? raw : raw.records || raw.data || Object.values(raw);
+    for (const record of records) {
+      const id = String(record?.id || "").trim().toLowerCase();
+      if (!id) continue;
+      const stored = String(record.en?.brandText || record.brand || "").trim();
+      index.set(id, resolveProductBrand(record, stored));
+    }
+  }
+  BRAND_SNAPSHOT = index;
+  return index;
+}
+
+/**
+ * The record id a product page or a review's itemReviewed points at.
+ * Both carry the id in their URL (the last path segment), which is how the
+ * site addresses products, so it is stable across page types.
+ */
+function recordIdFromUrl(url) {
+  const text = String(url || "");
+  const last = text.split("/").filter(Boolean).pop() || "";
+  return last.split("?")[0].split("#")[0].trim().toLowerCase();
+}
+
 function selfTest() {
   /** Scan a synthetic HTML fragment into a fresh problems list. */
   function scanFragment(html) {
@@ -101,6 +154,11 @@ function selfTest() {
       const review = product.review;
       if (review && review.reviewRating && !review.reviewBody) {
         local.push("Product.review has a reviewRating but no reviewBody");
+      }
+      const brandName = product.brand && typeof product.brand === "object" ? product.brand.name : "";
+      const expected = resolvedBrandIndex().get(recordIdFromUrl(product.url));
+      if (expected !== undefined && brandName && brandName !== expected) {
+        local.push("Product.brand.name disagrees with the shared resolver");
       }
     }
     return local;
@@ -134,6 +192,39 @@ function selfTest() {
     false,
   );
 
+  // Brand parity, tested against the resolver contract rather than a page.
+  // A record whose array order changed the answer would break the pages this
+  // check protects, so the contract is asserted directly.
+  const brandProbes = [
+    // An advanced resolver fixes a clipped head word.
+    {
+      name: "brand-resolver-corrects-clipped-head",
+      ok: resolveProductBrand(
+        { name: "Radio Flyer Mini Classic Wagon", brand: "Radio", Product_Specifications: { Item_Details: { Brand: "Radio Flyer" } } },
+        "Radio",
+      ) === "Radio Flyer",
+    },
+    // A correction that the product NAME does not anchor is rejected.
+    {
+      name: "brand-resolver-rejects-unanchored",
+      ok: resolveProductBrand(
+        { name: "Baby Delight Bassinet", brand: "Baby", Product_Specifications: { Item_Details: { Brand: "Baby Trend" } } },
+        "Baby",
+      ) === "Baby",
+    },
+    // An ordinary one-word brand is never rewritten.
+    {
+      name: "brand-resolver-leaves-normal-brand",
+      ok: resolveProductBrand(
+        { name: "Graco Extend2Fit Car Seat", brand: "Graco", Product_Specifications: { Item_Details: { Brand: "Graco" } } },
+        "Graco",
+      ) === "Graco",
+    },
+  ];
+  probes.push(
+    ...brandProbes.map((p) => ({ name: p.name, expectOk: true, flagged: !p.ok, ok: p.ok })),
+  );
+
   const failed = probes.filter((p) => !p.ok);
   const ok = failed.length === 0;
   console.log(JSON.stringify({ ok, selfTest: true, probes, failed }, null, 2));
@@ -151,6 +242,15 @@ function scanHtmlString(where, html) {
     const review = product.review;
     if (review && review.reviewRating && !review.reviewBody) {
       fail(where, "Product.review has a reviewRating but no reviewBody — fabricated-looking rating");
+    }
+    const brandName = product.brand && typeof product.brand === "object" ? product.brand.name : "";
+    const recordId = recordIdFromUrl(product.url);
+    const expected = resolvedBrandIndex().get(recordId);
+    if (expected !== undefined && brandName && brandName !== expected) {
+      fail(
+        where,
+        `Product.brand.name "${brandName}" disagrees with the shared resolver's "${expected}" for ${recordId} — emit brand via src/lib/productBrand.ts`,
+      );
     }
   }
 }

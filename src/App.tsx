@@ -41,6 +41,7 @@ import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
 import { productCategoryPath, productDetailPath, productCategoryUrlSlug, productDetailUrlSlug } from "./lib/productCategoryPaths";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS } from "./lib/productFaq";
+import { resolveProductBrand } from "./lib/productBrand";
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "./lib/productHubContent";
 import { hubGuideCards, HUB_GUIDE_HEADINGS } from "./lib/hubGuideLinks";
 
@@ -2925,7 +2926,16 @@ export default function App() {
           "@context": "https://schema.org",
           "@type": "Product",
           name: dedupedDisplayTitle,
-          brand: { "@type": "Brand", name: String(selectedProduct.brand || "").trim() || dedupedDisplayTitle },
+          brand: {
+            "@type": "Brand",
+            // Shared resolver: 54 records store a brand clipped to its first
+            // word, and this value lands in structured data. The prerender calls
+            // the same function, so both renderers publish one brand name.
+            name: resolveProductBrand(
+              selectedProduct as Parameters<typeof resolveProductBrand>[0],
+              String(selectedProduct.brand || "").trim(),
+            ) || dedupedDisplayTitle,
+          },
           ...(productCoverUrl ? { image: [productCoverUrl] } : {}),
           url: canonicalUrl,
           description: desc,

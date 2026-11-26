@@ -25,6 +25,8 @@ import { cleanVisibleSourceText } from "../lib/visibleText";
 import { containsCjk } from "../lib/guideTextSanitize";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
 import { buildProductFaqsFromDisplayFields } from "../lib/productFaq";
+import { resolveProductAgeRange } from "../lib/productAgeRange";
+import { resolveProductBrand } from "../lib/productBrand";
 import { cmsCacheBustedUrl } from "../lib/cmsD1Service";
 import ProductCarousel from "./ProductCarousel";
 import Breadcrumbs from "./Breadcrumbs";
@@ -206,60 +208,18 @@ function localizeZhResidualEnglish(value: string): string {
   return text.replace(/\s+/g, " ").trim();
 }
 
+/**
+ * Age range for every surface in this view (overview row, spec tables, FAQ).
+ *
+ * Delegates to the shared resolver in src/lib/productAgeRange.ts, which the
+ * prerender also calls. This function used to be a second, independent
+ * implementation that ignored the listing's structured age fields and scraped
+ * numbers out of the description with an OPTIONAL unit — so "up to 50 lbs"
+ * parsed as "50+ years" on 16 strollers, and the static HTML and the hydrated
+ * DOM disagreed on 191 of 196 products. One implementation, two consumers.
+ */
 function resolveApplicableAgeRange(product: Product, lang: "zh" | "en"): string {
-  const richProduct = product as Product & {
-    description?: string;
-    Product_Description?: string;
-    product_description?: string;
-    productDescription?: string;
-    en?: { description?: string };
-    Product_Specifications?: Record<string, Record<string, unknown>>;
-    Category_Attributes?: Record<string, unknown>;
-  };
-  const sources = [
-    richProduct.en?.description,
-    richProduct.Product_Description,
-    richProduct.product_description,
-    richProduct.productDescription,
-    richProduct.description,
-    product.name,
-    richProduct.Product_Specifications?.Item_Details?.["Age Range (Description)"],
-    richProduct.Product_Specifications?.Item_Details?.["Age Range Description"],
-    richProduct.Category_Attributes?.["Age Range (Description)"],
-    richProduct.Category_Attributes?.["Age Range Description"],
-  ].map((value) => String(value || "").replace(/\s+/g, " ").trim()).filter(Boolean);
-  const evidence = sources.join(" ");
-
-  const yearRange = evidence.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:-|–|—|to)\s*(\d+(?:\.\d+)?)\s*(?:years?|yrs?|year[ -]?olds?)/i);
-  if (yearRange) {
-    return lang === "zh" ? `${yearRange[1]}-${yearRange[2]}岁` : `${yearRange[1]}-${yearRange[2]} years`;
-  }
-
-  const monthRange = evidence.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:-|–|—|to)\s*(\d+(?:\.\d+)?)\s*months?/i);
-  if (monthRange) {
-    return lang === "zh" ? `${monthRange[1]}-${monthRange[2]}个月` : `${monthRange[1]}-${monthRange[2]} months`;
-  }
-
-  const minimumAge = evidence.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:years?|yrs?|year[ -]?olds?)?\s*(?:and up|or older|\+)/i);
-  if (minimumAge) {
-    return lang === "zh" ? `${minimumAge[1]}岁以上` : `${minimumAge[1]}+ years`;
-  }
-
-  const maximumAgeValue = richProduct.Product_Specifications?.User_Guide?.["Maximum Age Recommendation"];
-  const maximumAge = Number(String(maximumAgeValue || "").match(/\d+(?:\.\d+)?/)?.[0]);
-  const descriptor = evidence.toLowerCase();
-  let range: [number, number] | null = null;
-  if (/\bnewborn\b/.test(descriptor)) range = [0, 1];
-  else if (/\binfants?\b/.test(descriptor)) range = [0, 2];
-  else if (/\btoddlers?\b/.test(descriptor)) range = [2, 5];
-  else if (/\bkids?\b|\bchildren\b|\bchild\b/.test(descriptor)) range = [5, 12];
-  else if (/\bteens?\b/.test(descriptor)) range = [13, Number.isFinite(maximumAge) && maximumAge >= 13 ? maximumAge : 17];
-
-  if (range) {
-    return lang === "zh" ? `${range[0]}-${range[1]}岁` : `${range[0]}-${range[1]} years`;
-  }
-
-  return normalizeSpecDisplayValue(product.ageRange, "age_range", lang);
+  return resolveProductAgeRange(product as Parameters<typeof resolveProductAgeRange>[0], lang);
 }
 
 function resolveResourceDescription(resources: WorkerDetailResource[]): string {
@@ -967,6 +927,20 @@ export default function DetailedProductView({
   // Rule set v1: detail textual blocks must come from product data model fields first.
   // This prevents runtime drift from remote overlays and keeps rendering deterministic.
   const displayProduct = translateProduct(product, lang);
+  // Brand is overruled once, here, so every surface in this view (overview row,
+  // spec fallbacks, header chip, JSON-LD) reads one value. 54 records store a
+  // brand clipped to its first word ("Radio" for Radio Flyer); the shared
+  // resolver only applies a correction that the record proves about itself, and
+  // the prerender calls the same function, so the static and hydrated pages
+  // cannot disagree. `translateProduct` omits brand on its zh path, hence the
+  // fallback to the raw record.
+  const resolvedBrand = resolveProductBrand(
+    product as Parameters<typeof resolveProductBrand>[0],
+    String(displayProduct.brand || product.brand || "").trim(),
+  );
+  if (resolvedBrand && resolvedBrand !== displayProduct.brand) {
+    displayProduct.brand = resolvedBrand;
+  }
   // The outbound "check price" link. It only appears once an Amazon
   // Associates tracking id is configured (CMS settings, or the build-time
   // environment default), so a site without one ships no affiliate link at

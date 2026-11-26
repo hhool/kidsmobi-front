@@ -259,6 +259,8 @@ import { applyBrandSuffix } from "../src/lib/documentTitle";
 import type { CMSSettings } from "../src/types";
 import { buildProductDetailKeywords, resolveRouteKeywords, CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
+import { resolveProductAgeRange } from "../src/lib/productAgeRange";
+import { resolveProductBrand } from "../src/lib/productBrand";
 import { ABOUT_FAQS, NEWS_FAQS, REVIEWS_FAQS, type PageFaq } from "../src/lib/pageFaq";
 import { getHubContent, hubClusterGroup, hubReferenceCards } from "../src/lib/productHubContent";
 import { hubGuideCards, HUB_GUIDE_HEADINGS } from "../src/lib/hubGuideLinks";
@@ -1426,6 +1428,15 @@ type CmsProductLite = {
   category?: string;
   imageUrl?: string;
   overallScore?: number;
+  /** Carried through from the full record so brand/age resolvers, which read
+   *  the listing's own attributes, can run on a reference reached via
+   *  productMap (e.g. a review's itemReviewed). CMS payloads pass these through
+   *  unchanged, so no extra fetch is involved. */
+  Product_Specifications?: Record<string, Record<string, unknown>>;
+  Category_Attributes?: Record<string, unknown>;
+  Product_Display_Fields?: Record<string, unknown>;
+  en?: { name?: string; brandText?: string; description?: string };
+  zh?: { name?: string; brandText?: string };
 };
 
 function cmsSlugify(input: unknown): string {
@@ -2624,7 +2635,16 @@ function renderEvaluationDetailPage(
           itemReviewed: (() => {
             const product = resolvePrerenderProduct(item.productId, productMap);
             const productImage = product ? toAbsoluteMediaUrl(pickText(product.imageUrl)) : "";
-            const brandName = String(product?.brand || "").trim();
+            // Same shared brand resolver as the product page, so a review's
+            // structured data names the brand the product page names. Reading
+            // `product.brand` directly shipped "Radio" here while the product
+            // page correctly said "Radio Flyer".
+            const brandName = product
+              ? resolveProductBrand(
+                  product as Parameters<typeof resolveProductBrand>[0],
+                  pickText(product.en?.brandText, product.brand),
+                )
+              : "";
             const reviewedName = String(product?.name || "").trim() || title;
             return {
               "@type": "Product",
@@ -8381,11 +8401,88 @@ const SPEC_FIELD_LABELS: Record<string, string> = {
 };
 
 /**
- * Reads a spec value from the three places ride-on listings store it.
+ * Raw retailer key names per resolved spec key.
+ *
+ * Product_Display_Fields is RE-KEYED to camelCase ("itemWeight"), while
+ * Product_Specifications keeps the listing's own vocabulary ("Item Weight").
+ * resolveSpecValue used to fall through to a single normalized key inside
+ * Measurements only, so any product whose display fields were never generated
+ * printed no spec table at all — stroller-b00ht6ea2c has an EMPTY
+ * Product_Display_Fields and 40 raw spec values across six sections, and its
+ * page shipped with zero <tr> rows. Aliases let the table read what is already
+ * on the record instead of inventing anything.
+ *
+ * Only keys that mean the same thing are aliased. "Material Type" -> frame
+ * material is the mapping the display-field generator already chose (its
+ * source path is Product_Specifications.Materials_Care.Material Type), so this
+ * matches existing semantics rather than adding a new one.
+ */
+const SPEC_RAW_ALIASES: Record<string, string[]> = {
+  recommendedAge: ["Age Range Description", "Age Range (Description)", "Recommended Age"],
+  weightLimit: ["Maximum Weight Recommendation", "Weight Capacity Maximum"],
+  itemWeight: ["Item Weight"],
+  frameMaterial: ["Frame Material", "Frame Material Type", "Material Type"],
+  dimensions: [
+    "Item Dimensions L x W x H",
+    "Item Dimensions D x W x H",
+    "Item Dimensions",
+    "Product Dimensions",
+  ],
+  wheelSize: ["Wheel Size", "Wheel Diameter", "Front Wheel Diameter"],
+  brakeSystem: ["Brake Type", "Brake Style", "Braking Type"],
+  "Minimum User Height": ["Minimum User Height", "Minimum Height Recommendation"],
+};
+
+/**
+ * Every spec value, flattened, with section order preserved (first wins).
+ *
+ * The age derivation and the vague-label upgrade moved to
+ * src/lib/productAgeRange.ts when the SPA was found to be running its own,
+ * disagreeing implementation (191/196 products). Only one copy of that rule
+ * exists now; this helper stays because the brand and spec resolvers use it.
+ */
+function flatSpecValues(product: CmsProductFull): Record<string, string> {
+  const specs = (product as unknown as {
+    Product_Specifications?: Record<string, Record<string, unknown>>;
+  }).Product_Specifications || {};
+  const out: Record<string, string> = {};
+  for (const section of Object.values(specs)) {
+    if (!section || typeof section !== "object") continue;
+    for (const [key, value] of Object.entries(section)) {
+      if (typeof value !== "string") continue;
+      const trimmed = value.trim();
+      if (trimmed && !out[key]) out[key] = trimmed;
+    }
+  }
+  return out;
+}
+
+/**
+ * The brand as the listing states it, not the first word of it.
+ *
+ * 54 of 196 records store a truncated brand ("Radio" for Radio Flyer, "Little"
+ * for Little Tikes, "Best" for Best Choice Products, "First" for First Ride On,
+ * "Baby" for Baby Trend). It is wrong in the record itself — `brand`,
+ * en.brandText and zh.brandText all carry the clipped value — so a reader-side
+ * fix has to decide when to overrule it.
+ *
+ * The rule itself lives in src/lib/productBrand.ts so the SPA applies the same
+ * one. It previously existed only here, which is how the static HTML and the
+ * hydrated page could disagree about a product's own brand.
+ */
+function productBrandName(product: CmsProductFull): string {
+  return resolveProductBrand(
+    product as Parameters<typeof resolveProductBrand>[0],
+    pickText(product.en?.brandText, product.brand),
+  );
+}
+
+/**
+ * Reads a spec value from the places ride-on listings store it.
  * Product_Display_Fields is primary (it backs the other rows); some attributes
- * only exist on Category_Attributes, and a few (notably Minimum User Height)
- * sit inside Product_Specifications.Measurements. Falling through keeps the
- * table additive: a product missing the key in every source simply skips the row.
+ * only exist on Category_Attributes, and the rest sit under the listing's own
+ * key names inside Product_Specifications. Falling through keeps the table
+ * additive: a product missing the key in every source simply skips the row.
  */
 function resolveSpecValue(product: CmsProductFull, key: string): string {
   const display = product.Product_Display_Fields || {};
@@ -8404,7 +8501,14 @@ function resolveSpecValue(product: CmsProductFull, key: string): string {
   const fromMeasurements = String(
     (specs["Measurements"] as Record<string, unknown> | undefined)?.[key] || "",
   ).trim();
-  return fromMeasurements;
+  if (fromMeasurements) return fromMeasurements;
+
+  const flat = flatSpecValues(product);
+  for (const alias of SPEC_RAW_ALIASES[key] || []) {
+    const value = flat[alias];
+    if (value) return value;
+  }
+  return "";
 }
 
 function productDisplayTitle(product: CmsProductFull): string {
@@ -8812,7 +8916,13 @@ function renderProductDetailPage(
 
   const specRows = Object.entries(SPEC_FIELD_LABELS)
     .map(([key, label]) => {
-      const value = resolveSpecValue(product, key);
+      // The age row runs through the shared resolver (src/lib/productAgeRange)
+      // rather than resolveSpecValue + a local upgrade rule, because the SPA
+      // renders the same row and the two must not disagree: they did on 191 of
+      // 196 products, and the SPA's copy printed "50+ years" on 16 strollers.
+      const value = key === "recommendedAge"
+        ? resolveProductAgeRange(product, "en")
+        : resolveSpecValue(product, key);
       return value ? `<tr><td style="padding: 6px 10px; border: 1px solid #e2e8f0; color: #64748b;">${escapeHtml(label)}</td><td style="padding: 6px 10px; border: 1px solid #e2e8f0;">${escapeHtml(value)}</td></tr>` : "";
     })
     .filter(Boolean);
@@ -8942,7 +9052,7 @@ function renderProductDetailPage(
     url: `${PUBLIC_SITE_BASE}${route}`,
     ...(image ? { image: [image] } : {}),
     ...(paragraphs.length || summary ? { description: pickText(summary, paragraphs.join(" ").slice(0, 300)) } : {}),
-    brand: { "@type": "Brand", name: pickText(product.en?.brandText, product.brand, "Unknown") },
+    brand: { "@type": "Brand", name: productBrandName(product) || "Unknown" },
     sku: id,
     ...(ratingValue && reviewCount
       ? {

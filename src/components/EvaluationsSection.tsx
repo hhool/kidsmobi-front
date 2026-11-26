@@ -13,6 +13,7 @@ import { Product, Evaluation, ChildProfile, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
+import { resolveProductBrand } from "../lib/productBrand";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import SectionFaq from "./SectionFaq";
@@ -247,29 +248,51 @@ function getLocalizedReviewVerdict(product: Product, evaluation: Evaluation, lan
   return `针对${zhName || "该产品"}的结构化安全与操控评估，建议结合年龄、身高与使用场景进一步确认。`;
 }
 
-function cleanEnBrandText(brand: string) {
-  const lowercase = String(brand || "").toLowerCase();
-  if (lowercase.includes("gamfeiny")) return "Gamfeiny";
-  if (lowercase.includes("umatoll")) return "Umatoll";
-  if (lowercase.includes("sereed")) return "Sereed";
-  if (lowercase.includes("kriddo")) return "Kriddo";
-  if (lowercase.includes("joystar")) return "Joystar";
-  if (lowercase.includes("royalbaby") || lowercase.includes("优贝")) return "RoyalBaby";
-  if (lowercase.includes("glerc")) return "Glerc";
-  if (lowercase.includes("weize")) return "Weize";
-  if (lowercase.includes("retrospec")) return "Retrospec";
-  if (lowercase.includes("chicco")) return "Chicco";
-  if (lowercase.includes("baby trend")) return "Baby Trend";
-  if (lowercase.includes("bob gear") || lowercase.includes("bob")) return "BOB Gear";
-  if (lowercase.includes("yoyo") || lowercase.includes("babyzen")) return "Babyzen";
-  if (lowercase.includes("mompush")) return "Mompush";
-  if (lowercase.includes("infans")) return "Infans";
-  if (lowercase.includes("razor")) return "Razor";
-  if (lowercase.includes("dream on me")) return "Dream On Me";
-  if (/[\u4e00-\u9fff]/.test(brand)) {
-    return brand.replace(/[\u4e00-\u9fff]/g, "").trim() || "BalanceBikeToddler";
+/**
+ * The brand shown on a review card.
+ *
+ * Two concerns live here and only one is still hardcoded:
+ *  - a clipped brand ("Radio" for Radio Flyer) is completed by the shared
+ *    resolver, the same function the product page and the prerender call, so a
+ *    review and the product it reviews never disagree about the brand;
+ *  - a few listings store the brand in shouty/all-lower case, and the review
+ *    card title is prose, so those get title-cased.
+ *
+ * The whitelist below used to also carry the CLIPPED prefixes, which meant this
+ * card re-clipped brands the rest of the site had already fixed. Only the
+ * casing overrides remain. Callers must pass the raw product so the resolver
+ * can see the listing's own `Brand` attributes.
+ */
+function cleanEnBrandText(brand: string, product?: Record<string, unknown>) {
+  const raw = String(brand || "").trim();
+  const resolved = product
+    ? resolveProductBrand(product as Parameters<typeof resolveProductBrand>[0], raw)
+    : raw;
+  const lowercase = resolved.toLowerCase();
+
+  // Casing only: the stored value is the right words in the wrong case.
+  const titleCase: Array<[string, string]> = [
+    ["gamfeiny", "Gamfeiny"],
+    ["umatoll", "Umatoll"],
+    ["sereed", "Sereed"],
+    ["kriddo", "Kriddo"],
+    ["joystar", "Joystar"],
+    ["weize", "Weize"],
+    ["retrospec", "Retrospec"],
+    ["chicco", "Chicco"],
+    ["mompush", "Mompush"],
+    ["infans", "Infans"],
+    ["razor", "Razor"],
+    ["glerc", "Glerc"],
+  ];
+  for (const [needle, display] of titleCase) {
+    if (lowercase === needle || lowercase === `${needle}s`) return display;
   }
-  return brand;
+  if (lowercase === "royalbaby" || /[\u4e00-\u9fff]/.test(resolved)) {
+    const stripped = resolved.replace(/[\u4e00-\u9fff]/g, "").trim();
+    return stripped.toLowerCase() === "royalbaby" || !stripped ? "RoyalBaby" : stripped;
+  }
+  return resolved;
 }
 
 function sanitizeMarketplaceNoise(raw: string) {
@@ -422,7 +445,7 @@ function getCompactCompareDisplayName(product: Product, lang: "zh" | "en" = "en"
     return clampText(`${brand} ${model}`.trim(), 24);
   }
 
-  const brand = cleanEnBrandText(product.brand || "");
+  const brand = cleanEnBrandText(product.brand || "", product as unknown as Record<string, unknown>);
   const localizedName = String((product as any).en?.name || product.name || "").trim();
   const sanitizedName = sanitizeMarketplaceNoise(localizedName);
   const modelRaw = stripBrandPrefix(sanitizedName, brand);
@@ -497,7 +520,9 @@ function productVerdict(product: Product, lang: "zh" | "en" = "en") {
     return sanitizedRawVerdict;
   }
 
-  const brand = lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand || reviewBusinessCopy.fallbackBrandZh;
+  const brand = lang === "en"
+    ? cleanEnBrandText(diProduct.brand || "", diProduct as unknown as Record<string, unknown>)
+    : diProduct.brand || reviewBusinessCopy.fallbackBrandZh;
   const modelName = sanitizeMarketplaceNoise(diProduct.name || "");
   const category = String(diProduct.category || diProduct.categoryId || "ride").replace(/_/g, " ").toLowerCase();
   const rating = Number(diProduct.overallScore || 8.0).toFixed(1);
@@ -589,7 +614,7 @@ function productValueScore(product: Product) {
 }
 
 function getProductDisplayName(product: Product) {
-  const brand = cleanEnBrandText(product.brand || "");
+  const brand = cleanEnBrandText(product.brand || "", product as unknown as Record<string, unknown>);
   let pName = sanitizeMarketplaceNoise(product.name || "");
   const brandLower = brand.toLowerCase();
   if (pName.toLowerCase().startsWith(brandLower)) {
@@ -600,7 +625,7 @@ function getProductDisplayName(product: Product) {
 
 function getCommercialReviewTitle(product: Product, fallbackTitle: string) {
   const text = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
-  const brand = cleanEnBrandText(product.brand || "");
+  const brand = cleanEnBrandText(product.brand || "", product as unknown as Record<string, unknown>);
   if (text.includes("chicco") && text.includes("bravo")) return "Chicco Bravo Trio: Comprehensive Stroller Reviews";
   if (text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) return `${brand} Alterrain: Best Jogging Stroller Reviews`;
   if (text.includes("travel stroller") || text.includes("coast rider") || text.includes("yoyo") || text.includes("mompush") || text.includes("passport")) return `${brand} Ultra Air: Best Travel Stroller Review`;
@@ -1740,7 +1765,10 @@ export default function EvaluationsSection({
         if (!product) return false;
 
         const productId = String(product.id || "").trim();
-        const brandKey = cleanEnBrandText(String(product.brand || "")).toLowerCase();
+        const brandKey = cleanEnBrandText(
+          String(product.brand || ""),
+          product as unknown as Record<string, unknown>,
+        ).toLowerCase();
         const nameKey = sanitizeMarketplaceNoise(String(product.name || "")).toLowerCase();
         const displayKey = `${brandKey}:${nameKey}`;
 
@@ -1904,7 +1932,12 @@ export default function EvaluationsSection({
       : getSingleCategoryLabelByEvaluation(selectedEvaluation);
     const productDisplay = reviewedProduct ? translateProduct(reviewedProduct, lang) : null;
     const imageSet = reviewedProduct ? resolveProductImages(reviewedProduct) : null;
-    const detailBrandLabel = lang === "en" ? cleanEnBrandText(productDisplay?.brand || "") : String(productDisplay?.brand || "");
+    const detailBrandLabel = lang === "en"
+      ? cleanEnBrandText(
+          productDisplay?.brand || "",
+          (reviewedProduct || productDisplay) as unknown as Record<string, unknown> | undefined,
+        )
+      : String(productDisplay?.brand || "");
     const detailProductTitleRaw = reviewedProduct ? sanitizeMarketplaceNoise(getProductsPageSeoTitle(reviewedProduct)) : sanitizeMarketplaceNoise(String(productDisplay?.name || ""));
     const detailProductTitle = stripBrandPrefix(detailProductTitleRaw, detailBrandLabel);
 
