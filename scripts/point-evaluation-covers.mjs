@@ -56,8 +56,13 @@ function saveEvaluation(record) {
     parsed = { raw: raw.slice(0, 200) };
   }
   // A 403 AdminTokenRequired body is also valid JSON with no `ok` field, so
-  // "no ok:false" is not proof of success. Require a positive acknowledgement.
-  const acknowledged = parsed && (parsed.ok === true || parsed.saved === true);
+  // "no ok:false" is not proof of success. The success ack is nested
+  // ({"data":{"id":..,"saved":true}}), so a top-level-only check reports a
+  // perfectly good write as a failure — require the flag wherever it sits.
+  const ackBody = parsed && typeof parsed === "object" ? parsed.data ?? parsed : {};
+  const acknowledged =
+    Boolean(parsed) &&
+    (parsed.ok === true || parsed.saved === true || ackBody.ok === true || ackBody.saved === true);
   return { parsed, acknowledged };
 }
 
