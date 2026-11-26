@@ -8272,6 +8272,16 @@ function prerenderInferStrollerCategory(product: CmsProductFull, normalizedCateg
 function resolveProductCategoryIdFull(product: CmsProductFull): string {
   const raw = String(product.categoryId || product.category || "").trim().toLowerCase();
   const normalized = PRERENDER_PRODUCT_ROUTE_ALIASES[raw] || raw;
+  
+  // Id prefix is the authoritative taxonomy signal — it overrides a miscategorized
+  // categoryId field. This catches CMS data errors like balance_bike-* products
+  // that were manually assigned categoryId "kids_tricycles".
+  const idPrefix = String(product.id || "").split("-")[0].toLowerCase();
+  const prefixCategory = PRERENDER_PRODUCT_ROUTE_ALIASES[idPrefix] || idPrefix;
+  if (prefixCategory && prefixCategory !== normalized && normalized !== "stroller") {
+    return PRERENDER_PRIMARY_PRODUCT_CATEGORY_IDS.has(prefixCategory) ? prefixCategory : "other";
+  }
+  
   const inferred = prerenderInferStrollerCategory(product, normalized);
   return PRERENDER_PRIMARY_PRODUCT_CATEGORY_IDS.has(inferred) ? inferred : "other";
 }
