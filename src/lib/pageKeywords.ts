@@ -246,6 +246,43 @@ export const CATEGORY_TDK_MAP: Record<
       keywords: ["儿童三轮车", "儿童骑乘玩具", "拉货车", "三轮车"],
     },
   },
+  // New physical directories split from the legacy "other" bucket (P0-2).
+  kids_push_ride_ons: {
+    en: {
+      title: "Best Kids Ride-On Toys & Push Cars 2026 | BalanceBikeToddler",
+      description: "Evidence-based push cars, wiggle cars and foot-to-floor ride-on toys for toddlers — with stability scores, weight limits and age-fit guidance.",
+      keywords: ["kids ride on toys", "push car for toddlers", "wiggle car", "foot to floor ride on"],
+    },
+    zh: {
+      title: "儿童推行车与滑行车 2026 精选 | BalanceBikeToddler",
+      description: "已覆盖的儿童推行车、滑行车与脚踏滑行玩具，含稳定性评分、承重与适龄建议。",
+      keywords: ["儿童推行车", "滑行车", "扭扭车", "儿童骑乘玩具"],
+    },
+  },
+  kids_pull_along_wagons: {
+    en: {
+      title: "Best Kids Wagons & Stroller Wagons 2026 | BalanceBikeToddler",
+      description: "Classic pull wagons and stroller wagons for ages 1+, reviewed for stability, fold size and weight capacity — real measurements, no filler.",
+      keywords: ["kids wagon", "stroller wagon", "pull along wagon", "radio flyer wagon"],
+    },
+    zh: {
+      title: "儿童拖车与露营推车 2026 精选 | BalanceBikeToddler",
+      description: "已覆盖的经典拉货车与露营推车，适合 1 岁 +，含稳定性、折叠尺寸与承重实测数据。",
+      keywords: ["儿童拖车", "露营推车", "拉货车", "Radio Flyer"],
+    },
+  },
+  playard: {
+    en: {
+      title: "Best Kids Playards & Pack n Play 2026 | BalanceBikeToddler",
+      description: "Portable playards, pack n play and nursery centers for travel and home — reviewed for mesh breathability, fold size and mattress fit.",
+      keywords: ["playard", "pack n play", "portable crib", "nursery center"],
+    },
+    zh: {
+      title: "儿童游戏床与便携式婴儿床 2026 精选 | BalanceBikeToddler",
+      description: "已覆盖的便携式游戏床、Pack n Play 与婴儿护理中心，含网布透气性、折叠尺寸与床垫适配实测。",
+      keywords: ["游戏床", "便携式婴儿床", "Pack n Play", "婴儿护理中心"],
+    },
+  },
 };
 
 const SLUG_TO_CATEGORY_ID: Record<string, string> = {
@@ -256,6 +293,9 @@ const SLUG_TO_CATEGORY_ID: Record<string, string> = {
   "electric-cars": "electric_vehicles",
   "safety-seats": "car_seat",
   "kids-tricycles": "kids_tricycles",
+  "kids-ride-ons": "kids_push_ride_ons",
+  "kids-wagons": "kids_pull_along_wagons",
+  "kids-playards": "playard",
 };
 
 // Review detail pages append the same five keywords regardless of which

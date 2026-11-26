@@ -8339,11 +8339,35 @@ const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
     description: CATEGORY_TDK_MAP.car_seat.en.description,
   },
   {
+    // New physical directories (P0-2): split the legacy "other" bucket into
+    // three distinct hubs so the URL matches what the page actually lists.
+    categoryId: "kids_push_ride_ons",
+    slug: "kids-ride-ons",
+    label: "Kids Ride-On Toys",
+    title: CATEGORY_TDK_MAP.kids_push_ride_ons?.en.title || "Kids Ride-On Toys",
+    description: CATEGORY_TDK_MAP.kids_push_ride_ons?.en.description || "Push cars, wiggle cars and foot-to-floor ride-on toys for toddlers.",
+  },
+  {
+    categoryId: "kids_pull_along_wagons",
+    slug: "kids-wagons",
+    label: "Kids Wagons",
+    title: CATEGORY_TDK_MAP.kids_pull_along_wagons?.en.title || "Kids Wagons",
+    description: CATEGORY_TDK_MAP.kids_pull_along_wagons?.en.description || "Classic pull wagons and stroller wagons for ages 1+.",
+  },
+  {
+    categoryId: "playard",
+    slug: "kids-playards",
+    label: "Kids Playards",
+    title: CATEGORY_TDK_MAP.playard?.en.title || "Kids Playards",
+    description: CATEGORY_TDK_MAP.playard?.en.description || "Portable playards, pack n play and nursery centers for travel and home.",
+  },
+  {
     // Legacy "other" bucket re-homed (P0-2): tricycles + push ride-ons +
     // pull-along wagons live under one kebab-case ride-on directory.
-    categoryId: "other_tricycles",
+    // Now split into three physical hubs; this entry remains for true tricycles.
+    categoryId: "kids_tricycles",
     slug: "kids-tricycles",
-    label: "Kids Tricycles & Ride-Ons",
+    label: "Kids Tricycles",
     title: CATEGORY_TDK_MAP.kids_tricycles.en.title,
     description: CATEGORY_TDK_MAP.kids_tricycles.en.description,
   },

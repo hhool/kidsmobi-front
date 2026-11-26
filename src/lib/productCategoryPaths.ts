@@ -40,10 +40,11 @@ export const PRODUCT_CATEGORY_URL_SLUGS: Record<string, string> = {
   kids_tricycles: "kids-tricycles",
   tricycle: "kids-tricycles",
   tricycles: "kids-tricycles",
-  kids_push_ride_ons: "kids-tricycles",
-  kids_pull_along_wagons: "kids-tricycles",
-  playard: "kids-tricycles",
-  other: "kids-tricycles",
+  // separate physical directories for wagons, ride-ons and playards
+  kids_push_ride_ons: "kids-ride-ons",
+  kids_pull_along_wagons: "kids-wagons",
+  playard: "kids-playards",
+  other: "kids-ride-ons",
   // slug identity entries so slug-form inputs normalize to themselves
   strollers: "strollers",
   "balance-bikes": "balance-bikes",
@@ -52,6 +53,9 @@ export const PRODUCT_CATEGORY_URL_SLUGS: Record<string, string> = {
   "electric-cars": "electric-cars",
   "safety-seats": "safety-seats",
   "kids-tricycles": "kids-tricycles",
+  "kids-ride-ons": "kids-ride-ons",
+  "kids-wagons": "kids-wagons",
+  "kids-playards": "kids-playards",
 };
 
 /** Directory slug for a category hub link (accepts ids and slug forms). */
