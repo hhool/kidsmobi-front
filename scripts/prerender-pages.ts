@@ -4087,6 +4087,7 @@ function renderFilterPages(
   cmsGuides: CmsGuide[] = [],
   cmsNews: CmsNews[] = [],
   cmsEvaluations: CmsEvaluation[] = [],
+  productMap: Map<string, CmsProductLite> = new Map(),
 ): RoutePage[] {
   // Cards for one guides topic page. Each /guides/<topic> index lists only its
   // own topic's articles: /guides already lists the whole library, and the
@@ -4124,7 +4125,13 @@ function renderFilterPages(
           meta: `${reviewType} review · ${pickText(item.updatedAt, item.publishedAt).slice(0, 10) || "2026"}`,
           mod: pickText(item.updatedAt, item.publishedAt).slice(0, 10) || undefined,
           path: route,
-          image: toPublicImageUrl(pickText(item.imageUrl)),
+          // Same resolution as the hub. These two used to diverge: the hub
+          // used reviewCardImage() (product first, evaluation second) while
+          // this channel read the evaluation's own imageUrl, so 3 of the 24
+          // published single reviews rendered as text-only cards here even
+          // though 2 of them had a perfectly good product cover. One resolver
+          // for both listings, or the two keep drifting.
+          image: reviewCardImage(item, productMap),
           fit: "contain" as const,
         },
       ];
@@ -9380,7 +9387,7 @@ async function main() {
   const evaluationDetailPages = cmsEvaluations
     .map((item) => renderEvaluationDetailPage(item, productMap))
     .filter((page): page is RoutePage => page !== null);
-  const filterPages = renderFilterPages(cmsGuides, cmsNews, cmsEvaluations);
+  const filterPages = renderFilterPages(cmsGuides, cmsNews, cmsEvaluations, productMap);
   // Guides category axis: /guides/<category>/ and /guides/<category>/<topic>/.
   // Deliberately NOT folded into filterPages: that array also feeds
   // workerPublishedRoutes, the "routes the Worker publishes on its own" set, and

@@ -89,9 +89,14 @@ if (!existsSync(GEOMETRY)) {
 const geometry = readJson(GEOMETRY);
 const sources = readJson(SOURCES);
 
+// Three cover families share this one canvas rule, so they share this one
+// guard: guides and news were here first, and the two orphan-ASIN reviews
+// joined when their covers were built (reviews are the only surface whose
+// artwork used to come solely from a linked products record).
 const expectedSlugs = new Set([
   ...Object.keys(sources.guides || {}),
   ...Object.keys(sources.news || {}),
+  ...Object.keys(sources.evaluations || {}),
 ]);
 const covered = new Set(Object.keys(geometry.covers || {}));
 

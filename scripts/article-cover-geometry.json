@@ -273,6 +273,38 @@
         450
       ]
     },
+    "eval-single-car-seat-b0bdrkg478": {
+      "inner": [
+        800,
+        800
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "out": "public/images/evaluations/eval-single-car-seat-b0bdrkg478-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1500
+      ]
+    },
+    "eval-single-electric-vehicles-b0g5kd8btz": {
+      "inner": [
+        800,
+        543
+      ],
+      "offset": [
+        0,
+        128
+      ],
+      "out": "public/images/evaluations/eval-single-electric-vehicles-b0g5kd8btz-800x800.webp",
+      "scale": 0.533333,
+      "source": [
+        1500,
+        1018
+      ]
+    },
     "foldable-electric-scooter-brands-worldwide": {
       "inner": [
         800,
