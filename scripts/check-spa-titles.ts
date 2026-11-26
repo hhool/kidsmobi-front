@@ -258,6 +258,9 @@ const CATEGORY_HUB_SLUGS: Record<string, string> = {
   electric_vehicles: "/products/electric-cars/",
   car_seat: "/products/safety-seats/",
   kids_tricycles: "/products/kids-tricycles/",
+  kids_push_ride_ons: "/products/kids-ride-ons/",
+  kids_pull_along_wagons: "/products/kids-wagons/",
+  playard: "/products/kids-playards/",
 };
 
 // A new CATEGORY_TDK_MAP entry without a slug here would silently escape this
