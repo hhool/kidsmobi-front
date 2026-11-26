@@ -2596,7 +2596,7 @@ export default function GuidesSection({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 text-left animate-fade-in">
                 {pagedGuides.slice(1).map((guide) => {
-                  const cardImage = resolveCardImage(guide.imageUrl, guide.content);
+                  const cardImage = normalizeMediaUrl(resolveCardImage(guide.imageUrl, guide.content));
                   return (
                   <button
                     type="button"
