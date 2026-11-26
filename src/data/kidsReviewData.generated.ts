@@ -5,13 +5,13 @@
 
 export const KIDS_REVIEW_DATASET = {
   "generatedFrom": "CMS product snapshot (customersSay), stage-1 + stage-2 pruned",
-  "publishedProducts": 174,
-  "summariesPublished": 164,
-  "distinctSummaries": 159,
+  "publishedProducts": 173,
+  "summariesPublished": 163,
+  "distinctSummaries": 158,
   "kidsBikesPublished": 24,
-  "kidsBikeSummaries": 22,
-  "distinctKidsBikeSummaries": 22,
-  "medianSummaryChars": 416,
+  "kidsBikeSummaries": 21,
+  "distinctKidsBikeSummaries": 21,
+  "medianSummaryChars": 422,
   "themes": [
     {
       "id": "build",
@@ -19,8 +19,8 @@ export const KIDS_REVIEW_DATASET = {
       "note": "sturdiness, durability or a solid feel is mentioned",
       "count": 19,
       "examples": [
-        "Customers find this BMX bicycle to be a fantastic first bike for young children, particularly 4 and 5-year-olds, and appreciate its easy assembly with included tools and clear inst",
-        "Customers find the bicycle's appearance positive, noting it looks identical to the picture. The assembly and sturdiness receive mixed feedback - while some say it's easy to put tog"
+        "Customers find the bicycle's appearance positive, describing it as nice and cute. The durability receives mixed feedback, with some customers finding it durable while others report",
+        "Customers find this mountain bike to be solid and good value, with easy assembly and a cool appearance. The bike is particularly suitable as a gift for grandchildren, and one custo"
       ]
     },
     {
@@ -29,8 +29,8 @@ export const KIDS_REVIEW_DATASET = {
       "note": "the summary says it goes together easily, or needs no tools",
       "count": 16,
       "examples": [
-        "Customers find this BMX bicycle to be a fantastic first bike for young children, particularly 4 and 5-year-olds, and appreciate its easy assembly with included tools and clear inst",
-        "Customers find this bicycle to be a solid, well-made first bike that's easy to assemble and appears very good looking. They consider it a great purchase for the price and say it's "
+        "Customers find this mountain bike to be solid and good value, with easy assembly and a cool appearance. The bike is particularly suitable as a gift for grandchildren, and one custo",
+        "Customers find the bicycle easy to assemble, with one mentioning all necessary tools are included. The bike receives positive feedback for its quality, appearance, and suitability "
       ]
     },
     {
@@ -39,8 +39,8 @@ export const KIDS_REVIEW_DATASET = {
       "note": "tipping, balance or a stable footprint is discussed",
       "count": 8,
       "examples": [
-        "Customers find the bicycle's appearance positive, noting it looks identical to the picture. The assembly and sturdiness receive mixed feedback - while some say it's easy to put tog",
-        "Customers find this bicycle to be a solid, well-made first bike that's easy to assemble and appears very good looking. They consider it a great purchase for the price and say it's "
+        "Customers find this children's bike to be a great first bike that's easy to assemble and perfect for 5-year-olds, with one customer noting it includes assembly tools. The bike rece",
+        "Customers find this bicycle to be a perfect first bike that's easy to assemble and appreciate its nice appearance. The bike is sturdy, with one customer noting the training wheels "
       ]
     },
     {
@@ -49,17 +49,17 @@ export const KIDS_REVIEW_DATASET = {
       "note": "the summary names the age the bike suited",
       "count": 6,
       "examples": [
-        "Customers find this bicycle to be a solid, well-made first bike that's easy to assemble and appears very good looking. They consider it a great purchase for the price and say it's ",
-        "Customers find this children's bike to be a nice beginning model that's easy to assemble and particularly suitable for 4-year-olds and grandkids. The bike receives positive feedbac"
+        "Customers find the bicycle easy to assemble, with one mentioning all necessary tools are included. The bike receives positive feedback for its quality, appearance, and suitability ",
+        "Customers find this bicycle to be a perfect first bike that's easy to assemble and offers good value for money. They appreciate its appearance, sturdy construction, and suitability"
       ]
     },
     {
       "id": "weight",
       "label": "Weight",
       "note": "the bike being light — or heavy — comes up",
-      "count": 3,
+      "count": 2,
       "examples": [
-        "Customers find the helmet comfortable, lightweight, and well-designed, with adjustable straps and a sizing guide that fits between child and youth sizes. The helmet receives positi",
+        "Customers find this bicycle to be a great first bike that's easy to assemble and well worth the price. They appreciate its appearance, with one customer noting it looks expensive, ",
         "Customers find this bicycle to be a solid, well-made first bike that's easy to assemble and appears very good looking. They consider it a great purchase for the price and say it's "
       ]
     },
@@ -91,12 +91,12 @@ export const KIDS_REVIEW_DATASET = {
     {
       "id": "mixed",
       "label": "mixed or split feedback",
-      "count": 22
+      "count": 21
     },
     {
       "id": "qualified",
       "label": "attributed to a single buyer",
-      "count": 13
+      "count": 12
     },
     {
       "id": "negative",
@@ -107,104 +107,9 @@ export const KIDS_REVIEW_DATASET = {
   "misfiled": [],
   "listings": [
     {
-      "id": "kids_bikes-b0c772bkg2",
-      "name": "cubsala 12 14 16 18 Inch Kids Bike BMX Style Bicycle with Training Wheels Coaster Brake fo",
-      "chars": 371
-    },
-    {
-      "id": "electric_vehicles-b07cjv1975",
-      "name": "Kids Helmet, Exclusky Kids Bike Helmet Adjustable Safety Lightweight Children Bicycle Helm",
-      "chars": 410
-    },
-    {
-      "id": "kids_bikes-b08q7tmrwr",
-      "name": "JOYSTAR Little Daisy Kids Bike for Girls Boys Ages 2-10 Years, 12 14 16 20 Inch Girls Bike",
-      "chars": 468
-    },
-    {
-      "id": "kids_bikes-b07fmyddcw",
-      "name": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes wit",
-      "chars": 559
-    },
-    {
-      "id": "kids_bikes-b00d3eqb3k",
-      "name": "RoyalBaby Freestyle Kids Bike 12 14 16 Inch with Training Wheels, 18 Inch with Kickstand, ",
-      "chars": 535
-    },
-    {
-      "id": "kids_bikes-b07pzkllrt",
-      "name": "JOYSTAR Pluto 12 14 16 18 20 Inch Kids Bike with Light Up Training Wheels, Kids' Bicycle f",
-      "chars": 594
-    },
-    {
-      "id": "kids_bikes-b0gs4qq8fy",
-      "name": "WEIZE Kids Bikes,Boy's Bike for Kids,BMX Style Bicycle for Boys Girls Ages 4-12 Years Old,",
-      "chars": 195
-    },
-    {
-      "id": "kids_bikes-b0c2h8sfbq",
-      "name": "JOYSTAR Angel Girls Bike for Toddlers and Kids Ages 2-13 Years Old, 12 14 16 18 20 Inch Ki",
-      "chars": 585
-    },
-    {
-      "id": "kids_bikes-b0cmc155zd",
-      "name": "JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years Girls, Toddler Girls Bike with Training W",
-      "chars": 395
-    },
-    {
-      "id": "kids_bikes-b0flq7r263",
-      "name": "WEIZE Kids Bike, 14 16 20 Inch Children Bicycle for Boys & Girls Youth Ages 4-12 Years Old",
-      "chars": 463
-    },
-    {
-      "id": "kids_bikes-b09kkz3rfm",
-      "name": "JOYSTAR Fantasy Girls Bike for 2-12 Years Old Toddlers and Kids, 12\" 14\" 16\" 18“ 20\" Retro",
-      "chars": 575
-    },
-    {
-      "id": "kids_bikes-b0c53khv7f",
-      "name": "Bixike Girls Bike with Basket for Toddlers and Kids Aged 3-14 Years Old, 12 14 16 18 Inch ",
-      "chars": 523
-    },
-    {
-      "id": "kids_bikes-b0dhr7wx5m",
-      "name": "Glerc 20 24 26 Inch Kids Bike, Kids Mountain Bike for Boys and Girls Ages 6+, 21-Speed Sky",
-      "chars": 422
-    },
-    {
-      "id": "kids_bikes-b0fxm9gv7m",
-      "name": "WEIZE 20 24 Inch Kids Mountain Bike,Kids Bike for Girls Age 6-14 Year Old,6 Speed Kid Bicy",
-      "chars": 256
-    },
-    {
-      "id": "kids_bikes-b0dcyxxl3v",
-      "name": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for ",
-      "chars": 443
-    },
-    {
-      "id": "kids_bikes-b0146f8l7i",
-      "name": "RoyalBaby Freestyle Kids Bike 20 Inch Wheel Bicycle Teens BMX with Dual Hand Brakes Kickst",
-      "chars": 370
-    },
-    {
-      "id": "kids_bikes-b086w6286w",
-      "name": "JOYSTAR Whizz Kids Bike 12-20 Inch Kids' Bicycle for Toddler and Kids Ages 2-10 Years Old,",
-      "chars": 405
-    },
-    {
-      "id": "kids_bikes-b0bcdbwmxm",
-      "name": "Glerc Maggie Girls Bike, 12-20 Inch Kids Bike for 2-13 Years Old Children, Princess Style ",
-      "chars": 523
-    },
-    {
-      "id": "kids_bikes-b0by8vg1fp",
-      "name": "Glerc Fantacy Kids Bike, 12-20 Inch Children Bicycle for 2-13 Years Old Boys Girls, Kids B",
-      "chars": 278
-    },
-    {
-      "id": "kids_bikes-b0dzwz2lsd",
-      "name": "Glerc Petal Girls Bike 12-18 Inch for Ages 2-9, Kids Bike with Training Wheels, Basket & S",
-      "chars": 332
+      "id": "kids_bikes-b0fcycs2f9",
+      "name": "Glerc Kids Bike for Ages 1-8 Years Old, 12-16 Inch BMX Style Kids Bicycle with Training Wh",
+      "chars": 212
     },
     {
       "id": "kids_bikes-b0f7xmj87q",
@@ -212,9 +117,99 @@ export const KIDS_REVIEW_DATASET = {
       "chars": 392
     },
     {
-      "id": "kids_bikes-b0fcycs2f9",
-      "name": "Glerc Kids Bike for Ages 1-8 Years Old, 12-16 Inch BMX Style Kids Bicycle with Training Wh",
-      "chars": 212
+      "id": "kids_bikes-b0dzwz2lsd",
+      "name": "Glerc Petal Girls Bike 12-18 Inch for Ages 2-9, Kids Bike with Training Wheels, Basket & S",
+      "chars": 332
+    },
+    {
+      "id": "kids_bikes-b0by8vg1fp",
+      "name": "Glerc Fantacy Kids Bike, 12-20 Inch Children Bicycle for 2-13 Years Old Boys Girls, Kids B",
+      "chars": 278
+    },
+    {
+      "id": "kids_bikes-b0bcdbwmxm",
+      "name": "Glerc Maggie Girls Bike, 12-20 Inch Kids Bike for 2-13 Years Old Children, Princess Style ",
+      "chars": 523
+    },
+    {
+      "id": "kids_bikes-b086w6286w",
+      "name": "JOYSTAR Whizz Kids Bike 12-20 Inch Kids' Bicycle for Toddler and Kids Ages 2-10 Years Old,",
+      "chars": 405
+    },
+    {
+      "id": "kids_bikes-b0146f8l7i",
+      "name": "RoyalBaby Freestyle Kids Bike 20 Inch Wheel Bicycle Teens BMX with Dual Hand Brakes Kickst",
+      "chars": 370
+    },
+    {
+      "id": "kids_bikes-b0dcyxxl3v",
+      "name": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for ",
+      "chars": 443
+    },
+    {
+      "id": "kids_bikes-b0fxm9gv7m",
+      "name": "WEIZE 20 24 Inch Kids Mountain Bike,Kids Bike for Girls Age 6-14 Year Old,6 Speed Kid Bicy",
+      "chars": 256
+    },
+    {
+      "id": "kids_bikes-b0dhr7wx5m",
+      "name": "Glerc 20 24 26 Inch Kids Bike, Kids Mountain Bike for Boys and Girls Ages 6+, 21-Speed Sky",
+      "chars": 422
+    },
+    {
+      "id": "kids_bikes-b0c53khv7f",
+      "name": "Bixike Girls Bike with Basket for Toddlers and Kids Aged 3-14 Years Old, 12 14 16 18 Inch ",
+      "chars": 523
+    },
+    {
+      "id": "kids_bikes-b09kkz3rfm",
+      "name": "JOYSTAR Fantasy Girls Bike for 2-12 Years Old Toddlers and Kids, 12\" 14\" 16\" 18“ 20\" Retro",
+      "chars": 575
+    },
+    {
+      "id": "kids_bikes-b0flq7r263",
+      "name": "WEIZE Kids Bike, 14 16 20 Inch Children Bicycle for Boys & Girls Youth Ages 4-12 Years Old",
+      "chars": 463
+    },
+    {
+      "id": "kids_bikes-b0cmc155zd",
+      "name": "JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years Girls, Toddler Girls Bike with Training W",
+      "chars": 395
+    },
+    {
+      "id": "kids_bikes-b0c2h8sfbq",
+      "name": "JOYSTAR Angel Girls Bike for Toddlers and Kids Ages 2-13 Years Old, 12 14 16 18 20 Inch Ki",
+      "chars": 585
+    },
+    {
+      "id": "kids_bikes-b0gs4qq8fy",
+      "name": "WEIZE Kids Bikes,Boy's Bike for Kids,BMX Style Bicycle for Boys Girls Ages 4-12 Years Old,",
+      "chars": 195
+    },
+    {
+      "id": "kids_bikes-b07pzkllrt",
+      "name": "JOYSTAR Pluto 12 14 16 18 20 Inch Kids Bike with Light Up Training Wheels, Kids' Bicycle f",
+      "chars": 594
+    },
+    {
+      "id": "kids_bikes-b00d3eqb3k",
+      "name": "RoyalBaby Freestyle Kids Bike 12 14 16 Inch with Training Wheels, 18 Inch with Kickstand, ",
+      "chars": 535
+    },
+    {
+      "id": "kids_bikes-b07fmyddcw",
+      "name": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes wit",
+      "chars": 559
+    },
+    {
+      "id": "kids_bikes-b08q7tmrwr",
+      "name": "JOYSTAR Little Daisy Kids Bike for Girls Boys Ages 2-10 Years, 12 14 16 20 Inch Girls Bike",
+      "chars": 468
+    },
+    {
+      "id": "kids_bikes-b0c772bkg2",
+      "name": "cubsala 12 14 16 18 Inch Kids Bike BMX Style Bicycle with Training Wheels Coaster Brake fo",
+      "chars": 371
     }
   ]
 } as const;

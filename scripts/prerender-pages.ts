@@ -2185,10 +2185,12 @@ function relatedProductsHtml(
   zh = false,
 ): string {
   if (!products.length) return "";
-  const productsById = new Map(products.map((product) => [String(product.id || ""), product]));
+  // Filter out products with obvious category mismatches (e.g., electric_vehicles-* with categoryId "kids_bikes")
+  const consistentProducts = products.filter((p) => hasConsistentProductCategory(p));
+  const productsById = new Map(consistentProducts.map((product) => [String(product.id || ""), product]));
   const matched = matchProductsForText(
     text,
-    products.map((product) => ({
+    consistentProducts.map((product) => ({
       id: String(product.id || ""),
       name: product.name,
       brand: product.brand,
@@ -8286,6 +8288,36 @@ function resolveProductCategoryIdFull(product: CmsProductFull): string {
   return PRERENDER_PRIMARY_PRODUCT_CATEGORY_IDS.has(inferred) ? inferred : "other";
 }
 
+/**
+ * Checks if a product's id prefix agrees with its categoryId.
+ * Returns false for obvious miscategorizations like electric_vehicles-* with categoryId "kids_bikes".
+ * Used to filter product candidate lists for related-products matching.
+ */
+function hasConsistentProductCategory(product: CmsProductLite | CmsProductFull): boolean {
+  const id = String(product.id || "");
+  const categoryId = String(product.categoryId || "");
+  const idPrefix = id.split("-")[0].toLowerCase();
+  
+  // Map id prefixes to their expected category ids
+  const prefixToCategory: Record<string, string[]> = {
+    "balance_bike": ["balance_bike"],
+    "kids_bikes": ["kids_bikes"],
+    "kids_scooters": ["kids_scooters", "scooters"],
+    "electric_vehicles": ["electric_vehicles", "electric_car"],
+    "stroller": ["stroller"],
+    "car_seat": ["car_seat"],
+    "kids_tricycles": ["kids_tricycles"],
+    "kids_push_ride_ons": ["kids_push_ride_ons"],
+    "kids_pull_along_wagons": ["kids_pull_along_wagons"],
+    "playard": ["playard"],
+  };
+  
+  const expectedCategories = prefixToCategory[idPrefix];
+  if (!expectedCategories) return true; // Unknown prefix, assume OK
+  
+  return expectedCategories.includes(categoryId);
+}
+
 type ProductCategoryMeta = {
   categoryId: string;
   slug: string;
@@ -9423,7 +9455,7 @@ async function main() {
   // related-product links, reviews hub, sitemap and generated _redirects are all
   // derived from one list — nothing can link to a page we no longer publish.
   const cmsProductsVisible = (cmsProducts as CmsProductFull[]).filter(
-    (product) => !isPrunedProduct(product?.id),
+    (product) => !isPrunedProduct(product?.id) && hasConsistentProductCategory(product),
   );
   const cmsProductsFullFinal = cmsProductsVisible;
   if (cmsProductsFullFinal.length < 100) {

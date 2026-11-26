@@ -31,6 +31,41 @@ function tokenize(text: string): string[] {
 }
 
 /**
+ * Validates that a product's id prefix matches its expected category.
+ * This catches CMS miscategorizations where categoryId disagrees with id prefix.
+ * Returns true if the product appears to be correctly categorized.
+ */
+function isValidProductCategory(product: RelatedProductCandidate): boolean {
+  const id = String(product.id || "");
+  const category = String(product.category || "");
+  
+  // Extract id prefix (everything before the first hyphen)
+  const idPrefix = id.split("-")[0].toLowerCase();
+  
+  // Common category mappings
+  const categoryMap: Record<string, string[]> = {
+    "balance_bike": ["balance-bike", "balance_bike"],
+    "kids_bikes": ["kids-bike", "kids_bikes", "bicycle"],
+    "kids_scooters": ["scooter", "scooters", "kids-scooter", "kids_scooters"],
+    "electric_vehicles": ["electric-car", "electric_vehicle", "electric_vehicles", "electric-car"],
+    "stroller": ["stroller", "strollers"],
+    "car_seat": ["car-seat", "car_seat", "safety-seat", "safety_seat"],
+    "kids_tricycles": ["tricycle", "tricycles", "kids-tricycle", "kids_tricycles"],
+  };
+  
+  // Check if id prefix matches category
+  const expectedCategories = categoryMap[idPrefix] || [idPrefix];
+  const normalizedCategory = category.toLowerCase().replace(/[_-]/g, "");
+  
+  // If category is provided and doesn't match id prefix, it's likely miscategorized
+  if (category && !expectedCategories.some(cat => cat.toLowerCase().replace(/[_-]/g, "") === normalizedCategory)) {
+    return false;
+  }
+  
+  return true;
+}
+
+/**
  * Ranks products by how many of their identifying tokens appear in `text`.
  * Returns at most `limit` products, highest score first. Products with a
  * score of 0 are dropped entirely (no padding, no invented matches).
@@ -45,6 +80,7 @@ export function matchProductsForText(
   const tokenSet = new Set(tokens);
 
   const scored = products
+    .filter((product) => isValidProductCategory(product))
     .map((product) => {
       const nameTokens = tokenize(`${product.name || ""} ${product.brand || ""}`);
       const summaryTokens = tokenize(product.summary || "");

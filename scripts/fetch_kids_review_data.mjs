@@ -151,7 +151,19 @@ function countHedges(entries) {
 }
 
 const allEntries = summarise(products);
-const kidsEntries = summarise(products.filter((product) => product?.categoryId === KIDS_BIKES));
+// Filter to kids_bikes products — use id prefix as authoritative signal, not categoryId.
+// This catches CMS miscategorizations like electric_vehicles-* products with categoryId "kids_bikes".
+const KIDS_BIKES_PREFIX = "kids_bikes-";
+const kidsEntries = summarise(
+  products.filter((product) => {
+    const id = String(product?.id || "");
+    const categoryId = String(product?.categoryId || "");
+    // Prefer id prefix when it disagrees with categoryId (unless categoryId is "stroller" which needs inference)
+    if (categoryId !== "stroller" && id.startsWith(KIDS_BIKES_PREFIX)) return true;
+    if (categoryId === KIDS_BIKES && !id.includes("-")) return true;
+    return false;
+  })
+);
 
 /**
  * One listing is filed under kids bikes but its buyer summary describes a
