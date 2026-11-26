@@ -1622,7 +1622,12 @@ export default function DetailedProductView({
                     <PolarRadiusAxis domain={[0, 10]} tick={false} axisLine={false} />
                     <Tooltip content={<CustomRadarTooltip />} />
                     <Radar
-                      name={product.brand}
+                      // Tooltip renders {item.name}, so this is a visible brand
+                      // surface: reading product.brand here would print the
+                      // clipped "Green"/"Baby" on hover while the spec table
+                      // right below shows the resolved "Campior". Same record,
+                      // two values. Always read the resolved displayProduct.
+                      name={displayProduct.brand}
                       dataKey="scoreA"
                       stroke="#f97316"
                       fill="#f97316"

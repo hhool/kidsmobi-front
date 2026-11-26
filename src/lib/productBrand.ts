@@ -35,6 +35,7 @@
  */
 
 interface BrandProductLike {
+  id?: string;
   name?: string;
   brand?: string;
   en?: { brandText?: string };
@@ -44,6 +45,43 @@ interface BrandProductLike {
 }
 
 const clean = (value: unknown): string => String(value ?? "").replace(/\s+/g, " ").trim();
+
+/**
+ * Curated corrections for records where no general rule can be trusted.
+ *
+ * Generated from scripts/product-brand-corrections.json, which holds the
+ * source that justifies each one. Inlined rather than imported so this module
+ * stays dependency-free for both the bundler and the prerender's tsx runner.
+ * scripts/check-brand-corrections.mjs asserts the two agree, so the ledger and
+ * the code cannot drift.
+ *
+ * Shape: record id -> { from, to }. `from` is the value the record stores; if a
+ * future import changes it, the entry stops applying rather than silently
+ * renaming a different product.
+ */
+const CURATED_BRANDS: Record<string, { from: string; to: string }> = {
+  "scooters-b0dzg3qylr": { from: "Green", to: "Campior" },
+  "stroller-b078tbp298": { from: "Baby", to: "Costzon" },
+  "stroller-b0d65f9ns7": { from: "Baby", to: "Monamii" },
+  "stroller-b0dk4p46nf": { from: "Baby", to: "Monamii" },
+  "stroller-b0dlkjfk39": { from: "Baby", to: "Hagaday" },
+  "kids_push_ride_ons-b00005850h": { from: "Little", to: "Little Tikes" },
+  "balance_bike-b0ccy6yrs8": { from: "Colorful", to: "WETIFY" },
+  "balance_bike-b0dg8vrzbz": { from: "Colorful", to: "Doselie" },
+  "electric_vehicles-b017hhkgie": { from: "Kids", to: "Lil' Rider" },
+  "electric_vehicles-b07cjv1975": { from: "Kids", to: "EXCLUSKY" },
+};
+
+/** The curated brand for a record, but only while the record still stores `from`. */
+function curatedBrandFor(
+  id: string | undefined,
+  stored: string,
+  table: Record<string, { from: string; to: string }>,
+): string {
+  const entry = table[String(id || "").trim()];
+  if (!entry) return "";
+  return entry.from.toLowerCase() === stored.toLowerCase() ? entry.to : "";
+}
 
 /** Every brand the listing itself states, in the order it states them. */
 function statedBrands(product: BrandProductLike): string[] {
@@ -66,13 +104,41 @@ function statedBrands(product: BrandProductLike): string[] {
 /**
  * The brand as the listing states it, not the first word of it.
  *
+ * Two corrections are applied, in this order:
+ *
+ *  1. A curated table entry for the record id, if one exists. Those cover the
+ *     cases the general rule cannot reach — records whose stored brand is not a
+ *     clipped brand at all but a first word of the TITLE ("Green" for a Campior
+ *     scooter, "Baby" for a Hagaday stroller). The scraper derives Brand as
+ *     `Title.split(' ')[0]`, so any brand that is a plain English or quantity
+ *     word is an artefact rather than a company. Every entry in the table
+ *     carries an independent source, and scripts/check-brand-corrections.mjs
+ *     verifies that source still holds.
+ *
+ *  2. The self-proving rule below, for records whose brand really is a clipped
+ *     company name ("Radio" -> "Radio Flyer").
+ *
  * @param product     The raw product record.
  * @param storedBrand The value already on the record (`en.brandText` or
  *                    `brand`). Passed explicitly so the caller controls which
  *                    field wins, exactly as it did before this was extracted.
+ * @param curatedTable Which curated table to consult. Defaults to the real one.
+ *                    The override exists ONLY so scripts/check-brand-corrections.ts
+ *                    can prove that a ledger entry actually drives the resolver,
+ *                    using a fixture id that by definition is not in the shipped
+ *                    table. Production callers must never pass it: a caller-side
+ *                    table would be a second copy of the rule.
  */
-export function resolveProductBrand(product: BrandProductLike, storedBrand?: string): string {
+export function resolveProductBrand(
+  product: BrandProductLike,
+  storedBrand?: string,
+  curatedTable: Record<string, { from: string; to: string }> = CURATED_BRANDS,
+): string {
   const stored = clean(storedBrand ?? product.en?.brandText ?? product.brand);
+
+  const curated = curatedBrandFor(product.id, stored, curatedTable);
+  if (curated) return curated;
+
   const name = clean(product.name);
   if (!stored || !name) return stored;
 

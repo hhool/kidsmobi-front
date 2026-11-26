@@ -21,6 +21,7 @@ import { translateProduct, translateCategory } from "../lib/translate";
 import { localizeMaterialDisplayValue, localizeSafetyDisplayValue } from "../lib/specLexicon";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { resolveProductBrand } from "../lib/productBrand";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle, isElectricScooterProduct, sanitizeScrapedSnippet, shortenCardTitle } from "../lib/productSeoText";
 import { productCategoryPath } from "../lib/productCategoryPaths";
 import CategoryComparisonTable from "./common/CategoryComparisonTable";
@@ -1343,29 +1344,21 @@ export default function ProductsSection({
       .toLowerCase();
   };
 
+  // This used to be a fourth, private brand implementation: read
+  // `product.brand` and patch five known cases by hand ("baby trend",
+  // "bob gear", "babyzen", "royalbaby", "优贝") by scanning name + description.
+  // Those patches were guessing at exactly the problem src/lib/productBrand.ts
+  // solves from the record's own declared fields, and the guess went wrong in a
+  // way no hand list could cover: the stored value "Green" belongs to Green Toys
+  // on a wagon and to Campior on a scooter, so one facet label was fusing two
+  // unrelated companies while the product page showed the real brand.
+  // Measured over all 196 records: the five aliases never produced a brand that
+  // the shared resolver missed, and the resolver produced a fuller one in 40
+  // cases. Delegating also makes the facet agree with the product page — the
+  // filter label and the spec table are the same brand again.
   const resolveCanonicalBrand = (product: Product): string => {
-    const brandRaw = String(product.brand || "")
-      .normalize("NFKC")
-      .replace(/[\u200B-\u200D\uFEFF]/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-
-    const searchable = [
-      brandRaw,
-      product.name,
-      product.description,
-      (product as any)?.zh?.description,
-      (product as any)?.en?.description,
-    ]
-      .map((item) => String(item || "").toLowerCase())
-      .join(" ");
-
-    if (searchable.includes("baby trend")) return "Baby Trend";
-    if (/^baby$/i.test(brandRaw) && searchable.includes("trend")) return "Baby Trend";
-    if (searchable.includes("bob gear") || /^bob$/i.test(brandRaw)) return "BOB Gear";
-    if (searchable.includes("babyzen") || searchable.includes(" yoyo ")) return "Babyzen";
-    if (searchable.includes("royalbaby") || searchable.includes("优贝")) return "RoyalBaby";
-    return brandRaw;
+    const stored = String(product.brand || "").trim();
+    return resolveProductBrand(product as Parameters<typeof resolveProductBrand>[0], stored);
   };
 
   const buildBrandFacetList = (products: Product[]) => {

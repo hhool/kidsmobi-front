@@ -1,0 +1,76 @@
+{
+  "_note": "Brand corrections for the 6 records whose stored brand (brand + en.brandText + zh.brandText) is a first-word clip of the product TITLE, not a brand. Applying the 2026-11-26 audit: scraping reports derive `Brand` as `Title.split(' ')[0]` (verified 162/162 entries), so any brand that is a plain English/quantity word is a title artefact, not a company name. Each entry below is justified by an independent source on the same record - the Amazon URL slug (brand is the leading token), the listing's Item_Details Brand/Brand Name/Manufacturer, or a brand mention in the record's own features/pros. No entry is justified by the product name alone, because the name is what the bad rule read.",
+
+  "corrections": [
+    {
+      "id": "scooters-b0dzg3qylr",
+      "from": "Green",
+      "to": "Campior",
+      "evidence": "Amazon URL slug 'amazon.com/Campior-Green-Wheel-Scooter-Steer/dp/B0DZG3QYLR' + Item_Details.Brand Name='Campior' + Item_Details.Manufacturer='Campior'",
+      "note": "Title begins 'Green Mini 3 Wheel Scooter' - 'Green' is a colour/quantity word, flagged by the same rule as the clipped brands. The listing itself says Campior three ways."
+    },
+    {
+      "id": "stroller-b078tbp298",
+      "from": "Baby",
+      "to": "Costzon",
+      "evidence": "Item_Details.Brand='Costzon' + Category_Attributes.Brand='Costzon'. Externally confirmed: Amazon lists the SAME product title ('Baby Joy Lightweight Stroller, Compact Toddler Travel Stroller for Airplane ... one-hand fold') on sibling ASIN B0FKN98BJ3 with 品牌/Brand = Costzon.",
+      "note": "'Baby Joy' is the Costzon sub-brand LINE, not the Amazon Brand field. Correcting to 'Baby Joy' would repeat exactly the class of error this ledger exists to fix - reading the title as the brand. Reverted from an earlier draft that used Baby Joy on title-derived evidence."
+    },
+    {
+      "id": "stroller-b0d65f9ns7",
+      "from": "Baby",
+      "to": "Monamii",
+      "evidence": "Item_Details.Brand Name='Monamii' + Item_Details.Manufacturer='Monamii' + 'Monamii' appears in the title's model clause and in the record's own features/pros",
+      "note": "Title 'Baby Swings for Infants, Monamii Baby Swing' - 'Baby' is a category word."
+    },
+    {
+      "id": "stroller-b0dk4p46nf",
+      "from": "Baby",
+      "to": "Monamii",
+      "evidence": "Item_Details.Brand='Monamii' + Manufacturer='Monamii' + Category_Attributes.Brand='Monamii'",
+      "note": "Same model as stroller-b0d65f9ns7; three sources agree."
+    },
+    {
+      "id": "stroller-b0dlkjfk39",
+      "from": "Baby",
+      "to": "Hagaday",
+      "evidence": "Item_Details.Brand='Hagaday' + Manufacturer='Hagaday' + Category_Attributes.Brand='Hagaday' + 'Hagaday' appears in the record's own English description",
+      "note": "Title 'Baby Stroller, 2-in-1 Reversible...' - 'Baby' is a category word."
+    },
+    {
+      "id": "kids_push_ride_ons-b00005850h",
+      "from": "Little",
+      "to": "Little Tikes",
+      "evidence": "Amazon URL slug 'amazon.com/Little-Tikes-Push-Ride-Racer/dp/B00005850H' + Item_Details.Brand Name='MGA Entertainment' with Sub Brand='little tikes' + Manufacturer='Little Tikes'",
+      "note": "The listing distinguishes corporate parent (MGA Entertainment) from product brand (Little Tikes); the site shows the brand, so Little Tikes is correct."
+    },
+    {
+      "id": "balance_bike-b0ccy6yrs8",
+      "from": "Colorful",
+      "to": "WETIFY",
+      "evidence": "Item_Details.Brand='WETIFY' + Item_Details.Brand Name='WETIFY' + Category_Attributes.Brand='WETIFY'. Manufacturer='Foshan BeeKoo Intelligent Technology Co.,Ltd' is the contract manufacturer, not the brand.",
+      "note": "Title begins 'Colorful Lighting Baby Balance Bike...'. 'Colorful' cannot be the brand from the record itself - a DIFFERENT record (balance_bike-b0dg8vrzbz) also stores 'Colorful' but its listing says Doselie. One stored value pointing at two companies is proof it is a title word, not a brand field."
+    },
+    {
+      "id": "balance_bike-b0dg8vrzbz",
+      "from": "Colorful",
+      "to": "Doselie",
+      "evidence": "Item_Details.Brand Name='Doselie' + Item_Details.Sub Brand='Doselie' + Manufacturer='Doselie'",
+      "note": "Title begins 'Colorful Glow Wheel Toddler Balance Bike'. Same title-word artefact as balance_bike-b0ccy6yrs8; three fields agree on Doselie."
+    },
+    {
+      "id": "electric_vehicles-b017hhkgie",
+      "from": "Kids",
+      "to": "Lil' Rider",
+      "evidence": "Item_Details.Brand Name=\"Lil' Rider\" + Item_Details.Sub Brand='Motorcycles' (product line, not brand) + Manufacturer='Trademark Global - Toys'",
+      "note": "Title begins 'Kids Motorcycle - 3-Wheel Ride on Toy...'. 'Kids' is the product category a shopper searches, not a company. Lil' Rider is the ride-on brand; Trademark Global is the parent/seller."
+    },
+    {
+      "id": "electric_vehicles-b07cjv1975",
+      "from": "Kids",
+      "to": "EXCLUSKY",
+      "evidence": "Item_Details.Brand='EXCLUSKY' + Item_Details.Brand Name='EXCLUSKY' + Category_Attributes.Brand='EXCLUSKY' + Manufacturer='Exclusky'",
+      "note": "Title begins 'Kids Helmet, Exclusky Kids Bike Helmet...'. 'Kids' is a category word. This is also the record behind /reviews/single/weize-kids-bikes-helmet-review.html, whose itemReviewed.brand read the clipped value because it bypassed the resolver."
+    }
+  ]
+}
