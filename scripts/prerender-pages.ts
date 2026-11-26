@@ -1414,6 +1414,7 @@ type CmsEvaluation = {
   productIds?: string[];
   updatedAt?: string;
   publishedAt?: string;
+  scores?: { safety?: number; comfort?: number; portability?: number; features?: number; valueForMoney?: number };
   en?: { title?: string; verdict?: string; pros?: string[]; cons?: string[] };
   zh?: { title?: string; verdict?: string; pros?: string[]; cons?: string[] };
 };
@@ -3289,7 +3290,10 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
   };
 }
 
-function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
+function renderReviewsPage(
+  cmsEvaluations: CmsEvaluation[] = [],
+  productMap: Map<string, CmsProductLite> = new Map(),
+): RoutePage {
   // Crawlability fix (R41): the reviews index previously rendered a hardcoded
   // mock slice WITHOUT any <a> links, leaving all 26 CMS evaluation detail
   // pages without an index-page entry point. Render every published evaluation
@@ -3383,17 +3387,18 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which review snapshots matter most?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> the snapshots with a named product, a visible score, and a direct verdict are the easiest to compare and cite.</p>
         <p style="margin: 0 0 14px;">Each card below stays tied to a specific product use case, so the page can answer both “what is it?” and “why does it matter?” in one place.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">
-        ${reviews
-          .map(
-            ({ item, route }) => `
-          <a href="${escapeHtml(route)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
-            <h3 style="margin: 0 0 6px; font-size: 0.98rem; color: #0f172a;">${escapeHtml(pickText(item.en?.title, item.zh?.title, item.id))}</h3>
-            <p style="margin: 0; font-size: 0.86rem; color: #64748b;">${escapeHtml(pickText(item.en?.verdict, item.zh?.verdict).slice(0, 140))}</p>
-          </a>`,
-          )
-          .join("")}
-        </div>
+        ${filterCardGrid(
+          reviews.map(({ item, route }) => ({
+            title: pickText(item.en?.title, item.zh?.title, item.id),
+            summary: pickText(item.en?.verdict, item.zh?.verdict).slice(0, 140),
+            meta: reviewOverallScore(item),
+            mod: pickText(item.updatedAt, item.publishedAt).slice(0, 10) || undefined,
+            path: route,
+            image: reviewCardImage(item, productMap),
+            fit: "contain" as const,
+          })),
+          "No review snapshots published yet.",
+        )}
         <p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">Browse by review type: <a href="/reviews/single">Single-product reviews</a> · <a href="/reviews/compare">Side-by-side comparisons</a>.</p>
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
@@ -3501,6 +3506,57 @@ function reviewCardTeaser(item: CmsEvaluation): string {
   return parts.length
     ? parts.join(" · ")
     : pickText(en.verdict, zh.verdict, "Independent review with source-based scores.").slice(0, 140);
+}
+
+/**
+ * Hub card meta for /reviews: the mean of the five published axes.
+ *
+ * The hub section promises "a visible score" and the page has a whole section
+ * explaining what the scores answer, but no score appeared anywhere on the
+ * cards — the number was only on each detail page. This prints it where the
+ * copy already claims it exists.
+ *
+ * Deliberately NOT the channel pages' meta (`${type} review · ${date}`): the
+ * hub and /reviews/<type> are the pair that once shared 62.3% of their 6-grams,
+ * and card payloads are kept disjoint on purpose (see the W4 note above).
+ * Derived from published fields only — no new claims, no rounding games: one
+ * decimal, and a literal "Scores pending" rather than a fake 0.0 when a record
+ * carries no scores at all.
+ */
+const REVIEW_SCORE_AXES = ["safety", "comfort", "portability", "features", "valueForMoney"] as const;
+
+function reviewOverallScore(item: CmsEvaluation): string {
+  const scores = item.scores || {};
+  const values = REVIEW_SCORE_AXES.map((axis) => scores[axis]).filter(
+    (value): value is number => typeof value === "number" && Number.isFinite(value),
+  );
+  if (!values.length) return "Scores pending";
+  const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+  const axes = `${values.length}/${REVIEW_SCORE_AXES.length} axes`;
+  return `Overall ${mean.toFixed(1)}/10 · ${axes}`;
+}
+
+/**
+ * Hub card cover for /reviews — resolved the way the SPA resolves it.
+ *
+ * The SPA's EvaluationsSection renders `resolveProductImages(product)` from the
+ * LINKED PRODUCT record, not the evaluation's own imageUrl. Those two can
+ * disagree: one published evaluation has an empty imageUrl while its product
+ * has a perfectly good cover, so a prerendered card using the evaluation field
+ * ships no image and hydration fills one in — a visible pop, and a static page
+ * that under-sells the card. Product-first resolution makes both renders agree.
+ *
+ * Falls back to the evaluation's own imageUrl (three balance-bike records key
+ * their product by bare ASIN; those resolve, but older rows may not), and then
+ * to no image at all — the card renders text-only, which is the pre-existing
+ * behaviour for records with nothing usable.
+ */
+function reviewCardImage(item: CmsEvaluation, productMap: Map<string, CmsProductLite>): string {
+  const reference = item.productId || (item.productIds || [])[0];
+  const product = productMap.size ? resolvePrerenderProduct(reference, productMap) : null;
+  const fromProduct = toPublicImageUrl(pickText(product?.imageUrl));
+  if (fromProduct) return fromProduct;
+  return toPublicImageUrl(pickText(item.imageUrl));
 }
 
 /** The opening paragraph of a CMS article, Markdown-stripped and clipped.
@@ -9353,7 +9409,7 @@ async function main() {
     renderNewsPage(cmsNews),
     zhGuidesHubPage,
     zhNewsHubPage,
-    renderReviewsPage(cmsEvaluations),
+    renderReviewsPage(cmsEvaluations, productMap),
     ...filterPages,
     ...guidesCategoryPages,
     renderAboutPage(),
