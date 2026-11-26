@@ -160,10 +160,19 @@ export function resolveProductDetailCategorySlug(product: {
 }): string {
   const raw = String(product.categoryId || product.category || "").trim().toLowerCase();
   let normalized = PRODUCT_CATEGORY_PRIMARY_ALIASES[raw] || raw;
+  
+  // Id prefix is the authoritative taxonomy signal — it overrides a miscategorized
+  // categoryId field. This catches CMS data errors like balance_bike-* products
+  // that were manually assigned categoryId "kids_tricycles".
+  const idPrefix = String(product.id || "").split("-")[0].toLowerCase();
+  const prefixCategory = PRODUCT_CATEGORY_PRIMARY_ALIASES[idPrefix];
+  if (prefixCategory && prefixCategory !== normalized && normalized !== "stroller") {
+    normalized = prefixCategory;
+  }
+  
   if (normalized === "stroller") {
     // Authoritative taxonomy signal: id-prefix pull-along wagons must win over
     // the "stroller" word in their name (e.g. "Stroller Wagon for Kids").
-    const idPrefix = String(product.id || "").split("-")[0].toLowerCase();
     if (idPrefix === "kids_pull_along_wagons") {
       normalized = "other";
     } else {
