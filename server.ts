@@ -19,7 +19,7 @@ type BotFaqItem = {
   answer: string[];
 };
 
-const SITE_URL = "https://balancebiketoddler.com";
+const SITE_URL = process.env.SITE_ORIGIN || "https://balancebiketoddler.com";
 const BOT_USER_AGENT_PATTERN = /(gptbot|claudebot|perplexity|googlebot|bingbot|slurp|duckduckbot|facebookexternalhit|applebot|yandex|semrush|ahrefsbot|mj12bot)/i;
 
 function escapeHtml(value: string): string {

@@ -614,7 +614,11 @@ function renderFaqSection(faq: PageFaq, centered = false): string {
 }
 
 
-const PUBLIC_SITE_BASE = "https://balancebiketoddler.com";
+/** 
+ * Site origin for prerendered pages - read from environment variable with fallback.
+ * Override via SITE_ORIGIN env var for alternative deployments.
+ */
+const PUBLIC_SITE_BASE = process.env.SITE_ORIGIN || "https://balancebiketoddler.com";
 
 /**
  * The visible breadcrumb, rendered from the page's own BreadcrumbList.

@@ -23,7 +23,14 @@
  */
 import { OFFICIAL_X_URL } from "./socialShare";
 
-export const SITE_ORIGIN = "https://balancebiketoddler.com";
+/** 
+ * Site origin - read from environment variable with fallback to default.
+ * Override via VITE_SITE_ORIGIN env var for alternative deployments.
+ */
+export const SITE_ORIGIN = (typeof process !== 'undefined' && process.env?.VITE_SITE_ORIGIN) || 
+                          (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_SITE_ORIGIN) || 
+                          "https://balancebiketoddler.com";
+
 export const ORGANIZATION_ID = `${SITE_ORIGIN}/#organization`;
 export const EDITORIAL_DESK_ID = `${SITE_ORIGIN}/#editorial-desk`;
 export const ORGANIZATION_NAME = "BalanceBikeToddler";
