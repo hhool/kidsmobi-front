@@ -148,7 +148,8 @@
     "check:product-schema:selftest": "node scripts/check-product-schema.mjs --self-test",
     "check:media": "node scripts/check-media-urls.mjs",
     "check:brandcorrections": "npx tsx scripts/check-brand-corrections.ts",
-    "check:brandcorrections:selftest": "npx tsx scripts/check-brand-corrections.ts --self-test"
+    "check:brandcorrections:selftest": "npx tsx scripts/check-brand-corrections.ts --self-test",
+    "check:siteorigin": "node scripts/check-siteorigin.mjs --expect-origin ${SITE_ORIGIN:-https://balancebiketoddler.com} --expect-brand ${SITE_BRAND:-BalanceBikeToddler}"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1073.0",

@@ -58,7 +58,9 @@ import { DEFAULT_CMS_PAGE_BLUEPRINT } from "../src/lib/cmsSectionSeo";
 import { guidesCategoryCanonicalPath } from "../src/lib/canonicalPath";
 
 const ROOT = process.env.CHECK_SPA_CANONICALS_ROOT || "dist";
-const ORIGIN = "https://balancebiketoddler.com";
+// Expected origin must follow the deployment; hardcoding the old domain made
+// this guard permanently red after a domain migration.
+const ORIGIN = (process.env.SITE_ORIGIN || "https://balancebiketoddler.com").replace(/\/$/, "");
 
 const ASSET_PATHS = [
   AGE_PATH,

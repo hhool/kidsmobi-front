@@ -32,7 +32,8 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const DIST = resolve(process.env.CHECK_HREFLANG_ROOT || "dist");
-const SITE = "https://balancebiketoddler.com";
+// Follow the deployment origin so the guard stays valid across a domain migration.
+const SITE = (process.env.SITE_ORIGIN || "https://balancebiketoddler.com").replace(/\/$/, "");
 const WANT = ["en", "zh", "x-default"];
 
 const problems = [];

@@ -11,6 +11,13 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    define: {
+      // Inject site identity at build time for the SPA runtime (JSON-LD,
+      // document.title, UI brand). The prerender/home writers use the same env
+      // vars at their own write points — one identity, no HTML placeholder drift.
+      'import.meta.env.VITE_SITE_ORIGIN': JSON.stringify(process.env.SITE_ORIGIN || 'https://balancebiketoddler.com'),
+      'import.meta.env.VITE_SITE_BRAND': JSON.stringify(process.env.SITE_BRAND || 'BalanceBikeToddler'),
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.

@@ -23,13 +23,23 @@
  */
 import { OFFICIAL_X_URL } from "./socialShare";
 
-/** 
- * Site origin - read from environment variable with fallback to default.
- * Override via VITE_SITE_ORIGIN env var for alternative deployments.
+/**
+ * Site origin — single resolver for SPA and prerender.
+ *
+ * In the browser build, Vite's define injects `import.meta.env.VITE_SITE_ORIGIN`.
+ * In Node (prerender's esbuild bundle) `process.env.SITE_ORIGIN` is available.
+ * Both read the same deployment value so the two halves cannot disagree.
  */
-export const SITE_ORIGIN = (typeof process !== 'undefined' && process.env?.VITE_SITE_ORIGIN) || 
-                          (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_SITE_ORIGIN) || 
-                          "https://balancebiketoddler.com";
+export const SITE_ORIGIN =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_ORIGIN) ||
+  (typeof process !== "undefined" && process.env?.SITE_ORIGIN) ||
+  "https://balancebiketoddler.com";
+
+/** Display brand name — single resolver shared by SPA titles, JSON-LD and UI. */
+export const SITE_BRAND =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_BRAND) ||
+  (typeof process !== "undefined" && process.env?.SITE_BRAND) ||
+  "BalanceBikeToddler";
 
 export const ORGANIZATION_ID = `${SITE_ORIGIN}/#organization`;
 export const EDITORIAL_DESK_ID = `${SITE_ORIGIN}/#editorial-desk`;

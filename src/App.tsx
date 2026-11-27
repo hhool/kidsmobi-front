@@ -201,7 +201,7 @@ import {
   type CookieConsentChoice,
 } from "./lib/consentState";
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
-import { normalizeEntityGraph } from "./lib/entityGraph";
+import { normalizeEntityGraph, SITE_BRAND } from "./lib/entityGraph";
 import { setReferenceClusterConfig, CLUSTER_HEADINGS } from "./lib/referenceCluster";
 import { buildSocialShareUrl, SOCIAL_BRAND_PATHS } from "./lib/socialShare";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
@@ -2659,7 +2659,11 @@ export default function App() {
       element.setAttribute("name", name);
       document.head.appendChild(element);
     }
-    element.setAttribute("content", content);
+    // Single write gate for hydrated <meta>: normalize the legacy brand token
+    // so CMS/default SEO strings carrying the old name cannot reach the DOM.
+    // Idempotent for values that never mention a brand (robots, theme-color…).
+    const localized = content.split("BalanceBikeToddler").join(SITE_BRAND);
+    element.setAttribute("content", localized);
   };
 
   const removeMetaTag = (name: string) => {
@@ -2704,7 +2708,7 @@ export default function App() {
   };
 
   const updateSocialMeta = (title: string, description: string, imageUrl?: string, type: "website" | "article" = "website") => {
-    const siteName = "BalanceBikeToddler";
+    const siteName = SITE_BRAND;
     const resolvedTitle = String(title || siteName).trim() || siteName;
     const resolvedDescription = String(description || "").trim();
     const resolvedImageUrl = resolveOgImageUrl(imageUrl);
@@ -2788,13 +2792,13 @@ export default function App() {
   const buildWebsiteSchema = (origin: string, description: string) => ({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "BalanceBikeToddler",
+    name: SITE_BRAND,
     url: `${origin}/`,
     description,
     inLanguage: lang,
     publisher: {
       "@type": "Organization",
-      name: "BalanceBikeToddler",
+      name: SITE_BRAND,
       url: `${origin}/`,
       logo: `${origin}/favicon-512x512.png`,
       sameAs: [
@@ -2883,8 +2887,8 @@ export default function App() {
         (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
         window.location.origin;
       const notFoundTitle = lang === "zh"
-        ? "页面未找到 (404) | BalanceBikeToddler"
-        : "Page Not Found (404) | BalanceBikeToddler";
+        ? `页面未找到 (404) | ${SITE_BRAND}`
+        : `Page Not Found (404) | ${SITE_BRAND}`;
       const notFoundDesc = lang === "zh"
         ? "您访问的页面不存在。欢迎浏览我们的平衡车评测、选购指南与安全资讯。"
         : "The page you requested could not be found. Browse our balance bike reviews, buying guides, and safety news instead.";
@@ -2974,7 +2978,7 @@ export default function App() {
         if (Number(selectedProduct.overallScore) > 0 && editorVerdict) {
           productSchema.review = {
             "@type": "Review",
-            author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
+            author: { "@type": "Organization", name: `${SITE_BRAND} Editorial Team` },
             url: canonicalUrl,
             reviewRating: {
               "@type": "Rating",
@@ -3062,8 +3066,8 @@ export default function App() {
           (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
           window.location.origin;
         const missingTitle = lang === "zh"
-          ? "产品未找到 (404) | BalanceBikeToddler"
-          : "Product Not Found (404) | BalanceBikeToddler";
+          ? `产品未找到 (404) | ${SITE_BRAND}`
+          : `Product Not Found (404) | ${SITE_BRAND}`;
         document.title = missingTitle;
         updateMetaTag("robots", "noindex,nofollow");
         updateCanonicalLink(`${missingCanonicalOrigin}${normalizeCanonicalPath(currentPath)}`);
@@ -3079,23 +3083,23 @@ export default function App() {
 
       const title = lang === "zh"
         ? (compareList.length > 0 
-           ? `${joinedNamesZh} - 独家指标参数横评 | BalanceBikeToddler` 
-           : "产品指标技术对比看板 | BalanceBikeToddler")
+           ? `${joinedNamesZh} - 独家指标参数横评 | ${SITE_BRAND}` 
+           : `产品指标技术对比看板 | ${SITE_BRAND}`)
         : (compareList.length > 0 
-           ? `Comparing ${joinedNames} - Side-by-side Specifications | BalanceBikeToddler` 
-           : "Product Technical Comparison Dashboard | BalanceBikeToddler");
+           ? `Comparing ${joinedNames} - Side-by-side Specifications | ${SITE_BRAND}` 
+           : `Product Technical Comparison Dashboard | ${SITE_BRAND}`);
 
       const desc = lang === "zh"
         ? (compareList.length > 0 
            ? `一键横向对比 ${productNames.slice(0, 3).join("、")} 等多款童车的力学参数与物理规格。包含安全指数、尺寸、重量、轮组及刹车，为您提供极佳科学导购。` 
-           : "BalanceBikeToddler 产品参数横向比对工具，支持多款车型力学参数同台竞争比对。")
+           : `${SITE_BRAND} 产品参数横向比对工具，支持多款车型力学参数同台竞争比对。`)
         : (compareList.length > 0
            ? `See side-by-side spec and rating comparisons for ${joinedNames}. Compare safety score, weight, price, brakes, and tires to make the best choice.`
            : "Compare technical parameters, safety ratings, frame materials, and testing scores for multiple kids mobility products.");
 
       const kws = lang === "zh"
-        ? [...compareList.map(p => `${p.name}对比`), "童车对比报告", "BalanceBikeToddler"]
-        : [...compareList.map(p => `${p.name} comparison`), "kids mobility compare", "BalanceBikeToddler"];
+        ? [...compareList.map(p => `${p.name}对比`), "童车对比报告", SITE_BRAND]
+        : [...compareList.map(p => `${p.name} comparison`), "kids mobility compare", SITE_BRAND];
 
       document.title = title;
       updateMetaTag("description", desc);
@@ -3214,7 +3218,7 @@ export default function App() {
           {
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "BalanceBikeToddler",
+            name: SITE_BRAND,
             url: `${window.location.origin}/`,
             logo: `${window.location.origin}/favicon-512x512.png`,
           },
@@ -4110,8 +4114,8 @@ export default function App() {
     if (seoKey === "reviews" && activeReviewType !== "all" && !isReviewsIndexPath) {
       const selectedReview = reviewNavOptions.find((item) => item.id === activeReviewType)?.label || activeReviewType;
       titleStr = lang === "zh"
-        ? `${selectedReview} 专题评测 | BalanceBikeToddler Reviews`
-        : `${selectedReview} Review Reports | BalanceBikeToddler Reviews`;
+        ? `${selectedReview} 专题评测 | ${SITE_BRAND} Reviews`
+        : `${selectedReview} Review Reports | ${SITE_BRAND} Reviews`;
       descStr = lang === "zh"
         ? `查看 ${selectedReview} 相关分析数据，覆盖安全、结构稳定与真实场景表现等关键评测维度。`
         : `Explore ${selectedReview} reviews spanning safety, structural stability, and real-world usability benchmarks.`;
@@ -4139,7 +4143,7 @@ export default function App() {
           const evalTitle = pickEvaluationSeoText(matchedEvaluation, "title");
           const evalVerdict = pickEvaluationSeoText(matchedEvaluation, "verdict");
           if (evalTitle) {
-            titleStr = lang === "zh" ? `${evalTitle} | BalanceBikeToddler` : `${evalTitle} | BalanceBikeToddler Reviews`;
+            titleStr = lang === "zh" ? `${evalTitle} | ${SITE_BRAND}` : `${evalTitle} | ${SITE_BRAND} Reviews`;
             descStr = evalVerdict || descStr;
           }
         }
@@ -4272,7 +4276,7 @@ export default function App() {
     const orgSchema = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "BalanceBikeToddler",
+      name: SITE_BRAND,
       url: `${window.location.origin}/`,
       logo: `${window.location.origin}/favicon-512x512.png`,
       sameAs: [
@@ -4291,13 +4295,13 @@ export default function App() {
           inLanguage: lang,
           author: {
             "@type": "Organization",
-            name: "BalanceBikeToddler Editorial Team",
+            name: `${SITE_BRAND} Editorial Team`,
           },
           datePublished: "2026-08-15",
           dateModified: "2026-08-15",
           publisher: {
             "@type": "Organization",
-            name: "BalanceBikeToddler",
+            name: SITE_BRAND,
             url: `${window.location.origin}/`,
           },
         }
@@ -4400,8 +4404,8 @@ export default function App() {
               acceptedAnswer: {
                 "@type": "Answer",
                 text: lang === "zh"
-                  ? "由 BalanceBikeToddler Editorial Team 撰写，并标注发布日期与更新时间。"
-                  : "It is written by the BalanceBikeToddler Editorial Team with published and updated dates attached.",
+                  ? `由 ${SITE_BRAND} Editorial Team 撰写，并标注发布日期与更新时间。`
+                  : `It is written by the ${SITE_BRAND} Editorial Team with published and updated dates attached.`,
               },
             },
             {
@@ -4686,7 +4690,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           {
             id: `ai_fallback_${Date.now()}`,
             role: "assistant",
-            content: `⚠️【检测到本地安全备份】连线受阻，BalanceBikeToddler 启动脱机算力为您解答：
+            content: `⚠️【检测到本地安全备份】连线受阻，${SITE_BRAND} 启动脱机算力为您解答：
 
 **结合宝宝特征的专属规约：**
 *   **极限配重**：车辆必须限制在 **${safeLimit} kg** 以内，请勿网购过重的大铁架车。
@@ -5186,7 +5190,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
       {/* Primary content area container */}
       <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
-        <Suspense fallback={activeTab === "product_detail" ? <ProductDetailSkeleton lang={lang} /> : <div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading BalanceBikeToddler</div>}>
+        <Suspense fallback={activeTab === "product_detail" ? <ProductDetailSkeleton lang={lang} /> : <div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading {SITE_BRAND}</div>}>
 
         {isRouteNotFound && (
           <section className="rounded-3xl border border-slate-100 bg-white/90 p-12 text-center shadow-sm">
@@ -6008,7 +6012,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     until 2026-10-21, so the footer was the only place still
                     wearing the old brand. */}
                 <BrandMark className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-display font-black text-white tracking-tighter">BalanceBikeToddler</span>
+                <span className="text-xl font-display font-black text-white tracking-tighter">{SITE_BRAND}</span>
               </div>
               <p className="text-slate-400 leading-relaxed font-medium pr-4">
                 {lang === "en"
@@ -6366,11 +6370,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <div className="flex flex-col gap-1">
                 <span className="font-extrabold text-slate-400 block">
                   {lang === "en" 
-                    ? "© 2026 BalanceBikeToddler · Kids Ride-On & Safety Buying Guide"
-                    : "© 2026 BalanceBikeToddler · 儿童骑行与安全选购研究站 · 版权所有"}
+                    ? `© 2026 ${SITE_BRAND} · Kids Ride-On & Safety Buying Guide`
+                    : `© 2026 ${SITE_BRAND} · 儿童骑行与安全选购研究站 · 版权所有`}
                 </span>
                 <p className="text-[10px] text-slate-400">
-                  {lang === "en" ? "Independent analysis — every rating traced to a published source" : "BalanceBikeToddler 独立研究 · 结论可溯源至公开来源"}
+                  {lang === "en" ? "Independent analysis — every rating traced to a published source" : `${SITE_BRAND} 独立研究 · 结论可溯源至公开来源`}
                 </p>
                 {isAdmin && (
                   <button 
@@ -6398,15 +6402,15 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             <p className="max-w-2xl text-[10px] text-slate-400 leading-relaxed text-left md:text-right italic">
               {lang === "en"
                 ? "Unbiased Oath: We do not accept paid placement or positive coverage. Every score is built from manufacturer specifications, public safety records, and aggregated owner feedback — sources we name on the page."
-                : "独立性声明：BalanceBikeToddler 拒绝付费植入与付费好评。所有评分来自厂商标称参数、公开安全记录与用户反馈聚合，来源均已在页面标明。"}
+                : `独立性声明：${SITE_BRAND} 拒绝付费植入与付费好评。所有评分来自厂商标称参数、公开安全记录与用户反馈聚合，来源均已在页面标明。`}
             </p>
           </div>
 
           <div className="mt-6 max-w-5xl mx-auto text-center">
             <p className="text-[10px] text-slate-400 leading-relaxed">
               {lang === "en"
-                ? "BalanceBikeToddler is fully independent. We are not part of any affiliate or commission program, and we never accept payment to influence a rating. Learn more on our Transparency page."
-                : "BalanceBikeToddler 完全独立。我们不参与任何联盟或佣金计划，也绝不接受付费影响评分。详见透明度说明页。"}
+                ? `${SITE_BRAND} is fully independent. We are not part of any affiliate or commission program, and we never accept payment to influence a rating. Learn more on our Transparency page.`
+                : `${SITE_BRAND} 完全独立。我们不参与任何联盟或佣金计划，也绝不接受付费影响评分。详见透明度说明页。`}
             </p>
           </div>
 

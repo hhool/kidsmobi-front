@@ -30,7 +30,8 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const DIST = resolve(process.env.CHECK_JSONLD_ROOT || "dist");
-const SITE = "https://balancebiketoddler.com";
+// Follow the deployment origin so the guard stays valid across a domain migration.
+const SITE = (process.env.SITE_ORIGIN || "https://balancebiketoddler.com").replace(/\/$/, "");
 
 const problems = [];
 const fail = (where, msg) => problems.push(`${where} — ${msg}`);
@@ -218,9 +219,9 @@ for (const file of walk(DIST)) {
 // entity the site is filed under. src/lib/entityGraph.ts is what produces this;
 // these are the literals it produces, repeated here on purpose — if the module
 // ever renames the id, this guard fails instead of quietly agreeing with it.
-const CANONICAL_ORG_ID = "https://balancebiketoddler.com/#organization";
-const DESK_ORG_ID = "https://balancebiketoddler.com/#editorial-desk";
-const ORGANIZATION_NAME = "BalanceBikeToddler";
+const CANONICAL_ORG_ID = `${SITE}/#organization`;
+const DESK_ORG_ID = `${SITE}/#editorial-desk`;
+const ORGANIZATION_NAME = process.env.SITE_BRAND || "BalanceBikeToddler";
 
 /** Every Organization node on the page, in document order, nested ones included. */
 function collectOrganizations(node, out = []) {

@@ -41,6 +41,11 @@
  *     --out dist/index.html
  *   node scripts/build-static-home.mjs --self-test
  */
+
+// Site origin + display brand for the rebrand deployment - read from environment.
+const SITE_ORIGIN = process.env.SITE_ORIGIN || 'https://balancebiketoddler.com';
+const SITE_BRAND = process.env.SITE_BRAND || 'BalanceBikeToddler';
+
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 
@@ -658,8 +663,16 @@ export function assembleStaticHome({ shellHtml, ssrMarkup, criticalCss, fontShee
 
   // The head slice INCLUDES </head>, because that is where the inline
   // styles go.
-  const head = shellHtml.slice(0, headEnd + "</head>".length);
+  let head = shellHtml.slice(0, headEnd + "</head>".length);
   const body = shellHtml.slice(bodyStart);
+
+  // Replace SITE_ORIGIN in canonical and og:url for domain migration
+  const oldOrigin = "https://balancebiketoddler.com";
+  if (SITE_ORIGIN !== oldOrigin) {
+    head = head
+      .replace(/href="https:\/\/balancebiketoddler\.com\//g, `href="${SITE_ORIGIN}/`)
+      .replace(/content="https:\/\/balancebiketoddler\.com\//g, `content="${SITE_ORIGIN}/`);
+  }
 
   // What the head already preloads. The body's own preloads for the same
   // files are dropped: see dropDuplicatePreloads().
@@ -1014,7 +1027,7 @@ function main() {
     svgPath: resolve("public/favicon.svg"),
   });
 
-  const html = withHeroPreloadSrcSet(
+  let html = withHeroPreloadSrcSet(
     assembleStaticHome({
       shellHtml: readFileSync(shellPath, "utf8"),
       ssrMarkup,
@@ -1023,6 +1036,21 @@ function main() {
       measurementId: readMeasurementId(),
     }),
   );
+
+  // Single write-time rewrite of the site origin across the WHOLE document.
+  // assembleStaticHome's head-only replacement (above) covers canonical/og,
+  // but the injected JSON-LD lives in <body> and still carries the default
+  // origin (@id, url, logo, publisher.@id). One literal-prefix pass here covers
+  // both halves and cannot drift. `https://store.balancebiketoddler.com` (the
+  // media subdomain) does not start with this literal and is never touched.
+  const DEFAULT_ORIGIN_HOME = "https://balancebiketoddler.com";
+  if (SITE_ORIGIN.replace(/\/$/, "") !== DEFAULT_ORIGIN_HOME) {
+    html = html.split(DEFAULT_ORIGIN_HOME).join(SITE_ORIGIN.replace(/\/$/, ""));
+  }
+  // Brand token (TITLE case only) — lowercase form belongs to domains/emails.
+  if (SITE_BRAND !== "BalanceBikeToddler") {
+    html = html.split("BalanceBikeToddler").join(SITE_BRAND);
+  }
 
   const { failures, notes } = checkDocument(html);
   for (const note of notes) console.log(`  ${note}`);

@@ -12,7 +12,11 @@
  * scripts/check-spa-titles.ts fails the build if they ever drift again.
  */
 
-export const SITE_TITLE_SUFFIX = " | BalanceBikeToddler";
+import { SITE_BRAND } from "./entityGraph";
+
+// Brand suffix is derived from the single site-identity resolver so the SPA
+// and prerendered HTML always agree — and a rebrand changes one constant only.
+export const SITE_TITLE_SUFFIX = ` | ${SITE_BRAND}`;
 
 /**
  * The SERP budget a <title> has to fit in.
@@ -278,9 +282,17 @@ export function stripCatalogueIds(text: string): string {
  * search-result line, and the price of dropping the brand from 58 pages is
  * higher.
  */
+/** Legacy brand token — rewritten to the active SITE_BRAND at the title
+ *  boundary so CMS/default SEO strings that still embed the old name cannot
+ *  leak into the hydrated DOM. Kept here as the single normalization point. */
+const LEGACY_BRAND = "BalanceBikeToddler";
+function localizeBrand(text: string): string {
+  return LEGACY_BRAND === SITE_BRAND ? text : text.split(LEGACY_BRAND).join(SITE_BRAND);
+}
+
 export function buildDocumentTitle(title: string, override?: string | null): string {
-  if (override) return override;
-  const stem = String(title || "").trim().replace(/\s+/g, " ");
+  if (override) return localizeBrand(override);
+  const stem = localizeBrand(String(title || "").trim().replace(/\s+/g, " "));
   if (!stem) return stem;
   if (stem.endsWith(SITE_TITLE_SUFFIX)) {
     const body = stem.slice(0, -SITE_TITLE_SUFFIX.length);
@@ -298,7 +310,12 @@ export function buildMetaDescription(
   description: string,
   scrub: (text: string) => string = (text) => text,
 ): string {
-  return capMetaDescription(scrub(stripCatalogueIds(description)));
+  return capMetaDescription(scrub(stripCatalogueIds(localizeBrand(description))));
+}
+
+/** Normalize a keyword list's brand token (same rule as titles/descriptions). */
+export function localizeKeywords(keywords: string[]): string[] {
+  return keywords.map((k) => localizeBrand(k));
 }
 
 /**

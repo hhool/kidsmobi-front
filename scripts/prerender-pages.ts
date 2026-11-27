@@ -620,6 +620,39 @@ function renderFaqSection(faq: PageFaq, centered = false): string {
  */
 const PUBLIC_SITE_BASE = process.env.SITE_ORIGIN || "https://balancebiketoddler.com";
 
+/** Display brand name. Override via SITE_BRAND for a rebrand deployment. */
+const SITE_BRAND = process.env.SITE_BRAND || "BalanceBikeToddler";
+const DEFAULT_BRAND = "BalanceBikeToddler";
+
+/**
+ * Single write-time rewrite of site identity (origin + brand) across every
+ * prerendered page.
+ *
+ * The static templates carry 100+ independently hardcoded references to the
+ * default origin (canonical, og:url, JSON-LD url/@id/ListItem) and the default
+ * brand (title suffix, descriptions, keywords, JSON-LD name). Rewriting at the
+ * single HTML write point — rather than editing every call site — guarantees
+ * they cannot drift apart. Two precise literal rules:
+ *
+ *   1. `https://balancebiketoddler.com` -> target origin. The media subdomain
+ *      `https://store.balancebiketoddler.com` does NOT start with this literal,
+ *      so it is never touched.
+ *   2. `BalanceBikeToddler` -> target brand (TITLE case only). Lowercase
+ *      `balancebiketoddler` appears in domains/emails and is NOT a brand token;
+ *      it is deliberately left alone (origin rule #1 handles its URL form).
+ *
+ * Both are no-ops for the default deployment, so the canonical site stays
+ * byte-identical to the historical output.
+ */
+function applySiteOriginToHtml(html: string): string {
+  const DEFAULT_ORIGIN = "https://balancebiketoddler.com";
+  const target = PUBLIC_SITE_BASE.replace(/\/$/, "");
+  let out = html;
+  if (target !== DEFAULT_ORIGIN) out = out.split(DEFAULT_ORIGIN).join(target);
+  if (SITE_BRAND !== DEFAULT_BRAND) out = out.split(DEFAULT_BRAND).join(SITE_BRAND);
+  return out;
+}
+
 /**
  * The visible breadcrumb, rendered from the page's own BreadcrumbList.
  *
@@ -990,9 +1023,10 @@ function resolveDuplicateTitles(productPages: RoutePage[], reviewPages: RoutePag
 
 function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   // The homepage route is "" — emit the trailing slash so the canonical matches
-  // the sitemap entry (https://balancebiketoddler.com/) exactly.
+  // the sitemap entry exactly. Origin must come from PUBLIC_SITE_BASE (SITE_ORIGIN
+  // env) so every prerendered page follows the deployed domain — never hardcode it.
   const routePath = page.canonicalPath || (page.route === "" ? "/" : page.route);
-  const canonical = `https://balancebiketoddler.com${routePath}`;
+  const canonical = `${PUBLIC_SITE_BASE.replace(/\/$/, "")}${routePath}`;
   // SEO title cap (Semrush): full override wins, else `${title} | brand`
   // truncated to ≤65 chars at a word boundary, brand suffix always kept.
   const titleTag = buildDocumentTitle(page.title, page.fullTitle);
@@ -9711,15 +9745,17 @@ async function main() {
     // Variant B: keep the prerendered first screen visible until the SPA has
     // its real content. One hook here covers every template, so no page can
     // ship without the cover and none can get it twice.
-    const html = attachCategoryHubLinks(
-      applyEntityGraphToHtml(
-        applyFirstPaintToHtml(
-          applyResponsiveImagesToHtml(
-            sanitizeUnsupportedClaims(renderDocument(page, appAssets)),
+    const html = applySiteOriginToHtml(
+      attachCategoryHubLinks(
+        applyEntityGraphToHtml(
+          applyFirstPaintToHtml(
+            applyResponsiveImagesToHtml(
+              sanitizeUnsupportedClaims(renderDocument(page, appAssets)),
+            ),
           ),
         ),
+        page.route,
       ),
-      page.route,
     );
     const routeName = page.route.replace(/^\//, "");
     if (routeName) {
@@ -9744,7 +9780,7 @@ async function main() {
   const notFoundPath = path.join(distDir, "404.html");
   if (existsSync(notFoundPath)) {
     const before = await readFile(notFoundPath, "utf8");
-    const after = applyEntityGraphToHtml(before);
+    const after = applySiteOriginToHtml(applyEntityGraphToHtml(before));
     if (after !== before) await writeFile(notFoundPath, after, "utf8");
   }
 
