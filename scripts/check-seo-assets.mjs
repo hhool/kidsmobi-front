@@ -1,7 +1,9 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-const root = resolve(process.cwd(), 'public');
+// Default to the authored source assets. For a migrated/rebranded build, point
+// CHECK_SEO_ASSETS_ROOT=dist to validate the rewritten files actually shipped.
+const root = resolve(process.cwd(), process.env.CHECK_SEO_ASSETS_ROOT || 'public');
 const robots = readFileSync(resolve(root, 'robots.txt'), 'utf8');
 const sitemap = readFileSync(resolve(root, 'sitemap.xml'), 'utf8');
 const redirects = readFileSync(resolve(root, '_redirects'), 'utf8');

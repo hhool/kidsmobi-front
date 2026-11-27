@@ -10008,6 +10008,19 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     .join("");
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${sitemapUrls}</urlset>\n`;
   await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
+
+  // public/robots.txt is copied verbatim by Vite and carries the DEFAULT origin
+  // in its `Sitemap:` directive. Pages serves this static file in preference
+  // to the Worker's dynamic robots handler, so rewrite it here at the same
+  // origin source as the sitemap — otherwise a migrated domain advertises the
+  // old domain's sitemap (and the worker's correct value never gets used).
+  const robotsPath = path.join(distDir, "robots.txt");
+  if (existsSync(robotsPath)) {
+    const robotsBefore = await readFile(robotsPath, "utf8");
+    const robotsAfter = applySiteOriginToHtml(robotsBefore);
+    if (robotsAfter !== robotsBefore) await writeFile(robotsPath, robotsAfter, "utf8");
+  }
+
   // Report what was WRITTEN, not what was considered. The old line printed
   // `pages.length`, which counts every prerendered page including the noindex
   // composites and the excluded product details — so it read 537 while the file
