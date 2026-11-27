@@ -157,6 +157,22 @@ const page = (jsonld: string) =>
   );
 }
 
+// --- 4b. Legacy desk name still has to be recognized BEFORE the finished
+// document is rewritten to the new brand. Otherwise a bare old-brand node
+// survives normalization and the write-point rewrite renames it into a second,
+// undated site Organization (check:jsonld caught this on the 2026-11-27 build).
+{
+  const html = page(
+    `<script type="application/ld+json">[{"@type":"Organization","name":"BalanceBikeToddler Editorial Team"},{"@type":"Article","author":{"@type":"Organization","name":"BalanceBikeToddler Editorial Team"}}]</script>`,
+  );
+  const out = applyEntityGraphToHtml(html);
+  check(
+    "legacy editorial desk name is normalized before the brand rewrite",
+    !out.includes("BalanceBikeToddler") && out.includes(`"@id":"${EDITORIAL_DESK_ID}"`) && out.includes(`"name":"${EDITORIAL_DESK_NAME}"`),
+    "a legacy desk node escaped entity normalization",
+  );
+}
+
 // --- 5. Idempotency: a build that runs the step twice must not differ
 {
   const html = page(

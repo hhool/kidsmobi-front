@@ -1,4 +1,9 @@
 import type { SEOConfig } from "../types";
+import { SITE_BRAND } from "../lib/entityGraph";
+
+const LEGACY_BRAND = "BalanceBikeToddler";
+const localizeBrand = (value: string): string =>
+  SITE_BRAND === LEGACY_BRAND ? value : value.split(LEGACY_BRAND).join(SITE_BRAND);
 
 export const SEO_TDK_LIMITS = {
   title: 72,
@@ -21,7 +26,7 @@ function trimToLimit(value: string, limit: number): string {
 }
 
 export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
-  const keywords = Array.from(new Set((config.keywords || []).map((item) => trimToLimit(item, SEO_TDK_LIMITS.keyword)).filter(Boolean)))
+  const keywords = Array.from(new Set((config.keywords || []).map((item) => trimToLimit(localizeBrand(item), SEO_TDK_LIMITS.keyword)).filter(Boolean)))
     .slice(0, SEO_TDK_LIMITS.keywords)
     .reduce<string[]>((acc, keyword) => {
       const next = [...acc, keyword].join(", ");
@@ -29,8 +34,8 @@ export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
     }, []);
 
   return {
-    title: trimToLimit(config.title, SEO_TDK_LIMITS.title),
-    description: trimToLimit(config.description, SEO_TDK_LIMITS.description),
+    title: localizeBrand(trimToLimit(config.title, SEO_TDK_LIMITS.title)),
+    description: localizeBrand(trimToLimit(config.description, SEO_TDK_LIMITS.description)),
     keywords,
   };
 }

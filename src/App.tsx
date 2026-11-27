@@ -154,6 +154,7 @@ import type { ArticleSeoMeta } from "./lib/articleSeo";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
 import { applyBrandSuffix, buildDocumentTitle, buildMetaDescription } from "./lib/documentTitle";
+import { installSiteBrandRuntime } from "./lib/siteBrandRuntime";
 import {
   normalizeSeoKey,
   resolveCmsRouteSeoConfig,
@@ -1609,6 +1610,8 @@ export default function App() {
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
   const [isRouteNotFound, setIsRouteNotFound] = useState<boolean>(Boolean(initialRouteState.isNotFound));
+
+  useEffect(() => installSiteBrandRuntime(), []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

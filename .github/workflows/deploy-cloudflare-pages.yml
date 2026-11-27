@@ -50,6 +50,7 @@ jobs:
         run: npm run build
         env:
           SITE_ORIGIN: ${{ vars.SITE_ORIGIN || 'https://balancebiketoddler.com' }}
+          SITE_BRAND: ${{ vars.SITE_BRAND || 'BalanceBikeToddler' }}
 
       - name: 🚀 Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3

@@ -43,7 +43,7 @@ SOURCE_MAP = os.path.join(ROOT, "scripts", "article-cover-sources.json")
 GUIDE_OUT = os.path.join(ROOT, "public", "images", "guides")
 NEWS_OUT = os.path.join(ROOT, "public", "images", "news")
 TARGET = 800
-SITE = "https://balancebiketoddler.com"
+SITE = os.environ.get("SITE_ORIGIN", "https://balancebiketoddler.com").rstrip("/")
 
 # Tolerances. WebP is lossy, so comparisons allow a small absolute error.
 MEAN_TOL = 6.0          # mean absolute difference over a region

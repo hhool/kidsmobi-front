@@ -27,7 +27,7 @@
  *
  * Exit 0 = all checks pass; exit 1 = at least one hard failure.
  */
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const args = process.argv.slice(2);
@@ -126,6 +126,44 @@ for (const file of files) {
 
   // media subdomain must survive the literal rewrite
   mediaRefCount += (html.match(/https:\/\/store\.balancebiketoddler\.com/g) || []).length;
+}
+
+// The sitemap is a second write point with its own identity fields: <loc>
+// (origin) and <image:title> (brand, inherited from the CMS/HTML title). The
+// 2026-11-27 migration rewrote all 547 HTML files yet left 10 legacy-brand
+// image titles in sitemap.xml — invisible to an HTML-only guard. Assert the
+// actual built XML, with positive counts so an empty/missing file cannot pass.
+const sitemapPath = arg("--sitemap", join(ROOT, "sitemap.xml"));
+if (existsSync(sitemapPath)) {
+  const xml = readFileSync(sitemapPath, "utf8");
+  const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  const wrongLoc = locs.filter((loc) => !loc.startsWith(`${EXPECT}/`) && loc !== EXPECT);
+  record(locs.length > 0, `asserted ${locs.length} sitemap <loc> entries`);
+  record(wrongLoc.length === 0,
+    wrongLoc.length ? `sitemap <loc> on unexpected origin (${wrongLoc.length}): ${wrongLoc.slice(0, 5).join(", ")}` : "every sitemap <loc> is on the expected origin");
+
+  const imageTitles = [...xml.matchAll(/<image:title>([^<]*)<\/image:title>/g)].map((m) => m[1]);
+  if (EXPECT_BRAND) {
+    const titled = imageTitles.filter((t) => t.includes(EXPECT_BRAND));
+    const legacy = imageTitles.filter((t) => t.includes(OLD_BRAND));
+    record(imageTitles.length > 0, `asserted ${imageTitles.length} sitemap <image:title> entries`);
+    record(titled.length > 0, `asserted ${titled.length} sitemap image titles actually carry "${EXPECT_BRAND}" (proves XML rewrite ran)`);
+    record(legacy.length === 0,
+      legacy.length ? `sitemap <image:title> carries legacy brand (${legacy.length}): ${legacy.slice(0, 5).join(" | ")}` : `no sitemap image title carries the legacy brand "${OLD_BRAND}"`);
+  }
+} else {
+  record(false, `expected sitemap at ${sitemapPath} but file is missing`);
+}
+
+// Pages serves the static robots.txt in preference to the Worker's handler, so
+// a stale Sitemap: line here silently advertises the old domain's sitemap.
+const robotsPath = join(ROOT, "robots.txt");
+if (existsSync(robotsPath)) {
+  const robots = readFileSync(robotsPath, "utf8");
+  const declared = (/^Sitemap:\s*(\S+)/im.exec(robots) || [])[1] || "";
+  const declaredOrigin = declared.startsWith("http") ? new URL(declared).origin : "";
+  record(declaredOrigin === EXPECT,
+    `robots.txt Sitemap directive: ${declared || "(missing)"} (want origin ${EXPECT})`);
 }
 
 record(canonicalCount > 0, `asserted ${canonicalCount} canonical tags`);

@@ -227,6 +227,8 @@ const HUB_TOPIC_CHILDREN = {
 const ASSET_ROUTE_RE = /^\/(balance-bike|kids-bike|kids-scooter|kids-ride-on|kids-tricycle|kids-stroller)-[a-z-]+\/$/;
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
+const EXPECT_BRAND = process.env.SITE_BRAND || 'BalanceBikeToddler';
+const LEGACY_BRAND = 'BalanceBikeToddler';
 
 // Probing a loopback preview server is a different contract from probing
 // production, and the robots assertion has to know which one it is in — see the
@@ -370,6 +372,17 @@ for (const route of ROUTES) {
           // app's renderer parsed a syntax level the prerender's did (or the
           // other way round). The static HTML looked perfect the whole time.
           mdLeak: (body.match(/^#{2,4}\s+\S/gm) || []).slice(0, 3),
+          // A renamed site can be perfect in the prerendered HTML and still
+          // revert to the launch brand after createRoot replaces #root. Read
+          // the three sinks readers and crawlers actually see: visible text,
+          // meta descriptions and JSON-LD author/publisher names.
+          brandLeaks: {
+            visible: body.includes('BalanceBikeToddler'),
+            meta: [...document.querySelectorAll('meta[name="description"],meta[property="og:title"],meta[property="og:description"]')]
+              .some((m) => (m.getAttribute('content') || '').includes('BalanceBikeToddler')),
+            jsonld: [...document.querySelectorAll('script[type="application/ld+json"]')]
+              .some((s) => (s.textContent || '').includes('BalanceBikeToddler')),
+          },
           // Every href in the hydrated DOM. Compared against HUB_TOPIC_CHILDREN
           // below: a hub that drops its topic-index links on hydration orphans
           // those pages, and only a browser can see it.
@@ -393,6 +406,10 @@ for (const route of ROUTES) {
     else if (probe.mdLeak?.length) why = `markdown leak: ${probe.mdLeak.join(', ')}`;
     else if (pageErrors.length) why = pageErrors[0];
     else if (!res || res.status() >= 400) why = `HTTP ${res?.status()}`;
+    else if (EXPECT_BRAND !== LEGACY_BRAND && probe.brandLeaks && Object.values(probe.brandLeaks).some(Boolean)) {
+      const sinks = Object.entries(probe.brandLeaks).filter(([, hit]) => hit).map(([k]) => k);
+      why = `legacy "${LEGACY_BRAND}" survived hydration in: ${sinks.join(', ')} (want "${EXPECT_BRAND}")`;
+    }
     else if (!probe.keywords) why = 'hydrated keywords blank — prerender set lost after hydration (the A1 bug)';
     else if (ASSET_ROUTE_RE.test(route) && probe.h1Count === 0) {
       // The 2026-10-23 empty-<main> bug: correct static HTML, correct title,

@@ -43,9 +43,9 @@ export const SITE_BRAND =
 
 export const ORGANIZATION_ID = `${SITE_ORIGIN}/#organization`;
 export const EDITORIAL_DESK_ID = `${SITE_ORIGIN}/#editorial-desk`;
-export const ORGANIZATION_NAME = "BalanceBikeToddler";
+export const ORGANIZATION_NAME = SITE_BRAND;
 export const ORGANIZATION_LOGO = `${SITE_ORIGIN}/favicon-512x512.png`;
-export const EDITORIAL_DESK_NAME = "BalanceBikeToddler Editorial Team";
+export const EDITORIAL_DESK_NAME = `${SITE_BRAND} Editorial Team`;
 /** The page that says who checks these guides — the desk's resolvable address. */
 export const EDITORIAL_DESK_URL = `${SITE_ORIGIN}/transparency/editorial-team/`;
 
@@ -104,10 +104,19 @@ function resolvesToSite(node: Record<string, unknown>): boolean {
   return url === SITE_ORIGIN || url === `${SITE_ORIGIN}/`;
 }
 
-/** The editorial desk: matched by name or by its own `@id`. */
+// Historical copy is normalized BEFORE the finished document is rewritten to
+// the new brand. Recognizing only the current name would let an old-brand bare
+// Organization slip through normalizeEntityGraph(), then the write-point
+// rewrite would rename it to the current brand *after* normalization — leaving
+// a duplicate site entity with no @id (exactly what check:jsonld caught on the
+// 2026-11-27 rebuild).
+const LEGACY_ORGANIZATION_NAME = "BalanceBikeToddler";
+const LEGACY_DESK_NAME = "BalanceBikeToddler Editorial Team";
+
+/** The editorial desk: matched by name (current or legacy) or by its own `@id`. */
 export function isEditorialDesk(node: Record<string, unknown>): boolean {
   if (node["@id"] === EDITORIAL_DESK_ID) return true;
-  return node.name === EDITORIAL_DESK_NAME;
+  return node.name === EDITORIAL_DESK_NAME || node.name === LEGACY_DESK_NAME;
 }
 
 /** The site entity: matched by name, by its `@id`, or by pointing at the origin. */
@@ -115,7 +124,7 @@ export function isSiteOrganization(node: Record<string, unknown>): boolean {
   if (!typesOf(node).includes("Organization")) return false;
   if (isEditorialDesk(node)) return false;
   if (node["@id"] === ORGANIZATION_ID) return true;
-  if (node.name === ORGANIZATION_NAME) return true;
+  if (node.name === ORGANIZATION_NAME || node.name === LEGACY_ORGANIZATION_NAME) return true;
   return resolvesToSite(node);
 }
 

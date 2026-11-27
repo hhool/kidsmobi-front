@@ -18,8 +18,8 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
 const ROOT = process.env.CHECK_TITLES_ROOT || "dist";
-const SITE = "https://balancebiketoddler.com";
-const BRAND_SUFFIX = "| BalanceBikeToddler";
+const SITE_BRAND = process.env.SITE_BRAND || "BalanceBikeToddler";
+const BRAND_SUFFIX = `| ${SITE_BRAND}`;
 // The G4 hard list (repos/wb-seo-teardown/references/technical-baseline-34.md,
 // row 1) asks for one unique title per page, 25-60 characters. This guard
 // said 65, which is the budget the site used before that row was read: a

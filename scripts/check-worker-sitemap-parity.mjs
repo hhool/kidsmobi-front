@@ -224,7 +224,10 @@ const checks = [
       for (const block of distXml.match(/<url>[\s\S]*?<\/url>/g) || []) {
         const loc = (block.match(/<loc>([^<]*)<\/loc>/) || [])[1];
         if (loc && block.includes('<lastmod>')) {
-          dated.add(loc.replace('https://balancebiketoddler.com', ''));
+          // Strip whatever origin the build used. Pinning the launch domain
+          // here made every dated URL keep its full origin after migration, so
+          // none matched the Worker's path keys and this guard failed forever.
+          dated.add(loc.replace(/^https?:\/\/[^/]+/, ''));
         }
       }
       const workerSrc = readFileSync(resolve(backendWorker, 'src', 'index.ts'), 'utf8');
@@ -354,6 +357,36 @@ const checks = [
         ok: true,
         detail: 'Worker strips the scrape_store marker and encodes segments idempotently, matching the front prerender',
       };
+    })(),
+  },
+  {
+    // The Worker builds its own sitemap from D1. Its <image:title> values come
+    // from CMS titles that still carry the launch brand. Without a second
+    // brand rewriter here, a rename fixes the front's 547 HTML files and the
+    // XML but leaves the Worker's sitemap permanently stale (same family as
+    // the sitemapCoverImage drift). Assert both the definition and the call:
+    // a substring-only check would pass on the definition alone.
+    name: 'worker-sitemap-image-title-brand',
+    ...(() => {
+      const workerSrc = readFileSync(resolve(backendWorker, 'src', 'index.ts'), 'utf8');
+      const start = workerSrc.indexOf('function sitemapCoverTitle');
+      if (start < 0) return { ok: false, detail: 'sitemapCoverTitle is not defined' };
+      const end = workerSrc.indexOf('\n}', start);
+      const fnSrc = workerSrc.slice(start, end < 0 ? undefined : end);
+      const envTyped = /SITE_BRAND\?:/.test(workerSrc);
+      const brandAware = /SITE_BRAND/.test(fnSrc) && /split\(["']BalanceBikeToddler["']\)/.test(fnSrc);
+      const calledWithEnv = /sitemapCoverTitle\(\s*row\s*,\s*env\s*\)/.test(workerSrc);
+      const wrangler = readFileSync(resolve(backendWorker, 'wrangler.toml'), 'utf8');
+      const varDeclared = /^SITE_BRAND\s*=\s*["'][^"']+["']/m.test(wrangler);
+      const missing = [
+        !envTyped && 'Env has no SITE_BRAND field',
+        !brandAware && 'sitemapCoverTitle does not normalize the legacy brand from env',
+        !calledWithEnv && 'sitemapCoverTitle call site does not pass env',
+        !varDeclared && 'wrangler.toml has no SITE_BRAND var',
+      ].filter(Boolean);
+      return missing.length
+        ? { ok: false, detail: `Worker sitemap image titles must follow the site brand: ${missing.join('; ')}` }
+        : { ok: true, detail: 'Worker normalizes sitemap image titles through SITE_BRAND at both definition and call site' };
     })(),
   },
   {

@@ -10007,7 +10007,14 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     })
     .join("");
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${sitemapUrls}</urlset>\n`;
-  await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
+  // The sitemap is a second WRITE POINT that carries the site identity: its
+  // <image:title> values come from page.title, which can embed the legacy brand
+  // even after every HTML file is rewritten. Routing the finished XML through
+  // the same rewriter keeps the two outputs from drifting (the 2026-11-27
+  // migration left 10 old-brand image titles behind while all 547 HTML files
+  // were clean). The media subdomain is untouched by the origin rule.
+  const sitemapAfter = applySiteOriginToHtml(sitemapXml);
+  await writeFile(path.join(distDir, "sitemap.xml"), sitemapAfter, "utf8");
 
   // public/robots.txt is copied verbatim by Vite and carries the DEFAULT origin
   // in its `Sitemap:` directive. Pages serves this static file in preference

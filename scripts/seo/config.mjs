@@ -1,8 +1,10 @@
-// Shared configuration for balancebiketoddler.com SEO / GEO ops scripts.
-// All scripts live in scripts/seo/ and run against the live production site.
+// Shared configuration for the live SEO / GEO ops scripts.
+// All scripts live in scripts/seo/ and run against the live production site,
+// which moved from balancebiketoddler.com to kidstravellab.com on 2026-11-27.
+// The env var still wins so a staging build can be audited before cutover.
 
 export const SITE_BASE =
-  (process.env.SEO_SITE_BASE_URL || 'https://balancebiketoddler.com').replace(/\/+$/, '');
+  (process.env.SEO_SITE_BASE_URL || process.env.SITE_ORIGIN || 'https://kidstravellab.com').replace(/\/+$/, '');
 
 export const SITEMAP_URL = `${SITE_BASE}/sitemap.xml`;
 export const ROBOTS_URL = `${SITE_BASE}/robots.txt`;
