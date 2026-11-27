@@ -60,10 +60,13 @@ jobs:
         # Pages:Edit but not User->Details:Read, so that call 10000s and leaves
         # a permanently red workflow (Cloudflare's own git build already
         # deploys main). Call wrangler directly with the account id instead.
-        run: npx --yes wrangler@4.168.0 pages deploy dist --project-name=kidsmobi --branch=${{ github.ref_name }} --account-id=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4.168.0 pages deploy dist --project-name=kidsmobi --branch=${{ github.ref_name }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # The GitHub secret CLOUDFLARE_ACCOUNT_ID is not set; without an
+          # account id wrangler falls back to /memberships, which this token
+          # cannot read. Account ids are public identifiers, not credentials.
+          CLOUDFLARE_ACCOUNT_ID: b40383bf3afb30ccc7c9a13d6c9b6868
           WRANGLER_SEND_METRICS: "false"
 
       - name: 📝 Deployment Summary
