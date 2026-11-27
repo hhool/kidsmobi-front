@@ -1,11 +1,11 @@
 name: Deploy to Cloudflare Pages
 
+# Production deploys on push via Cloudflare's native git integration, which
+# has the correct Pages permissions and the site's env vars. This workflow is
+# manual-only: its CLOUDFLARE_API_TOKEN secret lacks Pages:Edit, so enabling the
+# push trigger leaves a permanently red check. Re-enable push only after the
+# token is updated with Pages:Edit.
 on:
-  push:
-    branches:
-      - main
-      - master
-      - refactor/site-origin
   workflow_dispatch:
     inputs:
       environment:
